@@ -10,7 +10,6 @@ Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'ap/vim-css-color'
 Plug 'jiangmiao/auto-pairs'
-Plug 'Valloric/YouCompleteMe'
 Plug 'digitaltoad/vim-jade'
 Plug 'scrooloose/nerdtree'
 Plug 'scrooloose/nerdcommenter'
@@ -28,6 +27,12 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
+if has("unix")
+	let s:uname = system("uname -s")
+	if s:uname == "Darwin"
+		Plug 'Valloric/YouCompleteMe'
+	endif
+endif
 call plug#end()
 
 " scrolling
@@ -63,8 +68,8 @@ inoremap jk <ESC>
 "imap { {<C-O>o<C-O>o}<up><tab>
 
 function! BreakHere()
-    s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
-    call histdel("/", -1)
+	s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
+	call histdel("/", -1)
 endfunction
 
 nnoremap S :call BreakHere()<CR>
@@ -83,12 +88,12 @@ set backspace=2
 
 " autocompile .scss file
 " autocmd BufNewFile,BufRead *.scss autocmd BufWritePost * !scss -t uncompressed style.scss style.css
-
-augroup reload_vimrc " {
-    autocmd!
-    autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
-
-" tab settings
-set t_ts=^[]1;
-set t_fs=^G
+if has("unix")
+	let s:uname = system("uname -s")
+	if s:uname == "Darwin"
+		augroup reload_vimrc " {
+			autocmd!
+			autocmd BufWritePost $MYVIMRC source $MYVIMRC
+		augroup END " }   " Do Mac stuff here
+	endif
+endif
