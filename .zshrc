@@ -19,4 +19,4 @@ alias vim='nvim'
 alias py='python'
 
 eval $(thefuck --alias)
-source /home/leon/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
