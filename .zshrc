@@ -19,8 +19,8 @@ alias vim='nvim'
 alias py='python'
 
 eval $(thefuck --alias)
-source /home/leon/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 export TERM=xterm-256color
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
+source ~/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
