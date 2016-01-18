@@ -12,7 +12,13 @@ Plug 'ap/vim-css-color'
 Plug 'jiangmiao/auto-pairs'
 Plug 'digitaltoad/vim-jade'
 Plug 'scrooloose/nerdtree'
+Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/nerdcommenter'
+Plug 'kien/ctrlp.vim'
+Plug 'tpope/vim-obsession'
+Plug 'mkitt/tabline.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'airblade/vim-gitgutter'
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'
@@ -27,21 +33,22 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
-if has("unix")
-	let s:uname = system("uname -s")
-	if s:uname == "Darwin"
-		Plug 'Valloric/YouCompleteMe'
-	endif
-endif
+	Plug 'Valloric/YouCompleteMe'
 call plug#end()
 
 " scrolling
 set mouse=a
 
+" Show commands as they're typed
+set showcmd
+
+set cursorline
+
 " Color configurations
-set t_Co=256
 syntax enable
+set t_Co=256
 set background=dark
+let g:solarized_termcolors=256
 colorscheme gruvbox
 " Line numbers
 set number
@@ -52,9 +59,10 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
 nnoremap <Leader>t <C-w><C-w>
-vnoremap <Leader>c : !pbcopy<CR><CR>
+vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
-nnoremap <Leader>n :NERDTreeToggle<CR>
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
+nnoremap <Leader>f :CtrlP<CR>
 
 function! TabResize()
 	<C-w><C-w>
@@ -65,7 +73,7 @@ nnoremap <Leader>r TabResize()<CR>
 
 " Commands and shortcuts
 inoremap jk <ESC>
-"imap { {<C-O>o<C-O>o}<up><tab>
+inoremap jj <ESC>
 
 function! BreakHere()
 	s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
@@ -80,11 +88,22 @@ set laststatus=2
 set termencoding=utf-8
 let g:airline_powerline_fonts=1
 let g:airline_theme='murmur'
+" Enable the list of buffers
+let g:airline#extensions#tabline#enabled = 1
+
+" Show just the filename
+let g:airline#extensions#tabline#fnamemod = ':t'
 
 " change size of tab
 set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4
 " use backspace
 set backspace=2
+
+" STOP USING ARROWS
+noremap <Up> <NOP>
+noremap <Down> <NOP>
+noremap <Left> <NOP>
+noremap <Right> <NOP>
 
 " autocompile .scss file
 " autocmd BufNewFile,BufRead *.scss autocmd BufWritePost * !scss -t uncompressed style.scss style.css
