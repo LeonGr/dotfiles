@@ -19,12 +19,14 @@ Plug 'tpope/vim-obsession'
 Plug 'mkitt/tabline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
+Plug 'Valloric/YouCompleteMe'
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'
 Plug 'darthmall/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'leafgarland/typescript-vim'
+Plug 'luochen1990/rainbow'
 
 " Themes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -33,7 +35,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
-	Plug 'Valloric/YouCompleteMe'
+Plug 'marcopaganini/termschool-vim-theme'
 call plug#end()
 
 " scrolling
@@ -49,9 +51,12 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-colorscheme gruvbox
+colorscheme preto
 " Line numbers
 set number
+highlight LineNr ctermfg=white
+
+let g:rainbow_active = 1
 
 " Leader commands
 let mapleader = "\<Space>"
@@ -75,12 +80,12 @@ nnoremap <Leader>r TabResize()<CR>
 inoremap jk <ESC>
 inoremap jj <ESC>
 
-function! BreakHere()
-	s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
-	call histdel("/", -1)
-endfunction
+"function! BreakHere()
+	"s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
+	"call histdel("/", -1)
+"endfunction
 
-nnoremap S :call BreakHere()<CR>
+"nnoremap S :call BreakHere()<CR>
 
 " settings for airline
 set guifont=Inconsolata\ for\ Powerline:h15
@@ -116,3 +121,26 @@ if has("unix")
 		augroup END " }   " Do Mac stuff here
 	endif
 endif
+
+let g:rainbow_conf = {
+\    'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+\    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+\    'operators': '_,_',
+\    'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+\    'separately': {
+\        '*': {},
+\        'tex': {
+\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+\        },
+\        'lisp': {
+\            'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+\        },
+\        'vim': {
+\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+\        },
+\        'html': {
+\            'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+\        },
+\        'css': 0,
+\    }
+\}
