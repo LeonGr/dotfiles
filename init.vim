@@ -20,13 +20,14 @@ Plug 'mkitt/tabline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/YouCompleteMe'
+Plug 'unblevable/quick-scope'
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'
 Plug 'darthmall/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'leafgarland/typescript-vim'
-Plug 'luochen1990/rainbow'
+Plug 'nathanaelkane/vim-indent-guides'
 
 " Themes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -56,7 +57,17 @@ colorscheme preto
 set number
 highlight LineNr ctermfg=white
 
-let g:rainbow_active = 1
+set ts=4 sw=4 et
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_auto_colors = 0
+hi IndentGuidesOdd  ctermbg=grey
+hi IndentGuidesEven ctermbg=darkgrey
+let g:indent_guides_color_change_percent = 50
+
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+let g:qs_second_occurrence_highlight_color = 81
+let g:qs_first_occurrence_highlight_color = 155
 
 " Leader commands
 let mapleader = "\<Space>"
@@ -69,23 +80,9 @@ nnoremap <Leader>s :vertical resize 120<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>f :CtrlP<CR>
 
-function! TabResize()
-	<C-w><C-w>
-	:vertical resize 120
-endfunction
-
-nnoremap <Leader>r TabResize()<CR>
-
 " Commands and shortcuts
 inoremap jk <ESC>
 inoremap jj <ESC>
-
-"function! BreakHere()
-	"s/\(.\{-}\)\(\s*\)\(\%#\)\(\s*\)\(.*\)/\1\r\3\5
-	"call histdel("/", -1)
-"endfunction
-
-"nnoremap S :call BreakHere()<CR>
 
 " settings for airline
 set guifont=Inconsolata\ for\ Powerline:h15
@@ -100,7 +97,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#fnamemod = ':t'
 
 " change size of tab
-set tabstop=4 softtabstop=0 noexpandtab shiftwidth=4
+" set tabstop=2 softtabstop=0 noexpandtab shiftwidth=4
 " use backspace
 set backspace=2
 
@@ -113,34 +110,11 @@ noremap <Right> <NOP>
 " autocompile .scss file
 " autocmd BufNewFile,BufRead *.scss autocmd BufWritePost * !scss -t uncompressed style.scss style.css
 if has("unix")
-	let s:uname = system("uname -s")
-	if s:uname == "Darwin"
-		augroup reload_vimrc " {
-			autocmd!
-			autocmd BufWritePost $MYVIMRC source $MYVIMRC
-		augroup END " }   " Do Mac stuff here
-	endif
+    let s:uname = system("uname -s")
+    if s:uname == "Darwin"
+        augroup reload_vimrc " {
+            autocmd!
+            autocmd BufWritePost $MYVIMRC source $MYVIMRC
+        augroup END " }   " Do Mac stuff here
+    endif
 endif
-
-let g:rainbow_conf = {
-\    'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-\    'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-\    'operators': '_,_',
-\    'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-\    'separately': {
-\        '*': {},
-\        'tex': {
-\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-\        },
-\        'lisp': {
-\            'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-\        },
-\        'vim': {
-\            'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-\        },
-\        'html': {
-\            'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-\        },
-\        'css': 0,
-\    }
-\}
