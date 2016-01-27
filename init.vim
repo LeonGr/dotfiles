@@ -8,7 +8,6 @@ Plug 'tpope/vim-surround'
 Plug 'bling/vim-airline'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
-Plug 'ap/vim-css-color'
 Plug 'jiangmiao/auto-pairs'
 Plug 'digitaltoad/vim-jade'
 Plug 'scrooloose/nerdtree'
@@ -18,12 +17,13 @@ Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-obsession'
 Plug 'mkitt/tabline.vim'
 Plug 'christoomey/vim-tmux-navigator'
-Plug 'airblade/vim-gitgutter'
+"Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/YouCompleteMe'
 Plug 'unblevable/quick-scope'
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'
+Plug 'ap/vim-css-color'
 Plug 'darthmall/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'leafgarland/typescript-vim'
@@ -55,7 +55,8 @@ let g:solarized_termcolors=256
 colorscheme preto
 " Line numbers
 set number
-highlight LineNr ctermfg=white
+highlight LineNr cterm=none ctermfg=31 ctermbg=none
+highlight CursorLineNR cterm=none ctermfg=white
 
 set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
