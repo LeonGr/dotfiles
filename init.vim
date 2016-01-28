@@ -50,6 +50,7 @@ set cursorline
 " Color configurations
 syntax enable
 set t_Co=256
+"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 let g:solarized_termcolors=256
 colorscheme preto
