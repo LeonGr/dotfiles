@@ -10,10 +10,7 @@
 if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="white"; fi
 
 # prompt
-#PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[red]%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
-#PROMPT='%{$FG[160]%}%n%{$reset_color%}:%{$FG[027]%}$(hostname -s)%{$reset_color%} at % %{$FG[054]%}%c% %{$reset_color%} %{$fg[white]%}❯ %{$reset_color%}'
 PROMPT='%{$FG[234]%}===#%{$FG[160]%}%n@% %c% > %{$reset_color%}'
-#PROMPT=$'%{\e[1;40m%}%B┌─[%b%{\e[0m%}%{\e[0;32m%}%n%{$FG[100]%}@%{\e[0m%}%{\e[0;36m%}%m%{\e[0;34m%}%B]%b%{\e[0m%} - %b%{\e[0;34m%}%B[%b%{\e[1;37m%}%~%{\e[0;34m%}%B]%b%{\e[0m%} - %{\e[0;34m%}%B[%b%{\e[0;33m%}%!%{\e[0;34m%}%B]%b%{\e[0m%}'
 RPROMPT='%{$FG[027]%}<$(git_prompt_info)time:%T%{$FG[234]%}#==='
 
 # git theming
