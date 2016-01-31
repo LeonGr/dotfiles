@@ -14,8 +14,7 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 
 # Aliases
 alias phpserver='php -S localhost:8000'
-alias pythonserver='Python -m "SimpleHTTPServer"'
-alias vim='nvim'
+alias pythonserver='python -m "SimpleHTTPServer"'
 alias py='python'
 
 eval $(thefuck --alias)
