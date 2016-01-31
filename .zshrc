@@ -16,6 +16,8 @@ export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 alias phpserver='php -S localhost:8000'
 alias pythonserver='python -m "SimpleHTTPServer"'
 alias py='python'
+alias :wq='exit'
+alias :q=':wq'
 
 eval $(thefuck --alias)
 
