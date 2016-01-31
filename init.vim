@@ -28,6 +28,8 @@ Plug 'darthmall/vim-vue'
 Plug 'cakebaker/scss-syntax.vim'
 Plug 'leafgarland/typescript-vim'
 Plug 'nathanaelkane/vim-indent-guides'
+Plug 'scrooloose/syntastic'
+Plug 'marijnh/tern_for_vim'
 
 " Themes
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -94,6 +96,16 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='murmur'
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
+
+" settings for syntastic
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+let g:syntastic_always_populate_loc_list = 1
+let g:syntastic_auto_loc_list = 1
+let g:syntastic_check_on_open = 1
+let g:syntastic_check_on_wq = 0
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'

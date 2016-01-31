@@ -11,14 +11,16 @@ if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="white"; fi
 
 # prompt
 #PROMPT='[%{$fg[$NCOLOR]%}%B%n%b%{$reset_color%}:%{$fg[red]%}%30<...<%~%<<%{$reset_color%}]%(!.#.$) '
-PROMPT='%{$fg[cyan]%}%n%{$reset_color%}:%{$fg[green]%}$(hostname -s)%{$reset_color%} at % %{$fg[blue]%}%~% %{$reset_color%} %{$fg[white]%}❯ %{$reset_color%}'
-RPROMPT='$(git_prompt_info) %T'
+#PROMPT='%{$FG[160]%}%n%{$reset_color%}:%{$FG[027]%}$(hostname -s)%{$reset_color%} at % %{$FG[054]%}%c% %{$reset_color%} %{$fg[white]%}❯ %{$reset_color%}'
+PROMPT='%{$FG[234]%}===#%{$FG[160]%}%n@% %c% > %{$reset_color%}'
+#PROMPT=$'%{\e[1;40m%}%B┌─[%b%{\e[0m%}%{\e[0;32m%}%n%{$FG[100]%}@%{\e[0m%}%{\e[0;36m%}%m%{\e[0;34m%}%B]%b%{\e[0m%} - %b%{\e[0;34m%}%B[%b%{\e[1;37m%}%~%{\e[0;34m%}%B]%b%{\e[0m%} - %{\e[0;34m%}%B[%b%{\e[0;33m%}%!%{\e[0;34m%}%B]%b%{\e[0m%}'
+RPROMPT='%{$FG[027]%}<$(git_prompt_info)time:%T%{$FG[234]%}#==='
 
 # git theming
-ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[gray]%}(%{$fg_no_bold[yellow]%}%B"
-ZSH_THEME_GIT_PROMPT_SUFFIX="%b%{$fg_bold[gray]%})%{$reset_color%} "
+ZSH_THEME_GIT_PROMPT_PREFIX="%B"
+ZSH_THEME_GIT_PROMPT_SUFFIX="]"
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg_bold[red]%}✱"
+ZSH_THEME_GIT_PROMPT_DIRTY="*"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
 export LSCOLORS="Gxfxcxdxbxegedabagacad"
