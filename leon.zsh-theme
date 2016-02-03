@@ -10,13 +10,13 @@
 if [ $UID -eq 0 ]; then NCOLOR="green"; else NCOLOR="white"; fi
 
 # prompt
-PROMPT='%{$FG[234]%}===#%{$FG[160]%}%n@% %c% > %{$reset_color%}'
-RPROMPT='%{$FG[027]%}<$(git_prompt_info)time:%T%{$FG[234]%}#==='
+PROMPT='%{$FG[234]%}===#%{$FG[160]%}%n:%m@% %c% > %{$reset_color%}'
+RPROMPT='%{$FG[027]%}<$(git_prompt_info)time:%*%{$FG[234]%}#==='
 
 # git theming
 ZSH_THEME_GIT_PROMPT_PREFIX="%B"
-ZSH_THEME_GIT_PROMPT_SUFFIX="]"
-ZSH_THEME_GIT_PROMPT_CLEAN=""
+ZSH_THEME_GIT_PROMPT_SUFFIX=""
+ZSH_THEME_GIT_PROMPT_CLEAN=":"
 ZSH_THEME_GIT_PROMPT_DIRTY="*"
 
 # LS colors, made with http://geoff.greer.fm/lscolors/
