@@ -47,20 +47,23 @@ set mouse=a
 " Show commands as they're typed
 set showcmd
 
+" Current line
 set cursorline
 
 " Color configurations
 syntax enable
 set t_Co=256
-"let $NVIM_TUI_ENABLE_TRUE_COLOR=1
 set background=dark
 let g:solarized_termcolors=256
 colorscheme preto
+
 " Line numbers
 set number
 highlight LineNr cterm=none ctermfg=31 ctermbg=none
 highlight CursorLineNR cterm=none ctermfg=white
+hi CursorLine ctermfg=NONE
 
+" Indentguide settings
 set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1
@@ -72,6 +75,7 @@ let g:indent_guides_color_change_percent = 50
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 let g:qs_second_occurrence_highlight_color = 81
 let g:qs_first_occurrence_highlight_color = 155
+
 
 " Leader commands
 let mapleader = "\<Space>"
@@ -102,10 +106,15 @@ set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
 
+
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
+
+" CtrlP settings
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
+let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
 
 " Show just the filename
 let g:airline#extensions#tabline#fnamemod = ':t'
