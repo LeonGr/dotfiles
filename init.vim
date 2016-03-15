@@ -4,34 +4,37 @@ filetype off     " required
 " Plugins
 call plug#begin()
 "Tweaks
-Plug 'tpope/vim-surround'
-Plug 'bling/vim-airline'
-Plug 'mattn/emmet-vim'
-Plug 'terryma/vim-multiple-cursors'
-Plug 'jiangmiao/auto-pairs'
-Plug 'digitaltoad/vim-jade'
-Plug 'scrooloose/nerdtree'
-Plug 'jistr/vim-nerdtree-tabs'
-Plug 'scrooloose/nerdcommenter'
-Plug 'kien/ctrlp.vim'
-Plug 'tpope/vim-obsession'
-Plug 'mkitt/tabline.vim'
-Plug 'christoomey/vim-tmux-navigator'
-"Plug 'airblade/vim-gitgutter'
-Plug 'Valloric/YouCompleteMe'
-Plug 'unblevable/quick-scope'
+Plug 'tpope/vim-surround'              " Wrap text easily
+Plug 'bling/vim-airline'               " Good looking information bar
+Plug 'mattn/emmet-vim'                 " html autocomplete
+Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
+"Plug 'jiangmiao/auto-pairs'            " auto pair brackets and quotes
+Plug 'Townk/vim-autoclose'             " Auto close brackets"
+Plug 'scrooloose/nerdtree'             " File browser in vim
+Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
+Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
+Plug 'kien/ctrlp.vim'                  " Great file browser
+Plug 'tpope/vim-obsession'             " Save vim sessions
+Plug 'mkitt/tabline.vim'               " Show tabs vim
+Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
+Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
+Plug 'unblevable/quick-scope'          " Highlight words when you press f or t
+Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
+Plug 'tpope/vim-repeat'                " Repeat more than one command
+Plug 'godlygeek/tabular'               " Easy text align
 
 " Syntax specific
-Plug 'pangloss/vim-javascript'
-Plug 'ap/vim-css-color'
-Plug 'darthmall/vim-vue'
-Plug 'cakebaker/scss-syntax.vim'
-Plug 'leafgarland/typescript-vim'
-Plug 'nathanaelkane/vim-indent-guides'
-Plug 'scrooloose/syntastic'
-Plug 'marijnh/tern_for_vim'
+Plug 'pangloss/vim-javascript'         " Javascript support
+Plug 'ap/vim-css-color'                " Show css colors in files
+Plug 'digitaltoad/vim-jade'            " Jade support
+Plug 'darthmall/vim-vue'               " VueJS support
+Plug 'cakebaker/scss-syntax.vim'       " SCSS support
+Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
+Plug 'scrooloose/syntastic'            " Syntax checker
+Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
 
 " Themes
+Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/vim-tomorrow-theme'
 Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
@@ -100,6 +103,7 @@ let g:airline_powerline_fonts=1
 let g:airline_theme='murmur'
 " Enable the list of buffers
 let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " settings for syntastic
 set statusline+=%#warningmsg#
@@ -116,13 +120,31 @@ let g:syntastic_check_on_wq = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
 
-" Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+
+" Searching improvements
+set incsearch       "Lookahead as search pattern is specified
+set ignorecase      "Ignore case in all searches...
+set smartcase       "...unless uppercase letters used
+
+set hlsearch        "Highlight all matches
+highlight clear Search
+highlight       Search    ctermfg=White
+nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
+let g:AutoPairsFlyMode = 0
+" Use undofile for persistent undo
+set undofile
+" set a directory to store the undo history
+set undodir=/home/leon/.vimundo/
 
 " change size of tab
-" set tabstop=2 softtabstop=0 noexpandtab shiftwidth=4
 " use backspace
 set backspace=2
+
+" Auto-pairs settings
+let g:AutoPairsMultilineClose = 0
+
+set autoindent "Retain indentation on next line
+set smartindent "Turn on autoindenting of blocks
 
 " STOP USING ARROWS
 noremap <Up> <NOP>
