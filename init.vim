@@ -6,6 +6,8 @@ call plug#begin()
 "Tweaks
 Plug 'tpope/vim-surround'
 Plug 'bling/vim-airline'
+Plug 'bling/vim-bufferline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'mattn/emmet-vim'
 Plug 'terryma/vim-multiple-cursors'
 Plug 'jiangmiao/auto-pairs'
@@ -15,7 +17,7 @@ Plug 'jistr/vim-nerdtree-tabs'
 Plug 'scrooloose/nerdcommenter'
 Plug 'kien/ctrlp.vim'
 Plug 'tpope/vim-obsession'
-Plug 'mkitt/tabline.vim'
+"Plug 'mkitt/tabline.vim'
 Plug 'christoomey/vim-tmux-navigator'
 "Plug 'airblade/vim-gitgutter'
 Plug 'Valloric/YouCompleteMe'
@@ -55,12 +57,12 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-colorscheme preto
+colorscheme gruvbox
 
 " Line numbers
 set number
-highlight LineNr cterm=none ctermfg=31 ctermbg=none
-highlight CursorLineNR cterm=none ctermfg=white
+"highlight LineNr cterm=none ctermfg=31 ctermbg=none
+"highlight CursorLineNR cterm=none ctermfg=white
 hi CursorLine ctermfg=NONE
 
 " Indentguide settings
@@ -82,7 +84,7 @@ let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t <C-w><C-w>
+nnoremap <Leader>t :bnext<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
@@ -97,14 +99,20 @@ set guifont=Inconsolata\ for\ Powerline:h15
 set laststatus=2
 set termencoding=utf-8
 let g:airline_powerline_fonts=1
-let g:airline_theme='murmur'
-" Enable the list of buffers
-let g:airline#extensions#tabline#enabled = 1
+let g:airline_theme='leontheme'
 
+" Hide buffers
+set showtabline=0
+let g:bufferline_echo = 0
+
+let g:airline_section_b = ''
+let g:airline_section_y = ''
+let g:airline_left_sep = ' '
+let g:airline_right_sep = ' '
 " settings for syntastic
-set statusline+=%#warningmsg#
-set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+"set statusline+=%#warningmsg#
+"set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%*
 
 
 let g:syntastic_always_populate_loc_list = 1
@@ -117,7 +125,7 @@ set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
 
 " Show just the filename
-let g:airline#extensions#tabline#fnamemod = ':t'
+"let g:airline#extensions#tabline#fnamemod = ':t'
 
 " change size of tab
 " set tabstop=2 softtabstop=0 noexpandtab shiftwidth=4
