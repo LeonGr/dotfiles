@@ -18,6 +18,7 @@ alias pythonserver='python -m "SimpleHTTPServer"'
 alias py='python'
 alias :wq='exit'
 alias :q=':wq'
+alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
 
 eval $(thefuck --alias)
 
