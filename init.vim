@@ -20,7 +20,7 @@ Plug 'tpope/vim-obsession'             " Save vim sessions
 Plug 'mkitt/tabline.vim'               " Show tabs vim
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
 Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
-Plug 'unblevable/quick-scope'          " Highlight words when you press f or t
+Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
 Plug 'godlygeek/tabular'               " Easy text align
@@ -97,16 +97,13 @@ nnoremap <Leader>f :CtrlP<CR>
 inoremap jk <ESC>
 inoremap jj <ESC>
 
+map w!! :w !sudo tee %<CR>
+
 " settings for airline
 set guifont=Inconsolata\ for\ Powerline:h15
 set laststatus=2
 set termencoding=utf-8
 let g:airline_powerline_fonts=1
-let g:airline_theme='leontheme'
-"let g:airline_theme='murmur'
-" Enable the list of buffers
-"let g:airline#extensions#tabline#enabled = 1
-"let g:airline#extensions#tabline#fnamemod = ':t' " Show just the filename
 
 " Hide buffers
 set showtabline=0
@@ -116,11 +113,6 @@ let g:airline_section_b = ''
 let g:airline_section_y = ''
 let g:airline_left_sep = ' '
 let g:airline_right_sep = ' '
-" settings for syntastic
-"set statusline+=%#warningmsg#
-"set statusline+=%{SyntasticStatuslineFlag()}
-"set statusline+=%*
-
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -138,13 +130,13 @@ set smartcase       "...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 highlight clear Search
-highlight       Search    ctermfg=White
+highlight       Search    ctermfg=Black ctermbg=White
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 let g:AutoPairsFlyMode = 0
 " Use undofile for persistent undo
 set undofile
 " set a directory to store the undo history
-set undodir=/home/leon/.vimundo/
+set undodir=~/.vimundo/
 
 " change size of tab
 " use backspace
@@ -162,6 +154,7 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
+" scripts
 " autocompile .scss file
 " autocmd BufNewFile,BufRead *.scss autocmd BufWritePost * !scss -t uncompressed style.scss style.css
 if has("unix")
@@ -173,3 +166,6 @@ if has("unix")
         augroup END " }   " Do Mac stuff here
     endif
 endif
+
+" Clear trailing whitespace in selected file types on save
+autocmd BufWritePre *.py,*.js,*.hs,*.html,*.css,*.scss :%s/\s\+$//e
