@@ -19,6 +19,11 @@ alias py='python'
 alias :wq='exit'
 alias :q=':wq'
 alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
+openFunction(){
+    xdg-open $1
+    sleep 1
+}
+alias open=openFunction
 
 eval $(thefuck --alias)
 

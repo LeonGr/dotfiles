@@ -10,8 +10,8 @@ Plug 'bling/vim-bufferline'            " Buffers in airline
 Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
 Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
-"Plug 'jiangmiao/auto-pairs'            " auto pair brackets and quotes
-Plug 'Townk/vim-autoclose'             " Auto close brackets
+Plug 'jiangmiao/auto-pairs'            " auto pair brackets and quotes
+"Plug 'Townk/vim-autoclose'             " Auto close brackets
 Plug 'scrooloose/nerdtree'             " File browser in vim
 Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
@@ -88,6 +88,7 @@ nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
 nnoremap <Leader>t :bnext<CR>
+nnoremap <Leader>y :bprev<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
