@@ -1,7 +1,7 @@
 set nocompatible " be iMproved, required
 filetype off     " required
 
-" Plugins
+" Plugins YOU'RE USING VIMPLUG YOU DUMBASS
 call plug#begin()
 "Tweaks
 Plug 'tpope/vim-surround'              " Wrap text easily
@@ -10,8 +10,6 @@ Plug 'bling/vim-bufferline'            " Buffers in airline
 Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
 Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
-Plug 'jiangmiao/auto-pairs'            " auto pair brackets and quotes
-"Plug 'Townk/vim-autoclose'             " Auto close brackets
 Plug 'scrooloose/nerdtree'             " File browser in vim
 Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
@@ -24,6 +22,7 @@ Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
 Plug 'godlygeek/tabular'               " Easy text align
+Plug 'tpope/vim-endwise'               " Auto close stuff
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -60,7 +59,7 @@ syntax enable
 set t_Co=256
 set background=dark
 let g:solarized_termcolors=256
-colorscheme gruvbox
+colorscheme preto
 
 " Line numbers
 set number
@@ -105,6 +104,7 @@ set guifont=Inconsolata\ for\ Powerline:h15
 set laststatus=2
 set termencoding=utf-8
 let g:airline_powerline_fonts=1
+let g:airline_theme='murmur'
 
 " Hide buffers
 set showtabline=0
