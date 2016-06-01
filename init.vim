@@ -43,6 +43,7 @@ Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
 Plug 'marcopaganini/termschool-vim-theme'
+Plug 'godlygeek/csapprox'
 call plug#end()
 
 " scrolling
@@ -58,13 +59,13 @@ set cursorline
 syntax enable
 set t_Co=256
 set background=dark
-let g:solarized_termcolors=256
+"let g:solarized_termcolors=256
 colorscheme preto
 
 " Line numbers
 set number
-"highlight LineNr cterm=none ctermfg=31 ctermbg=none
-"highlight CursorLineNR cterm=none ctermfg=white
+highlight LineNr cterm=none ctermfg=239 ctermbg=235
+highlight CursorLineNR cterm=none ctermfg=white ctermbg=032
 hi CursorLine ctermfg=NONE
 
 " Indentguide settings
@@ -110,10 +111,10 @@ let g:airline_theme='murmur'
 set showtabline=0
 let g:bufferline_echo = 0
 
-let g:airline_section_b = ''
-let g:airline_section_y = ''
-let g:airline_left_sep = ' '
-let g:airline_right_sep = ' '
+"let g:airline_section_b = ''
+"let g:airline_section_y = ''
+"let g:airline_left_sep = ' '
+"let g:airline_right_sep = ' '
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1

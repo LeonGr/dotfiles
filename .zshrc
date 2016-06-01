@@ -27,6 +27,7 @@ alias open=openFunction
 
 eval $(thefuck --alias)
 
+export CLICOLOR=1
 export TERM=xterm-256color
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
