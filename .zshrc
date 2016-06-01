@@ -2,7 +2,7 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="leon"
+ZSH_THEME="sorin"
 
 plugins=(git z thefuck)
 
