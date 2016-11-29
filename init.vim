@@ -24,6 +24,7 @@ Plug 'tpope/vim-repeat'                " Repeat more than one command
 Plug 'godlygeek/tabular'               " Easy text align
 Plug 'tpope/vim-endwise'               " Auto close stuff
 Plug 'rking/ag.vim'                    " Search through files and directories
+Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -44,6 +45,7 @@ Plug 'nanotech/jellybeans.vim'
 Plug 'morhetz/gruvbox'
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
+Plug 'jacoborus/tender'
 call plug#end()
 
 " scrolling
@@ -56,11 +58,15 @@ set showcmd
 set cursorline
 
 " Color configurations
+if (has("termguicolors"))
+ set termguicolors
+endif
+
 syntax enable
 set t_Co=256
 set background=dark
 "let g:solarized_termcolors=256
-colorscheme preto
+colorscheme tender
 
 " Line numbers
 set number
@@ -73,8 +79,8 @@ set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=grey
-hi IndentGuidesEven ctermbg=darkgrey
+hi IndentGuidesOdd  ctermbg=white
+hi IndentGuidesEven ctermbg=blue
 let g:indent_guides_color_change_percent = 50
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
@@ -93,6 +99,8 @@ vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>f :CtrlP<CR>
+nnoremap <Leader>; g;
+nnoremap <Leader>, g,
 
 " Commands and shortcuts
 inoremap jk <ESC>
@@ -105,16 +113,11 @@ set guifont=Inconsolata\ for\ Powerline:h15
 set laststatus=2
 set termencoding=utf-8
 let g:airline_powerline_fonts=1
-let g:airline_theme='murmur'
+let g:airline_theme='tender'
 
 " Hide buffers
 set showtabline=0
 let g:bufferline_echo = 0
-
-"let g:airline_section_b = ''
-"let g:airline_section_y = ''
-"let g:airline_left_sep = ' '
-"let g:airline_right_sep = ' '
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -162,7 +165,7 @@ noremap <Right> <NOP>
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin"
-        augroup reload_vimrc " {
+         augroup reload_vimrc " {
             autocmd!
             autocmd BufWritePost $MYVIMRC source $MYVIMRC
         augroup END " }   " Do Mac stuff here

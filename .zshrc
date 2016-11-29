@@ -4,7 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 ZSH_THEME="sorin"
 
-plugins=(git z thefuck)
+plugins=(git z)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -25,8 +25,6 @@ openFunction(){
     sleep 1
 }
 alias open=openFunction
-
-eval $(thefuck --alias)
 
 export CLICOLOR=1
 export TERM=xterm-256color
