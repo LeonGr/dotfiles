@@ -27,6 +27,12 @@ alias dockerStart='source /Applications/Docker/Docker\ Quickstart\ Terminal.app/
     #sleep 1
 #}
 #alias open=openFunction
+alias ack='ack-grep'
+openFunction(){
+    xdg-open $1
+    sleep 1
+}
+alias open=openFunction
 
 eval $(thefuck --alias)
 

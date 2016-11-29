@@ -23,12 +23,12 @@ Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
 Plug 'godlygeek/tabular'               " Easy text align
 Plug 'tpope/vim-endwise'               " Auto close stuff
+Plug 'rking/ag.vim'                    " Search through files and directories
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
 Plug 'ap/vim-css-color'                " Show css colors in files
 Plug 'digitaltoad/vim-jade'            " Jade support
-Plug 'darthmall/vim-vue'               " VueJS support
 Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
