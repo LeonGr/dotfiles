@@ -33,7 +33,7 @@ Plug 'digitaltoad/vim-jade'            " Jade support
 Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
-Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
+"Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -159,9 +159,6 @@ noremap <Down> <NOP>
 noremap <Left> <NOP>
 noremap <Right> <NOP>
 
-" scripts
-" autocompile .scss file
-" autocmd BufNewFile,BufRead *.scss autocmd BufWritePost * !scss -t uncompressed style.scss style.css
 if has("unix")
     let s:uname = system("uname -s")
     if s:uname == "Darwin"

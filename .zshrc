@@ -6,6 +6,7 @@ ZSH_THEME="pure"
 
 plugins=(git z thefuck)
 fpath+=("/Users/Leon/.oh-my-zsh/functions")
+eval $(thefuck --alias)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -32,6 +33,7 @@ openFunction(){
     sleep 1
 }
 alias open=openFunction
+alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 
 export CLICOLOR=1
 export TERM=xterm-256color
