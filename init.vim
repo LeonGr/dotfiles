@@ -5,8 +5,8 @@ filetype off     " required
 call plug#begin()
 "Tweaks
 Plug 'tpope/vim-surround'              " Wrap text easily
-Plug 'bling/vim-airline'               " Good looking information bar
-Plug 'bling/vim-bufferline'            " Buffers in airline
+"Plug 'bling/vim-airline'               " Good looking information bar
+"Plug 'bling/vim-bufferline'            " Buffers in airline
 Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
 Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
@@ -15,7 +15,7 @@ Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
 Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
-Plug 'mkitt/tabline.vim'               " Show tabs vim
+"Plug 'mkitt/tabline.vim'               " Show tabs vim
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
 Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
@@ -62,6 +62,8 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
 syntax enable
 set t_Co=256
 set background=dark
@@ -70,9 +72,8 @@ colorscheme tender
 
 " Line numbers
 set number
-highlight LineNr cterm=none ctermfg=239 ctermbg=235
-highlight CursorLineNR cterm=none ctermfg=white ctermbg=032
-hi CursorLine ctermfg=NONE
+highlight LineNr cterm=none guifg=#cccccc guibg=235
+highlight CursorLineNR cterm=none guibg=none guifg=#5af78e
 
 " Indentguide settings
 set ts=4 sw=4 et
@@ -81,11 +82,14 @@ let g:indent_guides_start_level = 1
 let g:indent_guides_auto_colors = 0
 hi IndentGuidesOdd  ctermbg=white
 hi IndentGuidesEven ctermbg=blue
+
+hi IndentGuidesOdd  guibg=#FFFFFF
+hi IndentGuidesEven guibg=#CCCCCC
 let g:indent_guides_color_change_percent = 50
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-let g:qs_second_occurrence_highlight_color = 81
-let g:qs_first_occurrence_highlight_color = 155
+let g:qs_second_occurrence_highlight_color = '#57c7ff'
+let g:qs_first_occurrence_highlight_color = '#5af78e'
 
 
 " Leader commands
@@ -93,14 +97,16 @@ let mapleader = "\<Space>"
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t :bnext<CR>
-nnoremap <Leader>y :bprev<CR>
+"nnoremap <Leader>t :bnext<CR>
+"nnoremap <Leader>y :bprev<CR>
+nnoremap <Leader>t :b#<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>f :CtrlP<CR>
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
+
 
 " Commands and shortcuts
 inoremap jk <ESC>
@@ -109,15 +115,15 @@ inoremap jj <ESC>
 map w!! :w !sudo tee %<CR>
 
 " settings for airline
-set guifont=Inconsolata\ for\ Powerline:h15
-set laststatus=2
-set termencoding=utf-8
-let g:airline_powerline_fonts=1
-let g:airline_theme='tender'
+"set guifont=Inconsolata\ for\ Powerline:h15
+set laststatus=0
+"set termencoding=utf-8
+"let g:airline_powerline_fonts=1
+"let g:airline_theme='tender'
 
 " Hide buffers
-set showtabline=0
-let g:bufferline_echo = 0
+"set showtabline=0
+"let g:bufferline_echo = 0
 
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
@@ -134,8 +140,9 @@ set ignorecase      "Ignore case in all searches...
 set smartcase       "...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
-highlight clear Search
-highlight       Search    ctermfg=Black ctermbg=White
+"highlight clear Search
+"highlight       Search    ctermfg=Black ctermbg=White
+highlight       Search    guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 let g:AutoPairsFlyMode = 0
 " Use undofile for persistent undo

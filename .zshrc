@@ -22,18 +22,14 @@ alias :wq='exit'
 alias :q=':wq'
 alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
 alias dockerStart='source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
+alias ack='ack-grep'
 #openFunction(){
     #xdg-open $1
     #sleep 1
 #}
 #alias open=openFunction
-alias ack='ack-grep'
-openFunction(){
-    xdg-open $1
-    sleep 1
-}
-alias open=openFunction
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
+alias exuent='exit'
 
 export CLICOLOR=1
 export TERM=xterm-256color

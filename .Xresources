@@ -24,7 +24,7 @@ URxvt.clipboard.autocopy:       true
 ! Colors
 *background:   bg
 *foreground:   fg
-*cursorColor:  cyn
+*cursorColor:  grn
 
 *color0:      blk
 *color8:      bblk
