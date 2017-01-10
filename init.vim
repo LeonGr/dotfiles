@@ -17,7 +17,8 @@ Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
 "Plug 'mkitt/tabline.vim'               " Show tabs vim
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
+"Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
@@ -57,6 +58,9 @@ set showcmd
 " Current line
 set cursorline
 
+" Show substitute in real time
+set inccommand=nosplit
+
 " Color configurations
 if (has("termguicolors"))
  set termguicolors
@@ -66,8 +70,8 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
 syntax enable
 set t_Co=256
-set background=dark
 "let g:solarized_termcolors=256
+set background=light
 colorscheme tender
 
 " Line numbers
@@ -156,6 +160,13 @@ set backspace=2
 
 " Auto-pairs settings
 let g:AutoPairsMultilineClose = 0
+
+" Nerd Tree settings
+let g:nerdtree_tabs_open_on_gui_startup = 0
+
+" Deoplete settings
+let g:deoplete#enable_at_startup = 1
+inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
 
 set autoindent "Retain indentation on next line
 set smartindent "Turn on autoindenting of blocks
