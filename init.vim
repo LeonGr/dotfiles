@@ -3,10 +3,9 @@ filetype off     " required
 
 " Plugins YOU'RE USING VIMPLUG YOU DUMBASS
 call plug#begin()
+
 "Tweaks
 Plug 'tpope/vim-surround'              " Wrap text easily
-"Plug 'bling/vim-airline'               " Good looking information bar
-"Plug 'bling/vim-bufferline'            " Buffers in airline
 Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
 Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
@@ -15,9 +14,7 @@ Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
 Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
-"Plug 'mkitt/tabline.vim'               " Show tabs vim
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-"Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
@@ -26,6 +23,8 @@ Plug 'godlygeek/tabular'               " Easy text align
 Plug 'tpope/vim-endwise'               " Auto close stuff
 Plug 'rking/ag.vim'                    " Search through files and directories
 Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
+Plug 'airblade/vim-gitgutter'          " Show git changes
+Plug 'jiangmiao/auto-pairs'            " Auto pairs
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -34,7 +33,6 @@ Plug 'digitaltoad/vim-jade'            " Jade support
 Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
-"Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -47,6 +45,14 @@ Plug 'morhetz/gruvbox'
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
+
+" Old
+"Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
+"Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
+"Plug 'mkitt/tabline.vim'               " Show tabs vim
+"Plug 'bling/vim-airline'               " Good looking information bar
+"Plug 'bling/vim-bufferline'            " Buffers in airline
+
 call plug#end()
 
 " scrolling
@@ -58,6 +64,9 @@ set showcmd
 " Current line
 set cursorline
 
+" Hide ugly file name thing
+set laststatus=0
+
 " Show substitute in real time
 set inccommand=nosplit
 
@@ -66,11 +75,12 @@ if (has("termguicolors"))
  set termguicolors
 endif
 
+" Enable true color in neovim
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
+" Color settings
 syntax enable
 set t_Co=256
-"let g:solarized_termcolors=256
 set background=light
 colorscheme tender
 
@@ -98,18 +108,18 @@ let g:qs_first_occurrence_highlight_color = '#5af78e'
 
 " Leader commands
 let mapleader = "\<Space>"
+
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
-"nnoremap <Leader>t :bnext<CR>
-"nnoremap <Leader>y :bprev<CR>
 nnoremap <Leader>t :b#<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
 nnoremap <Leader>f :CtrlP<CR>
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
+
+map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 
 " Commands and shortcuts
@@ -118,17 +128,7 @@ inoremap jj <ESC>
 
 map w!! :w !sudo tee %<CR>
 
-" settings for airline
-"set guifont=Inconsolata\ for\ Powerline:h15
-set laststatus=0
-"set termencoding=utf-8
-"let g:airline_powerline_fonts=1
-"let g:airline_theme='tender'
-
-" Hide buffers
-"set showtabline=0
-"let g:bufferline_echo = 0
-
+" Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
@@ -145,21 +145,17 @@ set smartcase       "...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 "highlight clear Search
-"highlight       Search    ctermfg=Black ctermbg=White
 highlight       Search    guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
-let g:AutoPairsFlyMode = 0
+
 " Use undofile for persistent undo
 set undofile
 " set a directory to store the undo history
 set undodir=~/.vimundo/
 
-" change size of tab
 " use backspace
 set backspace=2
 
-" Auto-pairs settings
-let g:AutoPairsMultilineClose = 0
 
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
