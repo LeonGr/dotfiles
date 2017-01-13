@@ -45,6 +45,7 @@ Plug 'morhetz/gruvbox'
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
+Plug 'endel/vim-github-colorscheme'
 
 " Old
 "Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
