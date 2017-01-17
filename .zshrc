@@ -42,3 +42,5 @@ test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_in
 
 autoload -U promptinit; promptinit
 prompt pure
+
+curl -L file:///Users/Leon/dotfiles/unix.txt
