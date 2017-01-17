@@ -69,5 +69,5 @@ bspc rule -a URxvt:upass state=floating
 feh --bg-scale ~/Downloads/Tree.jpg &
 #lemonbuddy_wrapper top &
 $HOME/.config/polybar/launch.sh &
-compton --config "$HOME/.config/compton.conf" -b &
+compton --config "$HOME/.config/compton/compton.conf" -b &
 systemctl --user start mopidy
