@@ -1,0 +1,13 @@
+!snazzy
+
+#define bg    [97]#282a36
+#define blk   #33303b
+#define fg    #eff0eb
+#define bblk  #4f4b58
+#define red   #ff5c57
+#define grn   #5af78e
+#define ylw   #f3f99d
+#define blu   #57c7ff
+#define mag   #ff6ac1
+#define cyn   #9aedfe
+#define wht   #eff0eb
