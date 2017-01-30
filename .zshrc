@@ -23,6 +23,7 @@ alias :q=':wq'
 alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
 alias dockerStart='source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
 alias ack='ack-grep'
+alias msfconsole="msfconsole --quiet -x \"db_connect ${USER}@msf\""
 #openFunction(){
     #xdg-open $1
     #sleep 1
@@ -44,3 +45,9 @@ autoload -U promptinit; promptinit
 prompt pure
 
 cat ~/dotfiles/unix.txt
+
+PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
