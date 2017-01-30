@@ -38,5 +38,5 @@ bspc rule -a URxvt:upass state=floating
 
 feh --bg-scale ~/Downloads/SPACE.jpg &
 $HOME/.config/polybar/launch.sh &
-compton --config "$HOME/.config/compton/compton.conf" -b &
+#compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/dotfiles/compton.conf
 systemctl --user start mopidy
