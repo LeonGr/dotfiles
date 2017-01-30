@@ -44,3 +44,6 @@ autoload -U promptinit; promptinit
 prompt pure
 
 cat ~/dotfiles/unix.txt
+
+export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
+source ~/.rvm/scripts/rvm
