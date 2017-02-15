@@ -48,6 +48,7 @@ Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
 Plug 'endel/vim-github-colorscheme'
+Plug 'larsbs/vimterial'
 
 " Old
 "Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
@@ -85,7 +86,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 syntax enable
 set t_Co=256
 set background=light
-colorscheme tender
+colorscheme vimterial
 
 " Line numbers
 set number
