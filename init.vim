@@ -90,8 +90,8 @@ colorscheme vimterial
 
 " Line numbers
 set number
-highlight LineNr cterm=none guifg=#cccccc guibg=235
-highlight CursorLineNR cterm=none guibg=none guifg=#5af78e
+"highlight LineNr guifg=#cccccc guibg=235
+highlight CursorLineNR guibg=NONE guifg=#5af78e
 
 " Indentguide settings
 set ts=4 sw=4 et
