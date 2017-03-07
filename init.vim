@@ -189,3 +189,8 @@ endif
 
 " Clear trailing whitespace in selected file types on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" xkcd scroll through time instead of space
+"set mouse=a
+"nnoremap <ScrollWheelUp> u
+"nnoremap <ScrollWheelDown> <C-R>
