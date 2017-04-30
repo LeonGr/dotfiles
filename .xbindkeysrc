@@ -1,0 +1,19 @@
+# Increase volume
+"amixer -D default sset Master 1%+"
+   XF86AudioRaiseVolume
+
+# Decrease volume
+"amixer -D default sset Master 1%-"
+   XF86AudioLowerVolume
+
+# Toggle Play/Pause
+"playerctl play-pause; SONG=$(playerctl metadata xesam:title); ALBUM=$(playerctl metadata xesam:albumArtist && printf ' - ' && playerctl metadata xesam:album); /usr/bin/notify-send -u low "$SONG" "$ALBUM""
+    XF86AudioPlay
+
+# Next Song
+"playerctl next"
+    XF86AudioNext
+
+# Previous Song
+"playerctl previous"
+    XF86AudioPrev

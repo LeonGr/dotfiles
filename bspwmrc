@@ -36,7 +36,7 @@ bspc rule -a Gimp desktop=^4 follow=on
 bspc rule -a URxvt:vpn desktop=^5 follow=on state=floating
 bspc rule -a URxvt:upass state=floating
 
-feh --bg-scale ~/Pictures/Backgrounds/explosion.jpg &
+feh --bg-scale ~/Pictures/Backgrounds/longboard.jpg &
 $HOME/.config/polybar/launch.sh &
 #compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/dotfiles/compton.conf
 systemctl --user start mopidy
