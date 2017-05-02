@@ -15,13 +15,13 @@ margin-bottom = 5
 [bar/mybar]
 ;monitor = ${env:MONITOR:HDMI-1}
 dock = false
-width = 100%
-height = 27
-offset-x = 0
-offset-y = 0
+width = 96%
+height = 32
+offset-x = 2%
+offset-y = 2%
 
 ;background = ${xrdb:color9}
-background = #ee222222
+background = #ee282a36
 foreground = #dfdfdf
 
 ;lineheight = 1
@@ -31,8 +31,10 @@ overline-color = #f00
 underline-size = 2
 underline-color = #00f
 
-border-bottom = 2
+border-bottom = 0
 border-bottom-color = #333
+border-top = 2
+border-top-color = #282a36
 
 spacing = 1
 padding-left = 0
@@ -40,10 +42,11 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = DejaVu Sans Mono:pixelsize=12;0
+font-0 = DejaVu Sans Mono:pixelsize=10;0
 ;font-1 = unifont:size=6:heavy:fontformat=truetype;-2
 font-1 = FontAwesome:size=11:weight=Regular;0
 font-2 = siji:pixelsize=10;0
+font-3 = DejaVu Sans Mono For Powerline:pixelsize=10;0
 
 modules-left = bspwm
 modules-center = xwindow playerctl
@@ -89,17 +92,17 @@ type = internal/bspwm
 ;ws-icon-5 = random0;
 
 label-active = %name%
-label-active-background = #ee3eac63
+;label-active-background = #ee3eac63
 
-label-active-underline= #cc3eac63
+label-active-underline= #fff
 
 label-active-padding = 2
 
 label-occupied = %name%
 label-occupied-padding = 2
-label-occupied-foreground = #3eac63
+label-occupied-foreground = #fff
 
-label-occupied-underline = #3eac63
+;label-occupied-underline = #3eac63
 
 
 label-urgent = %name%
@@ -109,28 +112,6 @@ label-urgent-padding = 2
 label-empty = %name%
 label-empty-foreground = #55
 label-empty-padding = 2
-
-
-[module/i3]
-type = internal/i3
-format = <label-state>
-index-sort = true
-
-label-focused = %index%
-label-focused-background = #ee333333
-label-focused-underline= #cc333333
-label-focused-padding = 2
-
-label-unfocused = %index%
-label-unfocused-padding = 2
-
-label-urgent = %index%!
-label-urgent-background = #bd2c40
-label-urgent-padding = 2
-
-label-visible = %index%
-label-visible-foreground = #55
-label-visible-padding = 2
 
 
 [module/mpd]
@@ -227,7 +208,7 @@ type = internal/date
 date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
 date-alt = %%{F#55}%{F#ff} %Y-%m-%d  %%{F#55}%%{F#ff} %H:%M
 interval = 5
-format-underline = #5af78e
+format-underline = #fff
 
 
 [module/volume]
@@ -242,11 +223,11 @@ label-muted =  sound muted
 label-muted-foreground = #55
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #5af78e
-bar-volume-foreground-1 = #5af78e
-bar-volume-foreground-2 = #5af78e
-bar-volume-foreground-3 = #5af78e
-bar-volume-foreground-4 = #5af78e
+bar-volume-foreground-0 = #fff
+bar-volume-foreground-1 = #fff
+bar-volume-foreground-2 = #fff
+bar-volume-foreground-3 = #fff
+bar-volume-foreground-4 = #fff
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 bar-volume-gradient = false
