@@ -21,8 +21,8 @@ offset-x = 2%
 offset-y = 2%
 
 ;background = ${xrdb:color9}
-background = #ee282a36
-foreground = #dfdfdf
+background = #37383A
+foreground = #0bd2d3
 
 ;lineheight = 1
 ;linecolor = #555
@@ -34,7 +34,7 @@ underline-color = #00f
 border-bottom = 0
 border-bottom-color = #333
 border-top = 2
-border-top-color = #282a36
+border-top-color = #37383A
 
 spacing = 1
 padding-left = 0
@@ -63,6 +63,7 @@ tray-padding = 2
 [module/xwindow]
 type = internal/xwindow
 label = %title%
+label-underline = #f990e8
 label-maxlen = 300
 
 
@@ -94,13 +95,13 @@ type = internal/bspwm
 label-active = %name%
 ;label-active-background = #ee3eac63
 
-label-active-underline= #fff
+label-active-underline= #f990e8
 
 label-active-padding = 2
 
 label-occupied = %name%
 label-occupied-padding = 2
-label-occupied-foreground = #fff
+label-occupied-foreground = #f990e8
 
 ;label-occupied-underline = #3eac63
 
@@ -206,15 +207,16 @@ label-disconnected-foreground = #55
 [module/date]
 type = internal/date
 date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
-date-alt = %%{F#55}%{F#ff} %Y-%m-%d  %%{F#55}%%{F#ff} %H:%M
+date-alt = %%{F#ff} %H:%M
 interval = 5
-format-underline = #fff
+format-underline = #f990e8
 
 
 [module/volume]
 type = internal/volume
 
 format-volume = <ramp-volume> <bar-volume>
+format-volume-underline = #f990e8
 
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
@@ -223,11 +225,11 @@ label-muted =  volume off
 label-muted-foreground = #55
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #fff
-bar-volume-foreground-1 = #fff
-bar-volume-foreground-2 = #fff
-bar-volume-foreground-3 = #fff
-bar-volume-foreground-4 = #fff
+bar-volume-foreground-0 = #f990e8
+bar-volume-foreground-1 = #f990e8
+bar-volume-foreground-2 = #f990e8
+bar-volume-foreground-3 = #f990e8
+bar-volume-foreground-4 = #f990e8
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 ramp-volume-0 = 

@@ -49,6 +49,7 @@ Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
 Plug 'endel/vim-github-colorscheme'
 Plug 'larsbs/vimterial'
+Plug 'bcicen/vim-vice'
 
 " Old
 "Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
@@ -86,12 +87,12 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 syntax enable
 set t_Co=256
 set background=light
-colorscheme vimterial
+colorscheme vice
 
 " Line numbers
 set number
 "highlight LineNr guifg=#cccccc guibg=235
-highlight CursorLineNR guibg=NONE guifg=#5af78e
+highlight CursorLineNR guibg=NONE guifg=#f990e8
 
 " Indentguide settings
 set ts=4 sw=4 et
