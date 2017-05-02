@@ -214,12 +214,12 @@ format-underline = #fff
 [module/volume]
 type = internal/volume
 
-format-volume = <label-volume> <bar-volume>
+format-volume = <ramp-volume> <bar-volume>
 
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
 
-label-muted =  sound muted
+label-muted =  volume off
 label-muted-foreground = #55
 
 bar-volume-width = 10
@@ -230,6 +230,9 @@ bar-volume-foreground-3 = #fff
 bar-volume-foreground-4 = #fff
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
+ramp-volume-0 = 
+ramp-volume-1 = 
+ramp-volume-2 = 
 bar-volume-gradient = false
 bar-volume-indicator = │
 bar-volume-indicator-font = 2
