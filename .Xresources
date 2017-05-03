@@ -48,6 +48,6 @@ URxvt.clipboard.autocopy:       true
 ! ------------------------------------------------------------------------------
 rofi.color-enabled: true
 rofi.color-window: blk, blk, #1e2529
-rofi.color-normal: blk, grn, blk, grn, blk
-rofi.color-active: blk, grn, blk, #394249, grn
-rofi.color-urgent: blk, #ff1844, blk, #394249, #ff1844
+rofi.color-normal: blk, #f990e8, blk, grn, blk
+rofi.color-active: blk, grn, blk, blk, grn
+rofi.color-urgent: blk, #ff1844, blk, blk, #ff1844
