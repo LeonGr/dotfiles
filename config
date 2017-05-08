@@ -51,7 +51,7 @@ font-3 = DejaVu Sans Mono For Powerline:pixelsize=10;0
 modules-left = bspwm
 modules-center = xwindow playerctl
 ;modules-right = backlight volume memory cpu battery temperature date powermenu
-modules-right = battery date volume
+modules-right = eth wlan battery date volume
 
 tray-position = right
 tray-padding = 2
