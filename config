@@ -180,7 +180,7 @@ format-connected-underline = #f990e8
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %essid%
-label-disconnected = %ifname% disconnected
+label-disconnected =  %ifname% disconnected
 label-disconnected-foreground = #55
 
 ramp-signal-0 = 
@@ -262,7 +262,6 @@ ramp-capacity-1 = 
 ramp-capacity-2 = 
 ramp-capacity-3 = 
 ramp-capacity-4 = 
-ramp-capacity-foreground = #55
 
 animation-charging-0 = 
 animation-charging-1 = 
