@@ -172,11 +172,11 @@ label-underline = #4bffdc
 
 [module/wlan]
 type = internal/network
-interface =
+interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #9f78e1
+format-connected-underline = #f990e8
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %essid%
@@ -193,10 +193,10 @@ ramp-signal-foreground = #55
 
 [module/eth]
 type = internal/network
-interface = eth1
+interface = enp3s0
 interval = 3.0
 
-format-connected-underline = #5af78e
+format-connected-underline = #f990e8
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %{F#55}%{F#ff} %local_ip%
@@ -259,14 +259,18 @@ format-discharging-underline = ${self.format-charging-underline}
 format-full = %{F#55}%{F#ff}  <label-full>
 format-full-underline = ${self.format-charging-underline}
 
-ramp-capacity-0 = 
-ramp-capacity-1 = 
-ramp-capacity-2 = 
+ramp-capacity-0 = 
+ramp-capacity-1 = 
+ramp-capacity-2 = 
+ramp-capacity-3 = 
+ramp-capacity-4 = 
 ramp-capacity-foreground = #55
 
-animation-charging-0 = 
-animation-charging-1 = 
-animation-charging-2 = 
+animation-charging-0 = 
+animation-charging-1 = 
+animation-charging-2 = 
+animation-charging-3 = 
+animation-charging-4 = 
 animation-charging-foreground = #55
 animation-charging-framerate = 750
 
