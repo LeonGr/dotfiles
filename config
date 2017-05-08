@@ -254,7 +254,7 @@ format-charging = <animation-charging> <label-charging>
 format-charging-underline = #f990e8
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
-format-full = %{F#55}%{F#ff}  <label-full>
+format-full = %{F#ff}  <label-full>
 format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
