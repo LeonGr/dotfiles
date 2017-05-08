@@ -183,12 +183,11 @@ label-connected = %essid%
 label-disconnected = %ifname% disconnected
 label-disconnected-foreground = #55
 
-ramp-signal-0 = 
-ramp-signal-1 = 
-ramp-signal-2 = 
-ramp-signal-3 = 
-ramp-signal-4 = 
-ramp-signal-foreground = #55
+ramp-signal-0 = 
+ramp-signal-1 = 
+ramp-signal-2 = 
+ramp-signal-3 = 
+ramp-signal-4 = 
 
 
 [module/eth]
@@ -201,7 +200,6 @@ format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %{F#55}%{F#ff} %local_ip%
 label-disconnected = %ifname% disconnected
-label-disconnected-foreground = #55
 
 
 [module/date]
@@ -271,7 +269,6 @@ animation-charging-1 = 
 animation-charging-2 = 
 animation-charging-3 = 
 animation-charging-4 = 
-animation-charging-foreground = #55
 animation-charging-framerate = 750
 
 
