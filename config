@@ -58,7 +58,7 @@ tray-padding = 2
 ;tray-transparent = true
 ;tray-background = #0063ff
 
-;wm-restack = bspwm
+wm-restack = bspwm
 
 [module/xwindow]
 type = internal/xwindow

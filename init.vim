@@ -25,6 +25,7 @@ Plug 'rking/ag.vim'                    " Search through files and directories
 Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
+Plug 'majutsushi/tagbar'               " Show tags
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -52,7 +53,8 @@ Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
 
 " Old
-"Plug 'marijnh/tern_for_vim'            " Javascript completion for YouCompleteme
+Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Javascript completion for YouCompleteme
+Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 "Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
 "Plug 'mkitt/tabline.vim'               " Show tabs vim
 "Plug 'bling/vim-airline'               " Good looking information bar
@@ -62,6 +64,7 @@ call plug#end()
 
 " scrolling
 set mouse=a
+set guicursor=
 
 " Show commands as they're typed
 set showcmd
@@ -123,7 +126,7 @@ nnoremap <Leader>s :vertical resize 120<CR>
 nnoremap <Leader>f :CtrlP<CR>
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
-
+nnoremap <Leader>e :TagbarToggle<cr>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 
@@ -143,6 +146,10 @@ let g:syntastic_check_on_wq = 0
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
 
+" Tern for vim settings
+let g:tern_show_argument_hints='on_hold'
+let g:tern_map_keys=1
+
 " Searching improvements
 set incsearch       "Lookahead as search pattern is specified
 set ignorecase      "Ignore case in all searches...
@@ -160,7 +167,6 @@ set undodir=~/.vimundo/
 
 " use backspace
 set backspace=2
-
 
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
