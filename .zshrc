@@ -31,6 +31,7 @@ alias msfconsole="msfconsole --quiet -x \"db_connect ${USER}@msf\""
 #alias open=openFunction
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
+alias spotify='spotify --force-device-scale-factor=1.5'
 
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -49,3 +50,6 @@ cat ~/dotfiles/unix.txt
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm
 PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+
+LD_LIBRARY_PATH=/usr/local/lib
+export LD_LIBRARY_PATH

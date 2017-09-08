@@ -15,7 +15,7 @@ Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
 Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
@@ -26,6 +26,12 @@ Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
 Plug 'majutsushi/tagbar'               " Show tags
+"Plug 'drzel/vim-line-no-indicator'     " Show how far you are in files
+Plug 'roxma/nvim-completion-manager'   " Completion
+Plug 'davidhalter/jedi-vim'            " Python completion
+Plug 'othree/csscomplete.vim'          " CSS completion
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
+Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -53,8 +59,8 @@ Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
 
 " Old
-Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Javascript completion for YouCompleteme
-Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
+"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Javascript completion for YouCompleteme
+"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
 "Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
 "Plug 'mkitt/tabline.vim'               " Show tabs vim
 "Plug 'bling/vim-airline'               " Good looking information bar
@@ -71,6 +77,8 @@ set showcmd
 
 " Current line
 set cursorline
+
+"set statusline=%{LineNoIndicator()}
 
 " Hide ugly file name thing
 set laststatus=0

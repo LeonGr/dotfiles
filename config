@@ -13,12 +13,12 @@ margin-bottom = 5
 
 
 [bar/mybar]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR}
 dock = false
-width = 96%
-height = 32
-offset-x = 2%
-offset-y = 2%
+width = 98%
+height = 64
+offset-x = 1%
+offset-y = 1%
 
 ;background = ${xrdb:color9}
 background = #37383A
@@ -42,11 +42,10 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = DejaVu Sans Mono:pixelsize=10;0
-;font-1 = unifont:size=6:heavy:fontformat=truetype;-2
+font-0 = DejaVu Sans Mono:size=18;0
 font-1 = FontAwesome:size=11:weight=Regular;0
-font-2 = siji:pixelsize=10;0
-font-3 = DejaVu Sans Mono For Powerline:pixelsize=10;0
+font-2 = siji:size=10;0
+font-3 = DejaVu Sans Mono For Powerline:size=10;0
 
 modules-left = bspwm
 modules-center = xwindow playerctl
@@ -64,7 +63,7 @@ wm-restack = bspwm
 type = internal/xwindow
 label = %title%
 label-underline = #f990e8
-label-maxlen = 300
+label-maxlen = 50
 
 
 [module/filesystem]

@@ -1,9 +1,9 @@
 #include </home/leon/.termcolors/miami>
 
 
-Xft.dpi:                        109
+Xft.dpi:                        163
 URxvt*termName:                 rxvt-256color
-URxvt*font: xft:Menlo:pixelsize=12:antialias=true,xft:Inconsolata\ for\ Powerline:pixelsize=12,xft:Font\ Awesome:pixelsize=12,xft:DejaVu Sans Mono For Powerline:pixelsize=12
+URxvt*font: xft:Menlo:size=12:antialias=true,xft:Inconsolata\ for\ Powerline:size=12,xft:Font\ Awesome:size=12,xft:DejaVu Sans Mono For Powerline:size=12
 URxvt.depth:                    32
 URxvt*lineSpace:                1
 URxvt.letterSpace:              -1
