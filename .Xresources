@@ -1,4 +1,4 @@
-#include </home/leon/.termcolors/miami>
+#include </home/leon/.termcolors/mikasa>
 
 
 Xft.dpi:                        163
@@ -24,7 +24,7 @@ URxvt.clipboard.autocopy:       true
 ! Colors
 *background:   bg
 *foreground:   fg
-*cursorColor:  grn
+*cursorColor:  wht
 
 *color0:      blk
 *color8:      bblk
@@ -48,6 +48,6 @@ URxvt.clipboard.autocopy:       true
 ! ------------------------------------------------------------------------------
 rofi.color-enabled: true
 rofi.color-window: blk, blk, #1e2529
-rofi.color-normal: blk, #f990e8, blk, grn, blk
+rofi.color-normal: blk, wht, blk, grn, blk
 rofi.color-active: blk, grn, blk, blk, grn
 rofi.color-urgent: blk, #ff1844, blk, blk, #ff1844

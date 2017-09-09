@@ -22,13 +22,13 @@ offset-y = 1%
 
 ;background = ${xrdb:color9}
 background = #37383A
-foreground = #0bd2d3
+foreground = #eff0eb
 
 ;lineheight = 1
 ;linecolor = #555
 overline-size = 2
 overline-color = #f00
-underline-size = 2
+underline-size = 4
 underline-color = #00f
 
 border-bottom = 0
@@ -62,7 +62,7 @@ wm-restack = bspwm
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-underline = #f990e8
+label-underline = #d60808
 label-maxlen = 50
 
 
@@ -94,13 +94,13 @@ type = internal/bspwm
 label-active = %name%
 ;label-active-background = #ee3eac63
 
-label-active-underline= #f990e8
+label-active-underline= #d60808
 
 label-active-padding = 2
 
 label-occupied = %name%
 label-occupied-padding = 2
-label-occupied-foreground = #f990e8
+label-occupied-foreground = #eff0eb
 
 ;label-occupied-underline = #3eac63
 
@@ -175,7 +175,7 @@ interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #f990e8
+format-connected-underline = #d60808
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %essid%
@@ -194,7 +194,7 @@ type = internal/network
 interface = enp3s0
 interval = 3.0
 
-format-connected-underline = #f990e8
+format-connected-underline = #d60808
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %{F#55}%{F#ff} %local_ip%
@@ -206,14 +206,14 @@ type = internal/date
 date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
 date-alt = %%{F#ff} %H:%M
 interval = 5
-format-underline = #f990e8
+format-underline = #d60808
 
 
 [module/volume]
 type = internal/volume
 
 format-volume = <ramp-volume> <bar-volume>
-format-volume-underline = #f990e8
+format-volume-underline = #d60808
 
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
@@ -222,11 +222,11 @@ label-muted =  volume off
 label-muted-foreground = #55
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #f990e8
-bar-volume-foreground-1 = #f990e8
-bar-volume-foreground-2 = #f990e8
-bar-volume-foreground-3 = #f990e8
-bar-volume-foreground-4 = #f990e8
+bar-volume-foreground-0 = #d60808
+bar-volume-foreground-1 = #d60808
+bar-volume-foreground-2 = #d60808
+bar-volume-foreground-3 = #d60808
+bar-volume-foreground-4 = #d60808
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 ramp-volume-0 = 
@@ -250,7 +250,7 @@ adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #f990e8
+format-charging-underline = #d60808
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 format-full = %{F#ff}  <label-full>

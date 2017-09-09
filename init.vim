@@ -98,12 +98,12 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 syntax enable
 set t_Co=256
 set background=light
-colorscheme vice
+colorscheme Monokai
 
 " Line numbers
 set number
 "highlight LineNr guifg=#cccccc guibg=235
-highlight CursorLineNR guibg=NONE guifg=#f990e8
+highlight CursorLineNR guibg=NONE guifg=#ff5c57
 
 " Indentguide settings
 set ts=4 sw=4 et
