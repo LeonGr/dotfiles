@@ -9,6 +9,7 @@ super + Return
 # program launcher
 super + space
     rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
+    #./bin/sparklauncher
     #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
 
 super + shift + space

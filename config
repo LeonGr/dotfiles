@@ -21,6 +21,7 @@ offset-x = 1%
 offset-y = 1%
 
 ;background = ${xrdb:color9}
+;background = #0037383A
 background = #37383A
 foreground = #eff0eb
 
