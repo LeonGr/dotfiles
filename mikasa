@@ -1,1 +1,13 @@
-/home/leon/.termcolors/mikasa
+!mikasa
+
+#define bg    #37383A
+#define blk   #37383A
+#define fg    #eff0eb
+#define bblk  #4f4b58
+#define grn   #d60808
+#define red   #8c1010
+#define ylw   #ff2a00
+#define blu   #C1C0BB
+#define mag   #FFECCF
+#define cyn   #ff5c57
+#define wht   #eff0eb
