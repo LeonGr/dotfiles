@@ -205,6 +205,13 @@ endif
 " Clear trailing whitespace in selected file types on save
 autocmd BufWritePre * :%s/\s\+$//e
 
+" Java Abbrs
+abbr Sout System.out.println("
+abbr SOut System.out.print("
+abbr fori for(int i = 0, x = .length; i < x; i++)
+abbr psv public static void main(String[] args)
+
+
 " xkcd scroll through time instead of space
 "set mouse=a
 "nnoremap <ScrollWheelUp> u
