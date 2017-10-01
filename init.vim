@@ -15,7 +15,6 @@ Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
 Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-"Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
 Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
@@ -26,12 +25,11 @@ Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
 Plug 'majutsushi/tagbar'               " Show tags
-"Plug 'drzel/vim-line-no-indicator'     " Show how far you are in files
 Plug 'roxma/nvim-completion-manager'   " Completion
 Plug 'davidhalter/jedi-vim'            " Python completion
 Plug 'othree/csscomplete.vim'          " CSS completion
-autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
+Plug 'takac/vim-hardtime'              " Don't repeat yourself
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -41,7 +39,6 @@ Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
 Plug 'keith/swift.vim'                 " Swift syntax and indent styles
-Plug 'mitsuse/autocomplete-swift'      " Deoplete swift completion
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -59,9 +56,6 @@ Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
 
 " Old
-"Plug 'ternjs/tern_for_vim', { 'do': 'npm install' } " Javascript completion for YouCompleteme
-"Plug 'carlitux/deoplete-ternjs', { 'do': 'npm install -g tern' }
-"Plug 'Valloric/YouCompleteMe'          " Vim autocomplete
 "Plug 'mkitt/tabline.vim'               " Show tabs vim
 "Plug 'bling/vim-airline'               " Good looking information bar
 "Plug 'bling/vim-bufferline'            " Buffers in airline
@@ -179,9 +173,13 @@ set backspace=2
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
-" Deoplete settings
-let g:deoplete#enable_at_startup = 1
-inoremap <expr><tab> pumvisible() ? "\<c-n>" : "\<tab>"
+" HardTime settings
+let g:hardtime_default_on = 0
+let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
+let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
+let g:list_of_disabled_keys = []
+
 
 set autoindent "Retain indentation on next line
 set smartindent "Turn on autoindenting of blocks
@@ -204,6 +202,9 @@ endif
 
 " Clear trailing whitespace in selected file types on save
 autocmd BufWritePre * :%s/\s\+$//e
+
+" Some css complete thing I guess is needed
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
 " Java Abbrs
 abbr Sout System.out.println("

@@ -46,7 +46,8 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 autoload -U promptinit; promptinit
 prompt pure
 
-cat ~/dotfiles/unix.txt
+#cat ~/dotfiles/unix.txt
+cat ~/dotfiles/arch.txt
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm

@@ -94,7 +94,7 @@ type = internal/bspwm
 ;ws-icon-5 = random0;
 
 label-active = %name%
-;label-active-background = #ee3eac63
+;label-active-background = #e66a6a
 
 label-active-underline= #d60808
 
