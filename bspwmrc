@@ -27,14 +27,8 @@ bspc config presel_feedback_color "#d60808"
 #bspc monitor -d      
 bspc monitor -d 1 2 3 4 5
 
-bspc rule -a Steam desktop=^3 follow=on split_dir=right
-bspc rule -a URxvt:updates state=floating
-bspc rule -a URxvt:pulsemixer state=floating
-bspc rule -a URxvt:mutt desktop=^2 follow=on
-bspc rule -a URxvt:weechat desktop=^2 follow=on
-bspc rule -a Gimp desktop=^4 follow=on
-bspc rule -a URxvt:vpn desktop=^5 follow=on state=floating
-bspc rule -a URxvt:upass state=floating
+bspc rule -a '*:yad' state=floating
+bspc rule -a java state=floating
 
 feh --bg-scale ~/Pictures/Backgrounds/mikasa.jpg &
 $HOME/.config/polybar/launch.sh &

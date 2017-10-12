@@ -30,6 +30,7 @@ Plug 'davidhalter/jedi-vim'            " Python completion
 Plug 'othree/csscomplete.vim'          " CSS completion
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
 Plug 'takac/vim-hardtime'              " Don't repeat yourself
+Plug 'KabbAmine/vCoolor.vim'           " Colour picker
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
