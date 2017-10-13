@@ -1,6 +1,6 @@
 #! /bin/sh
 
-bspc config border_width        1
+bspc config border_width        5
 bspc config window_gap          30
 bspc config top_padding         5
 bspc config left_padding        8
@@ -30,7 +30,7 @@ bspc monitor -d 1 2 3 4 5
 bspc rule -a '*:yad' state=floating
 bspc rule -a java state=floating
 
-feh --bg-scale ~/Pictures/Backgrounds/mikasa.jpg &
-$HOME/.config/polybar/launch.sh &
+feh --bg-scale ~/Pictures/Backgrounds/firewatch.jpg &
+$HOME/dotfiles/launch.sh &
 #compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/dotfiles/compton.conf
 systemctl --user start mopidy
