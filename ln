@@ -9,3 +9,5 @@ ln -s ~/dotfiles/polybar/launch.sh ~/.config/polybar/launch.sh
 ln -s ~/dotfiles/dunst/dunstrc ~/.config/dunst/dunstrc
 ln -s ~/dotfiles/intellij/Molokai.icls ~/.IdeaIC2017.2/config/colors/Molokai.icls
 ln -s ~/dotfiles/intellij/.ideavimrc ~/.ideavimrc
+ln -s ~/dotfiles/bspwm/bspwmrc ~/.config/bspwm/bspwmrc
+ln -s ~/dotfiles/bspwm/sxhkdrc ~/.config/sxhkd/sxhkdrc
