@@ -1,7 +1,7 @@
 #include </home/leon/.termcolors/mikasa>
 
 
-Xft.dpi:                        163
+Xft.dpi:                        96
 URxvt*termName:                 rxvt-256color
 URxvt*font: xft:DejaVu Sans Mono:size=12:antialias=true,xft:Inconsolata\ for\ Powerline:size=12,xft:Font\ Awesome:size=12,xft:DejaVu Sans Mono For Powerline:size=12
 URxvt.depth:                    32

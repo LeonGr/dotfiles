@@ -45,6 +45,7 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 autoload -U promptinit; promptinit
 prompt pure
+export PURE_PROMPT_SYMBOL="$"
 
 #cat ~/dotfiles/unix.txt
 cat ~/dotfiles/arch.txt

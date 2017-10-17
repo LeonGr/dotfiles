@@ -31,6 +31,6 @@ bspc rule -a '*:yad' state=floating
 bspc rule -a java state=floating
 
 feh --bg-scale ~/Pictures/Backgrounds/firewatch.jpg &
-$HOME/.config/polybar/launch.sh &
+$HOME/dotfiles/launch.sh &
 #compton --backend glx --paint-on-overlay --vsync opengl-swc --config ~/dotfiles/compton.conf
 systemctl --user start mopidy
