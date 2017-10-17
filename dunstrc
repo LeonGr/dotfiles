@@ -1,5 +1,5 @@
 [global]
-    font = Monospace 18
+    font = Monospace 15
 
     # Allow a small subset of html markup in notifications and formats:
     #   <b>bold</b>
@@ -87,7 +87,7 @@
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
     # for longer than idle_threshold seconds.
     # Set to 0 to disable.
-    idle_threshold = 120
+    idle_threshold = 0
 
     # Which monitor should the notifications be displayed on.
     monitor = 0
@@ -109,7 +109,7 @@
     stack_duplicates = true
 
     # Hide count of the merged notifications with the same content
-    hide_duplicates_count = false
+    hide_duplicates_count = true
 
     # Should a notification popped up from history be sticky or timeout
     # as if it would normally do.
@@ -173,7 +173,7 @@
     always_run_stript = true
 
 [frame]
-    width = 3
+    width = 5
     color = "#d60808"
 
 [shortcuts]
@@ -218,7 +218,7 @@
     background = "#37383A"
     foreground = "#d60808"
     #foreground = "#ffffff"
-    timeout = 0
+    timeout = 10
     # Icon for notifications with critical urgency, uncomment to enable
     #icon = /path/to/icon
 
