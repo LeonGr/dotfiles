@@ -38,7 +38,7 @@ export CLICOLOR=1
 export TERM=xterm-256color
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
-source ~/dotfiles/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 #test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
@@ -48,7 +48,7 @@ prompt pure
 export PURE_PROMPT_SYMBOL="$"
 
 #cat ~/dotfiles/unix.txt
-cat ~/dotfiles/arch.txt
+cat ~/dotfiles/motd/arch.txt
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm
