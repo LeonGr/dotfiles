@@ -37,6 +37,8 @@ alias spotify='spotify --force-device-scale-factor=1.5'
 export CLICOLOR=1
 export TERM=xterm-256color
 
+export SUDO_EDITOR=/usr/bin/nvim
+
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)

@@ -40,6 +40,8 @@ Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
 Plug 'keith/swift.vim'                 " Swift syntax and indent styles
+Plug 'posva/vim-vue'                   " Vue syntax
+
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
