@@ -33,6 +33,8 @@ alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
+alias vis='TERM=rxvt-256color vis'
+alias startPC='sudo ./toggle_dpm && startx'
 
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -58,3 +60,7 @@ LD_LIBRARY_PATH=/usr/local/lib
 export LD_LIBRARY_PATH
 
 export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
+
+export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

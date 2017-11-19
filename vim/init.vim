@@ -8,7 +8,6 @@ call plug#begin()
 Plug 'tpope/vim-surround'              " Wrap text easily
 Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
-Plug 'terryma/vim-multiple-cursors'    " Sublime text like cursors
 Plug 'scrooloose/nerdtree'             " File browser in vim
 Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
@@ -31,6 +30,8 @@ Plug 'othree/csscomplete.vim'          " CSS completion
 Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
 Plug 'takac/vim-hardtime'              " Don't repeat yourself
 Plug 'KabbAmine/vCoolor.vim'           " Colour picker
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'                " Fuzzy finder
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -55,12 +56,6 @@ Plug 'jacoborus/tender'
 Plug 'endel/vim-github-colorscheme'
 Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
-
-" Old
-"Plug 'mkitt/tabline.vim'               " Show tabs vim
-"Plug 'bling/vim-airline'               " Good looking information bar
-"Plug 'bling/vim-bufferline'            " Buffers in airline
-
 call plug#end()
 
 " scrolling
@@ -72,8 +67,6 @@ set showcmd
 
 " Current line
 set cursorline
-
-"set statusline=%{LineNoIndicator()}
 
 " Hide ugly file name thing
 set laststatus=0
@@ -97,7 +90,6 @@ colorscheme Monokai
 
 " Line numbers
 set number
-"highlight LineNr guifg=#cccccc guibg=235
 highlight CursorLineNR guibg=NONE guifg=#ff5c57
 
 " Indentguide settings
@@ -126,11 +118,13 @@ nnoremap <Leader>x :x<CR>
 nnoremap <Leader>t :b#<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
 nnoremap <Leader>s :vertical resize 120<CR>
-nnoremap <Leader>f :CtrlP<CR>
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
 nnoremap <Leader>e :TagbarToggle<cr>
 map <Leader>n <plug>NERDTreeTabsToggle<CR>
+nnoremap <Leader>p :Files<cr>
+nnoremap <Leader>f :Lines<cr>
+nnoremap <Leader>/ :BLines<cr>
 
 
 " Commands and shortcuts
@@ -174,6 +168,12 @@ set backspace=2
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
+" Auto pairs settings
+let g:AutoPairsShortcutToggle = ''
+
+"vCoolor settings
+let g:vcoolor_map = '<M-z>'
+
 " HardTime settings
 let g:hardtime_default_on = 0
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
@@ -184,12 +184,6 @@ let g:list_of_disabled_keys = []
 
 set autoindent "Retain indentation on next line
 set smartindent "Turn on autoindenting of blocks
-
-" STOP USING ARROWS
-noremap <Up> <NOP>
-noremap <Down> <NOP>
-noremap <Left> <NOP>
-noremap <Right> <NOP>
 
 if has("unix")
     let s:uname = system("uname -s")
@@ -207,12 +201,15 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
+" nvim completion manager settings
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+
 " Java Abbrs
 abbr Sout System.out.println("
 abbr SOut System.out.print("
 abbr fori for(int i = 0, x = .length; i < x; i++)
 abbr psv public static void main(String[] args)
-
 
 " xkcd scroll through time instead of space
 "set mouse=a
