@@ -15,12 +15,12 @@ margin-bottom = 5
 [bar/mybar]
 monitor = ${env:MONITOR}
 dock = false
-;width = 98%
-width = 96%
-height = 48
-;height = 64
-offset-x = 2%
-;offset-x = 1%
+width = 98%
+;width = 96%
+;height = 48
+height = 64
+;offset-x = 2%
+offset-x = 1%
 offset-y = 1%
 
 ;background = ${xrdb:color9}
@@ -46,8 +46,8 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = DejaVu Sans Mono:size=12;0
-;font-0 = DejaVu Sans Mono:size=18;0
+;font-0 = DejaVu Sans Mono:size=12;0
+font-0 = DejaVu Sans Mono:size=18;0
 font-1 = FontAwesome:size=11:weight=Regular;0
 font-2 = siji:size=10;0
 font-3 = DejaVu Sans Mono For Powerline:size=10;0
@@ -176,8 +176,8 @@ label-underline = #4bffdc
 
 [module/wlan]
 type = internal/network
-interface = wlp2s0
-;interface = wlp3s0
+;interface = wlp2s0
+interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
@@ -197,8 +197,8 @@ ramp-signal-4 = 
 
 [module/eth]
 type = internal/network
-interface = enp0s31f6
-;interface = enp3s0
+;interface = enp0s31f6
+interface = enp3s0
 interval = 3.0
 
 format-connected-underline = #d60808

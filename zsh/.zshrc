@@ -23,7 +23,7 @@ alias :q=':wq'
 alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
 alias dockerStart='source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
 alias ack='ack-grep'
-alias msfconsole="./msfconsole --quiet -x \"db_connect ${USER}@msf\""
+alias msfconsole="./opt/metasploit/msfconsole --quiet -x \"db_connect ${USER}@msf\""
 alias p='xclip -o'
 #openFunction(){
     #xdg-open $1

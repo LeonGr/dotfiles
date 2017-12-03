@@ -141,6 +141,9 @@ let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
 
+let g:syntastic_checkers_vue = ['syntastic-checkers-vue', 'syntastic-vue-eslint', 'syntastic-vue-pug_lint_vue']
+"let g:syntastic-vue-pug_lint_vue = ['pug-lint-vue']
+
 " CtrlP settings
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
