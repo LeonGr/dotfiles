@@ -59,8 +59,13 @@
 "amixer set Master toggle"
    XF86AudioMute
 
-#Paste
-"xclip -o"
+#Screenshot
+"scrot -e 'mv $f ~/Pictures/Screenshots/'"
+    m:0x0 + c:107
+    Print 
+
+#Toggle Play/Pause
+"playerctl play-pause; SONG=$(playerctl metadata xesam:title); ALBUM=$(playerctl metadata xesam:albumArtist && printf ' - ' && playerctl metadata xesam:album); /usr/bin/notify-send -u low "$SONG" "$ALBUM""
     m:0x0 + c:135
     Menu 
 
