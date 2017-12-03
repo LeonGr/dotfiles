@@ -25,8 +25,8 @@ offset-y = 1%
 
 ;background = ${xrdb:color9}
 ;background = #0037383A
-background = #37383A
-foreground = #eff0eb
+background = #120207
+foreground = #BB1B46
 
 ;lineheight = 1
 ;linecolor = #555
@@ -38,7 +38,7 @@ underline-color = #00f
 border-bottom = 0
 border-bottom-color = #333
 border-top = 2
-border-top-color = #37383A
+border-top-color = #120207
 
 spacing = 1
 padding-left = 0
@@ -55,7 +55,8 @@ font-3 = DejaVu Sans Mono For Powerline:size=10;0
 modules-left = bspwm
 modules-center = xwindow playerctl
 ;modules-right = backlight volume memory cpu battery temperature date powermenu
-modules-right = eth wlan battery date volume
+;modules-right = eth wlan battery date volume
+modules-right = battery date volume
 
 tray-position = right
 tray-padding = 2
@@ -67,7 +68,7 @@ wm-restack = bspwm
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-underline = #d60808
+label-underline = #5881D5
 label-maxlen = 50
 
 
@@ -99,13 +100,13 @@ type = internal/bspwm
 label-active = %name%
 ;label-active-background = #e66a6a
 
-label-active-underline= #d60808
+label-active-underline= #5881D5
 
 label-active-padding = 2
 
 label-occupied = %name%
 label-occupied-padding = 2
-label-occupied-foreground = #eff0eb
+label-occupied-foreground = #BB1B46
 
 ;label-occupied-underline = #3eac63
 
@@ -181,7 +182,7 @@ interface = wlp2s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #d60808
+format-connected-underline = #5881D5
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %essid%
@@ -201,7 +202,7 @@ interface = enp0s31f6
 ;interface = enp3s0
 interval = 3.0
 
-format-connected-underline = #d60808
+format-connected-underline = #5881D5
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %{F#55}%{F#ff} %local_ip%
@@ -214,14 +215,14 @@ type = internal/date
 date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
 date-alt = %%{F#ff} %H:%M
 interval = 5
-format-underline = #d60808
+format-underline = #5881D5
 
 
 [module/volume]
 type = internal/volume
 
 format-volume = <ramp-volume> <bar-volume>
-format-volume-underline = #d60808
+format-volume-underline = #5881D5
 
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
@@ -230,11 +231,11 @@ label-muted =  volume off
 label-muted-foreground = #55
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #d60808
-bar-volume-foreground-1 = #d60808
-bar-volume-foreground-2 = #d60808
-bar-volume-foreground-3 = #d60808
-bar-volume-foreground-4 = #d60808
+bar-volume-foreground-0 = #5881D5
+bar-volume-foreground-1 = #5881D5
+bar-volume-foreground-2 = #5881D5
+bar-volume-foreground-3 = #5881D5
+bar-volume-foreground-4 = #5881D5
 bar-volume-foreground-5 = #f5a70a
 bar-volume-foreground-6 = #ff5555
 ramp-volume-0 = 
@@ -258,10 +259,10 @@ adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #d60808
+format-charging-underline = #5881D5
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
-format-full = %{F#ff}  <label-full>
+format-full = <ramp-capacity>  <label-full>
 format-full-underline = ${self.format-charging-underline}
 
 ramp-capacity-0 = 
