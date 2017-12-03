@@ -8,10 +8,14 @@ super + Return
 
 # program launcher
 super + space
-    rofi -show run -width 1000 -font "Dejavu Sans Mono 20"
-    #rofi -fake-transparency -opacity 90 -show run -width 600 -font "Dejavu Sans Mono 15"
+    rofi -show run -width 600 -font "Dejavu Sans Mono 15"
+    #rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
     #./bin/sparklauncher
     #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
+
+# calculator
+super + equal
+    = -width 600
 
 super + shift + space
     rofi -fake-transparency -opacity 90 -show

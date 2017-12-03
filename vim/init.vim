@@ -58,6 +58,7 @@ Plug 'jacoborus/tender'
 Plug 'endel/vim-github-colorscheme'
 Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
+Plug 'dylanaraps/wal.vim'
 call plug#end()
 
 " scrolling
@@ -89,6 +90,7 @@ syntax enable
 set t_Co=256
 set background=light
 colorscheme Monokai
+
 
 " Line numbers
 set number

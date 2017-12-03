@@ -33,7 +33,7 @@ alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
-alias vis='TERM=rxvt-256color vis'
+#alias vis='TERM=rxvt-256color vis'
 alias startPC='sudo ./toggle_dpm && startx'
 
 export CLICOLOR=1
@@ -52,7 +52,7 @@ prompt pure
 export PURE_PROMPT_SYMBOL="$"
 
 #cat ~/dotfiles/unix.txt
-cat ~/dotfiles/motd/arch.txt
+cat ~/dotfiles/motd/arch.txt #| lolcat -F 0.5
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm
