@@ -33,7 +33,7 @@ alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
-#alias vis='TERM=rxvt-256color vis'
+alias vis='TERM=rxvt-256color vis'
 alias startPC='sudo ./toggle_dpm && startx'
 
 export CLICOLOR=1
@@ -66,3 +66,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="/home/leon/anaconda3/bin:$PATH"
+
+(cat ~/.cache/wal/sequences &)
+
+# Import colorscheme from 'wal'
+(cat /home/leon/.cache/wal/sequences)

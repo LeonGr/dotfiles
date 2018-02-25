@@ -7,6 +7,12 @@
 ;
 ;=====================================================
 
+[colors]
+;foreground = #BB1B46
+foreground = ${xrdb:color3}
+background = ${xrdb:color0}
+underline = ${xrdb:color7}
+
 [global/wm]
 margin-top = 5
 margin-bottom = 5
@@ -15,19 +21,18 @@ margin-bottom = 5
 [bar/mybar]
 monitor = ${env:MONITOR}
 dock = false
-width = 98%
-;width = 96%
-;height = 48
-height = 64
-;offset-x = 2%
-offset-x = 1%
+;width = 98%
+width = 96%
+height = 48
+;height = 64
+offset-x = 2%
+;offset-x = 1%
 offset-y = 1%
 
 ;background = ${xrdb:color9}
 ;background = #0037383A
-background = #120207
-foreground = #BB1B46
-
+background = ${colors.background}
+foreground = ${colors.foreground}
 ;lineheight = 1
 ;linecolor = #555
 overline-size = 2
@@ -38,16 +43,15 @@ underline-color = #00f
 border-bottom = 0
 border-bottom-color = #333
 border-top = 2
-border-top-color = #120207
-
+border-top-color = ${colors.background}
 spacing = 1
 padding-left = 0
 padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-;font-0 = DejaVu Sans Mono:size=12;0
-font-0 = DejaVu Sans Mono:size=18;0
+font-0 = DejaVu Sans Mono:size=12;0
+;font-0 = DejaVu Sans Mono:size=18;0
 font-1 = FontAwesome:size=11:weight=Regular;0
 font-2 = siji:size=10;0
 font-3 = DejaVu Sans Mono For Powerline:size=10;0
@@ -68,7 +72,7 @@ wm-restack = bspwm
 [module/xwindow]
 type = internal/xwindow
 label = %title%
-label-underline = #5881D5
+label-underline = ${colors.underline}
 label-maxlen = 50
 
 
@@ -100,13 +104,13 @@ type = internal/bspwm
 label-active = %name%
 ;label-active-background = #e66a6a
 
-label-active-underline= #5881D5
+label-active-underline= ${colors.underline}
 
 label-active-padding = 2
 
 label-occupied = %name%
 label-occupied-padding = 2
-label-occupied-foreground = #BB1B46
+label-occupied-foreground = ${colors.foreground}
 
 ;label-occupied-underline = #3eac63
 
@@ -177,12 +181,12 @@ label-underline = #4bffdc
 
 [module/wlan]
 type = internal/network
-;interface = wlp2s0
-interface = wlp3s0
+interface = wlp2s0
+;interface = wlp3s0
 interval = 3.0
 
 format-connected = <ramp-signal> <label-connected>
-format-connected-underline = #5881D5
+format-connected-underline = ${colors.underline}
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %essid%
@@ -198,11 +202,11 @@ ramp-signal-4 = 
 
 [module/eth]
 type = internal/network
-;interface = enp0s31f6
-interface = enp3s0
+interface = enp0s31f6
+;interface = enp3s0
 interval = 3.0
 
-format-connected-underline = #5881D5
+format-connected-underline = ${colors.underline}
 format-disconnected-underline = ${self.format-connected-underline}
 
 label-connected = %{F#55}%{F#ff} %local_ip%
@@ -215,14 +219,14 @@ type = internal/date
 date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
 date-alt = %%{F#ff} %H:%M
 interval = 5
-format-underline = #5881D5
+format-underline = ${colors.underline}
 
 
 [module/volume]
 type = internal/volume
 
 format-volume = <ramp-volume> <bar-volume>
-format-volume-underline = #5881D5
+format-volume-underline = ${colors.underline}
 
 label-volume = VOL
 label-volume-foreground = ${root.foreground}
@@ -231,13 +235,13 @@ label-muted =  volume off
 label-muted-foreground = #55
 
 bar-volume-width = 10
-bar-volume-foreground-0 = #5881D5
-bar-volume-foreground-1 = #5881D5
-bar-volume-foreground-2 = #5881D5
-bar-volume-foreground-3 = #5881D5
-bar-volume-foreground-4 = #5881D5
-bar-volume-foreground-5 = #f5a70a
-bar-volume-foreground-6 = #ff5555
+bar-volume-foreground-0 = ${colors.underline}
+bar-volume-foreground-1 = ${colors.underline}
+bar-volume-foreground-2 = ${colors.underline}
+bar-volume-foreground-3 = ${colors.underline}
+bar-volume-foreground-4 = ${colors.underline}
+bar-volume-foreground-5 = ${colors.underline}
+bar-volume-foreground-6 = ${colors.underline}
 ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
@@ -259,7 +263,7 @@ adapter = ADP1
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>
-format-charging-underline = #5881D5
+format-charging-underline = ${colors.underline}
 format-discharging = <ramp-capacity> <label-discharging>
 format-discharging-underline = ${self.format-charging-underline}
 format-full = <ramp-capacity>  <label-full>

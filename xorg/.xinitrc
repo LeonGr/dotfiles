@@ -47,4 +47,5 @@ xbindkeys &
 sxhkd &
 urxvt &
 xrandr --output DisplayPort-0 --auto --output DVI-D-0 --auto --panning 3840x2160+3840+0 --scale 2x2 --right-of DisplayPort-0 &
+wal -R &
 exec bspwm
