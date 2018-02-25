@@ -66,3 +66,10 @@ export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswi
 export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+export PATH="/home/leon/anaconda3/bin:$PATH"
+
+(cat ~/.cache/wal/sequences &)
+
+# Import colorscheme from 'wal'
+(cat /home/leon/.cache/wal/sequences)

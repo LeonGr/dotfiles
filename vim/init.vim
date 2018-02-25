@@ -75,7 +75,7 @@ set cursorline
 set laststatus=0
 
 " Show substitute in real time
-" set inccommand=nosplit
+set inccommand=nosplit
 
 " Color configurations
 if (has("termguicolors"))
@@ -89,7 +89,7 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 syntax enable
 set t_Co=256
 set background=light
-colorscheme Monokai
+colorscheme molokai
 
 
 " Line numbers
@@ -142,9 +142,6 @@ let g:syntastic_always_populate_loc_list = 1
 let g:syntastic_auto_loc_list = 1
 let g:syntastic_check_on_open = 1
 let g:syntastic_check_on_wq = 0
-
-let g:syntastic_checkers_vue = ['syntastic-checkers-vue', 'syntastic-vue-eslint', 'syntastic-vue-pug_lint_vue']
-"let g:syntastic-vue-pug_lint_vue = ['pug-lint-vue']
 
 " CtrlP settings
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
@@ -222,3 +219,6 @@ abbr psv public static void main(String[] args)
 "set mouse=a
 "nnoremap <ScrollWheelUp> u
 "nnoremap <ScrollWheelDown> <C-R>
+
+
+autocmd FileType vue syntax sync fromstart
