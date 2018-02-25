@@ -75,7 +75,7 @@ set cursorline
 set laststatus=0
 
 " Show substitute in real time
-set inccommand=nosplit
+" set inccommand=nosplit
 
 " Color configurations
 if (has("termguicolors"))
@@ -94,7 +94,7 @@ colorscheme Monokai
 
 " Line numbers
 set number
-highlight CursorLineNR guibg=NONE guifg=#ff5c57
+highlight CursorLineNR guibg=NONE guifg=#BB1B46
 
 " Indentguide settings
 set ts=4 sw=4 et
