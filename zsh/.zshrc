@@ -20,21 +20,33 @@ alias pythonserver='python -m "SimpleHTTPServer"'
 alias py='python'
 alias :wq='exit'
 alias :q=':wq'
-alias whatsapp='cd /home/leon/.config/UnofficialWhatsApp && rm -r Application\ Cache && rm -r Cache'
-alias dockerStart='source /Applications/Docker/Docker\ Quickstart\ Terminal.app/Contents/Resources/Scripts/start.sh'
 alias ack='ack-grep'
 alias msfconsole="./opt/metasploit/msfconsole --quiet -x \"db_connect ${USER}@msf\""
 alias p='xclip -o'
-#openFunction(){
-    #xdg-open $1
-    #sleep 1
-#}
-#alias open=openFunction
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias vis='TERM=rxvt-256color vis'
-alias startPC='sudo ./toggle_dpm && startx'
+
+alias status='sudo systemctl status'
+alias stop='sudo systemctl stop'
+alias start='sudo systemctl start'
+alias restart='sudo systemctl restart'
+
+# ls -> exa
+alias ls='exa'
+alias ll='exa -l'
+alias la='exa -la'
+alias lt='exa -T'
+alias lr='exa -R'
+alias lat='exa -laT'
+alias lar='exa -laR'
+
+function getip {
+     host $1 | awk '{print $4}' | sed -n '1p';
+}
+
+export getip
 
 export CLICOLOR=1
 export TERM=xterm-256color
@@ -49,10 +61,11 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 autoload -U promptinit; promptinit
 prompt pure
-export PURE_PROMPT_SYMBOL="$"
+export PURE_PROMPT_SYMBOL="❯"
 
 #cat ~/dotfiles/unix.txt
-cat ~/dotfiles/motd/arch.txt #| lolcat -F 0.5
+#cat ~/dotfiles/motd/arch.txt #| lolcat -F 0.5
+cat ~/dotfiles/motd/aperture.txt
 
 export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
 source ~/.rvm/scripts/rvm
@@ -71,3 +84,15 @@ export PATH="/home/leon/anaconda3/bin:$PATH"
 
 # Import colorscheme from 'wal'
 (cat /home/leon/.cache/wal/sequences)
+
+# Give man colors
+export MANROFFOPT='-c'
+export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
+export LESS_TERMCAP_md=$(tput bold; tput setaf 6)
+export LESS_TERMCAP_me=$(tput sgr0)
+export LESS_TERMCAP_so=$(tput bold; tput setaf 3; tput setab 4)
+export LESS_TERMCAP_se=$(tput rmso; tput sgr0)
+export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
+export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
+export LESS_TERMCAP_mr=$(tput rev)
+export LESS_TERMCAP_mh=$(tput dim)

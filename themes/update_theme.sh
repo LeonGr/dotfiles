@@ -1,7 +1,6 @@
 #!/bin/bash
 
 {
-
 (wal -i $1)
 
 (sh ~/dotfiles/bspwm/bspwmrc)

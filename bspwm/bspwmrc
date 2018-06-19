@@ -34,9 +34,10 @@ bspc config focused_border_color "$color2"
 bspc config presel_border_color "$color1"
 
 #bspc monitor -d      
-bspc monitor -d 1 2 3 4 5
+bspc monitor -d 1 2 3 4 5 6 7 8 9 0
 
 bspc rule -a '*:yad' state=floating
+bspc rule -a 'feh' state=floating
 #bspc rule -a java state=floating
 
 #feh --bg-scale ~/Pictures/Backgrounds/firewatch.jpg &
