@@ -61,8 +61,6 @@ PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
 LD_LIBRARY_PATH=/usr/local/lib
 export LD_LIBRARY_PATH
 
-export _JAVA_OPTIONS='-Dawt.useSystemAAFontSettings=on -Dswing.aatext=true -Dswing.defaultlaf=com.sun.java.swing.plaf.gtk.GTKLookAndFeel'
-
 export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
