@@ -1,7 +1,7 @@
 set nocompatible " be iMproved, required
 filetype off     " required
 
-" Plugins YOU'RE USING VIMPLUG YOU DUMBASS
+" Plugins YOU'RE USING VIMPLUG
 call plug#begin()
 
 "Tweaks
@@ -32,6 +32,7 @@ Plug 'takac/vim-hardtime'              " Don't repeat yourself
 Plug 'KabbAmine/vCoolor.vim'           " Colour picker
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 Plug 'junegunn/fzf.vim'                " Fuzzy finder
+Plug 'yaroot/vissort'                  " Sort by visual block
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
@@ -42,6 +43,7 @@ Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
 Plug 'scrooloose/syntastic'            " Syntax checker
 Plug 'keith/swift.vim'                 " Swift syntax and indent styles
 Plug 'posva/vim-vue'                   " Vue syntax
+Plug 'leafgarland/typescript-vim'      " TypeScript support
 
 
 " Themes
@@ -59,6 +61,7 @@ Plug 'endel/vim-github-colorscheme'
 Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
 Plug 'dylanaraps/wal.vim'
+Plug 'chriskempson/base16-vim'
 call plug#end()
 
 " scrolling
@@ -89,6 +92,9 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 syntax enable
 set t_Co=256
 set background=light
+" base16-ashes base16-aterlier-plateau base16-atelier-sulphurpool
+" base16-atelier-cave base16-brewer base16-circus base16-grayscale-dark
+" base16-icy base16-material-darker
 colorscheme molokai
 
 
@@ -173,7 +179,7 @@ set backspace=2
 let g:nerdtree_tabs_open_on_gui_startup = 0
 
 " Auto pairs settings
-let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutToggle = '<M-p>'
 
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
@@ -220,5 +226,6 @@ abbr psv public static void main(String[] args)
 "nnoremap <ScrollWheelUp> u
 "nnoremap <ScrollWheelDown> <C-R>
 
+let g:syntastic_mode_map = { 'passive_filetypes': ['asm', 'python'] }
 
 autocmd FileType vue syntax sync fromstart
