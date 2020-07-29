@@ -60,7 +60,8 @@ modules-left = bspwm
 modules-center = xwindow
 ;modules-right = backlight volume memory cpu battery temperature date powermenu
 ;modules-right = eth wlan battery date volume
-modules-right = wired-network battery date pulseaudio
+modules-right = wired-network date pulseaudio
+;modules-right = filesystem battery date volume
 
 tray-position = right
 tray-padding = 2
@@ -85,13 +86,15 @@ type = internal/fs
 interval = 25
 
 mount-0 = /
-mount-1 = /home
-mount-2 = /invalid/mountpoint
+;mount-1 = /home
+;mount-2 = /invalid/mountpoint
 
-label-mounted = %mountpoint%: %percentage_free%
+label-mounted = %mountpoint%: %percentage_used%%
 
 label-unmounted = %mountpoint%: not mounted
 label-unmounted-foreground = #55
+
+label-mounted-underline = ${colors.underline}
 
 
 
@@ -263,7 +266,7 @@ bar-volume-empty-foreground = #55
 [module/battery]
 type = internal/battery
 battery = BAT0
-adapter = ADP1
+adapter = AC
 full-at = 98
 
 format-charging = <animation-charging> <label-charging>

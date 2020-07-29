@@ -24,10 +24,19 @@ Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
 Plug 'majutsushi/tagbar'               " Show tags
-Plug 'roxma/nvim-completion-manager'   " Completion
+"Plug 'roxma/nvim-completion-manager'  " Completion
+Plug 'roxma/ncm2'                      " Completion
+    Plug 'roxma/nvim-yarp'                 " requirement ncm2
+    Plug 'ncm2/ncm2-bufword'               " ncm2 word in buffer completion
+    Plug 'ncm2/ncm2-path'                  " ncm2 path completion
+    Plug 'ncm2/ncm2-jedi'                  " ncm2 Python completion
+    Plug 'ncm2/ncm2-pyclang'               " ncm2 C/C++ completion
+    Plug 'ncm2/ncm2-cssomni'               " ncm2 CSS completion
+    Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " ncm2 JavaScript Completion
+Plug 'gaalcaras/ncm-R'                 " R completion
 Plug 'davidhalter/jedi-vim'            " Python completion
 Plug 'othree/csscomplete.vim'          " CSS completion
-Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
+"Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
 Plug 'takac/vim-hardtime'              " Don't repeat yourself
 Plug 'KabbAmine/vCoolor.vim'           " Colour picker
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -44,7 +53,8 @@ Plug 'scrooloose/syntastic'            " Syntax checker
 Plug 'keith/swift.vim'                 " Swift syntax and indent styles
 Plug 'posva/vim-vue'                   " Vue syntax
 Plug 'leafgarland/typescript-vim'      " TypeScript support
-
+Plug 'jalvesaq/nvim-r'                 " R support
+Plug 'chrisbra/csv.vim'                " Browse csv files
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -90,17 +100,20 @@ let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
 
 " Color settings
 syntax enable
-set t_Co=256
-set background=light
-" base16-ashes base16-aterlier-plateau base16-atelier-sulphurpool
-" base16-atelier-cave base16-brewer base16-circus base16-grayscale-dark
-" base16-icy base16-material-darker
+syntax on
+"set t_Co=256
 colorscheme molokai
+" cthulhian preto molokai
+"set background=dark
+
+" Make line nr and background fit terminal background
+hi Normal guibg=NONE ctermbg=NONE
+hi LineNr guibg=NONE
 
 
 " Line numbers
 set number
-highlight CursorLineNR guibg=NONE guifg=#BB1B46
+highlight CursorLineNR guibg=NONE guifg=NONE
 
 " Indentguide settings
 set ts=4 sw=4 et
@@ -115,9 +128,10 @@ hi IndentGuidesEven guibg=#CCCCCC
 let g:indent_guides_color_change_percent = 50
 
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-let g:qs_second_occurrence_highlight_color = '#57c7ff'
-let g:qs_first_occurrence_highlight_color = '#5af78e'
-
+"let g:qs_first_occurrence_highlight_color = '#5af78e'
+"let g:qs_second_occurrence_highlight_color = '#57c7ff'
+highlight QuickScopePrimary guifg='#5af78e' gui=underline
+highlight QuickScopeSecondary guifg='#57c7ff' gui=underline
 
 " Leader commands
 let mapleader = "\<Space>"
@@ -141,7 +155,7 @@ nnoremap <Leader>/ :BLines<cr>
 inoremap jk <ESC>
 inoremap jj <ESC>
 
-map w!! :w !sudo tee %<CR>
+" map w!! :w !sudo tee %<CR>
 
 " Syntastic settings
 let g:syntastic_always_populate_loc_list = 1
@@ -211,15 +225,37 @@ autocmd BufWritePre * :%s/\s\+$//e
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" nvim completion manager settings
+" ncm2 settings
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Java Abbrs
-abbr Sout System.out.println("
-abbr SOut System.out.print("
-abbr fori for(int i = 0, x = .length; i < x; i++)
-abbr psv public static void main(String[] args)
+" enable ncm2 for all buffers
+autocmd BufEnter * call ncm2#enable_for_buffer()
+
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+" ncm2 path to libclang
+let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+
+
+function JavaAbbrs()
+    " Java Abbrs
+    abbr Sout System.out.println("
+    abbr SOut System.out.print("
+    abbr fori for(int i = 0, x = .length; i < x; i++)
+    abbr psv public static void main(String[] args)
+endfunction
+
+function JsAbbrs()
+    " Java Abbrs
+    abbr fori for(let i = 0, x = .length; i < x; i++)
+    abbr clog console.log
+endfunction
+
+autocmd FileType java call JavaAbbrs()
+autocmd FileType vue call JsAbbrs()
+autocmd FileType javascript call JsAbbrs()
 
 " xkcd scroll through time instead of space
 "set mouse=a
@@ -229,3 +265,16 @@ abbr psv public static void main(String[] args)
 let g:syntastic_mode_map = { 'passive_filetypes': ['asm', 'python'] }
 
 autocmd FileType vue syntax sync fromstart
+
+" settings :: Nvim-R plugin
+" R output is highlighted with current colorscheme
+let g:rout_follow_colorscheme = 1
+
+" R commands in R output are highlighted
+let g:Rout_more_colors = 1
+
+let R_in_buffer = 0
+let R_applescript = 0
+"let R_tmux_split = 1
+
+let R_source = '~/.config/nvim/plugged/nvim-r/R/tmux_split.vim'
