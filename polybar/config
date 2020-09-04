@@ -20,7 +20,8 @@ margin-bottom = 5
 
 [bar/mybar]
 monitor = ${env:MONITOR}
-dock = false
+;monitor-fallback =
+override-redirect = false
 width = 98%
 ;width = 96%
 ;height = 48
@@ -40,9 +41,9 @@ overline-color = #f00
 underline-size = 4
 underline-color = #00f
 
-border-bottom = 0
+border-bottom-size = 0
 border-bottom-color = #333
-border-top = 2
+border-top-size = 2
 border-top-color = ${colors.background}
 spacing = 1
 padding-left = 0
@@ -50,17 +51,19 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
+font-0 = Inconsolata:bold:size=18;1.5
 ;font-0 = DejaVu Sans Mono:size=12;0
-font-0 = DejaVu Sans Mono:size=18;0
+;font-0 = DejaVu Sans Mono:size=18;0
 font-1 = FontAwesome:size=11:weight=Regular;0
-font-2 = siji:size=10;0
-font-3 = DejaVu Sans Mono For Powerline:size=10;0
+font-2 = TerminessTTF Nerd Font Mono:size=30;2
+;font-2 = siji:size=10;0
+;font-3 = DejaVu Sans Mono For Powerline:size=10;0
 
 modules-left = bspwm
 modules-center = xwindow
 ;modules-right = backlight volume memory cpu battery temperature date powermenu
 ;modules-right = eth wlan battery date volume
-modules-right = wired-network date pulseaudio
+modules-right = network sep date sep pulseaudio
 ;modules-right = filesystem battery date volume
 
 tray-position = right
@@ -70,9 +73,13 @@ tray-padding = 2
 
 wm-restack = bspwm
 
-[module/wired-network]
-type=internal/network
+[module/network]
+type = internal/network
 interface = enp3s0
+format-connected-prefix = " "
+format-connected-underline = ${colors.underline}
+format-disconnected-underline = ${self.format-connected-underline}
+format-disconnected-prefix = " "
 
 [module/xwindow]
 type = internal/xwindow
@@ -207,26 +214,25 @@ ramp-signal-3 = 
 ramp-signal-4 = 
 
 
-[module/eth]
-type = internal/network
-;interface = enp0s31f6
-interface = enp3s0
-interval = 3.0
-
-format-connected-underline = ${colors.underline}
-format-disconnected-underline = ${self.format-connected-underline}
-
-label-connected = %{F#55}%{F#ff} %local_ip%
-label-disconnected =  %ifname%
-label-disconnected-foreground = #55
-
-
+;[module/date]
+;type = internal/date
+;date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
+;date-alt = %%{F#ff} %H:%M
+;interval = 5
+;format-underline = ${colors.underline}
 [module/date]
 type = internal/date
-date = %%{F#55}%%{F#ff} %d-%m-%Y %H:%M
-date-alt = %%{F#ff} %H:%M
 interval = 5
+
+date =
+date-alt = "%Y-%m-%d"
+
+time = " %a %b %d   %H:%M"
+time-alt = %H:%M:%S
+
 format-underline = ${colors.underline}
+
+label = %date% %time%
 
 
 [module/pulseaudio]
@@ -336,3 +342,12 @@ menu-2-1 = cancel
 menu-2-1-exec = menu-open-0
 
 ; vim:ft=dosini
+
+[module/decor-glyph]
+type = custom/text
+content-foreground = ${colors.underline}
+margin = 0
+
+[module/sep]
+inherit = module/decor-glyph
+content = "/"
