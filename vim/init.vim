@@ -1,5 +1,5 @@
 set nocompatible " be iMproved, required
-filetype off     " required
+"filetype off     " required
 
 " Vim-Plug
 call plug#begin()
@@ -24,25 +24,32 @@ Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
 "Plug 'majutsushi/tagbar'               " Show tags
-Plug 'roxma/ncm2'                      " Completion
-    Plug 'roxma/nvim-yarp'                        " requirement ncm2
-    Plug 'gaalcaras/ncm-R'                        " ncm2 R completion
-    Plug 'ncm2/ncm2-bufword'                      " ncm2 word in buffer completion
-    Plug 'ncm2/ncm2-path'                         " ncm2 path completion
-    Plug 'ncm2/ncm2-jedi'                         " ncm2 Python completion
-    Plug 'ncm2/ncm2-pyclang'                      " ncm2 C/C++ completion
-    Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
-    Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " ncm2 JavaScript Completion
-    Plug 'ncm2/ncm2-racer'                        " ncm2 Rust completion
-    Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
-    Plug 'autozimu/LanguageClient-Neovim', {'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol support
+" Plug 'roxma/ncm2'                      " Completion
+"     Plug 'roxma/nvim-yarp'                        " requirement ncm2
+"     Plug 'gaalcaras/ncm-R'                        " ncm2 R completion
+"     Plug 'ncm2/ncm2-bufword'                      " ncm2 word in buffer completion
+"     Plug 'ncm2/ncm2-path'                         " ncm2 path completion
+"     Plug 'ncm2/ncm2-jedi'                         " ncm2 Python completion
+"     Plug 'ncm2/ncm2-pyclang'                      " ncm2 C/C++ completion
+"     Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
+"     Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " ncm2 JavaScript Completion
+"     Plug 'ncm2/ncm2-racer'                        " ncm2 Rust completion
+"     Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
+"     Plug 'autozimu/LanguageClient-Neovim', {'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol support
+"
+"     " based on ultisnips
+"     Plug 'ncm2/ncm2-ultisnips'         " ncm2 ultisnips integration
+"     Plug 'SirVer/ultisnips'            " Snippets engine
+"     Plug 'honza/vim-snippets'          " Snippets themselves
 
-    " based on ultisnips
-    Plug 'ncm2/ncm2-ultisnips'         " ncm2 ultisnips integration
-    Plug 'SirVer/ultisnips'            " Snippets engine
-    Plug 'honza/vim-snippets'          " Snippets themselves
+" neovim LSP plugins
+Plug 'neovim/nvim-lspconfig'             " Collection of common configs for neovim LSP client
+    Plug 'tjdevries/lsp_extensions.nvim' " Extensions to built-in LSP, for example, providing type inlay hints
+    Plug 'nvim-lua/completion-nvim'      " Autocompletion framework for built-in LSP
+    Plug 'nvim-lua/diagnostic-nvim'      " Diagnostic navigation and settings for built-in LSP
+
 "Plug 'davidhalter/jedi-vim'            " Python completion
-Plug 'othree/csscomplete.vim'          " CSS completion
+"Plug 'othree/csscomplete.vim'          " CSS completion
 Plug 'KabbAmine/vCoolor.vim'           " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                  " Sort by visual block
 Plug 'dense-analysis/ale'              " Async Lint Engine
@@ -104,6 +111,9 @@ endif
 
 " Enable true color in neovim
 let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+
+" Enable file type identification, plugin and indenting
+filetype plugin indent on
 
 " Color settings
 syntax enable
@@ -210,48 +220,128 @@ set list listchars=tab:»·,trail:-
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" ncm2 settings
+" Completion settings
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
+" Change background color popup menu
+hi Pmenu ctermbg=gray guibg=#202020
+
 " enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+"autocmd BufEnter * call ncm2#enable_for_buffer()
 
 " IMPORTANT: :help Ncm2PopupOpen for more information
+" Set completeopt to have a better completion experience
+" :help completeopt
+" menuone: popup even when there's only one match
+" noinsert: Do not insert text until a selection is made
+" noselect: Do not select, force user to select one from the menu
 set completeopt=noinsert,menuone,noselect
 
 " ncm2 path to libclang
-let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+"let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
 
 " set ultisnips/snippets expansion key
-let g:UltiSnipsExpandTrigger       = "<c-s>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+"let g:UltiSnipsExpandTrigger       = "<c-s>"
+"let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+"let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 "autocmd BufNewFile,BufRead * inoremap <silent> <buffer> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " LSP settings
-let g:LanguageClient_serverCommands = {
-            \ 'rust'    : ['rust-analyzer'],
-            \ 'haskell' : ['haskell-language-server-wrapper', '--lsp'],
-            \ }
+lua <<EOF
 
-function LC_maps()
-    if has_key(g:LanguageClient_serverCommands, &filetype)
-        "nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-        "nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        "nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-        nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-        map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
-        map <Leader>ld :call LanguageClient#textDocument_definition()<CR>
-        map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-        map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-        map <Leader>lb :call LanguageClient#textDocument_references()<CR>
-        map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
-        map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-    endif
-endfunction
+-- nvim_lsp object
+local nvim_lsp = require'nvim_lsp'
 
-autocmd FileType * call LC_maps()
+-- function to attach completion and diagnostics
+-- when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+    require'diagnostic'.on_attach(client)
+end
+
+-- Enable rust_analyzer (Rust)
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+-- Enable hls (Haskell)
+nvim_lsp.hls.setup({ on_attach=on_attach })
+-- Enable jedi (Python)
+nvim_lsp.jedi_language_server.setup({ on_attach=on_attach })
+-- Enable vscode language servers (HTML, CSS, JSON)
+nvim_lsp.cssls.setup({ on_attach=on_attach })
+nvim_lsp.html.setup({ on_attach=on_attach })
+nvim_lsp.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+-- Enable flow (JavaScript)
+nvim_lsp.flow.setup({ on_attach=on_attach })
+
+EOF
+
+
+" LSP mappings
+" Jump to definition
+nnoremap <silent> gk    <cmd>lua vim.lsp.buf.definition()       <CR>
+" Displays hover information in floating window
+nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()            <CR>
+" Lists implementations in quickfix window
+nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()   <CR>
+" Displays signature information in floating window
+nnoremap <silent> gs    <cmd>lua vim.lsp.buf.signature_help()   <CR>
+" Jump to definition of type
+nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()  <CR>
+" Lists all the references in quickfix window
+nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()       <CR>
+" Lists all symbols current buffer in quickfix window
+nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()  <CR>
+" Lists all symbols current workspace in quickfix window
+nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol() <CR>
+" Jump to declaration
+nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()      <CR>
+" Selects a code action from input list available
+nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()      <CR>
+" Goto previous/next diagnostic warning/error
+nnoremap <silent> gk    <cmd>PrevDiagnosticCycle                <CR>
+nnoremap <silent> gj    <cmd>NextDiagnosticCycle                <CR>
+
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
+" Visualize diagnostics
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_trimmed_virtual_text = '0' " Don't show message inline, only diagnostic type
+" Don't show diagnostics while in insert mode
+let g:diagnostic_insert_delay = 1
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" Show diagnostic popup on cursor hold
+autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
+
+"let g:LanguageClient_serverCommands = {
+            "\ 'rust'    : ['rust-analyzer'],
+            "\ 'haskell' : ['haskell-language-server-wrapper', '--lsp'],
+            "\ }
+
+"function LC_maps()
+    "if has_key(g:LanguageClient_serverCommands, &filetype)
+        ""nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
+        ""nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
+        ""nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+        "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+        "map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
+        "map <Leader>ld :call LanguageClient#textDocument_definition()<CR>
+        "map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
+        "map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
+        "map <Leader>lb :call LanguageClient#textDocument_references()<CR>
+        "map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
+        "map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
+    "endif
+"endfunction
+
+"autocmd FileType * call LC_maps()
 
 " ALE - Asynchronous Linter Engine settings
 
