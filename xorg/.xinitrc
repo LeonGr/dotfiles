@@ -1,4 +1,8 @@
 #!/bin/sh
+hdmiMonitor=$(xrandr | grep "HDMI-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+displayportMonitor=$(xrandr | grep "DP-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+
+xrandr --output $displayportMonitor --auto --primary --output $hdmiMonitor --auto --right-of $displayportMonitor
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -9,7 +13,6 @@ sysmodmap=/etc/X11/xinit/.Xmodmap
 
 if [ -f $sysresources ]; then
     xrdb -merge $sysresources
-
 fi
 
 if [ -f $sysmodmap ]; then
@@ -17,15 +20,7 @@ if [ -f $sysmodmap ]; then
 fi
 
 if [ -f "$userresources" ]; then
-
-
-
-
-
-
-
     xrdb -merge "$userresources"
-
 fi
 
 if [ -f "$usermodmap" ]; then
@@ -46,6 +41,6 @@ setxkbmap -option caps:escape &
 xbindkeys &
 sxhkd &
 urxvt &
-xrandr --output DisplayPort-0 --auto --output DVI-D-0 --auto --panning 3840x2160+3840+0 --scale 2x2 --right-of DisplayPort-0 &
 wal -R &
+picom --config ~/dotfiles/others/picom.conf &
 exec bspwm
