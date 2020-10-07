@@ -1,10 +1,10 @@
 #include </home/leon/.termcolors/mikasa>
 
 
-!Xft.dpi:                        163
-Xft.dpi:                        96
+Xft.dpi:                        163
+!Xft.dpi:                        92
 URxvt*termName:                 rxvt-256color
-URxvt*font: xft:DejaVu Sans Mono:size=12:antialias=true,xft:Inconsolata\ for\ Powerline:size=12,xft:Font\ Awesome:size=12,xft:DejaVu Sans Mono For Powerline:size=12
+URxvt*font: xft:DejaVu\ Sans\ Mono:size=12:antialias=true, xft:Inconsolata\ for\ Powerline:size=12, xft:TerminessTTF\ Nerd\ Font\ Mono:size=18, xft:DejaVu\ Sans\ Mono\ For\ Powerline:size=12
 URxvt.depth:                    32
 URxvt*lineSpace:                1
 URxvt.letterSpace:              -1
@@ -40,7 +40,7 @@ URxvt.clipboard.autocopy:       true
 *color5:      mag
 *color13:     mag
 *color6:      cyn
-*color14:     #C40046
+*color14:     #C40046 !why is this hex?
 *color7:      wht
 *color15:     wht
 
