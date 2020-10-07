@@ -6,12 +6,10 @@ call plug#begin()
 
 "Tweaks
 Plug 'tpope/vim-surround'              " Wrap text easily
-"Plug 'vim-airline/vim-airline-themes'  " More themes for airline
 Plug 'mattn/emmet-vim'                 " html autocomplete
 Plug 'scrooloose/nerdtree'             " File browser in vim
 Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
-"Plug 'kien/ctrlp.vim'                  " Great file browser
 Plug 'tpope/vim-obsession'             " Save vim sessions
 Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
 Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
@@ -19,11 +17,9 @@ Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                " Repeat more than one command
 Plug 'godlygeek/tabular'               " Easy text align
 Plug 'tpope/vim-endwise'               " Auto close stuff
-"Plug 'rking/ag.vim'                    " Search through files and directories
 Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
-"Plug 'majutsushi/tagbar'               " Show tags
 " Plug 'roxma/ncm2'                      " Completion
 "     Plug 'roxma/nvim-yarp'                        " requirement ncm2
 "     Plug 'gaalcaras/ncm-R'                        " ncm2 R completion
@@ -39,30 +35,27 @@ Plug 'jiangmiao/auto-pairs'            " Auto pairs
 "
 "     " based on ultisnips
 "     Plug 'ncm2/ncm2-ultisnips'         " ncm2 ultisnips integration
-"     Plug 'SirVer/ultisnips'            " Snippets engine
-"     Plug 'honza/vim-snippets'          " Snippets themselves
+     Plug 'SirVer/ultisnips'            " Snippets engine
+     Plug 'honza/vim-snippets'          " Snippets themselves
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'             " Collection of common configs for neovim LSP client
-    Plug 'tjdevries/lsp_extensions.nvim' " Extensions to built-in LSP, for example, providing type inlay hints
+    Plug 'nvim-lua/lsp_extensions.nvim'  " Extensions to built-in LSP, for example, providing type inlay hints
     Plug 'nvim-lua/completion-nvim'      " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/diagnostic-nvim'      " Diagnostic navigation and settings for built-in LSP
+    Plug 'steelsojka/completion-buffers' " Buffer completion source
 
-"Plug 'davidhalter/jedi-vim'            " Python completion
-"Plug 'othree/csscomplete.vim'          " CSS completion
+Plug 'dense-analysis/ale'              " Async Lint Engine
 Plug 'KabbAmine/vCoolor.vim'           " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                  " Sort by visual block
-Plug 'dense-analysis/ale'              " Async Lint Engine
 Plug 'junegunn/fzf.vim'                " Fuzzy finder
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
 
 " Syntax specific
 Plug 'pangloss/vim-javascript'         " Javascript support
 Plug 'ap/vim-css-color'                " Show css colors in files
-"Plug 'digitaltoad/vim-jade'            " Jade support
 Plug 'cakebaker/scss-syntax.vim'       " SCSS support
 Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
-"Plug 'scrooloose/syntastic'            " Syntax checker
 Plug 'keith/swift.vim'                 " Swift syntax and indent styles
 Plug 'posva/vim-vue'                   " Vue syntax
 Plug 'leafgarland/typescript-vim'      " TypeScript support
@@ -98,9 +91,6 @@ set showcmd
 " Highlight current line
 set cursorline
 
-" Hide file name
-set laststatus=0
-
 " Show substitute in real time
 set inccommand=nosplit
 
@@ -120,16 +110,33 @@ syntax enable
 syntax on
 "set t_Co=256
 colorscheme molokai
-" cthulhian preto molokai
-"set background=dark
 
 " Make line nr and background fit terminal background
 hi Normal guibg=NONE ctermbg=NONE
 hi LineNr guibg=NONE
 
+" Hide(0)/Only for more than 1 window(1)/Show(2) statusline
+set laststatus=1
+
+" Statusline for when it is visible
+set statusline=%{StatuslineGit()}\ %F\ %=%l,%c\ \ %p%%
+highlight StatusLine guifg=black guibg=#444444
+
+function! GitBranch()
+  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+function! StatuslineGit()
+  let l:branchname = GitBranch()
+  return strlen(l:branchname) > 0 ? '  '.l:branchname.' ' : ''
+endfunction
+
 " Line numbers
 set number
 highlight CursorLineNR guibg=NONE guifg=NONE
+
+" SideLine
+set signcolumn=yes
+highlight SignColumn guibg=NONE gui=bold
 
 " Stop automatic new line of comment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -155,35 +162,25 @@ set backspace=2
 " Leader commands
 let mapleader = "\<Space>"
 
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q!<CR>
-nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t :b#<CR>
-vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
-nnoremap <Leader>s :vertical resize 120<CR>
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <Leader>p :Files<CR>
-nnoremap <Leader>f :Lines<CR>
-nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>v :call TrimWhiteSpace()<CR>
+nnoremap <Leader>w :w                       <CR>
+nnoremap <Leader>q :q!                      <CR>
+nnoremap <Leader>x :x                       <CR>
+nnoremap <Leader>t :b#                      <CR>
+vnoremap <Leader>c :'<,'>w !pbcopy          <CR>  <CR>
+nnoremap <Leader>s :vertical resize 120     <CR>
+nnoremap <Leader>p :Files                   <CR>
+nnoremap <Leader>f :Lines                   <CR>
+nnoremap <Leader>/ :BLines                  <CR>
+nnoremap <Leader>v :call TrimWhiteSpace()   <CR>
+     map <Leader>n <plug>NERDTreeTabsToggle <CR>
 
 " Removes trailing spaces
 function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
-
-" Syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" CtrlP settings
-"set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
-"let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
@@ -211,9 +208,6 @@ set autoindent
 "Turn on autoindenting of blocks
 set smartindent
 
-" Clear trailing whitespace in selected file types on save
-"autocmd BufWritePre * :%s/\s\+$//e
-
 " Show trailing whitespace
 set list listchars=tab:»·,trail:-
 
@@ -224,13 +218,12 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 
-" Change background color popup menu
-hi Pmenu ctermbg=gray guibg=#202020
+" Change color popup menu
+hi Pmenu ctermbg=gray guibg=#202020 " guifg=#FFFFFF
 
 " enable ncm2 for all buffers
 "autocmd BufEnter * call ncm2#enable_for_buffer()
 
-" IMPORTANT: :help Ncm2PopupOpen for more information
 " Set completeopt to have a better completion experience
 " :help completeopt
 " menuone: popup even when there's only one match
@@ -262,16 +255,30 @@ end
 
 -- Enable rust_analyzer (Rust)
 nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+
 -- Enable hls (Haskell)
 nvim_lsp.hls.setup({ on_attach=on_attach })
--- Enable jedi (Python)
-nvim_lsp.jedi_language_server.setup({ on_attach=on_attach })
+
+-- Enable python-language-server (Python)
+nvim_lsp.pyls.setup({
+    on_attach=on_attach;
+    settings = {
+        pyls = {
+            configurationSources = { "flake8" } -- reads ~/.config/flake8
+            }
+        }
+})
+
 -- Enable vscode language servers (HTML, CSS, JSON)
 nvim_lsp.cssls.setup({ on_attach=on_attach })
 nvim_lsp.html.setup({ on_attach=on_attach })
 nvim_lsp.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+
 -- Enable flow (JavaScript)
 nvim_lsp.flow.setup({ on_attach=on_attach })
+
+-- Enable bashls (Bash)
+nvim_lsp.bashls.setup({ on_attach=on_attach })
 
 EOF
 
@@ -304,11 +311,22 @@ nnoremap <silent> gj    <cmd>NextDiagnosticCycle                <CR>
 " Avoid showing extra messages when using completion
 set shortmess+=c
 
-" Visualize diagnostics
+" diagnostic-nvim - Visualize diagnostics
 let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_virtual_text_prefix = ' '
 let g:diagnostic_trimmed_virtual_text = '0' " Don't show message inline, only diagnostic type
 " Don't show diagnostics while in insert mode
 let g:diagnostic_insert_delay = 1
+
+" completion-nvim - Autocomplete
+let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
+let g:completion_trigger_keyword_length = 0 " After how many characters it should show suggestions
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['buffers', 'lsp', 'snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -318,30 +336,7 @@ autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
-\ lua require'lsp_extensions'.inlay_hints{ prefix = '', highlight = "Comment" }
-
-"let g:LanguageClient_serverCommands = {
-            "\ 'rust'    : ['rust-analyzer'],
-            "\ 'haskell' : ['haskell-language-server-wrapper', '--lsp'],
-            "\ }
-
-"function LC_maps()
-    "if has_key(g:LanguageClient_serverCommands, &filetype)
-        ""nnoremap <buffer> <silent> K :call LanguageClient#textDocument_hover()<CR>
-        ""nnoremap <buffer> <silent> gd :call LanguageClient#textDocument_definition()<CR>
-        ""nnoremap <buffer> <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
-        "nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-        "map <Leader>lk :call LanguageClient#textDocument_hover()<CR>
-        "map <Leader>ld :call LanguageClient#textDocument_definition()<CR>
-        "map <Leader>lr :call LanguageClient#textDocument_rename()<CR>
-        "map <Leader>lf :call LanguageClient#textDocument_formatting()<CR>
-        "map <Leader>lb :call LanguageClient#textDocument_references()<CR>
-        "map <Leader>la :call LanguageClient#textDocument_codeAction()<CR>
-        "map <Leader>ls :call LanguageClient#textDocument_documentSymbol()<CR>
-    "endif
-"endfunction
-
-"autocmd FileType * call LC_maps()
+\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
 
 " ALE - Asynchronous Linter Engine settings
 
@@ -356,12 +351,14 @@ nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
 
 let g:ale_linters = {
             \ 'python'  : ['flake8', 'mypy', 'bandit'],
-            \ 'rust'    : ['rustc', 'rls', 'analyzer', 'cargo'],
+            \ 'rust'    : ['rustc', 'rls', 'cargo'],
             \ 'haskell' : ['cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
             \ }
 
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_rust_rustc_options = ''
-
 "let g:ale_lint_on_text_changed = 'never'
 "let g:ale_lint_on_save = 'never'
 "let g:ale_lint_on_insert_leave = 0
@@ -419,6 +416,7 @@ hi IndentGuidesOdd  guibg=#FFFFFF
 hi IndentGuidesEven guibg=#CCCCCC
 let g:indent_guides_color_change_percent = 50
 
+" QuickScope settings
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-highlight QuickScopePrimary guifg='#5af78e' gui=underline
-highlight QuickScopeSecondary guifg='#57c7ff' gui=underline
+highlight QuickScopePrimary guifg=#5af78e gui=underline
+highlight QuickScopeSecondary guifg=#57c7ff gui=underline
