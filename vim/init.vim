@@ -5,48 +5,45 @@ set nocompatible " be iMproved, required
 call plug#begin()
 
 "Tweaks
-Plug 'tpope/vim-surround'              " Wrap text easily
-Plug 'mattn/emmet-vim'                 " html autocomplete
-Plug 'scrooloose/nerdtree'             " File browser in vim
-Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
-Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
-Plug 'tpope/vim-obsession'             " Save vim sessions
-Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
-Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
-Plug 'tpope/vim-repeat'                " Repeat more than one command
-Plug 'godlygeek/tabular'               " Easy text align
-Plug 'tpope/vim-endwise'               " Auto close stuff
-Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
-Plug 'airblade/vim-gitgutter'          " Show git changes
-Plug 'jiangmiao/auto-pairs'            " Auto pairs
-Plug 'SirVer/ultisnips'            " Snippets engine
-Plug 'honza/vim-snippets'          " Snippets themselves
+Plug 'tpope/vim-surround'                                         " Wrap text easily
+Plug 'mattn/emmet-vim'                                            " html autocomplete
+Plug 'scrooloose/nerdtree'                                        " File browser in vim
+Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
+Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
+Plug 'tpope/vim-obsession'                                        " Save vim sessions
+Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
+Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
+Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
+Plug 'tpope/vim-repeat'                                           " Repeat more than one command
+Plug 'godlygeek/tabular'                                          " Easy text align
+Plug 'tpope/vim-endwise'                                          " Auto close stuff
+Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+Plug 'airblade/vim-gitgutter'                                     " Show git changes
+Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
+Plug 'SirVer/ultisnips'                                           " Snippets engine
+Plug 'honza/vim-snippets'                                         " Snippets themselves
+Plug 'dense-analysis/ale'                                         " Async Lint Engine
+Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
+Plug 'yaroot/vissort'                                             " Sort by visual block
+Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'pangloss/vim-javascript'                                    " Javascript support
+Plug 'ap/vim-css-color'                                           " Show css colors in files
+Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
+Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
+Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
+Plug 'posva/vim-vue'                                              " Vue syntax
+Plug 'leafgarland/typescript-vim'                                 " TypeScript support
+Plug 'jalvesaq/nvim-r'                                            " R support
+Plug 'chrisbra/csv.vim'                                           " Browse csv files
+Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 
 " neovim LSP plugins
-Plug 'neovim/nvim-lspconfig'             " Collection of common configs for neovim LSP client
-    Plug 'nvim-lua/lsp_extensions.nvim'  " Extensions to built-in LSP, for example, providing type inlay hints
-    Plug 'nvim-lua/completion-nvim'      " Autocompletion framework for built-in LSP
-    Plug 'nvim-lua/diagnostic-nvim'      " Diagnostic navigation and settings for built-in LSP
-    Plug 'steelsojka/completion-buffers' " Buffer completion source
-
-Plug 'dense-analysis/ale'              " Async Lint Engine
-Plug 'KabbAmine/vCoolor.vim'           " Colour picker (Alt-Z)
-Plug 'yaroot/vissort'                  " Sort by visual block
-Plug 'junegunn/fzf.vim'                " Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-
-" Syntax specific
-Plug 'pangloss/vim-javascript'         " Javascript support
-Plug 'ap/vim-css-color'                " Show css colors in files
-Plug 'cakebaker/scss-syntax.vim'       " SCSS support
-Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
-Plug 'keith/swift.vim'                 " Swift syntax and indent styles
-Plug 'posva/vim-vue'                   " Vue syntax
-Plug 'leafgarland/typescript-vim'      " TypeScript support
-Plug 'jalvesaq/nvim-r'                 " R support
-Plug 'chrisbra/csv.vim'                " Browse csv files
-Plug 'neovimhaskell/haskell-vim'       " Better Haskell support
+Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
+    Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
+    Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
+    Plug 'nvim-lua/diagnostic-nvim'                               " Diagnostic navigation and settings for built-in LSP
+    Plug 'steelsojka/completion-buffers'                          " Buffer completion source
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
