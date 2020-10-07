@@ -63,7 +63,7 @@ modules-left = bspwm
 modules-center = xwindow
 ;modules-right = backlight volume memory cpu battery temperature date powermenu
 ;modules-right = eth wlan battery date volume
-modules-right = network sep date sep pulseaudio
+modules-right = updates-pacman-aurhelper sep network sep date sep pulseaudio
 ;modules-right = filesystem battery date volume
 
 tray-position = right
@@ -77,6 +77,7 @@ wm-restack = bspwm
 type = internal/network
 interface = enp3s0
 format-connected-prefix = " "
+label-connected = %local_ip%
 format-connected-underline = ${colors.underline}
 format-disconnected-underline = ${self.format-connected-underline}
 format-disconnected-prefix = " "
@@ -351,3 +352,10 @@ margin = 0
 [module/sep]
 inherit = module/decor-glyph
 content = "/"
+
+[module/updates-pacman-aurhelper]
+type = custom/script
+exec = ~/dotfiles/polybar/scripts/updates-pacman-aurhelper.sh
+click-left = ~/dotfiles/polybar/scripts/updates-pacman-aurhelper.sh
+interval = 600
+format-underline = ${colors.underline}
