@@ -20,23 +20,8 @@ Plug 'tpope/vim-endwise'               " Auto close stuff
 Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'          " Show git changes
 Plug 'jiangmiao/auto-pairs'            " Auto pairs
-" Plug 'roxma/ncm2'                      " Completion
-"     Plug 'roxma/nvim-yarp'                        " requirement ncm2
-"     Plug 'gaalcaras/ncm-R'                        " ncm2 R completion
-"     Plug 'ncm2/ncm2-bufword'                      " ncm2 word in buffer completion
-"     Plug 'ncm2/ncm2-path'                         " ncm2 path completion
-"     Plug 'ncm2/ncm2-jedi'                         " ncm2 Python completion
-"     Plug 'ncm2/ncm2-pyclang'                      " ncm2 C/C++ completion
-"     Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
-"     Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " ncm2 JavaScript Completion
-"     Plug 'ncm2/ncm2-racer'                        " ncm2 Rust completion
-"     Plug 'ncm2/ncm2-cssomni'                      " ncm2 CSS completion
-"     Plug 'autozimu/LanguageClient-Neovim', {'branch': 'next', 'do': 'bash install.sh' } " Language Server Protocol support
-"
-"     " based on ultisnips
-"     Plug 'ncm2/ncm2-ultisnips'         " ncm2 ultisnips integration
-     Plug 'SirVer/ultisnips'            " Snippets engine
-     Plug 'honza/vim-snippets'          " Snippets themselves
+Plug 'SirVer/ultisnips'            " Snippets engine
+Plug 'honza/vim-snippets'          " Snippets themselves
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'             " Collection of common configs for neovim LSP client
@@ -221,24 +206,16 @@ inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Change color popup menu
 hi Pmenu ctermbg=gray guibg=#202020 " guifg=#FFFFFF
 
-" enable ncm2 for all buffers
-"autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" Set completeopt to have a better completion experience
-" :help completeopt
-" menuone: popup even when there's only one match
-" noinsert: Do not insert text until a selection is made
-" noselect: Do not select, force user to select one from the menu
+" Set completeopt to have a better completion experience (:help completeopt)
+    " menuone: popup even when there's only one match
+    " noinsert: Do not insert text until a selection is made
+    " noselect: Do not select, force user to select one from the menu
 set completeopt=noinsert,menuone,noselect
-
-" ncm2 path to libclang
-"let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
 
 " set ultisnips/snippets expansion key
 "let g:UltiSnipsExpandTrigger       = "<c-s>"
 "let g:UltiSnipsJumpForwardTrigger  = "<tab>"
 "let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-"autocmd BufNewFile,BufRead * inoremap <silent> <buffer> <expr> <CR> ncm2_ultisnips#expand_or("\<CR>", 'n')
 
 " LSP settings
 lua <<EOF
@@ -386,8 +363,6 @@ autocmd FileType javascript call JsAbbrs()
 "set mouse=a
 "nnoremap <ScrollWheelUp> u
 "nnoremap <ScrollWheelDown> <C-R>
-
-"let g:syntastic_mode_map = { 'passive_filetypes': ['asm', 'python'] }
 
 autocmd FileType vue syntax sync fromstart
 
