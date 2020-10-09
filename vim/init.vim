@@ -43,6 +43,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
     Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/diagnostic-nvim'                               " Diagnostic navigation and settings for built-in LSP
+    Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
 
 " Themes
@@ -98,18 +99,24 @@ hi Normal guibg=NONE ctermbg=NONE
 hi LineNr guibg=NONE
 
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
-set laststatus=1
+set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ %F\ %=%l,%c\ \ %p%%
+set statusline=%{StatuslineGit()}\ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
 highlight StatusLine guifg=black guibg=#444444
 
 function! GitBranch()
-  return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
 endfunction
+
 function! StatuslineGit()
-  let l:branchname = GitBranch()
-  return strlen(l:branchname) > 0 ? '  '.l:branchname.' ' : ''
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0 ? '  '.l:branchname.' ' : ''
+endfunction
+
+function! StatusLineLsp()
+    let l:ls = LspStatus()
+    return strlen(l:ls) > 0 ? ' '.l:ls : ''
 endfunction
 
 " Line numbers
@@ -197,11 +204,21 @@ set list listchars=tab:»·,trail:-
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
 " Completion settings
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Trigger completion with <Tab>
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
+
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
 " Change color popup menu
-hi Pmenu ctermbg=gray guibg=#202020 " guifg=#FFFFFF
+hi Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
 
 " Set completeopt to have a better completion experience (:help completeopt)
     " menuone: popup even when there's only one match
@@ -209,10 +226,10 @@ hi Pmenu ctermbg=gray guibg=#202020 " guifg=#FFFFFF
     " noselect: Do not select, force user to select one from the menu
 set completeopt=noinsert,menuone,noselect
 
-" set ultisnips/snippets expansion key
-"let g:UltiSnipsExpandTrigger       = "<c-s>"
-"let g:UltiSnipsJumpForwardTrigger  = "<tab>"
-"let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+" Set Ultisnips/snippets expansion key
+let g:UltiSnipsExpandTrigger       = "<c-s>"
+let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 " LSP settings
 lua <<EOF
@@ -254,33 +271,36 @@ nvim_lsp.flow.setup({ on_attach=on_attach })
 -- Enable bashls (Bash)
 nvim_lsp.bashls.setup({ on_attach=on_attach })
 
+-- Enable vim-language-server
+nvim_lsp.vimls.setup({ on_attach=on_attach })
+
 EOF
 
 
 " LSP mappings
 " Jump to definition
-nnoremap <silent> gk    <cmd>lua vim.lsp.buf.definition()       <CR>
+nnoremap gf    <cmd>lua vim.lsp.buf.definition()       <CR>
 " Displays hover information in floating window
-nnoremap <silent> K     <cmd>lua vim.lsp.buf.hover()            <CR>
+nnoremap K     <cmd>lua vim.lsp.buf.hover()            <CR>
 " Lists implementations in quickfix window
-nnoremap <silent> gD    <cmd>lua vim.lsp.buf.implementation()   <CR>
+nnoremap gD    <cmd>lua vim.lsp.buf.implementation()   <CR>
 " Displays signature information in floating window
-nnoremap <silent> gs    <cmd>lua vim.lsp.buf.signature_help()   <CR>
+nnoremap gs    <cmd>lua vim.lsp.buf.signature_help()   <CR>
 " Jump to definition of type
-nnoremap <silent> 1gD   <cmd>lua vim.lsp.buf.type_definition()  <CR>
+nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()  <CR>
 " Lists all the references in quickfix window
-nnoremap <silent> gr    <cmd>lua vim.lsp.buf.references()       <CR>
+nnoremap gr    <cmd>lua vim.lsp.buf.references()       <CR>
 " Lists all symbols current buffer in quickfix window
-nnoremap <silent> g0    <cmd>lua vim.lsp.buf.document_symbol()  <CR>
+nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()  <CR>
 " Lists all symbols current workspace in quickfix window
-nnoremap <silent> gW    <cmd>lua vim.lsp.buf.workspace_symbol() <CR>
+nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol() <CR>
 " Jump to declaration
-nnoremap <silent> gd    <cmd>lua vim.lsp.buf.declaration()      <CR>
+nnoremap gd    <cmd>lua vim.lsp.buf.declaration()      <CR>
 " Selects a code action from input list available
-nnoremap <silent> ga    <cmd>lua vim.lsp.buf.code_action()      <CR>
+nnoremap ga    <cmd>lua vim.lsp.buf.code_action()      <CR>
 " Goto previous/next diagnostic warning/error
-nnoremap <silent> gk    <cmd>PrevDiagnosticCycle                <CR>
-nnoremap <silent> gj    <cmd>NextDiagnosticCycle                <CR>
+nnoremap gk    <cmd>PrevDiagnosticCycle                <CR>
+nnoremap gj    <cmd>NextDiagnosticCycle                <CR>
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
@@ -311,6 +331,15 @@ autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 \ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+
+" Statusline
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("vim.lsp.buf_get_clients()[1].name")
+  endif
+
+  return ''
+endfunction
 
 " ALE - Asynchronous Linter Engine settings
 
