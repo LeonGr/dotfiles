@@ -36,11 +36,11 @@
 
 
 # Increase volume
-"amixer -D default sset Master 1%+"
+"playerctl volume $(($(playerctl volume) + 0.05))"
    XF86AudioRaiseVolume
 
 # Decrease volume
-"amixer -D default sset Master 1%-"
+"playerctl volume $(($(playerctl volume) - 0.05))"
    XF86AudioLowerVolume
 
 # Toggle Play/Pause
