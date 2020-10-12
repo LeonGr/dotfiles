@@ -1,16 +1,24 @@
 #!/bin/bash
 
-{
-(wal -i $1)
+echo "[update_theme]"
 
-(sh ~/dotfiles/bspwm/bspwmrc)
+echo "### wal ###"
+if [ $# -eq 2 ]
+then
+    (wal -i $1 -a 95 --backend $2)
+else
+    (wal -i $1 -a 95)
+fi
 
+echo "### bspwmrc ###"
+(sh ~/dotfiles/bspwm/bspwmrc) &
+
+echo "### dunst ###"
 (sh ~/dotfiles/dunst/dunst_script.sh)
-
-(sh ~/dotfiles/vis/vis_script.sh)
-
 (killall dunst && dunst)
 
-} &> /dev/null
+echo "### vis ###"
+(sh ~/dotfiles/vis/vis_script.sh)
 
+echo "test"
 exit 1
