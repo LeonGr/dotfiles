@@ -40,7 +40,7 @@ URxvt.clipboard.autocopy:       true
 *color5:      mag
 *color13:     mag
 *color6:      cyn
-*color14:     #C40046 !why is this hex?
+*color14:     ylw !#FF0 !why is this hex?
 *color7:      wht
 *color15:     wht
 
