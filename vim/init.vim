@@ -92,7 +92,7 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
-colorscheme molokai
+colorscheme gruvbox
 
 " Make line nr and background fit terminal background
 hi Normal guibg=NONE ctermbg=NONE
@@ -103,7 +103,8 @@ set laststatus=2
 
 " Statusline for when it is visible
 set statusline=%{StatuslineGit()}\ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
-highlight StatusLine guifg=black guibg=#444444
+highlight StatusLine   guibg=none gui=bold
+highlight StatusLineNC guibg=none gui=bold guifg=#000000 
 
 function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -153,23 +154,35 @@ let mapleader = "\<Space>"
 
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
-nnoremap <Leader>w :w                       <CR>
-nnoremap <Leader>q :q!                      <CR>
-nnoremap <Leader>x :x                       <CR>
-nnoremap <Leader>t :b#                      <CR>
-vnoremap <Leader>c :'<,'>w !pbcopy          <CR>  <CR>
-nnoremap <Leader>s :vertical resize 120     <CR>
-nnoremap <Leader>p :Files                   <CR>
-nnoremap <Leader>f :Lines                   <CR>
-nnoremap <Leader>/ :BLines                  <CR>
-nnoremap <Leader>v :call TrimWhiteSpace()   <CR>
-     map <Leader>n <plug>NERDTreeTabsToggle <CR>
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>q :q!<CR>
+nnoremap <Leader>x :x<CR>
+nnoremap <Leader>t :b#<CR>
+vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
+nnoremap <Leader>s :vertical resize 120<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Lines<CR>
+nnoremap <Leader>g :GFiles?<CR>
+nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader>v :call TrimWhiteSpace()<CR>
+     map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 " Removes trailing spaces
 function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
+
+" Make alt-<hjkl> act as arrows in fzf window
+function ArrowMap()
+    tnoremap <M-h> <left>
+    tnoremap <M-j> <down>
+    tnoremap <M-k> <up>
+    tnoremap <M-l> <right>
+endfunction
+
+autocmd! FileType fzf call ArrowMap()
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
@@ -228,7 +241,7 @@ set completeopt=noinsert,menuone,noselect
 
 " Set Ultisnips/snippets expansion key
 let g:UltiSnipsExpandTrigger       = "<c-s>"
-let g:UltiSnipsJumpForwardTrigger  = "<tab>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 " LSP settings
@@ -274,33 +287,36 @@ nvim_lsp.bashls.setup({ on_attach=on_attach })
 -- Enable vim-language-server
 nvim_lsp.vimls.setup({ on_attach=on_attach })
 
+-- Enable Vue Language Server (Vue.js)
+nvim_lsp.vuels.setup({ on_attach=on_attach })
+
 EOF
 
 
 " LSP mappings
 " Jump to definition
-nnoremap gf    <cmd>lua vim.lsp.buf.definition()       <CR>
+nnoremap gf    <cmd>lua vim.lsp.buf.definition()<CR>
 " Displays hover information in floating window
-nnoremap K     <cmd>lua vim.lsp.buf.hover()            <CR>
+nnoremap K     <cmd>lua vim.lsp.buf.hover()<CR>
 " Lists implementations in quickfix window
-nnoremap gD    <cmd>lua vim.lsp.buf.implementation()   <CR>
+nnoremap gD    <cmd>lua vim.lsp.buf.implementation()<CR>
 " Displays signature information in floating window
-nnoremap gs    <cmd>lua vim.lsp.buf.signature_help()   <CR>
+nnoremap gs    <cmd>lua vim.lsp.buf.signature_help()<CR>
 " Jump to definition of type
-nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()  <CR>
+nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 " Lists all the references in quickfix window
-nnoremap gr    <cmd>lua vim.lsp.buf.references()       <CR>
+nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
 " Lists all symbols current buffer in quickfix window
-nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()  <CR>
+nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " Lists all symbols current workspace in quickfix window
-nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol() <CR>
+nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 " Jump to declaration
-nnoremap gd    <cmd>lua vim.lsp.buf.declaration()      <CR>
+nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 " Selects a code action from input list available
-nnoremap ga    <cmd>lua vim.lsp.buf.code_action()      <CR>
+nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " Goto previous/next diagnostic warning/error
-nnoremap gk    <cmd>PrevDiagnosticCycle                <CR>
-nnoremap gj    <cmd>NextDiagnosticCycle                <CR>
+nnoremap gk    <cmd>PrevDiagnosticCycle<CR>
+nnoremap gj    <cmd>NextDiagnosticCycle<CR>
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
@@ -419,5 +435,5 @@ let g:indent_guides_color_change_percent = 50
 
 " QuickScope settings
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-highlight QuickScopePrimary guifg=#5af78e gui=underline
-highlight QuickScopeSecondary guifg=#57c7ff gui=underline
+highlight QuickScopePrimary guifg=#5af78e gui=underline,bold
+highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
