@@ -52,12 +52,10 @@ module-margin-left = 1
 module-margin-right = 2
 
 font-0 = Inconsolata:bold:size=18;1.5
-;font-0 = DejaVu Sans Mono:size=12;0
-;font-0 = DejaVu Sans Mono:size=18;0
+;font-0 = DejaVu Sans Mono:bold:size=18;0
 font-1 = FontAwesome:size=11:weight=Regular;0
 font-2 = TerminessTTF Nerd Font Mono:size=30;2
-;font-2 = siji:size=10;0
-;font-3 = DejaVu Sans Mono For Powerline:size=10;0
+font-3 = M+ 1mn:bold:pixelsize=14;0; ; for Chinese/Japanese numerals (ttf-mplus)
 
 modules-left = bspwm
 modules-center = xwindow
