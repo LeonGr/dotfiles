@@ -12,11 +12,11 @@ main :: IO ()
 main = do
     args <- execParser $
             info
-                ( optional optionInput )
+                (optional optionInput) -- Flags are optional, but if one flag is used all options should be given
                 ( fullDesc <> progDesc "Theme updater" )
     case args of
-      Just options -> putStrLn (path options ++ " " ++ backend options ++ " " ++ show (opacity options))
-      Nothing -> putStrLn "Picker"
+      Just options -> updateTheme (path options) (backend options) (opacity options)
+      Nothing -> startPicker
 
 optionInput :: Parser Options
 optionInput = Options

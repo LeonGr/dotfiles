@@ -33,6 +33,7 @@ library
   build-depends:
       base >=4.7 && <5
     , optparse-applicative
+    , process
   default-language: Haskell2010
 
 executable update-theme
@@ -45,6 +46,7 @@ executable update-theme
   build-depends:
       base >=4.7 && <5
     , optparse-applicative
+    , process
     , update-theme
   default-language: Haskell2010
 
@@ -59,5 +61,6 @@ test-suite update-theme-test
   build-depends:
       base >=4.7 && <5
     , optparse-applicative
+    , process
     , update-theme
   default-language: Haskell2010
