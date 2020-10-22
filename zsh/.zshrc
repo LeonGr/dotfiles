@@ -33,6 +33,8 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
+alias aurfind="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias tmux='TERM=xterm-256color tmux' # make cursor work
 
 # ls -> exa
 alias ls='exa'
@@ -50,7 +52,13 @@ function getip {
 export getip
 
 export CLICOLOR=1
-export TERM=xterm-256color
+#export TERM=xterm-256color
+
+# Show root of tmux session in polybar
+# mostly because TERM=.... tmux is ugly
+if [ -n "$TMUX" ]; then
+    xdotool set_window --name "tmux: $(dirs)" "$(xdotool getactivewindow)"
+fi
 
 export SUDO_EDITOR=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
@@ -87,6 +95,9 @@ export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 
 # Import colorscheme from 'wal'
 (cat /home/leon/.cache/wal/sequences)
+
+# source wal colors
+. ~/.cache/wal/colors.sh
 
 # Give man colors
 export MANROFFOPT='-c'
