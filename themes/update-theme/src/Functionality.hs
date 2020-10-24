@@ -19,7 +19,6 @@ updateParts = do
     putStrLn "### Updating bspwmrc ###"
     callCommand "sh /home/leon/dotfiles/bspwm/bspwmrc &"
     putStrLn "### Updating dunst ###"
-    callCommand "sh ~/dotfiles/dunst/dunst_script.sh"
     callCommand "killall dunst"
     callCommand "dunst &"
     putStrLn "### Updating vis ###"
@@ -34,5 +33,6 @@ startPicker = do
     backendInput <- getLine
     putStrLn "Opacity (leave empty for 100%):"
     alphaInput <- getLine
-    alpha <- fromMaybe 100 (readMaybe alphaInput :: Maybe Int)
-    putStrLn ("test" ++ show alpha)
+    let alpha = fromMaybe 100 (readMaybe alphaInput :: Maybe Int)
+
+    error "TODO"

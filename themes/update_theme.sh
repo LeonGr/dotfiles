@@ -14,11 +14,9 @@ echo "### bspwmrc ###"
 (sh ~/dotfiles/bspwm/bspwmrc) &
 
 echo "### dunst ###"
-(sh ~/dotfiles/dunst/dunst_script.sh)
-(killall dunst && dunst)
+(killall dunst && dunst) &
 
 echo "### vis ###"
 (sh ~/dotfiles/vis/vis_script.sh)
 
-echo "test"
 exit 1
