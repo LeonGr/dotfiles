@@ -29,10 +29,35 @@ updateParts = do
 startPicker :: IO ()
 startPicker = do
     callCommand "ranger . --choosefile=/tmp/output"
-    putStrLn "Pick a backend (wal, haishoku, colorthief):"
-    backendInput <- getLine
-    putStrLn "Opacity (leave empty for 100%):"
-    alphaInput <- getLine
-    let alpha = fromMaybe 100 (readMaybe alphaInput :: Maybe Int)
+    path <- readFile "/tmp/output"
+    callCommand "rm /tmp/output"
+    putStrLn ("Image path: " ++ path)
 
-    error "TODO"
+    putStrLn "Pick a backend [1,2,3] (1: wal, 2: haishoku, 3: colorthief):"
+    backendInput <- getLine
+    let backend = case readMaybe backendInput :: Maybe Int of
+          Just 1 -> "wal"
+          Just 2 -> "haishoku"
+          Just 3 -> "colorthief"
+          _      -> "none"
+
+    if backend == "none"
+       then do { let backend = "wal"
+               ; putStrLn "Backend choice not in [1,2,3], picked 'wal' as default" }
+    else putStrLn ("Backend: " ++ backend)
+
+    putStrLn "Opacity [0-100] (leave empty for 100%):"
+    alphaInput <- getLine
+    let alphaParsed = case readMaybe alphaInput :: Maybe Int of
+                  Just num -> num
+                  Nothing -> -1
+
+    let alpha = case alphaParsed of
+                  -1 -> 100
+                  _ -> alphaParsed
+
+    if alphaParsed < 0 || alphaParsed > 100
+       then putStrLn "Opacity not in range [0,100], picked '100' as default"
+    else putStrLn ("Opacity: " ++ show alpha)
+
+    updateTheme path backend alpha
