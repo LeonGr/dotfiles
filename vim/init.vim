@@ -20,8 +20,8 @@ Plug 'tpope/vim-endwise'                                          " Auto close s
 Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
-Plug 'SirVer/ultisnips'                                           " Snippets engine
-Plug 'honza/vim-snippets'                                         " Snippets themselves
+"Plug 'SirVer/ultisnips'                                           " Snippets engine
+"Plug 'honza/vim-snippets'                                         " Snippets themselves
 Plug 'dense-analysis/ale'                                         " Async Lint Engine
 Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                                             " Sort by visual block
@@ -53,7 +53,8 @@ Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox' " already added by vim-colorschemes
+Plug 'dkasak/gruvbox'   " Fork that fixes haskell highlight issues
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
@@ -66,13 +67,20 @@ call plug#end()
 
 " Scrolling
 set mouse=a
-"set guicursor=
+"set guicursor= " to disable guicursor
+" Blinking cursors and styles
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+		  "\,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Show commands as they're typed
 set showcmd
 
 " Highlight current line
 set cursorline
+
+" Turn of swap files
+set noswapfile
 
 " Show substitute in real time
 set inccommand=nosplit
@@ -83,7 +91,8 @@ if (has("termguicolors"))
 endif
 
 " Enable true color in neovim
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+"let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+"let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
 
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
@@ -92,6 +101,7 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
+let g:gruvbox_italic=1 " urxvt supports italics, enable it
 colorscheme gruvbox
 
 " Make line nr and background fit terminal background
@@ -103,8 +113,15 @@ set laststatus=2
 
 " Statusline for when it is visible
 set statusline=%{StatuslineGit()}\ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
-highlight StatusLine   guibg=none gui=bold
-highlight StatusLineNC guibg=none gui=bold guifg=#000000 
+highlight StatusLine   gui=bold            " guibg=none 
+highlight StatusLineNC gui=bold cterm=bold " guibg=grey guifg=#000000 
+
+" Use wal colors for statusline
+source ~/.cache/wal/colors-wal.vim
+execute 'hi StatusLine guifg='   . background
+execute 'hi StatusLine guibg='   . color2
+execute 'hi StatusLineNC guifg=' . foreground
+execute 'hi StatusLineNC guibg=' . color0
 
 function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -121,12 +138,16 @@ function! StatusLineLsp()
 endfunction
 
 " Line numbers
-set number
+set number relativenumber
+
 highlight CursorLineNR guibg=NONE guifg=NONE
 
 " SideLine
-set signcolumn=yes
-highlight SignColumn guibg=NONE gui=bold
+set signcolumn=yes                       " always show (to prevent jump from git/lint)
+highlight SignColumn guibg=NONE gui=bold " Make background transparent
+
+" Hide vertical split background color
+highlight VertSplit guibg=NONE
 
 " Stop automatic new line of comment
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -155,7 +176,6 @@ let mapleader = "\<Space>"
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
 nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q!<CR>
 nnoremap <Leader>x :x<CR>
 nnoremap <Leader>t :b#<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
@@ -164,8 +184,10 @@ nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Lines<CR>
 nnoremap <Leader>g :GFiles?<CR>
 nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>r :Rg<CR>
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>v :call TrimWhiteSpace()<CR>
+nnoremap <Leader>q :copen<CR>
      map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
 " Removes trailing spaces
@@ -184,6 +206,30 @@ endfunction
 
 autocmd! FileType fzf call ArrowMap()
 
+" Let FZF be a floating window
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+    let buf = nvim_create_buf(v:false, v:true)
+    call setbufvar(buf, '&signcolumn', 'no')
+
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+
+    let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+    let win = nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&relativenumber', 0)
+endfunction
+
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
 let g:tern_map_keys=1
@@ -199,11 +245,12 @@ let g:AutoPairsShortcutToggle = '<M-p>'
 let g:vcoolor_map = '<M-z>'
 
 " HardTime settings
-let g:hardtime_default_on = 0
+let g:hardtime_default_on = 1
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
 let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_disabled_keys = []
+let g:hardtime_maxcount = 4
 
 "Retain indentation on next line
 set autoindent
@@ -249,6 +296,7 @@ lua <<EOF
 
 -- nvim_lsp object
 local nvim_lsp = require'nvim_lsp'
+local configs = require'nvim_lsp/configs'
 
 -- function to attach completion and diagnostics
 -- when setting up lsp
@@ -287,8 +335,25 @@ nvim_lsp.bashls.setup({ on_attach=on_attach })
 -- Enable vim-language-server
 nvim_lsp.vimls.setup({ on_attach=on_attach })
 
+-- if not nvim_lsp.vimscriptls then
+--   configs.vimscriptls = {
+--     default_config = {
+--       cmd = {'/usr/bin/vimscript-language-server'};
+--       filetypes = {'vim'};
+--       root_dir = function(fname)
+--         return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+--       end;
+--       settings = {};
+--     };
+--   }
+-- end
+-- nvim_lsp.vimscriptls.setup{ on_attach=on_attach }
+
 -- Enable Vue Language Server (Vue.js)
 nvim_lsp.vuels.setup({ on_attach=on_attach })
+
+-- Enable Clangd (C)
+nvim_lsp.clangd.setup({ on_attach=on_attach })
 
 EOF
 
@@ -329,9 +394,9 @@ let g:diagnostic_trimmed_virtual_text = '0' " Don't show message inline, only di
 let g:diagnostic_insert_delay = 1
 
 " completion-nvim - Autocomplete
-let g:completion_enable_snippet = 'UltiSnips'
+"let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
-let g:completion_trigger_keyword_length = 0 " After how many characters it should show suggestions
+let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
 let g:completion_chain_complete_list = [
     \{'complete_items': ['buffers', 'lsp', 'snippet']},
     \{'mode': '<c-p>'},
@@ -350,11 +415,15 @@ autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
 
 " Statusline
 function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
-    return luaeval("vim.lsp.buf_get_clients()[1].name")
-  endif
+    if luaeval('#vim.lsp.buf_get_clients() > 0')
+        try
+            return luaeval("vim.lsp.buf_get_clients()[1].name")
+        catch
+            return 'LSP: '
+        endtry
+    endif
 
-  return ''
+    return ''
 endfunction
 
 " ALE - Asynchronous Linter Engine settings
@@ -406,7 +475,10 @@ autocmd FileType javascript call JsAbbrs()
 "nnoremap <ScrollWheelUp> u
 "nnoremap <ScrollWheelDown> <C-R>
 
+" Vim-vue settings
 autocmd FileType vue syntax sync fromstart
+" Only try scss
+let g:vue_pre_processors = ['scss', 'typescript']
 
 " settings :: Nvim-R plugin
 " R output is highlighted with current colorscheme
@@ -437,3 +509,13 @@ let g:indent_guides_color_change_percent = 50
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg=#5af78e gui=underline,bold
 highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
+
+" GitGutter settings
+let g:gitgutter_sign_removed = '—'
+" Put this in gruvbox.vim to remove signcolumn background
+"call s:HL('GruvboxRedSign', s:red, s:none, s:bold)
+"call s:HL('GruvboxGreenSign', s:green, s:none, s:bold)
+"call s:HL('GruvboxYellowSign', s:yellow, s:none, s:bold)
+"call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
+"call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
+"call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
