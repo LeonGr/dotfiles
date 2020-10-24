@@ -113,8 +113,8 @@ set laststatus=2
 
 " Statusline for when it is visible
 set statusline=%{StatuslineGit()}\ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
-highlight StatusLine   gui=bold            " guibg=none 
-highlight StatusLineNC gui=bold cterm=bold " guibg=grey guifg=#000000 
+highlight StatusLine   gui=none            " guibg=none 
+highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000 
 
 " Use wal colors for statusline
 source ~/.cache/wal/colors-wal.vim
@@ -159,7 +159,7 @@ set smartcase       " ...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 "highlight clear Search
-highlight       Search    guifg=#000000 guibg=#FFFFFF
+highlight Search guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -230,47 +230,44 @@ function! FloatingFZF()
     call setwinvar(win, '&relativenumber', 0)
 endfunction
 
-function! FloatingQuickfix()
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, '&signcolumn', 'no')
+let g:FloatingQFOpen = 0
+function! FloatingQuickfix(timer)
+    if g:FloatingQFOpen == 0
+        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
+        " so we set this variable to 1 to stop creating an infinite loop
+        let g:FloatingQFOpen = 1
 
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
+        let buf = nvim_create_buf(v:false, v:true)
+        call setbufvar(buf, '&signcolumn', 'no')
 
-    let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 1,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
+        let height = &lines - 3
+        let width = float2nr(&columns - (&columns * 2 / 10))
+        let col = float2nr((&columns - width) / 2)
 
-    " Close and open QF window so bn opens it instead of the file we're editing
-    cclose
-    copen
-    " Open floating window
-    let win = nvim_open_win(buf, v:true, opts)
-    " Set content to QF buffer
-    bn
-    " Close original QF window
-    cclose
-    " If we leave the buffer, close the floating window and reset the variable
-    autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0
+        let opts = {
+            \ 'relative': 'editor',
+            \ 'row': 1,
+            \ 'col': col,
+            \ 'width': width,
+            \ 'height': height
+            \ }
+
+        " Close and open QF window so bn opens it instead of the file we're editing
+        cclose
+        copen
+        " Open floating window
+        let win = nvim_open_win(buf, v:true, opts)
+        " Set content to QF buffer
+        bn
+        " Close original QF window
+        cclose
+        " If we leave the buffer, close the floating window and reset the variable
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0
+    endif
 endfunction
 
 " Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
-autocmd BufWinEnter quickfix call timer_start(1, 'OpenFloatingQuickfix', {'repeat': 1})
-
-" Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
-" so we set this variable to 1 to stop creating an infinite loop
-let g:FloatingQFOpen = 0
-function! OpenFloatingQuickfix(timer)
-    if g:FloatingQFOpen == 0
-        let g:FloatingQFOpen = 1
-        call FloatingQuickfix()
-    endif
-endfunction
+autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
