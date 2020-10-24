@@ -3,8 +3,8 @@
 #
 
 # terminal emulator
-super + Return
-	urxvt
+super + {_,shift +}Return
+    {urxvt, bspc rule -a \* -o state=floating && urxvt}
 
 # program launcher
 super + space
