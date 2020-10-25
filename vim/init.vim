@@ -259,7 +259,9 @@ function! FloatingQuickfix(timer)
         " Set content to QF buffer | close original QF window
         bn | cclose
         " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo ''
+        " After opening, show message in highlight style of ModeMsg
+        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
     endif
 endfunction
 
@@ -267,7 +269,7 @@ endfunction
 autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
 
 " Close quickfix window on escape
-nmap <expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
+nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
@@ -275,6 +277,7 @@ let g:tern_map_keys=1
 
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let NERDTreeShowHidden = 1
 
 " Auto pairs settings
 let g:AutoPairsShortcutToggle = '<M-p>'
@@ -290,6 +293,8 @@ let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<L
 let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_disabled_keys = []
 let g:hardtime_maxcount = 4
+let g:hardtime_ignore_quickfix = 1
+let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
 
 "Retain indentation on next line
 set autoindent
