@@ -253,14 +253,11 @@ function! FloatingQuickfix(timer)
             \ }
 
         " Close and open QF window so bn opens it instead of the file we're editing
-        cclose
-        copen
+        cclose | copen
         " Open floating window
         let win = nvim_open_win(buf, v:true, opts)
-        " Set content to QF buffer
-        bn
-        " Close original QF window
-        cclose
+        " Set content to QF buffer | close original QF window
+        bn | cclose
         " If we leave the buffer, close the floating window and reset the variable
         autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0
     endif
@@ -268,6 +265,9 @@ endfunction
 
 " Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
 autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
+
+" Close quickfix window on escape
+nmap <expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
