@@ -71,7 +71,7 @@ set mouse=a
 " Blinking cursors and styles
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
-		  "\,sm:block-blinkwait175-blinkoff150-blinkon175
+		  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Show commands as they're typed
 set showcmd
@@ -87,7 +87,7 @@ set inccommand=nosplit
 
 " Color configurations
 if (has("termguicolors"))
- set termguicolors
+    set termguicolors
 endif
 
 " Enable true color in neovim
@@ -112,7 +112,7 @@ hi LineNr guibg=NONE
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
+set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\ 
 highlight StatusLine   gui=none            " guibg=none 
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000 
 
@@ -129,7 +129,7 @@ endfunction
 
 function! StatuslineGit()
     let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0 ? '  '.l:branchname.' ' : ''
+    return strlen(l:branchname) > 0 ? '  '.l:branchname.'' : ''
 endfunction
 
 function! StatusLineLsp()
@@ -421,6 +421,8 @@ nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " Goto previous/next diagnostic warning/error
 nnoremap gk    <cmd>PrevDiagnosticCycle<CR>
 nnoremap gj    <cmd>NextDiagnosticCycle<CR>
+" Show diagnostic popup
+nnoremap <Leader>d <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
@@ -446,7 +448,8 @@ let g:completion_chain_complete_list = [
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 " Show diagnostic popup on cursor hold
-autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+"autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
