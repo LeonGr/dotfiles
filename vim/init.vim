@@ -101,8 +101,8 @@ let g:gruvbox_italic=1 " urxvt supports italics, enable it
 colorscheme gruvbox
 
 " Make line nr and background fit terminal background
-hi Normal guibg=NONE ctermbg=NONE
-hi LineNr guibg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE
 
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
@@ -114,10 +114,10 @@ highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
 source ~/.cache/wal/colors-wal.vim
-execute 'hi StatusLine guifg='   . background
-execute 'hi StatusLine guibg='   . color2
-execute 'hi StatusLineNC guifg=' . foreground
-execute 'hi StatusLineNC guibg=' . color0
+execute 'highlight StatusLine guifg='   . background
+execute 'highlight StatusLine guibg='   . color2
+execute 'highlight StatusLineNC guifg=' . foreground
+execute 'highlight StatusLineNC guibg=' . color0
 
 function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -318,7 +318,7 @@ function! s:check_back_space() abort
 endfunction
 
 " Change color popup menu
-hi Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
+highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
 
 " Set completeopt to have a better completion experience (:help completeopt)
     " menuone: popup even when there's only one match
@@ -471,10 +471,10 @@ endfunction
 
 " ALE - Asynchronous Linter Engine settings
 
-"hi link ALEError Error
-"hi Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-"hi link ALEWarning Warning
-"hi link ALEInfo SpellCap
+"highlight link ALEError Error
+"highlight Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
+"highlight link ALEWarning Warning
+"highlight link ALEInfo SpellCap
 
 nnoremap <Leader>e :call ale#cursor#ShowCursorDetail()<CR>
 nnoremap <silent> <Leader>j :ALENextWrap<CR>
@@ -541,11 +541,11 @@ set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=white
-hi IndentGuidesEven ctermbg=blue
+highlight IndentGuidesOdd  ctermbg=white
+highlight IndentGuidesEven ctermbg=blue
 
-hi IndentGuidesOdd  guibg=#FFFFFF
-hi IndentGuidesEven guibg=#CCCCCC
+highlight IndentGuidesOdd  guibg=#FFFFFF
+highlight IndentGuidesEven guibg=#CCCCCC
 let g:indent_guides_color_change_percent = 50
 
 " QuickScope settings
