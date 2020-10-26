@@ -90,10 +90,6 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
-" Enable true color in neovim
-"let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
-"let $NVIM_TUI_ENABLE_CURSOR_SHAPE = 1
-
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
 
