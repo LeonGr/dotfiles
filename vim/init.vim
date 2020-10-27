@@ -26,7 +26,7 @@ Plug 'dense-analysis/ale'                                         " Async Lint E
 Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                                             " Sort by visual block
 Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'pangloss/vim-javascript'                                    " Javascript support
 Plug 'ap/vim-css-color'                                           " Show css colors in files
 Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
