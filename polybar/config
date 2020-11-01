@@ -53,9 +53,9 @@ module-margin-right = 2
 
 font-0 = Inconsolata:bold:size=18;1.5
 ;font-0 = DejaVu Sans Mono:bold:size=18;0
-font-1 = FontAwesome:size=11:weight=Regular;0
-font-2 = TerminessTTF Nerd Font Mono:size=30;2
-font-3 = M+ 1mn:bold:pixelsize=14;0; ; for Chinese/Japanese numerals (ttf-mplus)
+;font-1 = FontAwesome:size=11:weight=Regular;0
+font-1 = TerminessTTF Nerd Font Mono:size=30;2
+font-2 = M+ 1mn:bold:pixelsize=14;0; ; for Chinese/Japanese numerals (ttf-mplus)
 
 modules-left = bspwm
 modules-center = xwindow
@@ -73,7 +73,7 @@ wm-restack = bspwm
 
 [module/network]
 type = internal/network
-interface = enp3s0
+interface = enp6s0
 format-connected-prefix = " "
 label-connected = %local_ip%
 format-connected-underline = ${colors.underline}
@@ -219,6 +219,7 @@ ramp-signal-4 = 
 ;date-alt = %%{F#ff} %H:%M
 ;interval = 5
 ;format-underline = ${colors.underline}
+
 [module/date]
 type = internal/date
 interval = 5
@@ -258,7 +259,7 @@ ramp-volume-0 = 
 ramp-volume-1 = 
 ramp-volume-2 = 
 bar-volume-gradient = false
-bar-volume-indicator = │
+bar-volume-indicator = |
 bar-volume-indicator-font = 2
 bar-volume-indicator-foreground = #ff
 bar-volume-fill = ─
