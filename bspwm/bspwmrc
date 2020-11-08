@@ -28,9 +28,9 @@ bspc config center_pseudo_tiled  true
 . "${HOME}/.cache/wal/colors.sh"
 
 # Set the border colors.
-bspc config normal_border_color   "$color15"
-bspc config active_border_color   "$color1"
-bspc config focused_border_color  "$color2"
+bspc config normal_border_color   "$color15" # normal: not focused
+bspc config active_border_color   "$color1"  # active: last focused on unfocused monitor
+bspc config focused_border_color  "$color2"  # focused: currently focused
 bspc config presel_border_color   "$color1"
 
 #bspc monitor -d      
@@ -41,6 +41,7 @@ bspc rule -a '*:yad'              state =floating
 bspc rule -a 'feh'                state =floating
 bspc rule -a '2IOE0 - Group Four' state =floating
 bspc rule -a 'Mario'              state =floating
+bspc rule -a 'Sudoku6'            state =floating
 bspc rule -a 'Steam'              state =tiled
 
 $HOME/dotfiles/polybar/launch.sh &
