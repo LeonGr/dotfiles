@@ -1,0 +1,13 @@
+cradle:
+  stack:
+    - path: "./src"
+      component: "update-theme:lib"
+
+    - path: "./app/Main.hs"
+      component: "update-theme:exe:update-theme"
+
+    - path: "./app/Paths_update_theme.hs"
+      component: "update-theme:exe:update-theme"
+
+    - path: "./test"
+      component: "update-theme:test:update-theme-test"

@@ -1,60 +1,56 @@
-set nocompatible " be iMproved, required
-filetype off     " required
+"     __                     _          _       _ __        _
+"    / /   ___  ____  ____  /_/_____   (_)___  (_) /__   __(_)___ ___
+"   / /   / _ \/ __ \/ __ \   / ___/  / / __ \/ / __/ | / / / __ `__ \
+"  / /___/  __/ /_/ / / / /  (__  )  / / / / / / /__| |/ / / / / / / /
+" /_____/\___/\____/_/ /_/  /____/  /_/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-" Plugins YOU'RE USING VIMPLUG
+set nocompatible " be iMproved, required
+"filetype off     " required
+
+" Vim-Plug
 call plug#begin()
 
 "Tweaks
-Plug 'tpope/vim-surround'              " Wrap text easily
-Plug 'vim-airline/vim-airline-themes'  " More themes for airline
-Plug 'mattn/emmet-vim'                 " html autocomplete
-Plug 'scrooloose/nerdtree'             " File browser in vim
-Plug 'jistr/vim-nerdtree-tabs'         " Keep nerdtree open across tabs
-Plug 'scrooloose/nerdcommenter'        " Easy commenting and uncommenting
-Plug 'kien/ctrlp.vim'                  " Great file browser
-Plug 'tpope/vim-obsession'             " Save vim sessions
-Plug 'christoomey/vim-tmux-navigator'  " Navigate tmux windows using hjkl
-Plug 'unblevable/quick-scope'          " Higlight words when you press f or t
-Plug 'chip/vim-fat-finger'             " Series of abbreviations for vim
-Plug 'tpope/vim-repeat'                " Repeat more than one command
-Plug 'godlygeek/tabular'               " Easy text align
-Plug 'tpope/vim-endwise'               " Auto close stuff
-Plug 'rking/ag.vim'                    " Search through files and directories
-Plug 'takac/vim-hardtime'              " Help me to stop using jjjj
-Plug 'airblade/vim-gitgutter'          " Show git changes
-Plug 'jiangmiao/auto-pairs'            " Auto pairs
-Plug 'majutsushi/tagbar'               " Show tags
-"Plug 'roxma/nvim-completion-manager'  " Completion
-Plug 'roxma/ncm2'                      " Completion
-    Plug 'roxma/nvim-yarp'                 " requirement ncm2
-    Plug 'ncm2/ncm2-bufword'               " ncm2 word in buffer completion
-    Plug 'ncm2/ncm2-path'                  " ncm2 path completion
-    Plug 'ncm2/ncm2-jedi'                  " ncm2 Python completion
-    Plug 'ncm2/ncm2-pyclang'               " ncm2 C/C++ completion
-    Plug 'ncm2/ncm2-cssomni'               " ncm2 CSS completion
-    Plug 'ncm2/ncm2-tern',  {'do': 'npm install'} " ncm2 JavaScript Completion
-Plug 'gaalcaras/ncm-R'                 " R completion
-Plug 'davidhalter/jedi-vim'            " Python completion
-Plug 'othree/csscomplete.vim'          " CSS completion
-"Plug 'roxma/nvim-cm-tern',  {'do': 'npm install'} " JS completion
-Plug 'takac/vim-hardtime'              " Don't repeat yourself
-Plug 'KabbAmine/vCoolor.vim'           " Colour picker
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'                " Fuzzy finder
-Plug 'yaroot/vissort'                  " Sort by visual block
+Plug 'tpope/vim-surround'                                         " Wrap text easily
+Plug 'mattn/emmet-vim'                                            " html autocomplete
+Plug 'scrooloose/nerdtree'                                        " File browser in vim
+Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
+Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
+Plug 'tpope/vim-obsession'                                        " Save vim sessions
+Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
+Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
+Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
+Plug 'tpope/vim-repeat'                                           " Repeat more than one command
+Plug 'godlygeek/tabular'                                          " Easy text align
+Plug 'tpope/vim-endwise'                                          " Auto close stuff
+Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+Plug 'airblade/vim-gitgutter'                                     " Show git changes
+Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
+"Plug 'SirVer/ultisnips'                                           " Snippets engine
+"Plug 'honza/vim-snippets'                                         " Snippets themselves
+Plug 'dense-analysis/ale'                                         " Async Lint Engine
+Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
+Plug 'yaroot/vissort'                                             " Sort by visual block
+Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'pangloss/vim-javascript'                                    " Javascript support
+Plug 'ap/vim-css-color'                                           " Show css colors in files
+Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
+Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
+Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
+Plug 'posva/vim-vue'                                              " Vue syntax
+Plug 'leafgarland/typescript-vim'                                 " TypeScript support
+Plug 'jalvesaq/nvim-r'                                            " R support
+Plug 'chrisbra/csv.vim'                                           " Browse csv files
+Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 
-" Syntax specific
-Plug 'pangloss/vim-javascript'         " Javascript support
-Plug 'ap/vim-css-color'                " Show css colors in files
-Plug 'digitaltoad/vim-jade'            " Jade support
-Plug 'cakebaker/scss-syntax.vim'       " SCSS support
-Plug 'nathanaelkane/vim-indent-guides' " Indentation guides
-Plug 'scrooloose/syntastic'            " Syntax checker
-Plug 'keith/swift.vim'                 " Swift syntax and indent styles
-Plug 'posva/vim-vue'                   " Vue syntax
-Plug 'leafgarland/typescript-vim'      " TypeScript support
-Plug 'jalvesaq/nvim-r'                 " R support
-Plug 'chrisbra/csv.vim'                " Browse csv files
+" neovim LSP plugins
+Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
+    Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
+    Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
+    Plug 'nvim-lua/diagnostic-nvim'                               " Diagnostic navigation and settings for built-in LSP
+    Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
+    Plug 'steelsojka/completion-buffers'                          " Buffer completion source
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -63,7 +59,8 @@ Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
-Plug 'morhetz/gruvbox'
+"Plug 'morhetz/gruvbox' " already added by vim-colorschemes
+Plug 'dkasak/gruvbox'   " Fork that fixes haskell highlight issues
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
@@ -74,111 +71,97 @@ Plug 'dylanaraps/wal.vim'
 Plug 'chriskempson/base16-vim'
 call plug#end()
 
-" scrolling
+" Scrolling
 set mouse=a
-set guicursor=
+"set guicursor= " to disable guicursor
+" Blinking cursors and styles
+set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
+		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
+		  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
 " Show commands as they're typed
 set showcmd
 
-" Current line
+" Highlight current line
 set cursorline
 
-" Hide ugly file name thing
-set laststatus=0
+" Turn of swap files
+set noswapfile
 
 " Show substitute in real time
 set inccommand=nosplit
 
 " Color configurations
 if (has("termguicolors"))
- set termguicolors
+    set termguicolors
 endif
 
-" Enable true color in neovim
-let $NVIM_TUI_ENABLE_TRUE_COLOR = 1
+" Enable file type identification, plugin and indenting
+filetype plugin indent on
 
 " Color settings
 syntax enable
 syntax on
 "set t_Co=256
-colorscheme molokai
-" cthulhian preto molokai
-"set background=dark
+let g:gruvbox_italic=1 " urxvt supports italics, enable it
+colorscheme gruvbox
 
 " Make line nr and background fit terminal background
-hi Normal guibg=NONE ctermbg=NONE
-hi LineNr guibg=NONE
+highlight Normal guibg=NONE ctermbg=NONE
+highlight LineNr guibg=NONE
 
+" Hide(0)/Only for more than 1 window(1)/Show(2) statusline
+set laststatus=2
+
+" Statusline for when it is visible
+set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\
+highlight StatusLine   gui=none            " guibg=none
+highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
+
+" Use wal colors for statusline
+source ~/.cache/wal/colors-wal.vim
+execute 'highlight StatusLine guifg='   . background
+execute 'highlight StatusLine guibg='   . color2
+execute 'highlight StatusLineNC guifg=' . foreground
+execute 'highlight StatusLineNC guibg=' . color0
+
+function! GitBranch()
+    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
+endfunction
+
+function! StatuslineGit()
+    let l:branchname = GitBranch()
+    return strlen(l:branchname) > 0 ? '  '.l:branchname.'' : ''
+endfunction
+
+function! StatusLineLsp()
+    let l:ls = LspStatus()
+    return strlen(l:ls) > 0 ? ' '.l:ls : ''
+endfunction
 
 " Line numbers
-set number
+set number relativenumber
+
 highlight CursorLineNR guibg=NONE guifg=NONE
 
-" Indentguide settings
-set ts=4 sw=4 et
-let g:indent_guides_guide_size = 1
-let g:indent_guides_start_level = 1
-let g:indent_guides_auto_colors = 0
-hi IndentGuidesOdd  ctermbg=white
-hi IndentGuidesEven ctermbg=blue
+" SideLine
+set signcolumn=yes                       " always show (to prevent jump from git/lint)
+highlight SignColumn guibg=NONE gui=bold " Make background transparent
 
-hi IndentGuidesOdd  guibg=#FFFFFF
-hi IndentGuidesEven guibg=#CCCCCC
-let g:indent_guides_color_change_percent = 50
+" Hide vertical split background color
+highlight VertSplit guibg=NONE
 
-let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
-"let g:qs_first_occurrence_highlight_color = '#5af78e'
-"let g:qs_second_occurrence_highlight_color = '#57c7ff'
-highlight QuickScopePrimary guifg='#5af78e' gui=underline
-highlight QuickScopeSecondary guifg='#57c7ff' gui=underline
-
-" Leader commands
-let mapleader = "\<Space>"
-
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>q :q!<CR>
-nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t :b#<CR>
-vnoremap <Leader>c :'<,'>w !pbcopy<CR><CR>
-nnoremap <Leader>s :vertical resize 120<CR>
-nnoremap <Leader>; g;
-nnoremap <Leader>, g,
-nnoremap <Leader>e :TagbarToggle<cr>
-map <Leader>n <plug>NERDTreeTabsToggle<CR>
-nnoremap <Leader>p :Files<cr>
-nnoremap <Leader>f :Lines<cr>
-nnoremap <Leader>/ :BLines<cr>
-
-
-" Commands and shortcuts
-inoremap jk <ESC>
-inoremap jj <ESC>
-
-" map w!! :w !sudo tee %<CR>
-
-" Syntastic settings
-let g:syntastic_always_populate_loc_list = 1
-let g:syntastic_auto_loc_list = 1
-let g:syntastic_check_on_open = 1
-let g:syntastic_check_on_wq = 0
-
-" CtrlP settings
-set wildignore+=*/tmp/*,*.so,*.swp,*.zip " Ignore these filetypes
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git' " Ignore these dirs
-
-" Tern for vim settings
-let g:tern_show_argument_hints='on_hold'
-let g:tern_map_keys=1
+" Stop automatic new line of comment
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 " Searching improvements
 set incsearch       "Lookahead as search pattern is specified
 set ignorecase      "Ignore case in all searches...
-set smartcase       "...unless uppercase letters used
+set smartcase       " ...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 "highlight clear Search
-highlight       Search    guifg=#000000 guibg=#FFFFFF
+highlight Search guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -189,55 +172,334 @@ set undodir=~/.vimundo/
 " use backspace
 set backspace=2
 
+" Leader commands
+let mapleader = "\<Space>"
+
+nnoremap <Leader>; g;
+nnoremap <Leader>, g,
+nnoremap <Leader>w :w<CR>
+nnoremap <Leader>x :x<CR>
+nnoremap <Leader>t :b#<CR>
+vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
+nnoremap <Leader>s :vertical resize 120<CR>
+nnoremap <Leader>b :Buffers<CR>
+nnoremap <Leader>f :Lines<CR>
+nnoremap <Leader>g :GFiles?<CR>
+nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>r :Rg<CR>
+nnoremap <Leader>/ :BLines<CR>
+nnoremap <Leader>v :call TrimWhiteSpace()<CR>
+nnoremap <Leader>q :copen<CR>
+     map <Leader>n <plug>NERDTreeTabsToggle<CR>
+
+" Removes trailing spaces
+function TrimWhiteSpace()
+  %s/\s*$//
+  ''
+endfunction
+
+" Make alt-<hjkl> act as arrows in fzf window
+function ArrowMap()
+    tnoremap <M-h> <left>
+    tnoremap <M-j> <down>
+    tnoremap <M-k> <up>
+    tnoremap <M-l> <right>
+endfunction
+
+autocmd! FileType fzf call ArrowMap()
+
+" Let FZF be a floating window
+let $FZF_DEFAULT_OPTS='--layout=reverse'
+let g:fzf_layout = { 'window': 'call FloatingFZF()' }
+
+function! FloatingFZF()
+    let buf = nvim_create_buf(v:false, v:true)
+    call setbufvar(buf, '&signcolumn', 'no')
+
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let col = float2nr((&columns - width) / 2)
+
+    let opts = {
+        \ 'relative': 'editor',
+        \ 'row': 1,
+        \ 'col': col,
+        \ 'width': width,
+        \ 'height': height
+        \ }
+
+    let win = nvim_open_win(buf, v:true, opts)
+    call setwinvar(win, '&relativenumber', 0)
+endfunction
+
+let g:FloatingQFOpen = 0
+function! FloatingQuickfix(timer)
+    if g:FloatingQFOpen == 0
+        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
+        " so we set this variable to 1 to stop creating an infinite loop
+        let g:FloatingQFOpen = 1
+
+        let buf = nvim_create_buf(v:false, v:true)
+        call setbufvar(buf, '&signcolumn', 'no')
+
+        let height = &lines - 3
+        let width = float2nr(&columns - (&columns * 2 / 10))
+        let col = float2nr((&columns - width) / 2)
+
+        let opts = {
+            \ 'relative': 'editor',
+            \ 'row': 1,
+            \ 'col': col,
+            \ 'width': width,
+            \ 'height': height
+            \ }
+
+        " Close and open QF window so bn opens it instead of the file we're editing
+        cclose | copen
+        " Open floating window
+        let win = nvim_open_win(buf, v:true, opts)
+        " Set content to QF buffer | close original QF window
+        bn | cclose
+        " If we leave the buffer, close the floating window and reset the variable
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo ''
+        " After opening, show message in highlight style of ModeMsg
+        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
+    endif
+endfunction
+
+" Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
+autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
+
+" Close quickfix window on escape
+nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
+
+" Tern for vim settings
+let g:tern_show_argument_hints='on_hold'
+let g:tern_map_keys=1
+
 " Nerd Tree settings
 let g:nerdtree_tabs_open_on_gui_startup = 0
+let NERDTreeShowHidden = 1
 
 " Auto pairs settings
 let g:AutoPairsShortcutToggle = '<M-p>'
+"let g:AutoPairsMapCR=0
 
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
 
 " HardTime settings
-let g:hardtime_default_on = 0
+let g:hardtime_default_on = 1
 let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
 let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
 let g:list_of_disabled_keys = []
+let g:hardtime_maxcount = 4
+let g:hardtime_ignore_quickfix = 1
+let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
 
+"Retain indentation on next line
+set autoindent
+"Turn on autoindenting of blocks
+set smartindent
 
-set autoindent "Retain indentation on next line
-set smartindent "Turn on autoindenting of blocks
-
-if has("unix")
-    let s:uname = system("uname -s")
-    if s:uname == "Darwin"
-         augroup reload_vimrc " {
-            autocmd!
-            autocmd BufWritePost $MYVIMRC source $MYVIMRC
-        augroup END " }   " Do Mac stuff here
-    endif
-endif
-
-" Clear trailing whitespace in selected file types on save
-autocmd BufWritePre * :%s/\s\+$//e
+" Show trailing whitespace
+set list listchars=tab:»·,trail:-
 
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
-" ncm2 settings
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Completion settings
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+" Trigger completion with <Tab>
+inoremap <silent><expr> <TAB>
+  \ pumvisible() ? "\<C-n>" :
+  \ <SID>check_back_space() ? "\<TAB>" :
+  \ completion#trigger_completion()
 
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
+function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+endfunction
 
-" IMPORTANT: :help Ncm2PopupOpen for more information
+" Change color popup menu
+highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
+
+" Set completeopt to have a better completion experience (:help completeopt)
+    " menuone: popup even when there's only one match
+    " noinsert: Do not insert text until a selection is made
+    " noselect: Do not select, force user to select one from the menu
 set completeopt=noinsert,menuone,noselect
 
-" ncm2 path to libclang
-let g:ncm2_pyclang#library_path = '/usr/lib64/libclang.so'
+" Set Ultisnips/snippets expansion key
+let g:UltiSnipsExpandTrigger       = "<c-s>"
+let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
+let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
+" LSP settings
+lua <<EOF
+
+-- nvim_lsp object
+local nvim_lsp = require'nvim_lsp'
+local configs = require'nvim_lsp/configs'
+
+-- function to attach completion and diagnostics
+-- when setting up lsp
+local on_attach = function(client)
+    require'completion'.on_attach(client)
+    require'diagnostic'.on_attach(client)
+end
+
+-- Enable rust_analyzer (Rust)
+nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+
+-- Enable hls (Haskell)
+nvim_lsp.hls.setup({ on_attach=on_attach })
+
+-- Enable python-language-server (Python)
+nvim_lsp.pyls.setup({
+    on_attach=on_attach;
+    settings = {
+        pyls = {
+            configurationSources = { "flake8" } -- reads ~/.config/flake8
+            }
+        }
+})
+
+-- Enable vscode language servers (HTML, CSS, JSON)
+nvim_lsp.cssls.setup({ on_attach=on_attach })
+nvim_lsp.html.setup({ on_attach=on_attach })
+nvim_lsp.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+
+-- Enable flow (JavaScript)
+nvim_lsp.flow.setup({ on_attach=on_attach })
+
+-- Enable bashls (Bash)
+nvim_lsp.bashls.setup({ on_attach=on_attach })
+
+-- Enable vim-language-server
+nvim_lsp.vimls.setup({ on_attach=on_attach })
+
+-- if not nvim_lsp.vimscriptls then
+--   configs.vimscriptls = {
+--     default_config = {
+--       cmd = {'/usr/bin/vimscript-language-server'};
+--       filetypes = {'vim'};
+--       root_dir = function(fname)
+--         return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
+--       end;
+--       settings = {};
+--     };
+--   }
+-- end
+-- nvim_lsp.vimscriptls.setup{ on_attach=on_attach }
+
+-- Enable Vue Language Server (Vue.js)
+nvim_lsp.vuels.setup({ on_attach=on_attach })
+
+-- Enable Clangd (C)
+nvim_lsp.clangd.setup({ on_attach=on_attach })
+
+EOF
+
+
+" LSP mappings
+" Jump to definition
+nnoremap gf    <cmd>lua vim.lsp.buf.definition()<CR>
+" Displays hover information in floating window
+nnoremap K     <cmd>lua vim.lsp.buf.hover()<CR>
+" Lists implementations in quickfix window
+nnoremap gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" Displays signature information in floating window
+nnoremap gs    <cmd>lua vim.lsp.buf.signature_help()<CR>
+" Jump to definition of type
+nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+" Lists all the references in quickfix window
+nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+" Lists all symbols current buffer in quickfix window
+nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" Lists all symbols current workspace in quickfix window
+nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" Jump to declaration
+nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+" Selects a code action from input list available
+nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+" Goto previous/next diagnostic warning/error
+nnoremap gk    <cmd>PrevDiagnosticCycle<CR>
+nnoremap gj    <cmd>NextDiagnosticCycle<CR>
+" Show diagnostic popup
+nnoremap <Leader>d <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+
+" Avoid showing extra messages when using completion
+set shortmess+=c
+
+" diagnostic-nvim - Visualize diagnostics
+let g:diagnostic_enable_virtual_text = 1
+let g:diagnostic_virtual_text_prefix = ' '
+let g:diagnostic_trimmed_virtual_text = '0' " Don't show message inline, only diagnostic type
+" Don't show diagnostics while in insert mode
+let g:diagnostic_insert_delay = 1
+
+" completion-nvim - Autocomplete
+"let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
+let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
+let g:completion_chain_complete_list = [
+    \{'complete_items': ['buffers', 'lsp', 'snippet']},
+    \{'mode': '<c-p>'},
+    \{'mode': '<c-n>'}
+\]
+
+" Set updatetime for CursorHold
+" 300ms of no cursor movement to trigger CursorHold
+set updatetime=300
+" Show diagnostic popup on cursor hold
+"autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
+
+
+" Enable type inlay hints
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+
+" Statusline
+function! LspStatus() abort
+    if luaeval('#vim.lsp.buf_get_clients() > 0')
+        try
+            return luaeval("vim.lsp.buf_get_clients()[1].name")
+        catch
+            return 'LSP: '
+        endtry
+    endif
+
+    return ''
+endfunction
+
+" ALE - Asynchronous Linter Engine settings
+
+"highlight link ALEError Error
+"highlight Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
+"highlight link ALEWarning Warning
+"highlight link ALEInfo SpellCap
+
+nnoremap <Leader>e :call ale#cursor#ShowCursorDetail()<CR>
+nnoremap <silent> <Leader>j :ALENextWrap<CR>
+nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
+
+let g:ale_linters = {
+            \ 'python'  : ['flake8', 'mypy', 'bandit'],
+            \ 'rust'    : ['rustc', 'rls', 'cargo'],
+            \ 'haskell' : ['cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
+            \ }
+
+let g:ale_echo_msg_error_str = 'E'
+let g:ale_echo_msg_warning_str = 'W'
+let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+let g:ale_rust_rustc_options = ''
+"let g:ale_lint_on_text_changed = 'never'
+"let g:ale_lint_on_save = 'never'
+"let g:ale_lint_on_insert_leave = 0
+"let g:ale_lint_on_enter = 0
 
 function JavaAbbrs()
     " Java Abbrs
@@ -262,9 +524,10 @@ autocmd FileType javascript call JsAbbrs()
 "nnoremap <ScrollWheelUp> u
 "nnoremap <ScrollWheelDown> <C-R>
 
-let g:syntastic_mode_map = { 'passive_filetypes': ['asm', 'python'] }
-
+" Vim-vue settings
 autocmd FileType vue syntax sync fromstart
+" Only try scss
+let g:vue_pre_processors = ['scss', 'typescript']
 
 " settings :: Nvim-R plugin
 " R output is highlighted with current colorscheme
@@ -278,3 +541,33 @@ let R_applescript = 0
 "let R_tmux_split = 1
 
 let R_source = '~/.config/nvim/plugged/nvim-r/R/tmux_split.vim'
+
+" Indentguide settings
+set ts=4 sw=4 et
+let g:indent_guides_guide_size = 1
+let g:indent_guides_start_level = 1
+let g:indent_guides_auto_colors = 0
+highlight IndentGuidesOdd  ctermbg=white
+highlight IndentGuidesEven ctermbg=blue
+
+highlight IndentGuidesOdd  guibg=#FFFFFF
+highlight IndentGuidesEven guibg=#CCCCCC
+let g:indent_guides_color_change_percent = 50
+
+" QuickScope settings
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+highlight QuickScopePrimary guifg=#5af78e gui=underline,bold
+highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
+
+" GitGutter settings
+let g:gitgutter_sign_removed = '—'
+" Put this in gruvbox.vim to remove signcolumn background
+    "call s:HL('GruvboxRedSign', s:red, s:none, s:bold)
+    "call s:HL('GruvboxGreenSign', s:green, s:none, s:bold)
+    "call s:HL('GruvboxYellowSign', s:yellow, s:none, s:bold)
+    "call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
+    "call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
+    "call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
+
+" Emmet settings
+let g:user_emmet_mode='i'

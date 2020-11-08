@@ -2,15 +2,15 @@
 export ZSH=$HOME/.oh-my-zsh
 
 # Set name of the theme to load.
-ZSH_THEME="refined"
+ZSH_THEME=""
 
 plugins=(git z)
-fpath+=("/Users/Leon/.oh-my-zsh/functions")
-#eval $(thefuck --alias)
+fpath+=("/home/leon/.oh-my-zsh/functions")
 
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export HISTSIZE=100000
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 
@@ -21,17 +21,21 @@ alias py='python'
 alias :wq='exit'
 alias :q=':wq'
 alias ack='ack-grep'
-alias msfconsole="./opt/metasploit/msfconsole --quiet -x \"db_connect ${USER}@msf\""
+alias msfconsole="/opt/metasploit/msfconsole -x \"db_connect ${USER}@msf\""
 alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias vis='TERM=rxvt-256color vis'
+alias rofi-emoji='rofi -show emoji -modi emoji'
 
 alias status='sudo systemctl status'
 alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
+alias sus='systemctl suspend'
+alias aurfind="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias tmux='TERM=xterm-256color tmux' # make cursor work
 
 # ls -> exa
 alias ls='exa'
@@ -49,9 +53,18 @@ function getip {
 export getip
 
 export CLICOLOR=1
-export TERM=xterm-256color
+#export TERM=xterm-256color
+
+# Show root of tmux session in polybar
+# mostly because TERM=.... tmux is ugly
+if [ -n "$TMUX" ]; then
+    xdotool set_window --name "tmux: $(dirs)" "$(xdotool getactivewindow)"
+fi
 
 export SUDO_EDITOR=/usr/bin/nvim
+export EDITOR=/usr/bin/nvim
+
+export _Z_DATA=/home/leon/z/.z.
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -61,15 +74,14 @@ ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
 autoload -U promptinit; promptinit
 prompt pure
-export PURE_PROMPT_SYMBOL="❯"
+#export PURE_PROMPT_SYMBOL="❯"
+export PURE_PROMPT_SYMBOL="%F{white}%F{blue}%f"
 
 #cat ~/dotfiles/unix.txt
 #cat ~/dotfiles/motd/arch.txt #| lolcat -F 0.5
-cat ~/dotfiles/motd/aperture.txt
-
-export PATH="$PATH:$HOME/.rvm/bin" # Add RVM to PATH for scripting
-source ~/.rvm/scripts/rvm
-PATH="$(ruby -e 'print Gem.user_dir')/bin:$PATH"
+#cat ~/dotfiles/motd/kirby.txt
+#cat ~/dotfiles/motd/$(ls ~/dotfiles/motd/ | shuf -n 1)
+echo -e "\033[1m$(cat ~/dotfiles/motd/$(ls ~/dotfiles/motd/ | shuf -n 1))\033[0m"
 
 LD_LIBRARY_PATH=/usr/local/lib
 export LD_LIBRARY_PATH
@@ -87,6 +99,9 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # Import colorscheme from 'wal'
 (cat /home/leon/.cache/wal/sequences)
 
+# source wal colors
+. ~/.cache/wal/colors.sh
+
 # Give man colors
 export MANROFFOPT='-c'
 export LESS_TERMCAP_mb=$(tput bold; tput setaf 1)
@@ -99,11 +114,23 @@ export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 
-[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
-
 export ANDROID_SDK_ROOT='/home/leon/Android/Sdk/'
 #export ANDROID_SDK_HOME='/home/leon/.android/'
 export ANDROID_SDK_HOME='/home/leon/Android/Sdk/'
 #export ANDROID_HOME='/home/leon/Android/Sdk/'
 export ANDROID_AVD_HOME='/home/leon/.android/avd/'
-. /home/leon/anaconda3/etc/profile.d/conda.sh
+#. /home/leon/anaconda3/etc/profile.d/conda.sh
+# Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
+export PATH="$PATH:$HOME/.rvm/bin"
+
+# add cargo bins to path
+export PATH="$HOME/.cargo/bin:$PATH"
+
+# grc alias support
+[[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
+
+function reqcat {
+    cat $1 | grcat /usr/share/grc/conf.x-www-form-urlencoded
+}
+
+export reqcat
