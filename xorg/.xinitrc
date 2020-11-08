@@ -1,4 +1,6 @@
 #!/bin/sh
+xrandr --setprovideroutputsource modesetting NVIDIA-0
+xrandr --output DP-0 --auto --output eDP-1-1 --left-of DP-0 --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -48,4 +50,6 @@ sxhkd &
 urxvt &
 xrandr --output DisplayPort-0 --auto --output DVI-D-0 --auto --panning 3840x2160+3840+0 --scale 2x2 --right-of DisplayPort-0 &
 wal -R &
+picom --config /home/leon/dotfiles/others/compton.conf &
+xset +fp /home/leon/GitClones/tewi-font/out &
 exec bspwm

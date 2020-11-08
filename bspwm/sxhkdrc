@@ -43,6 +43,10 @@ super + {_,shift + }w
 super + m
 	bspc desktop -l next
 
+# maximize screen usage by removing borders
+super + n
+    max_screen
+
 # if the current node is automatic, send it to the last manual, otherwise pull the last leaf
 super + y
 	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused

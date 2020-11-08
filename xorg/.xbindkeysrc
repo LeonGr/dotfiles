@@ -65,9 +65,24 @@
     Print 
 
 #Toggle Play/Pause
-"playerctl play-pause; SONG=$(playerctl metadata xesam:title); ALBUM=$(playerctl metadata xesam:albumArtist && printf ' - ' && playerctl metadata xesam:album); /usr/bin/notify-send -u low "$SONG" "$ALBUM""
+"togglePlayPause"
     m:0x0 + c:135
     Menu 
+
+#Brightness up
+"backlight_control +10"
+    m:0x0 + c:233
+    XF86MonBrightnessUp 
+
+#Brightness down
+"backlight_control -10"
+    m:0x0 + c:232
+    XF86MonBrightnessDown 
+
+#Remark
+"noctrlq"
+    m:0x4 + c:24
+    Control + q 
 
 #
 # End of xbindkeys configuration

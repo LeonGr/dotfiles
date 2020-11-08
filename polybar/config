@@ -22,16 +22,14 @@ margin-bottom = 5
 monitor = ${env:MONITOR}
 ;monitor-fallback =
 override-redirect = false
-width = 98%
-;width = 96%
-;height = 48
-height = 64
-;offset-x = 2%
-offset-x = 1%
+;width = 98%
+width = 96%
+height = 48
+;height = 64
+offset-x = 2%
+;offset-x = 1%
 offset-y = 1%
 
-;background = ${xrdb:color9}
-;background = #0037383A
 background = ${colors.background}
 foreground = ${colors.foreground}
 ;lineheight = 1
@@ -51,19 +49,16 @@ padding-right = 2
 module-margin-left = 1
 module-margin-right = 2
 
-font-0 = Inconsolata:bold:size=18;1.5
-;font-0 = DejaVu Sans Mono:size=12;0
-;font-0 = DejaVu Sans Mono:size=18;0
+;font-0 = Inconsolata:bold:size=18;1.5
+font-0 = Inconsolata:bold:size=12;1.5
 font-1 = FontAwesome:size=11:weight=Regular;0
-font-2 = TerminessTTF Nerd Font Mono:size=30;2
-;font-2 = siji:size=10;0
-;font-3 = DejaVu Sans Mono For Powerline:size=10;0
+;font-2 = TerminessTTF Nerd Font Mono:size=30;2
+font-2 = TerminessTTF Nerd Font Mono:size=20;2
 
 modules-left = bspwm
 modules-center = xwindow
-;modules-right = backlight volume memory cpu battery temperature date powermenu
 ;modules-right = eth wlan battery date volume
-modules-right = network sep date sep pulseaudio
+modules-right = filesystem sep battery sep date sep pulseaudio
 ;modules-right = filesystem battery date volume
 
 tray-position = right
@@ -75,7 +70,8 @@ wm-restack = bspwm
 
 [module/network]
 type = internal/network
-interface = enp3s0
+interface = wlp2s0
+;interface = enp3s0
 format-connected-prefix = " "
 format-connected-underline = ${colors.underline}
 format-disconnected-underline = ${self.format-connected-underline}
@@ -346,8 +342,9 @@ menu-2-1-exec = menu-open-0
 [module/decor-glyph]
 type = custom/text
 content-foreground = ${colors.underline}
-margin = 0
 
 [module/sep]
 inherit = module/decor-glyph
 content = "/"
+margin = 0
+content-padding = "-1"
