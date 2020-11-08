@@ -29,7 +29,7 @@ else
     font1="TerminessTTF Nerd Font Mono:size=18;2"
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     left="bspwm xwindow"
-    center=""
+    center=" "
     right="updates-pacman-aurhelper sep filesystem sep battery sep date sep pulseaudio"
     interface="wlp2s0"
 fi
@@ -38,6 +38,5 @@ fi
 echo "---" | tee -a /tmp/polybar.log
 primaryMonitor=$(xrandr | grep -E " connected primary" | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
 WIDTH=$width HEIGHT=$height OFFSET=$offset FONT0=$font0 FONT1=$font1 FONT2=$font2 LEFT=$left CENTER=$center RIGHT=$right INTERFACE=$interface MONITOR=$primaryMonitor polybar mybar >>/tmp/polybar.log 2>&1 &
-
 
 echo "Bars launched..."

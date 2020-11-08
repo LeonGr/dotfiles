@@ -81,7 +81,9 @@ export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source ~/.fzf.zsh
 
+# old anaconda
 #export PATH="/home/leon/anaconda3/bin:$PATH"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 #(cat ~/.cache/wal/sequences &)
 
@@ -103,6 +105,12 @@ export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 
+export ANDROID_SDK_ROOT='/home/leon/Android/Sdk/'
+#export ANDROID_SDK_HOME='/home/leon/.android/'
+export ANDROID_SDK_HOME='/home/leon/Android/Sdk/'
+#export ANDROID_HOME='/home/leon/Android/Sdk/'
+export ANDROID_AVD_HOME='/home/leon/.android/avd/'
+#. /home/leon/anaconda3/etc/profile.d/conda.sh
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
