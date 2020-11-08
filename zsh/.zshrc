@@ -10,30 +10,30 @@ fpath+=("/home/leon/.oh-my-zsh/functions")
 source $ZSH/oh-my-zsh.sh
 
 # User configuration
+export HISTSIZE=100000
 
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$HOME/.local/bin"
 
 # Aliases
 alias phpserver='php -S localhost:8000'
-alias pythonserver='python -m "SimpleHTTPServer"'
+alias pythonserver='python -m http.server'
 alias py='python'
 alias :wq='exit'
-alias :q=':wq'
+alias :q='exit'
 alias ack='ack-grep'
 alias msfconsole="/opt/metasploit/msfconsole -x \"db_connect ${USER}@msf\""
 alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
-alias vis='TERM=rxvt-256color vis'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-
 alias status='sudo systemctl status'
 alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-alias aurfind="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+#alias aurfind="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
+alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 alias tmux='TERM=xterm-256color tmux' # make cursor work
 
 # ls -> exa
@@ -44,12 +44,6 @@ alias lt='exa -T'
 alias lr='exa -R'
 alias lat='exa -laT'
 alias lar='exa -laR'
-
-function getip {
-     host $1 | awk '{print $4}' | sed -n '1p';
-}
-
-export getip
 
 export CLICOLOR=1
 #export TERM=xterm-256color
@@ -76,10 +70,7 @@ prompt pure
 #export PURE_PROMPT_SYMBOL="❯"
 export PURE_PROMPT_SYMBOL="%F{white}%F{blue}%f"
 
-#cat ~/dotfiles/unix.txt
-#cat ~/dotfiles/motd/arch.txt #| lolcat -F 0.5
-#cat ~/dotfiles/motd/kirby.txt
-#cat ~/dotfiles/motd/$(ls ~/dotfiles/motd/ | shuf -n 1)
+# Print coloured motd
 echo -e "\033[1m$(cat ~/dotfiles/motd/$(ls ~/dotfiles/motd/ | shuf -n 1))\033[0m"
 
 LD_LIBRARY_PATH=/usr/local/lib
@@ -87,11 +78,12 @@ export LD_LIBRARY_PATH
 
 export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+#[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+source ~/.fzf.zsh
 
 #export PATH="/home/leon/anaconda3/bin:$PATH"
 
-(cat ~/.cache/wal/sequences &)
+#(cat ~/.cache/wal/sequences &)
 
 # Import colorscheme from 'wal'
 (cat /home/leon/.cache/wal/sequences)
@@ -123,5 +115,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 function reqcat {
     cat $1 | grcat /usr/share/grc/conf.x-www-form-urlencoded
 }
-
 export reqcat
+
+function getip {
+     host $1 | awk '{print $4}' | sed -n '1p';
+}
+export getip
