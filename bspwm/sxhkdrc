@@ -8,9 +8,8 @@ super + {_,shift +}Return
 
 # program launcher
 super + space
-    rofi -show run -width 600 -font "Dejavu Sans Mono 15"
+    rofi -show run -width 1000 -font "Dejavu Sans Mono 25"
     #rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
-    #./bin/sparklauncher
     #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
 
 # calculator
@@ -96,6 +95,10 @@ super + {o,i}
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
 	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# send node to last monitor
+super + shift + Tab
+    bspc node -m last
 
 #
 # preselect
