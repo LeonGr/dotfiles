@@ -22,7 +22,7 @@ Plug 'unblevable/quick-scope'                                     " Higlight wor
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
-Plug 'tpope/vim-endwise'                                          " Auto close stuff
+"Plug 'tpope/vim-endwise'                                          " Auto close stuff
 Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
@@ -48,7 +48,6 @@ Plug 'neovimhaskell/haskell-vim'                                  " Better Haske
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
     Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
     Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
-    Plug 'nvim-lua/diagnostic-nvim'                               " Diagnostic navigation and settings for built-in LSP
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
 
@@ -283,7 +282,7 @@ let NERDTreeShowHidden = 1
 
 " Auto pairs settings
 let g:AutoPairsShortcutToggle = '<M-p>'
-"let g:AutoPairsMapCR=0
+"let g:AutoPairsMapCR=1
 
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
@@ -302,6 +301,7 @@ let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
 set autoindent
 "Turn on autoindenting of blocks
 set smartindent
+"set cindent
 
 " Show trailing whitespace
 set list listchars=tab:»·,trail:-
@@ -317,6 +317,10 @@ inoremap <silent><expr> <TAB>
   \ pumvisible() ? "\<C-n>" :
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
+
+" Make <CR> select completion work with auto-pairs
+let g:completion_confirm_key = ""
+inoremap <expr> <CR> pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -340,25 +344,70 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 " LSP settings
 lua <<EOF
 
--- nvim_lsp object
-local nvim_lsp = require'nvim_lsp'
-local configs = require'nvim_lsp/configs'
+-- lspconfig object
+local lspconfig = require'lspconfig'
+local configs = require'lspconfig/configs'
 
 -- function to attach completion and diagnostics
 -- when setting up lsp
 local on_attach = function(client)
     require'completion'.on_attach(client)
-    require'diagnostic'.on_attach(client)
+end
+
+-- configure diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = true,
+        signs = true,
+        update_in_insert = true,
+    }
+)
+
+-- overwrite inline diagnostic function (virtual_text)
+vim.lsp.diagnostic.get_virtual_text_chunks_for_line = function(bufnr, line, line_diags, opts)
+  assert(bufnr or line)
+
+  if #line_diags == 0 then
+    return nil
+  end
+
+  opts = opts or {}
+  local prefix = ""
+  local spacing = 1
+
+  local get_highlight = vim.lsp.diagnostic._get_severity_highlight_name
+
+  -- Create a little more space between virtual text and contents
+  local virt_texts = {{string.rep(" ", spacing)}}
+
+  for i = 1, #line_diags - 1 do
+    table.insert(virt_texts, {prefix, get_highlight(line_diagnostics[i].severity)})
+  end
+  local last = line_diags[#line_diags]
+
+  if last.message then
+    table.insert(
+      virt_texts,
+      {
+        --string.format("%s %s", prefix, last.message:gsub("\r", ""):gsub("\n", "  ")),
+        string.format("%s", prefix),
+        get_highlight(last.severity)
+      }
+    )
+
+    return virt_texts
+  end
 end
 
 -- Enable rust_analyzer (Rust)
-nvim_lsp.rust_analyzer.setup({ on_attach=on_attach })
+lspconfig.rust_analyzer.setup({ on_attach=on_attach })
 
 -- Enable hls (Haskell)
-nvim_lsp.hls.setup({ on_attach=on_attach })
+lspconfig.hls.setup({ on_attach=on_attach })
 
 -- Enable python-language-server (Python)
-nvim_lsp.pyls.setup({
+lspconfig.pyls.setup({
     on_attach=on_attach;
     settings = {
         pyls = {
@@ -368,38 +417,24 @@ nvim_lsp.pyls.setup({
 })
 
 -- Enable vscode language servers (HTML, CSS, JSON)
-nvim_lsp.cssls.setup({ on_attach=on_attach })
-nvim_lsp.html.setup({ on_attach=on_attach })
-nvim_lsp.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+lspconfig.cssls.setup({ on_attach=on_attach })
+lspconfig.html.setup({ on_attach=on_attach })
+lspconfig.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
 
 -- Enable flow (JavaScript)
-nvim_lsp.flow.setup({ on_attach=on_attach })
+lspconfig.flow.setup({ on_attach=on_attach })
 
 -- Enable bashls (Bash)
-nvim_lsp.bashls.setup({ on_attach=on_attach })
+lspconfig.bashls.setup({ on_attach=on_attach })
 
 -- Enable vim-language-server
-nvim_lsp.vimls.setup({ on_attach=on_attach })
-
--- if not nvim_lsp.vimscriptls then
---   configs.vimscriptls = {
---     default_config = {
---       cmd = {'/usr/bin/vimscript-language-server'};
---       filetypes = {'vim'};
---       root_dir = function(fname)
---         return nvim_lsp.util.find_git_ancestor(fname) or vim.loop.os_homedir()
---       end;
---       settings = {};
---     };
---   }
--- end
--- nvim_lsp.vimscriptls.setup{ on_attach=on_attach }
+lspconfig.vimls.setup({ on_attach=on_attach })
 
 -- Enable Vue Language Server (Vue.js)
-nvim_lsp.vuels.setup({ on_attach=on_attach })
+lspconfig.vuels.setup({ on_attach=on_attach })
 
 -- Enable Clangd (C)
-nvim_lsp.clangd.setup({ on_attach=on_attach })
+lspconfig.clangd.setup({ on_attach=on_attach })
 
 EOF
 
@@ -426,20 +461,15 @@ nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 " Selects a code action from input list available
 nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 " Goto previous/next diagnostic warning/error
-nnoremap gk    <cmd>PrevDiagnosticCycle<CR>
-nnoremap gj    <cmd>NextDiagnosticCycle<CR>
+"nnoremap gj    <cmd>NextDiagnosticCycle<CR>
+"nnoremap gk    <cmd>PrevDiagnosticCycle<CR>
+nnoremap gj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap gk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
 " Show diagnostic popup
-nnoremap <Leader>d <cmd>lua vim.lsp.util.show_line_diagnostics()<CR>
+nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
-
-" diagnostic-nvim - Visualize diagnostics
-let g:diagnostic_enable_virtual_text = 1
-let g:diagnostic_virtual_text_prefix = ' '
-let g:diagnostic_trimmed_virtual_text = '0' " Don't show message inline, only diagnostic type
-" Don't show diagnostics while in insert mode
-let g:diagnostic_insert_delay = 1
 
 " completion-nvim - Autocomplete
 "let g:completion_enable_snippet = 'UltiSnips'
@@ -454,9 +484,6 @@ let g:completion_chain_complete_list = [
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
-" Show diagnostic popup on cursor hold
-"autocmd CursorHold * lua vim.lsp.util.show_line_diagnostics()
-
 
 " Enable type inlay hints
 autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
@@ -571,3 +598,6 @@ let g:gitgutter_sign_removed = '—'
 
 " Emmet settings
 let g:user_emmet_mode='i'
+
+" NERDCommenter: <Leader> + c<space> = comment, cs = pretty block, cm = multiline
+let g:NERDAltDelims_c = 1 " Use // for C
