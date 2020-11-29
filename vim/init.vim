@@ -26,8 +26,8 @@ Plug 'godlygeek/tabular'                                          " Easy text al
 Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
-"Plug 'SirVer/ultisnips'                                           " Snippets engine
-"Plug 'honza/vim-snippets'                                         " Snippets themselves
+Plug 'SirVer/ultisnips'                                           " Snippets engine
+Plug 'honza/vim-snippets'                                         " Snippets themselves
 Plug 'dense-analysis/ale'                                         " Async Lint Engine
 Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                                             " Sort by visual block
@@ -341,7 +341,7 @@ let g:UltiSnipsExpandTrigger       = "<c-s>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-" LSP settings
+" LSP settings (require checks file in ~/.config/nvim/lua)
 lua require('lsp')
 
 " LSP mappings
@@ -375,7 +375,7 @@ nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 set shortmess+=c
 
 " completion-nvim - Autocomplete
-"let g:completion_enable_snippet = 'UltiSnips'
+let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
 let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
 let g:completion_chain_complete_list = [
