@@ -4,7 +4,7 @@ export ZSH=$HOME/.oh-my-zsh
 # Set name of the theme to load.
 ZSH_THEME=""
 
-plugins=(git z)
+plugins=(git z zsh-autosuggestions)
 fpath+=("/home/leon/.oh-my-zsh/functions")
 
 source $ZSH/oh-my-zsh.sh
@@ -32,11 +32,12 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-#alias aurfind="yay -Slq | fzf -m --preview 'cat <(yay -Si {1}) <(yay -Fl {1} | awk \"{print \$2}\")' | xargs -ro  yay -S"
 alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 alias tmux='TERM=xterm-256color tmux' # make cursor work
+alias mv='mv -i' # (--interactive) confirm overwrites
 
 # ls -> exa
+alias exa='exa --git'
 alias ls='exa'
 alias ll='exa -l'
 alias la='exa -la'
@@ -63,13 +64,6 @@ PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -
 source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 ZSH_HIGHLIGHT_HIGHLIGHTERS=(main brackets pattern)
 
-#test -e ${HOME}/.iterm2_shell_integration.zsh && source ${HOME}/.iterm2_shell_integration.zsh
-
-autoload -U promptinit; promptinit
-prompt pure
-#export PURE_PROMPT_SYMBOL="❯"
-export PURE_PROMPT_SYMBOL="%F{white}%F{blue}%f"
-
 # Print coloured motd
 echo -e "\033[1m$(cat ~/dotfiles/motd/$(ls ~/dotfiles/motd/ | shuf -n 1))\033[0m"
 
@@ -81,8 +75,6 @@ export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source ~/.fzf.zsh
 
-# old anaconda
-#export PATH="/home/leon/anaconda3/bin:$PATH"
 export PATH="$JAVA_HOME/bin:$PATH"
 
 #(cat ~/.cache/wal/sequences &)
@@ -110,7 +102,6 @@ export ANDROID_SDK_ROOT='/home/leon/Android/Sdk/'
 export ANDROID_SDK_HOME='/home/leon/Android/Sdk/'
 #export ANDROID_HOME='/home/leon/Android/Sdk/'
 export ANDROID_AVD_HOME='/home/leon/.android/avd/'
-#. /home/leon/anaconda3/etc/profile.d/conda.sh
 # Add RVM to PATH for scripting. Make sure this is the last PATH variable change.
 export PATH="$PATH:$HOME/.rvm/bin"
 
@@ -129,3 +120,23 @@ function getip {
      host $1 | awk '{print $4}' | sed -n '1p';
 }
 export getip
+
+# >>> conda initialize >>>
+# !! Contents within this block are managed by 'conda init' !!
+__conda_setup="$('/home/leon/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
+if [ $? -eq 0 ]; then
+    eval "$__conda_setup"
+else
+    if [ -f "/home/leon/anaconda3/etc/profile.d/conda.sh" ]; then
+        . "/home/leon/anaconda3/etc/profile.d/conda.sh"
+    else
+        export PATH="/home/leon/anaconda3/bin:$PATH"
+    fi
+fi
+unset __conda_setup
+# <<< conda initialize <<<
+
+autoload -U promptinit; promptinit
+prompt pure
+#export PURE_PROMPT_SYMBOL="❯"
+export PURE_PROMPT_SYMBOL="%F{white}%F{blue}%f"
