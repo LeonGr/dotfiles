@@ -44,5 +44,5 @@ sxhkd &
 urxvt &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
-picom --config ~/dotfiles/others/picom.conf &
+picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
 exec bspwm
