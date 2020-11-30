@@ -1,10 +1,9 @@
 #!/bin/sh
 xrandr --setprovideroutputsource modesetting NVIDIA-0
-#xrandr --output DP-0 --auto --output eDP-1-1 --left-of DP-0 --auto
-# hdmiMonitor=$(xrandr | grep "HDMI-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
-# displayportMonitor=$(xrandr | grep "DP-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
-# 
-# xrandr --output $displayportMonitor --auto --primary --output $hdmiMonitor --auto --right-of $displayportMonitor
+hdmiMonitor=$(xrandr | grep "HDMI-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+displayportMonitor=$(xrandr | grep "DP-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
+
+xrandr --output $displayportMonitor --auto --primary --output $hdmiMonitor --auto --right-of $displayportMonitor
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
