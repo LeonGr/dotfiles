@@ -301,7 +301,13 @@ let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
 set autoindent
 "Turn on autoindenting of blocks
 set smartindent
-"set cindent
+
+" Number of spaces that a Tab is
+set tabstop=4
+" Number of spaces for indent (>>, <<)
+set shiftwidth=4
+" Pressing tab creates number of spaces
+set expandtab
 
 " Show trailing whitespace
 set list listchars=tab:»·,trail:-
@@ -473,7 +479,6 @@ let R_applescript = 0
 let R_source = '~/.config/nvim/plugged/nvim-r/R/tmux_split.vim'
 
 " Indentguide settings
-set ts=4 sw=4 et
 let g:indent_guides_guide_size = 1
 let g:indent_guides_start_level = 1
 let g:indent_guides_auto_colors = 0
