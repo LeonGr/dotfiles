@@ -113,7 +113,7 @@ highlight LineNr guibg=NONE
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\
+set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
