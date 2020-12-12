@@ -191,6 +191,9 @@ nnoremap <Leader>v :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q :copen<CR>
      map <Leader>n <plug>NERDTreeTabsToggle<CR>
 
+" Instead of going to next occurrence of word on *, stay on current
+nnoremap * *N
+
 " Removes trailing spaces
 function TrimWhiteSpace()
   %s/\s*$//
