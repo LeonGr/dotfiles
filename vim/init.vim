@@ -503,6 +503,7 @@ let g:gitgutter_sign_removed = '—'
     "call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
     "call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
     "call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
+    "call s:HL('GruvboxOrangeSign', s:orange, s:none, s:bold)
 
 " Emmet settings
 let g:user_emmet_mode='i'
