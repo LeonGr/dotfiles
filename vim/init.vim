@@ -22,7 +22,7 @@ Plug 'unblevable/quick-scope'                                     " Higlight wor
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
-"Plug 'tpope/vim-endwise'                                          " Auto close stuff
+Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
 Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
@@ -327,9 +327,13 @@ inoremap <silent><expr> <TAB>
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
 
-" Make <CR> select completion work with auto-pairs
+" Make <CR> select completion work with auto-pairs and endwise
 let g:completion_confirm_key = ""
-inoremap <expr> <CR> pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
+inoremap <expr> <CR> <SID>CRInsert()
+
+function! s:CRInsert()
+    return pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<CR>"
+endfunction
 
 function! s:check_back_space() abort
     let col = col('.') - 1
