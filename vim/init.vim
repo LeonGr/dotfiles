@@ -51,6 +51,9 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
 
+" TreeSitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
 " Themes
 Plug 'vim-airline/vim-airline-themes'
 Plug 'chriskempson/vim-tomorrow-theme'
@@ -354,8 +357,11 @@ let g:UltiSnipsExpandTrigger       = "<c-s>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-" LSP settings (require checks file in ~/.config/nvim/lua)
+" (require checks file in ~/.config/nvim/lua)
+" LSP settings
 lua require('lsp')
+" TreeSitter settings
+lua require('treesitter')
 
 " LSP mappings
 " Jump to definition
