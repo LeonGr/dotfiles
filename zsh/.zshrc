@@ -1,11 +1,15 @@
 # Path to your oh-my-zsh installation.
 export ZSH=$HOME/.oh-my-zsh
 
+# disable beep
+unsetopt beep
+
 # Set name of the theme to load.
 ZSH_THEME=""
 
 plugins=(git z zsh-autosuggestions)
-fpath+=("/home/leon/.oh-my-zsh/functions")
+#fpath+=("/home/leon/.oh-my-zsh/functions")
+fpath+=$HOME/.zsh/pure
 
 source $ZSH/oh-my-zsh.sh
 
@@ -33,32 +37,32 @@ alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-alias tmux='TERM=xterm-256color tmux' # make cursor work
+#alias tmux='TERM=xterm-256color tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
 
 # ls -> exa
-alias exa='exa --git'
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -la'
-alias lt='exa -T'
-alias lr='exa -R'
-alias lat='exa -laT'
-alias lar='exa -laR'
+# alias exa='exa --git'
+# alias ls='exa'
+# alias ll='exa -l'
+# alias la='exa -la'
+# alias lt='exa -T'
+# alias lr='exa -R'
+# alias lat='exa -laT'
+# alias lar='exa -laR'
 
 export CLICOLOR=1
-#export TERM=xterm-256color
+export TERM=xterm-256color
 
 # Show root of tmux session in polybar
 # mostly because TERM=.... tmux is ugly
-if [ -n "$TMUX" ]; then
-    xdotool set_window --name "tmux: $(dirs)" "$(xdotool getactivewindow)"
-fi
+# if [ -n "$TMUX" ]; then
+#     xdotool set_window --name "tmux: $(dirs)" "$(xdotool getactivewindow)"
+# fi
 
 export SUDO_EDITOR=/usr/bin/nvim
 export EDITOR=/usr/bin/nvim
 
-export _Z_DATA=/home/leon/z/.z.
+#export _Z_DATA=/home/leon/z/.z.
 
 PS1="$PS1"'$([ -n "$TMUX" ] && tmux setenv TMUXPWD_$(tmux display -p "#D" | tr -d %) "$PWD")'
 source ~/dotfiles/zsh/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -75,15 +79,16 @@ export LC_ALL=en_US.utf-8 export LANG=en_US.utf-8
 #[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 source ~/.fzf.zsh
 
+export JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/
 export PATH="$JAVA_HOME/bin:$PATH"
 
 #(cat ~/.cache/wal/sequences &)
 
 # Import colorscheme from 'wal'
-(cat /home/leon/.cache/wal/sequences)
+# (cat /home/leon/.cache/wal/sequences)
 
 # source wal colors
-. ~/.cache/wal/colors.sh
+#. ~/.cache/wal/colors.sh
 
 # Give man colors
 export MANROFFOPT='-c'
@@ -108,6 +113,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # add cargo bins to path
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# add yarn bins to path
+export PATH="$HOME/.yarn/bin:$PATH"
+
 # grc alias support
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
@@ -124,4 +132,5 @@ export getip
 autoload -U promptinit; promptinit
 prompt pure
 #export PURE_PROMPT_SYMBOL="❯"
-export PURE_PROMPT_SYMBOL="%F{white}%F{blue}%f"
+#export PURE_PROMPT_SYMBOL=">%F{white}>%F{blue}>%f"
+export PURE_PROMPT_SYMBOL="λ"
