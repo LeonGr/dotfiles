@@ -22,7 +22,7 @@ Plug 'unblevable/quick-scope'                                     " Higlight wor
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
-"Plug 'tpope/vim-endwise'                                          " Auto close stuff
+Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
 Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
@@ -51,6 +51,9 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
+
+" TreeSitter
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -332,9 +335,13 @@ inoremap <silent><expr> <TAB>
   \ <SID>check_back_space() ? "\<TAB>" :
   \ completion#trigger_completion()
 
-" Make <CR> select completion work with auto-pairs
+" Make <CR> select completion work with auto-pairs and endwise
 let g:completion_confirm_key = ""
-inoremap <expr> <CR> pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<cr>"
+inoremap <expr> <CR> <SID>CRInsert()
+
+function! s:CRInsert()
+    return pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<CR>"
+endfunction
 
 function! s:check_back_space() abort
     let col = col('.') - 1
@@ -355,8 +362,11 @@ let g:UltiSnipsExpandTrigger       = "<c-s>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
-" LSP settings (require checks file in ~/.config/nvim/lua)
+" (require checks file in ~/.config/nvim/lua)
+" LSP settings
 lua require('lsp')
+" TreeSitter settings
+lua require('treesitter')
 
 " LSP mappings
 " Jump to definition
@@ -517,6 +527,7 @@ let g:gitgutter_sign_removed = '—'
     "call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
     "call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
     "call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
+    "call s:HL('GruvboxOrangeSign', s:orange, s:none, s:bold)
 
 " Emmet settings
 let g:user_emmet_mode='i'
