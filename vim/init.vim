@@ -43,6 +43,7 @@ Plug 'leafgarland/typescript-vim'                                 " TypeScript s
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
+Plug 'lervag/vimtex'                                              " LaTeX support
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -102,8 +103,17 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
-let g:gruvbox_italic=1 " urxvt supports italics, enable it
+"let g:gruvbox_italic=1 " urxvt supports italics, enable it
 colorscheme gruvbox
+
+" WSL yank support
+let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
+if executable(s:clip)
+    augroup WSLYank
+        autocmd!
+        autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
+    augroup END
+endif
 
 " Make line nr and background fit terminal background
 highlight Normal guibg=NONE ctermbg=NONE
@@ -113,16 +123,10 @@ highlight LineNr guibg=NONE
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-highlight StatusLine   gui=none            " guibg=none
-highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
-
-" Use wal colors for statusline
-source ~/.cache/wal/colors-wal.vim
-execute 'highlight StatusLine guifg='   . background
-execute 'highlight StatusLine guibg='   . color2
-execute 'highlight StatusLineNC guifg=' . foreground
-execute 'highlight StatusLineNC guibg=' . color0
+set statusline=%{StatuslineGit()}\ \ %0.50F\ %=\ %l,%c\ \ %p%%%{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+" Set colours (hex codes from Pure theme)
+highlight StatusLine   gui=none guibg=#5af78e
+highlight StatusLineNC gui=none guibg=#282a36 guifg=#eff0eb
 
 function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
@@ -130,12 +134,12 @@ endfunction
 
 function! StatuslineGit()
     let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0 ? '  '.l:branchname.'' : ''
+    return strlen(l:branchname) > 0 ? '   '.l:branchname.'' : ''
 endfunction
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
-    return strlen(l:ls) > 0 ? ' '.l:ls : ''
+    return strlen(l:ls) > 0 ? '  '.l:ls : ''
 endfunction
 
 " Line numbers
@@ -173,6 +177,7 @@ set backspace=2
 
 " Leader commands
 let mapleader = "\<Space>"
+let maplocalleader = "\<Space>"
 
 nnoremap <Leader>; g;
 nnoremap <Leader>, g,
@@ -392,6 +397,12 @@ let g:completion_chain_complete_list = [
     \{'mode': '<c-p>'},
     \{'mode': '<c-n>'}
 \]
+
+augroup CompletionTriggerCharacter
+    autocmd!
+    autocmd BufEnter * let g:completion_trigger_character = ['.']
+    autocmd BufEnter *.tex let g:completion_trigger_character = ['\\','{','}','@','/']
+augroup end
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold

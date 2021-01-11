@@ -90,3 +90,5 @@ lspconfig.vuels.setup({ on_attach=on_attach })
 -- Enable Clangd (C/C++)
 lspconfig.clangd.setup({ on_attach=on_attach })
 
+-- Enable TexLab (LaTeX)
+lspconfig.texlab.setup({ on_attach=on_attach })
