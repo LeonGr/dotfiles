@@ -1,13 +1,27 @@
 [credential]
-	helper = cache
+    helper = cache
+
 [user]
-	email = leongrasmeijer@gmail.com
-	name = LeonGr
+    email = leongrasmeijer@gmail.com
+    name = LeonGr
+
 [alias]
-        lol = log --graph --decorate --pretty=oneline --abbrev-commit
-        lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    ls = ls-files
+
 [color]
-        branch = auto
-        diff = auto
-        interactive = auto
-        status = auto
+    branch = auto
+    diff = auto
+    interactive = auto
+    status = auto
+
+[merge]
+    tool = vimdiff
+    conflictstyle = diff3
+
+[mergetool]
+    prompt = false
+
+[mergetool "vimdiff"]
+    path = nvim
