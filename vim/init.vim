@@ -43,6 +43,7 @@ Plug 'leafgarland/typescript-vim'                                 " TypeScript s
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
+"Plug 'kevinhwang91/nvim-bqf'
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -218,23 +219,49 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, '&signcolumn', 'no')
+    " Original
+    "let buf = nvim_create_buf(v:false, v:true)
+    "call setbufvar(buf, '&signcolumn', 'no')
 
+    "let height = &lines - 3
+    "let width = float2nr(&columns - (&columns * 2 / 10))
+    "let col = float2nr((&columns - width) / 2)
+
+    "let opts = {
+        "\ 'relative': 'editor',
+        "\ 'row': 1,
+        "\ 'col': col,
+        "\ 'width': width,
+        "\ 'height': height
+        "\ }
+
+    "let win = nvim_open_win(buf, v:true, opts)
+    "call setwinvar(win, '&relativenumber', 0)
+
+    "let width = min([&columns - 4, max([80, &columns - 20])])
+    "let height = min([&lines - 4, max([20, &lines - 10])])
+
+    " With Border
     let height = &lines - 3
     let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-    let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 1,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-    let win = nvim_open_win(buf, v:true, opts)
-    call setwinvar(win, '&relativenumber', 0)
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
 let g:FloatingQFOpen = 0
@@ -244,29 +271,46 @@ function! FloatingQuickfix(timer)
         " so we set this variable to 1 to stop creating an infinite loop
         let g:FloatingQFOpen = 1
 
-        let buf = nvim_create_buf(v:false, v:true)
-        call setbufvar(buf, '&signcolumn', 'no')
+        "let height = &lines - 3
+        "let width = float2nr(&columns - (&columns * 2 / 10))
+        "let col = float2nr((&columns - width) / 2)
+        "let opts = { 'relative': 'editor', 'row': 1, 'col': col, 'width': width, 'height': height }
 
         let height = &lines - 3
         let width = float2nr(&columns - (&columns * 2 / 10))
-        let col = float2nr((&columns - width) / 2)
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-        let opts = {
-            \ 'relative': 'editor',
-            \ 'row': 1,
-            \ 'col': col,
-            \ 'width': width,
-            \ 'height': height
-            \ }
+        let top = "╭" . repeat("─", width - 2) . "╮"
+        let mid = "│" . repeat(" ", width - 2) . "│"
+        let bot = "╰" . repeat("─", width - 2) . "╯"
+        let lines = [top] + repeat([mid], height - 2) + [bot]
+        let s:buf = nvim_create_buf(v:false, v:true)
+        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+        call nvim_open_win(s:buf, v:true, opts)
+        set winhl=Normal:Floating
+
+        let buf = nvim_create_buf(v:false, v:true)
+        call setbufvar(buf, '&signcolumn', 'no')
 
         " Close and open QF window so bn opens it instead of the file we're editing
         cclose | copen
+
+        let opts.row += 1
+        let opts.height -= 2
+        let opts.col += 2
+        let opts.width -= 4
+
         " Open floating window
         let win = nvim_open_win(buf, v:true, opts)
         " Set content to QF buffer | close original QF window
         bn | cclose
+
+        " Make transparent
+        set winhl=Normal:Floating
         " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo ''
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
         " After opening, show message in highlight style of ModeMsg
         echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
     endif
@@ -326,16 +370,21 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Trigger completion with <Tab>
 inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ completion#trigger_completion()
+
+inoremap <silent><expr> <S-TAB>
+    \ pumvisible() ? "\<C-p>" : "\<S-Tab"
 
 " Make <CR> select completion work with auto-pairs and endwise
 let g:completion_confirm_key = ""
 inoremap <expr> <CR> <SID>CRInsert()
 
+    " return pumvisible() ? \"\<Plug>(completion_confirm_completion)" : \"\<CR>"
 function! s:CRInsert()
-    return pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<CR>"
+    return pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 endfunction
 
 function! s:check_back_space() abort
@@ -350,7 +399,8 @@ highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
     " menuone: popup even when there's only one match
     " noinsert: Do not insert text until a selection is made
     " noselect: Do not select, force user to select one from the menu
-set completeopt=noinsert,menuone,noselect
+"set completeopt=noinsert,menuone,noselect
+set completeopt=menuone,noselect
 
 " Set Ultisnips/snippets expansion key
 let g:UltiSnipsExpandTrigger       = "<c-s>"
@@ -397,6 +447,18 @@ set shortmess+=c
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
 let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
+"let g:completion_chain_complete_list = {
+"\   'default' : {
+"\       'default' : [
+"\           {'complete_items': ['buffers', 'lsp', 'snippet']},
+"\           {'mode': '<c-p>'},
+"\           {'mode': '<c-n>'}
+"\       ],
+"\       'string' : [
+"\           { 'mode': 'file' },
+"\       ]
+"\   },
+"\}
 let g:completion_chain_complete_list = [
     \{'complete_items': ['buffers', 'lsp', 'snippet']},
     \{'mode': '<c-p>'},
