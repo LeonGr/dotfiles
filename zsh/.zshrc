@@ -97,6 +97,9 @@ export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
 
+# Use neovim as MANPAGER
+export MANPAGER='nvim +Man!'
+
 export ANDROID_SDK_ROOT='/home/leon/Android/Sdk/'
 #export ANDROID_SDK_HOME='/home/leon/.android/'
 export ANDROID_SDK_HOME='/home/leon/Android/Sdk/'
