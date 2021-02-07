@@ -1,10 +1,10 @@
 #include </home/leon/.termcolors/mikasa>
 
 
-!Xft.dpi:                        163
-Xft.dpi:                        92
+Xft.dpi:                        163
+!Xft.dpi:                        92
 URxvt*termName:                 rxvt-256color
-URxvt*font: xft:DejaVu\ Sans\ Mono:size=12:antialias=true, xft:Inconsolata\ for\ Powerline:size=12, xft:TerminessTTF\ Nerd\ Font\ Mono:size=18, xft:DejaVu\ Sans\ Mono\ For\ Powerline:size=12
+URxvt*font: xft:DejaVu Sans Mono:size=12:antialias=true, xft:Inconsolata for Powerline:size=12, xft:TerminessTTF Nerd Font Mono:size=18, xft:DejaVu Sans Mono For Powerline:size=12
 URxvt.depth:                    32
 URxvt*lineSpace:                1
 URxvt.letterSpace:              -1
@@ -14,10 +14,13 @@ URxvt*geometry:                 65x17
 URxvt.scrollBar:                false
 URxvt*loginShell:               true
 URxvt.internalBorder:           35
-URxvt.perl-ext-common:          default,clipboard,resize-font
+URxvt.perl-ext-common:          default,clipboard,resize-font,matcher
 URxvt.keysym.Shift-Control-C:   perl:clipboard:copy
 URxvt.keysym.Shift-Control-V:   perl:clipboard:paste
 URxvt.clipboard.autocopy:       true
+URxvt.url-launcher: /usr/bin/xdg-open
+URxvt.matcher.button: 1
+URxvt.matcher.rend.0: Uline fg5
 
 !URxvt.transparent:              true
 !URxvt.shading:                  5
