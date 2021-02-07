@@ -78,6 +78,9 @@ lspconfig.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--std
 -- Enable flow (JavaScript)
 lspconfig.flow.setup({ on_attach=on_attach })
 
+-- Enable typescript language server (Typescript)
+lspconfig.tsserver.setup({ on_attach=on_attach })
+
 -- Enable bashls (Bash)
 lspconfig.bashls.setup({ on_attach=on_attach })
 
