@@ -43,6 +43,8 @@ Plug 'leafgarland/typescript-vim'                                 " TypeScript s
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
+Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
+Plug 'jparise/vim-graphql'                                        " GraphQL support
 "Plug 'kevinhwang91/nvim-bqf'
 
 " neovim LSP plugins
