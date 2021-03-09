@@ -23,7 +23,7 @@ Plug 'chip/vim-fat-finger'                                        " Series of ab
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
 Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
-Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+"Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
@@ -40,10 +40,12 @@ Plug 'nathanaelkane/vim-indent-guides'                            " Indentation 
 Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
 Plug 'posva/vim-vue'                                              " Vue syntax
 Plug 'leafgarland/typescript-vim'                                 " TypeScript support
+Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 "Plug 'kevinhwang91/nvim-bqf'
+Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -188,12 +190,14 @@ nnoremap <Leader>s :vertical resize 120<CR>
 nnoremap <Leader>b :Buffers<CR>
 nnoremap <Leader>f :Lines<CR>
 nnoremap <Leader>g :GFiles?<CR>
-nnoremap <Leader>p :Files<CR>
+nnoremap <Leader>o :Files<CR>
+nnoremap <Leader>p :GFiles<CR>
 nnoremap <Leader>r :Rg<CR>
 nnoremap <Leader>/ :BLines<CR>
 nnoremap <Leader>v :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q :copen<CR>
      map <Leader>n <plug>NERDTreeTabsToggle<CR>
+     map <Leader>m :ExpSel<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -248,9 +252,12 @@ function! FloatingFZF()
     let left = (&columns - width) / 2
     let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-    let top = "╭" . repeat("─", width - 2) . "╮"
-    let mid = "│" . repeat(" ", width - 2) . "│"
-    let bot = "╰" . repeat("─", width - 2) . "╯"
+    "let top = "╭" . repeat("─", width - 2) . "╮"
+    "let mid = "│" . repeat(" ", width - 2) . "│"
+    "let bot = "╰" . repeat("─", width - 2) . "╯"
+    let top = "╔" . repeat("═", width - 2) . "╗"
+    let mid = "║" . repeat(" ", width - 2) . "║"
+    let bot = "╚" . repeat("═", width - 2) . "╝"
     let lines = [top] + repeat([mid], height - 2) + [bot]
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
@@ -282,9 +289,12 @@ function! FloatingQuickfix(timer)
         let left = (&columns - width) / 2
         let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-        let top = "╭" . repeat("─", width - 2) . "╮"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "╰" . repeat("─", width - 2) . "╯"
+        "let top = "╭" . repeat("─", width - 2) . "╮"
+        "let mid = "│" . repeat(" ", width - 2) . "│"
+        "let bot = "╰" . repeat("─", width - 2) . "╯"
+        let top = "╔" . repeat("═", width - 2) . "╗"
+        let mid = "║" . repeat(" ", width - 2) . "║"
+        let bot = "╚" . repeat("═", width - 2) . "╝"
         let lines = [top] + repeat([mid], height - 2) + [bot]
         let s:buf = nvim_create_buf(v:false, v:true)
         call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
@@ -585,3 +595,8 @@ let g:user_emmet_mode='i'
 
 " NERDCommenter: <Leader> + c<space> = comment, cs = pretty block, cm = multiline
 let g:NERDAltDelims_c = 1 " Use // for C
+
+"augroup SyntaxSettings
+    "autocmd!
+    "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+"augroup END
