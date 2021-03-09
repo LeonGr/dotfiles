@@ -44,6 +44,8 @@ Plug 'peitalin/vim-jsx-typescript'                                " TypeScript w
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
+Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
+Plug 'jparise/vim-graphql'                                        " GraphQL support
 "Plug 'kevinhwang91/nvim-bqf'
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 
