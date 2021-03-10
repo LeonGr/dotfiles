@@ -406,6 +406,7 @@ endfunction
 
 " Change color popup menu
 highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
+highlight NormalFloat ctermbg=gray guibg=none
 
 " Set completeopt to have a better completion experience (:help completeopt)
     " menuone: popup even when there's only one match
@@ -424,6 +425,8 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 lua require('lsp')
 " TreeSitter settings
 lua require('treesitter')
+" Overwrite some functions
+lua require('overwrite')
 
 " LSP mappings
 " Jump to definition
