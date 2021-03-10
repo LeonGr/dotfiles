@@ -62,6 +62,30 @@ vim.lsp.util.fancy_floating_markdown = function(contents, opts)
     }
     opts = opts or {}
 
+    --split lines that are too long
+    local columns = api.nvim_get_option('columns')
+    local popup_max_width = math.floor(columns - (columns * 2 / 10))
+
+    local stripped_max_width = {}
+
+    for i, line in ipairs(contents) do
+        line = line:gsub("\r", "")
+        line = line:gsub(" ```ts", "```typescript")
+        line = line:gsub(" ```", "```")
+        local len = line:len()
+        if len == 0 and i < #contents and contents[i+1]:len() == 0 then
+
+        elseif len > popup_max_width then
+            for j=1,math.ceil(len / popup_max_width) do
+                table.insert(stripped_max_width, string.sub(line, 1 + ((j-1) * popup_max_width), 1 + (j * popup_max_width)))
+            end
+        else
+            table.insert(stripped_max_width, line)
+        end
+    end
+
+    contents = stripped_max_width
+
     local stripped = {}
     local highlights = {}
     do
@@ -126,8 +150,8 @@ vim.lsp.util.fancy_floating_markdown = function(contents, opts)
     if insert_separator == nil then insert_separator = true end
     if insert_separator then
         for i, h in ipairs(highlights) do
-            h.start = h.start + i
-            h.finish = h.finish + i
+            h.start = h.start + i - 1
+            h.finish = h.finish + i - 1
             if h.finish + 1 <= #stripped then
                 table.insert(stripped, h.finish + 1, border_juncleft..string.rep(border_horizontal, math.min(width - 2, (opts.wrap_at or width) - 2))..border_juncright)
                 height = height + 1
