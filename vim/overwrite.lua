@@ -77,7 +77,7 @@ vim.lsp.util.fancy_floating_markdown = function(contents, opts)
 
         elseif len > popup_max_width then
             for j=1,math.ceil(len / popup_max_width) do
-                table.insert(stripped_max_width, string.sub(line, 1 + ((j-1) * popup_max_width), 1 + (j * popup_max_width)))
+                table.insert(stripped_max_width, string.sub(line, 1 + ((j-1) * popup_max_width), (j * popup_max_width)))
             end
         else
             table.insert(stripped_max_width, line)
@@ -231,11 +231,30 @@ vim.lsp.diagnostic.show_line_diagnostics = function(opts, bufnr, line_nr, client
         assert(hiname, 'unknown severity: ' .. tostring(diagnostic.severity))
 
         local message_lines = vim.split(diagnostic.message, '\n', true)
+
+        local columns = api.nvim_get_option('columns')
+        local popup_max_width = math.floor(columns - (columns * 2 / 10))
+        local stripped_max_width = {}
+
+        for _, line in ipairs(message_lines) do
+            local len = line:len()
+
+            if len > popup_max_width then
+                for j=1,math.ceil(len / popup_max_width) do
+                    table.insert(stripped_max_width, string.sub(line, 1 + ((j-1) * popup_max_width), (j * popup_max_width)))
+                end
+            else
+                table.insert(stripped_max_width, line)
+            end
+        end
+
+        message_lines = stripped_max_width
+
         table.insert(lines, prefix..message_lines[1])
         table.insert(highlights, {#prefix + 1, hiname})
         for j = 2, #message_lines do
             table.insert(lines, message_lines[j])
-            table.insert(highlights, {0, hiname})
+            table.insert(highlights, {2, hiname})
         end
     end
 
