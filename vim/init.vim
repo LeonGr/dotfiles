@@ -23,7 +23,7 @@ Plug 'chip/vim-fat-finger'                                        " Series of ab
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
 Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
-Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+"Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
@@ -74,6 +74,9 @@ Plug 'dylanaraps/wal.vim'
 Plug 'chriskempson/base16-vim'
 call plug#end()
 
+let g:python_host_prog = '/usr/bin/python2'
+let g:python3_host_prog = '/usr/bin/python3'
+
 " Scrolling
 set mouse=a
 "set guicursor= " to disable guicursor
@@ -106,7 +109,7 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
-let g:gruvbox_italic=1 " urxvt supports italics, enable it
+"let g:gruvbox_italic=1 " urxvt supports italics, enable it
 colorscheme gruvbox
 
 " Make line nr and background fit terminal background
@@ -118,15 +121,15 @@ set laststatus=2
 
 " Statusline for when it is visible
 set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-highlight StatusLine   gui=none            " guibg=none
-highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
+highlight StatusLine   gui=none            guibg=#fb4934 guifg=#000000
+highlight StatusLineNC gui=none cterm=bold
 
 " Use wal colors for statusline
-source ~/.cache/wal/colors-wal.vim
-execute 'highlight StatusLine guifg='   . background
-execute 'highlight StatusLine guibg='   . color2
-execute 'highlight StatusLineNC guifg=' . foreground
-execute 'highlight StatusLineNC guibg=' . color0
+" source ~/.cache/wal/colors-wal.vim
+" execute 'highlight StatusLine guifg='   . background
+" execute 'highlight StatusLine guibg='   . color2
+" execute 'highlight StatusLineNC guifg=' . foreground
+" execute 'highlight StatusLineNC guibg=' . color0
 
 function! GitBranch()
     return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
