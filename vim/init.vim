@@ -48,6 +48,8 @@ Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 sup
 Plug 'jparise/vim-graphql'                                        " GraphQL support
 "Plug 'kevinhwang91/nvim-bqf'
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
+Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
+Plug 'puremourning/vimspector'                                    " Debugger for vim
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -182,24 +184,24 @@ set backspace=2
 " Leader commands
 let mapleader = "\<Space>"
 
-nnoremap <Leader>; g;
-nnoremap <Leader>, g,
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t :b#<CR>
-vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
-nnoremap <Leader>s :vertical resize 120<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :Lines<CR>
-nnoremap <Leader>g :GFiles?<CR>
-nnoremap <Leader>o :Files<CR>
-nnoremap <Leader>p :GFiles<CR>
-nnoremap <Leader>r :Rg<CR>
-nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>v :call TrimWhiteSpace()<CR>
-nnoremap <Leader>q :copen<CR>
-     map <Leader>n <plug>NERDTreeTabsToggle<CR>
-     map <Leader>m :ExpSel<CR>
+nnoremap <Leader>;     g;
+nnoremap <Leader>,     g,
+nnoremap <Leader>w     :w<CR>
+nnoremap <Leader>x     :x<CR>
+nnoremap <Leader><tab> :b#<CR>
+vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
+nnoremap <Leader>s     :vertical resize 120<CR>
+nnoremap <Leader>b     :Buffers<CR>
+nnoremap <Leader>f     :Lines<CR>
+nnoremap <Leader>g     :GFiles?<CR>
+nnoremap <Leader>o     :Files<CR>
+nnoremap <Leader>p     :GFiles<CR>
+nnoremap <Leader>r     :Rg<CR>
+nnoremap <Leader>/     :BLines<CR>
+nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
+nnoremap <Leader>q     :copen<CR>
+     map <Leader>n     <plug>NERDTreeTabsToggle<CR>
+     map <Leader>m     :ExpSel<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -605,3 +607,38 @@ let g:NERDAltDelims_c = 1 " Use // for C
     "autocmd!
     "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
 "augroup END
+
+" vim-test config
+let test#strategy = "neovim"
+let test#neovim#term_position = "vertical"
+nnoremap <Leader>tt :TestNearest<CR>
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>tl :TestLast<CR>
+
+" vimspector config
+nnoremap <Leader>da :call vimspector#Launch()<CR>
+nnoremap <Leader>dd :TestNearest -strategy=jest<CR>
+nnoremap <Leader>dw :call AddToWatch()<CR>
+nnoremap <Leader>dx :call vimspector#Reset()<CR>
+nnoremap <Leader>d_ :call vimspector#ClearBreakpoints()<CR>
+nnoremap <Leader>dr :call vimspector#Restart()<CR>
+nnoremap <Leader>dc :call vimspector#Continue()<CR>
+
+nnoremap <Leader>dh :call vimspector#RunToCursor()<CR>
+nnoremap <Leader>do :call vimspector#StepOut()<CR>
+nnoremap <Leader>di :call vimspector#StepInto()<CR>
+nnoremap <Leader>dn :call vimspector#StepOver()<CR>
+
+" Method to start debugging of test
+function! JestStrategy(cmd)
+    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+endfunction
+let g:test#custom_strategies = {'jest': function('JestStrategy')}
+
+" Method to add expression to debugger watch list
+func! AddToWatch()
+    let word = expand("<cexpr>")
+    call vimspector#AddWatch(word)
+endfunction
