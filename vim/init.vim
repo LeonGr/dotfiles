@@ -617,18 +617,18 @@ nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
 
 " vimspector config
-nnoremap <Leader>da :call vimspector#Launch()<CR>
-nnoremap <Leader>dd :TestNearest -strategy=jest<CR>
-nnoremap <Leader>dw :call AddToWatch()<CR>
-nnoremap <Leader>dx :call vimspector#Reset()<CR>
-nnoremap <Leader>d_ :call vimspector#ClearBreakpoints()<CR>
-nnoremap <Leader>dr :call vimspector#Restart()<CR>
-nnoremap <Leader>dc :call vimspector#Continue()<CR>
-
-nnoremap <Leader>dh :call vimspector#RunToCursor()<CR>
-nnoremap <Leader>do :call vimspector#StepOut()<CR>
-nnoremap <Leader>di :call vimspector#StepInto()<CR>
-nnoremap <Leader>dn :call vimspector#StepOver()<CR>
+nnoremap <Leader>sa :call vimspector#Launch()<CR>
+nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
+nnoremap <Leader>sw :call AddToWatch()<CR>
+nnoremap <Leader>sx :call vimspector#Reset()<CR>
+nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
+nnoremap <Leader>sr :call vimspector#Restart()<CR>
+nnoremap <Leader>sc :call vimspector#Continue()<CR>
+nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
+nnoremap <Leader>so :call vimspector#StepOut()<CR>
+nnoremap <Leader>si :call vimspector#StepInto()<CR>
+nnoremap <Leader>sn :call vimspector#StepOver()<CR>
 
 " Method to start debugging of test
 function! JestStrategy(cmd)
