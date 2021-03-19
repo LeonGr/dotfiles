@@ -147,3 +147,7 @@ super + u
 # rotate layout (Will swap horizontal/vertical with 2 panels)
 super + r
     bspc node @parent -R 90
+
+# Take a sized screenshot and copy to clipboard
+super + shift + @s
+    scrot ~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png -s --exec 'xclip -selection clipboard -target image/png -in $f'
