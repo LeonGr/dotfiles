@@ -24,7 +24,9 @@ Plug 'tpope/vim-repeat'                                           " Repeat more 
 Plug 'godlygeek/tabular'                                          " Easy text align
 Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
 "Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-Plug 'airblade/vim-gitgutter'                                     " Show git changes
+"Plug 'airblade/vim-gitgutter'                                     " Show git changes
+Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
+Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
@@ -50,6 +52,7 @@ Plug 'jparise/vim-graphql'                                        " GraphQL supp
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
+Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -423,10 +426,9 @@ let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 " (require checks file in ~/.config/nvim/lua)
+lua require('init')
 " LSP settings
 lua require('lsp')
-" TreeSitter settings
-lua require('treesitter')
 " Overwrite some functions
 lua require('overwrite')
 
@@ -642,3 +644,11 @@ func! AddToWatch()
     let word = expand("<cexpr>")
     call vimspector#AddWatch(word)
 endfunction
+
+" context.vim
+
+" don't show context in files without filetype (mostly for debugger)
+let g:context_filetype_blacklist = [""]
+
+" stops flickering but may cause artifacts
+"let g:context_nvim_no_redraw = 1
