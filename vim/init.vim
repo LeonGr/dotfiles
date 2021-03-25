@@ -23,8 +23,10 @@ Plug 'chip/vim-fat-finger'                                        " Series of ab
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
 Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
-Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-Plug 'airblade/vim-gitgutter'                                     " Show git changes
+"Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+"Plug 'airblade/vim-gitgutter'                                     " Show git changes
+Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
+Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
@@ -186,7 +188,7 @@ nnoremap <Leader>; g;
 nnoremap <Leader>, g,
 nnoremap <Leader>w :w<CR>
 nnoremap <Leader>x :x<CR>
-nnoremap <Leader>t :b#<CR>
+nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
 nnoremap <Leader>s :vertical resize 120<CR>
 nnoremap <Leader>b :Buffers<CR>

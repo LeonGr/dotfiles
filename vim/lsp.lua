@@ -2,6 +2,16 @@
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
 
+require('gitsigns').setup {
+    signs = {
+        add          = {hl = 'GitSignsAdd'   , text = '┃', numhl='GitSignsAddNr'   , linehl='GitSignsAddLn'},
+        change       = {hl = 'GitSignsChange', text = '┇', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+        delete       = {hl = 'GitSignsDelete', text = '_', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        topdelete    = {hl = 'GitSignsDelete', text = '‾', numhl='GitSignsDeleteNr', linehl='GitSignsDeleteLn'},
+        changedelete = {hl = 'GitSignsChange', text = '~', numhl='GitSignsChangeNr', linehl='GitSignsChangeLn'},
+    },
+}
+
 -- function to attach completion and diagnostics
 -- when setting up lsp
 local on_attach = function(client)
@@ -91,4 +101,4 @@ lspconfig.vuels.setup({ on_attach=on_attach })
 lspconfig.clangd.setup({ on_attach=on_attach })
 
 -- Enable TexLab (LaTeX)
-lspconfig.texlab.setup({ on_attach=on_attach })
+--lspconfig.texlab.setup({ on_attach=on_attach })
