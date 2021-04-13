@@ -60,6 +60,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
+    Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -652,3 +653,4 @@ let g:context_filetype_blacklist = [""]
 
 " stops flickering but may cause artifacts
 "let g:context_nvim_no_redraw = 1
+let g:context_enabled = 0

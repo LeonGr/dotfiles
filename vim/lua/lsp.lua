@@ -33,7 +33,13 @@ lspconfig.jsonls.setup({ on_attach=on_attach; cmd={"json-languageserver", "--std
 lspconfig.flow.setup({ on_attach=on_attach })
 
 -- Enable typescript language server (Typescript)
-lspconfig.tsserver.setup({ on_attach=on_attach })
+lspconfig.tsserver.setup({
+    on_attach=function(client, _)
+        on_attach(client)
+
+        require("nvim-lsp-ts-utils").setup {}
+    end
+})
 
 -- Enable bashls (Bash)
 lspconfig.bashls.setup({ on_attach=on_attach })
