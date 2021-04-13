@@ -120,7 +120,7 @@ vim.lsp.util.fancy_floating_markdown = function(contents, opts)
         end
     end
     -- Clean up and add padding
-    stripped = vim.lsp.util._trim_and_pad(stripped, opts)
+    stripped = vim.lsp.util._trim(stripped, opts)
 
     local max_length = 0
     for _, line in ipairs(stripped) do
