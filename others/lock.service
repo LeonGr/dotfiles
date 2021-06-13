@@ -1,0 +1,12 @@
+[Unit]
+Description=System lock
+Before=sleep.target
+
+[Service]
+User=leon
+Type=forking
+Environment=DISPLAY=:0
+ExecStart=/usr/bin/lock
+
+[Install]
+WantedBy=sleep.target
