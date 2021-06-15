@@ -19,6 +19,7 @@ Plug 'scrooloose/nerdcommenter'                                   " Easy comment
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
 Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
+Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
@@ -27,6 +28,7 @@ Plug 'tpope/vim-endwise'                                          " Auto close s
 "Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
+Plug 'tpope/vim-fugitive'                                         " Git wrapper
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
@@ -123,6 +125,9 @@ colorscheme gruvbox
 highlight Normal guibg=NONE ctermbg=NONE
 highlight LineNr guibg=NONE
 
+"highlight FloatBorder guifg=#FFFFFF
+highlight link FloatBorder Normal
+
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
@@ -194,10 +199,9 @@ nnoremap <Leader>w     :w<CR>
 nnoremap <Leader>x     :x<CR>
 nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
-nnoremap <Leader>s     :vertical resize 120<CR>
 nnoremap <Leader>b     :Buffers<CR>
 nnoremap <Leader>f     :Lines<CR>
-nnoremap <Leader>g     :GFiles?<CR>
+"nnoremap <Leader>g     :GFiles?<CR>
 nnoremap <Leader>o     :Files<CR>
 nnoremap <Leader>p     :GFiles<CR>
 nnoremap <Leader>r     :Rg<CR>
@@ -206,6 +210,8 @@ nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
      map <Leader>n     <plug>NERDTreeTabsToggle<CR>
      map <Leader>m     :ExpSel<CR>
+     map <Leader>g     <Plug>Lightspeed_s
+     map <Leader>G     <Plug>Lightspeed_S
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -225,6 +231,12 @@ function ArrowMap()
 endfunction
 
 autocmd! FileType fzf call ArrowMap()
+
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
 
 " Let FZF be a floating window
 let $FZF_DEFAULT_OPTS='--layout=reverse'
@@ -327,6 +339,7 @@ function! FloatingQuickfix(timer)
 
         " Make transparent
         set winhl=Normal:Floating
+        set number
         " If we leave the buffer, close the floating window and reset the variable
         autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
         " After opening, show message in highlight style of ModeMsg
