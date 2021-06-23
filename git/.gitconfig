@@ -4,6 +4,7 @@
 [user]
     email = mail+github@leongr.nl
     name = LeonGr
+    signingKey = 5A72DC3B
 
 [alias]
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
@@ -25,3 +26,8 @@
 
 [mergetool "vimdiff"]
     path = nvim
+
+[commit]
+    gpgsign = true
+[gpg]
+    program = gpg2
