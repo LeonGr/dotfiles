@@ -21,7 +21,7 @@ alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-#alias tmux='TERM=xterm-256color tmux' # make cursor work
+alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 
@@ -34,6 +34,11 @@ alias lt='exa -T'
 alias lr='exa -R'
 alias lat='exa -laT'
 alias lar='exa -laR'
+
+# set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
+if [ -n "$TMUX" ]
+    set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
+end
 
 # git aliases
 source ~/.config/fish/git.fish
@@ -50,6 +55,7 @@ cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
+cat ~/.cache/wal/sequences &
 
 # give man colors
 set -x MANROFFOPT '-c'
