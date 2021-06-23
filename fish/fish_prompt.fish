@@ -18,7 +18,21 @@ function fish_prompt --description 'Write out the prompt'
     # enable specific information
     set -g __fish_git_prompt_showdirtystate true
     set -g __fish_git_prompt_showuntrackedfiles true
+    set -g __fish_git_prompt_showstashstate true
     set -g __fish_git_prompt_showupstream auto
+
+    # set status colors
+    # default
+    #set -g __fish_git_prompt_showcolorhints true
+    # custom
+    set -g __fish_git_prompt_color_branch green
+    set -g __fish_git_prompt_color_dirtystate green
+    set -g __fish_git_prompt_color_stagedstate red
+    set -g __fish_git_prompt_color_invalidstate cyan
+    set -g __fish_git_prompt_color_upstream blue
+    set -g __fish_git_prompt_color_merging magenta
+    set -g __fish_git_prompt_color_untrackedfiles yellow
+    set -g __fish_git_prompt_color_stashstate white
 
     # Use fancy icons
     set -g __fish_git_prompt_use_informative_chars true
