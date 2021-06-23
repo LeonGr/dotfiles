@@ -50,6 +50,7 @@ Plug 'chrisbra/csv.vim'                                           " Browse csv f
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
 Plug 'jparise/vim-graphql'                                        " GraphQL support
+Plug 'dag/vim-fish'                                             " Fish script support
 "Plug 'kevinhwang91/nvim-bqf'
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
