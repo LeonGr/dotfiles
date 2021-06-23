@@ -3,6 +3,14 @@ function fish_prompt --description 'Write out the prompt'
     set -lx __fish_last_status $status # Export for __fish_print_pipestatus.
     set -l normal (set_color normal)
 
+    # set syntax highlight colors (https://fishshell.com/docs/current/index.html#syntax-highlighting-variables)
+    set fish_color_command green
+    set fish_color_error red --bold
+    set fish_color_comment 777
+    set fish_color_param white
+    set fish_color_redirection blue
+    #set fish_color_search_match black
+
     ## git info (https://fishshell.com/docs/current/cmds/fish_git_prompt.html)
     # set color to grey
     set -g __fish_git_prompt_color 777
