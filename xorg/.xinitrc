@@ -1,9 +1,5 @@
 #!/bin/sh
-xrandr --setprovideroutputsource modesetting NVIDIA-0
-hdmiMonitor=$(xrandr | grep "HDMI-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
-displayportMonitor=$(xrandr | grep "DP-[0-9]\sconnected " | sed -e "s/\([A-Z0-9]\+\) connected.*/\1/")
-
-xrandr --output $displayportMonitor --auto --primary --output $hdmiMonitor --auto --right-of $displayportMonitor
+xrandr --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -38,7 +34,7 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xset -b &
-setxkbmap -option caps:escape &
+caps2esc &
 xbindkeys &
 sxhkd &
 urxvt &
