@@ -52,8 +52,16 @@ set -x Z_DATA /home/leon/z/.z.
 
 # print coloured motd
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
 # print randomly coloured fish logo
-fish_logo (string split ' ' (python -c 'import random; print(" ".join(random.sample(["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"], 3)))')); echo ""
+function random_fish
+    set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
+    set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
+    set args (string split ' ' $color_sample)
+    fish_logo $args
+    echo ""
+end
+random_fish
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
