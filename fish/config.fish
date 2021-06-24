@@ -51,7 +51,9 @@ set -x EDITOR /usr/bin/nvim
 set -x Z_DATA /home/leon/z/.z.
 
 # print coloured motd
-cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+# print randomly coloured fish logo
+fish_logo (string split ' ' (python -c 'import random; print(" ".join(random.sample(["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"], 3)))')); echo ""
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
