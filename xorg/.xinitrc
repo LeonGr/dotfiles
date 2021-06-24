@@ -33,12 +33,18 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
+# Env variables
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+#export LIBVA_DRIVER_NAME="radeonsi"
+#export VDPAU_DRIVER="radeonsi"
+
 xset -b &
 caps2esc &
 xbindkeys &
 sxhkd &
-urxvt &
 wal -R &
+urxvt &
 xset +fp /home/leon/GitClones/tewi-font/out &
+#picom --config ~/dotfiles/others/picom.conf &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
 exec bspwm

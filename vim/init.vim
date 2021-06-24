@@ -50,6 +50,7 @@ Plug 'chrisbra/csv.vim'                                           " Browse csv f
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
 Plug 'jparise/vim-graphql'                                        " GraphQL support
+Plug 'dag/vim-fish'                                             " Fish script support
 "Plug 'kevinhwang91/nvim-bqf'
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
@@ -118,7 +119,7 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
-let g:gruvbox_italic=1 " urxvt supports italics, enable it
+"let g:gruvbox_italic=1 " urxvt supports italics, enable it
 colorscheme gruvbox
 
 " Make line nr and background fit terminal background
@@ -132,7 +133,7 @@ highlight link FloatBorder Normal
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
@@ -142,15 +143,6 @@ execute 'highlight StatusLine guifg='   . background
 execute 'highlight StatusLine guibg='   . color2
 execute 'highlight StatusLineNC guifg=' . foreground
 execute 'highlight StatusLineNC guibg=' . color0
-
-function! GitBranch()
-    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0 ? '  '.l:branchname.'' : ''
-endfunction
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
