@@ -140,10 +140,22 @@ super + alt + shift + {h,j,k,l}
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 
+#
+# extra
+#
+
 # scratchpad
 super + u
     tdrop --wm bspwm -ma -w 60% -h 60% -x 20% -s dropdown urxvt
 
-# rotate layout (Will swap horizontal/vertical with 2 panels)
+# rotate layout 90 degrees (Will swap horizontal/vertical with 2 panels)
 super + r
     bspc node @parent -R 90
+
+# rotate monitor 180 degrees
+super + shift + r
+    bspc node @/ -R 180
+
+# Take a sized screenshot and copy to clipboard
+super + shift + @s
+    scrot ~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png -s --exec 'xclip -selection clipboard -target image/png -in $f'

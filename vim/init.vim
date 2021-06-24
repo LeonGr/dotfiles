@@ -19,6 +19,7 @@ Plug 'scrooloose/nerdcommenter'                                   " Easy comment
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
 Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
+Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
@@ -27,6 +28,7 @@ Plug 'tpope/vim-endwise'                                          " Auto close s
 "Plug 'airblade/vim-gitgutter'                                     " Show git changes
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
+Plug 'tpope/vim-fugitive'                                         " Git wrapper
 Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
@@ -42,10 +44,19 @@ Plug 'nathanaelkane/vim-indent-guides'                            " Indentation 
 Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
 Plug 'posva/vim-vue'                                              " Vue syntax
 Plug 'leafgarland/typescript-vim'                                 " TypeScript support
+Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
 Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 Plug 'lervag/vimtex'                                              " LaTeX support
+Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
+Plug 'jparise/vim-graphql'                                        " GraphQL support
+Plug 'dag/vim-fish'                                             " Fish script support
+"Plug 'kevinhwang91/nvim-bqf'
+Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
+Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
+Plug 'puremourning/vimspector'                                    " Debugger for vim
+Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -53,6 +64,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     Plug 'steelsojka/completion-buffers'                          " Buffer completion source
+    Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
@@ -124,23 +136,23 @@ endif
 highlight Normal guibg=NONE ctermbg=NONE
 highlight LineNr guibg=NONE
 
+"highlight FloatBorder guifg=#FFFFFF
+highlight link FloatBorder Normal
+
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=%{StatuslineGit()}\ \ %0.50F\ %=\ %l,%c\ \ %p%%%{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-" Set colours (hex codes from Pure theme)
-highlight StatusLine   gui=none guibg=#5af78e
-highlight StatusLineNC gui=none guibg=#282a36 guifg=#eff0eb
+set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+highlight StatusLine   gui=none            " guibg=none
+highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
-function! GitBranch()
-    return system("git rev-parse --abbrev-ref HEAD 2>/dev/null | tr -d '\n'")
-endfunction
-
-function! StatuslineGit()
-    let l:branchname = GitBranch()
-    return strlen(l:branchname) > 0 ? '   '.l:branchname.'' : ''
-endfunction
+" Use wal colors for statusline
+"source ~/.cache/wal/colors-wal.vim
+"execute 'highlight StatusLine guifg='   . background
+"execute 'highlight StatusLine guibg='   . color2
+"execute 'highlight StatusLineNC guifg=' . foreground
+"execute 'highlight StatusLineNC guibg=' . color0
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
@@ -184,22 +196,25 @@ set backspace=2
 let mapleader = "\<Space>"
 let maplocalleader = "\<Space>"
 
-nnoremap <Leader>; g;
-nnoremap <Leader>, g,
-nnoremap <Leader>w :w<CR>
-nnoremap <Leader>x :x<CR>
+nnoremap <Leader>;     g;
+nnoremap <Leader>,     g,
+nnoremap <Leader>w     :w<CR>
+nnoremap <Leader>x     :x<CR>
 nnoremap <Leader><tab> :b#<CR>
-vnoremap <Leader>c :'<,'>w !pbcopy<CR>  <CR>
-nnoremap <Leader>s :vertical resize 120<CR>
-nnoremap <Leader>b :Buffers<CR>
-nnoremap <Leader>f :Lines<CR>
-nnoremap <Leader>g :GFiles?<CR>
-nnoremap <Leader>p :Files<CR>
-nnoremap <Leader>r :Rg<CR>
-nnoremap <Leader>/ :BLines<CR>
-nnoremap <Leader>v :call TrimWhiteSpace()<CR>
-nnoremap <Leader>q :copen<CR>
-     map <Leader>n <plug>NERDTreeTabsToggle<CR>
+"vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
+nnoremap <Leader>b     :Buffers<CR>
+nnoremap <Leader>f     :Lines<CR>
+"nnoremap <Leader>g     :GFiles?<CR>
+nnoremap <Leader>o     :Files<CR>
+nnoremap <Leader>p     :GFiles<CR>
+nnoremap <Leader>r     :Rg<CR>
+nnoremap <Leader>/     :BLines<CR>
+nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
+nnoremap <Leader>q     :copen<CR>
+     map <Leader>n     <plug>NERDTreeTabsToggle<CR>
+     map <Leader>m     :ExpSel<CR>
+     map <Leader>g     <Plug>Lightspeed_s
+     map <Leader>G     <Plug>Lightspeed_S
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -220,28 +235,63 @@ endfunction
 
 autocmd! FileType fzf call ArrowMap()
 
+" Enable per-command history
+" - History files will be stored in the specified directory
+" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
+"   'previous-history' instead of 'down' and 'up'.
+let g:fzf_history_dir = '~/.local/share/fzf-history'
+
 " Let FZF be a floating window
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
-    let buf = nvim_create_buf(v:false, v:true)
-    call setbufvar(buf, '&signcolumn', 'no')
+    " Original
+    "let buf = nvim_create_buf(v:false, v:true)
+    "call setbufvar(buf, '&signcolumn', 'no')
 
+    "let height = &lines - 3
+    "let width = float2nr(&columns - (&columns * 2 / 10))
+    "let col = float2nr((&columns - width) / 2)
+
+    "let opts = {
+        "\ 'relative': 'editor',
+        "\ 'row': 1,
+        "\ 'col': col,
+        "\ 'width': width,
+        "\ 'height': height
+        "\ }
+
+    "let win = nvim_open_win(buf, v:true, opts)
+    "call setwinvar(win, '&relativenumber', 0)
+
+    "let width = min([&columns - 4, max([80, &columns - 20])])
+    "let height = min([&lines - 4, max([20, &lines - 10])])
+
+    " With Border
     let height = &lines - 3
     let width = float2nr(&columns - (&columns * 2 / 10))
-    let col = float2nr((&columns - width) / 2)
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-    let opts = {
-        \ 'relative': 'editor',
-        \ 'row': 1,
-        \ 'col': col,
-        \ 'width': width,
-        \ 'height': height
-        \ }
-
-    let win = nvim_open_win(buf, v:true, opts)
-    call setwinvar(win, '&relativenumber', 0)
+    "let top = "╭" . repeat("─", width - 2) . "╮"
+    "let mid = "│" . repeat(" ", width - 2) . "│"
+    "let bot = "╰" . repeat("─", width - 2) . "╯"
+    let top = "╔" . repeat("═", width - 2) . "╗"
+    let mid = "║" . repeat(" ", width - 2) . "║"
+    let bot = "╚" . repeat("═", width - 2) . "╝"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
 
 let g:FloatingQFOpen = 0
@@ -251,29 +301,50 @@ function! FloatingQuickfix(timer)
         " so we set this variable to 1 to stop creating an infinite loop
         let g:FloatingQFOpen = 1
 
-        let buf = nvim_create_buf(v:false, v:true)
-        call setbufvar(buf, '&signcolumn', 'no')
+        "let height = &lines - 3
+        "let width = float2nr(&columns - (&columns * 2 / 10))
+        "let col = float2nr((&columns - width) / 2)
+        "let opts = { 'relative': 'editor', 'row': 1, 'col': col, 'width': width, 'height': height }
 
         let height = &lines - 3
         let width = float2nr(&columns - (&columns * 2 / 10))
-        let col = float2nr((&columns - width) / 2)
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-        let opts = {
-            \ 'relative': 'editor',
-            \ 'row': 1,
-            \ 'col': col,
-            \ 'width': width,
-            \ 'height': height
-            \ }
+        "let top = "╭" . repeat("─", width - 2) . "╮"
+        "let mid = "│" . repeat(" ", width - 2) . "│"
+        "let bot = "╰" . repeat("─", width - 2) . "╯"
+        let top = "╔" . repeat("═", width - 2) . "╗"
+        let mid = "║" . repeat(" ", width - 2) . "║"
+        let bot = "╚" . repeat("═", width - 2) . "╝"
+        let lines = [top] + repeat([mid], height - 2) + [bot]
+        let s:buf = nvim_create_buf(v:false, v:true)
+        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+        call nvim_open_win(s:buf, v:true, opts)
+        set winhl=Normal:Floating
+
+        let buf = nvim_create_buf(v:false, v:true)
+        call setbufvar(buf, '&signcolumn', 'no')
 
         " Close and open QF window so bn opens it instead of the file we're editing
         cclose | copen
+
+        let opts.row += 1
+        let opts.height -= 2
+        let opts.col += 2
+        let opts.width -= 4
+
         " Open floating window
         let win = nvim_open_win(buf, v:true, opts)
         " Set content to QF buffer | close original QF window
         bn | cclose
+
+        " Make transparent
+        set winhl=Normal:Floating
+        set number
         " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo ''
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
         " After opening, show message in highlight style of ModeMsg
         echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
     endif
@@ -333,16 +404,21 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Trigger completion with <Tab>
 inoremap <silent><expr> <TAB>
-  \ pumvisible() ? "\<C-n>" :
-  \ <SID>check_back_space() ? "\<TAB>" :
-  \ completion#trigger_completion()
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<TAB>" :
+    \ completion#trigger_completion()
+
+inoremap <silent><expr> <S-TAB>
+    \ pumvisible() ? "\<C-p>" : "\<S-Tab"
 
 " Make <CR> select completion work with auto-pairs and endwise
 let g:completion_confirm_key = ""
 inoremap <expr> <CR> <SID>CRInsert()
 
+    " return pumvisible() ? \"\<Plug>(completion_confirm_completion)" : \"\<CR>"
 function! s:CRInsert()
-    return pumvisible() ? "\<Plug>(completion_confirm_completion)" : "\<CR>"
+    return pumvisible() ? complete_info()["selected"] != "-1" ?
+                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
 endfunction
 
 function! s:check_back_space() abort
@@ -352,12 +428,14 @@ endfunction
 
 " Change color popup menu
 highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
+highlight NormalFloat ctermbg=gray guibg=none
 
 " Set completeopt to have a better completion experience (:help completeopt)
     " menuone: popup even when there's only one match
     " noinsert: Do not insert text until a selection is made
     " noselect: Do not select, force user to select one from the menu
-set completeopt=noinsert,menuone,noselect
+"set completeopt=noinsert,menuone,noselect
+set completeopt=menuone,noselect
 
 " Set Ultisnips/snippets expansion key
 let g:UltiSnipsExpandTrigger       = "<c-s>"
@@ -365,10 +443,11 @@ let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 
 " (require checks file in ~/.config/nvim/lua)
+lua require('init')
 " LSP settings
 lua require('lsp')
-" TreeSitter settings
-lua require('treesitter')
+" Overwrite some functions
+lua require('overwrite')
 
 " LSP mappings
 " Jump to definition
@@ -404,6 +483,18 @@ set shortmess+=c
 let g:completion_enable_snippet = 'UltiSnips'
 let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
 let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
+"let g:completion_chain_complete_list = {
+"\   'default' : {
+"\       'default' : [
+"\           {'complete_items': ['buffers', 'lsp', 'snippet']},
+"\           {'mode': '<c-p>'},
+"\           {'mode': '<c-n>'}
+"\       ],
+"\       'string' : [
+"\           { 'mode': 'file' },
+"\       ]
+"\   },
+"\}
 let g:completion_chain_complete_list = [
     \{'complete_items': ['buffers', 'lsp', 'snippet']},
     \{'mode': '<c-p>'},
@@ -536,3 +627,52 @@ let g:user_emmet_mode='i'
 
 " NERDCommenter: <Leader> + c<space> = comment, cs = pretty block, cm = multiline
 let g:NERDAltDelims_c = 1 " Use // for C
+
+"augroup SyntaxSettings
+    "autocmd!
+    "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+"augroup END
+
+" vim-test config
+let test#strategy = "neovim"
+let test#neovim#term_position = "vertical"
+nnoremap <Leader>tt :TestNearest<CR>
+nnoremap <Leader>tf :TestFile<CR>
+nnoremap <Leader>ts :TestSuite<CR>
+nnoremap <Leader>tl :TestLast<CR>
+
+" vimspector config
+nnoremap <Leader>sa :call vimspector#Launch()<CR>
+nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
+nnoremap <Leader>sw :call AddToWatch()<CR>
+nnoremap <Leader>sx :call vimspector#Reset()<CR>
+nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
+nnoremap <Leader>sr :call vimspector#Restart()<CR>
+nnoremap <Leader>sc :call vimspector#Continue()<CR>
+nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
+nnoremap <Leader>so :call vimspector#StepOut()<CR>
+nnoremap <Leader>si :call vimspector#StepInto()<CR>
+nnoremap <Leader>sn :call vimspector#StepOver()<CR>
+
+" Method to start debugging of test
+function! JestStrategy(cmd)
+    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+endfunction
+let g:test#custom_strategies = {'jest': function('JestStrategy')}
+
+" Method to add expression to debugger watch list
+func! AddToWatch()
+    let word = expand("<cexpr>")
+    call vimspector#AddWatch(word)
+endfunction
+
+" context.vim
+
+" don't show context in files without filetype (mostly for debugger)
+let g:context_filetype_blacklist = [""]
+
+" stops flickering but may cause artifacts
+"let g:context_nvim_no_redraw = 1
+let g:context_enabled = 0

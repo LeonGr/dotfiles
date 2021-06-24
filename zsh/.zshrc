@@ -39,6 +39,7 @@ alias sus='systemctl suspend'
 alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 #alias tmux='TERM=xterm-256color tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
+alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 
 # ls -> exa
 # alias exa='exa --git'
@@ -101,6 +102,9 @@ export LESS_TERMCAP_us=$(tput smul; tput bold; tput setaf 7)
 export LESS_TERMCAP_ue=$(tput rmul; tput sgr0)
 export LESS_TERMCAP_mr=$(tput rev)
 export LESS_TERMCAP_mh=$(tput dim)
+
+# Use neovim as MANPAGER
+export MANPAGER='nvim +Man!'
 
 export ANDROID_SDK_ROOT='/home/leon/Android/Sdk/'
 #export ANDROID_SDK_HOME='/home/leon/.android/'
