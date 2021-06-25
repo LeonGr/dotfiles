@@ -61,11 +61,15 @@ function random_fish
     fish_logo $args
     echo ""
 end
-random_fish
 
-# source wal colors
-#. ~/.cache/wal/colors.sh
-cat ~/.cache/wal/sequences &
+#  only execute these in tty
+if tty > /dev/null
+    random_fish
+
+    # source wal colors
+    cat ~/.cache/wal/sequences &
+end
+
 
 # give man colors
 set -x MANROFFOPT '-c'
