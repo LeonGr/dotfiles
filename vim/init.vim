@@ -56,6 +56,8 @@ Plug 'LeonGr/neovim-expand-selection'                             " My own plugi
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
 Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
+Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
+Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client

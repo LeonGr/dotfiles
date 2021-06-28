@@ -28,3 +28,16 @@ require'nvim-treesitter.configs'.setup {
         },
     },
 }
+
+-- sindrets/diffview.nvim
+require'diffview'.setup {
+    file_panel = {
+        use_icons = false
+    }
+}
+
+require'neogit'.setup {
+    integrations = {
+        diffview = true
+    }
+}
