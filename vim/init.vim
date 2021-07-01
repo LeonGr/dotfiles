@@ -163,8 +163,11 @@ highlight SignColumn guibg=NONE gui=bold " Make background transparent
 " Hide vertical split background color
 highlight VertSplit guibg=NONE
 
-" Stop automatic new line of comment
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" See :help 'fo-table'/'formatoptions'
+" Stop automatic new line of comment after CTRL-O
+autocmd FileType * setlocal formatoptions-=o
+"autocmd FileType * setlocal formatoptions-=r
+"autocmd FileType * setlocal formatoptions-=c
 
 " Searching improvements
 set incsearch       "Lookahead as search pattern is specified
@@ -612,6 +615,7 @@ let g:user_emmet_mode='i'
 
 " NERDCommenter: <Leader> + c<space> = comment, cs = pretty block, cm = multiline
 let g:NERDAltDelims_c = 1 " Use // for C
+let g:NERDSpaceDelims = 1 " Add space after comment delimiter
 
 "augroup SyntaxSettings
     "autocmd!
