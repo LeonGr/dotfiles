@@ -36,8 +36,47 @@ require'diffview'.setup {
     }
 }
 
+-- TimUntersberger/neogit
 require'neogit'.setup {
     integrations = {
         diffview = true
     }
 }
+
+-- aserowy/tmux.nvim
+require'tmux'.setup {
+    -- overwrite default configuration
+    -- here, e.g. to enable default bindings
+    copy_sync = {
+        -- enables copy sync and overwrites all register actions to
+        -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
+        enable = false,
+        -- TMUX >= 3.2: yanks (and deletes) will get redirected to system
+        -- clipboard by tmux
+        redirect_to_clipboard = true,
+    },
+    navigation = {
+        -- enables default keybindings (C-hjkl) for normal mode
+        enable_default_keybindings = true,
+    },
+    resize = {
+        -- enables default keybindings (A-hjkl) for normal mode
+        enable_default_keybindings = true,
+    }
+}
+
+-- vhyrro/neorg
+-- require'neorg'.setup {
+    -- -- Tell Neorg what modules to load
+    -- load = {
+        -- ["core.defaults"] = {}, -- Load all the default modules
+        -- ["core.norg.concealer"] = {}, -- Allows for use of icons
+        -- ["core.norg.dirman"] = { -- Manage your directories with Neorg
+            -- config = {
+                -- workspaces = {
+                    -- my_workspace = "~/neorg"
+                -- }
+            -- }
+        -- }
+    -- },
+-- }

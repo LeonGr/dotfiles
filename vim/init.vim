@@ -17,7 +17,8 @@ Plug 'scrooloose/nerdtree'                                        " File browser
 Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
-Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
+" Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
+Plug 'aserowy/tmux.nvim'                              " Neovim tmux integration
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
 Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
@@ -58,6 +59,7 @@ Plug 'puremourning/vimspector'                                    " Debugger for
 Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
+Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -121,7 +123,8 @@ filetype plugin indent on
 syntax enable
 syntax on
 "set t_Co=256
-"let g:gruvbox_italic=1 " urxvt supports italics, enable it
+" let g:gruvbox_italic=1 " urxvt supports italics, enable it
+let g:gruvbox_italic=1 " alacritty supports italics, enable it
 colorscheme gruvbox
 
 " Make line nr and background fit terminal background
