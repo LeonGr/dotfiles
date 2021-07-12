@@ -17,20 +17,20 @@ Plug 'scrooloose/nerdtree'                                        " File browser
 Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
-" Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl
-Plug 'aserowy/tmux.nvim'                              " Neovim tmux integration
+" Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl (comment: deprecated by tmux.nvim)
+Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
 Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
-Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if)
+" Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if) (comment: does not work well with nvim-autopairs)
 "Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-"Plug 'airblade/vim-gitgutter'                                     " Show git changes
+"Plug 'airblade/vim-gitgutter'                                     " Show git changes (comment: deprecated by gitsigns)
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
-Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
+" Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
 Plug 'dense-analysis/ale'                                         " Async Lint Engine
@@ -60,13 +60,15 @@ Plug 'wellle/context.vim'                                         " Shows contex
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
+Plug 'hrsh7th/nvim-compe'                                         " Completion for Neovim
+Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
     Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
-    Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
+    " Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
-    Plug 'steelsojka/completion-buffers'                          " Buffer completion source
+    " Plug 'steelsojka/completion-buffers'                          " Buffer completion source
     Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
 
 " TreeSitter
@@ -362,7 +364,7 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDTreeShowHidden = 1
 
 " Auto pairs settings
-let g:AutoPairsShortcutToggle = '<M-p>'
+" let g:AutoPairsShortcutToggle = '<M-p>'
 "let g:AutoPairsMapCR=1
 
 "vCoolor settings
@@ -400,28 +402,37 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 "inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
 "inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
 " Trigger completion with <Tab>
-inoremap <silent><expr> <TAB>
-    \ pumvisible() ? "\<C-n>" :
-    \ <SID>check_back_space() ? "\<TAB>" :
-    \ completion#trigger_completion()
+" inoremap <silent><expr> <TAB>
+    " \ pumvisible() ? "\<C-n>" :
+    " \ <SID>check_back_space() ? "\<TAB>" :
+    " \ completion#trigger_completion()
 
-inoremap <silent><expr> <S-TAB>
-    \ pumvisible() ? "\<C-p>" : "\<S-Tab"
+" inoremap <silent><expr> <S-TAB>
+    " \ pumvisible() ? "\<C-p>" : "\<S-Tab"
 
 " Make <CR> select completion work with auto-pairs and endwise
-let g:completion_confirm_key = ""
-inoremap <expr> <CR> <SID>CRInsert()
+" let g:completion_confirm_key = ""
+" inoremap <expr> <CR> <SID>CRInsert()
 
     " return pumvisible() ? \"\<Plug>(completion_confirm_completion)" : \"\<CR>"
-function! s:CRInsert()
-    return pumvisible() ? complete_info()["selected"] != "-1" ?
-                 \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
-endfunction
+" function! s:CRInsert()
+    " return pumvisible() ? complete_info()["selected"] != "-1" ?
+                 " \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
+" endfunction
 
-function! s:check_back_space() abort
-    let col = col('.') - 1
-    return !col || getline('.')[col - 1]  =~ '\s'
-endfunction
+" function! s:check_back_space() abort
+    " let col = col('.') - 1
+    " return !col || getline('.')[col - 1]  =~ '\s'
+" endfunction
+
+" nvim-compe
+inoremap <silent><expr> <C-Space> compe#complete()
+inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
+inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
+
+highlight link CompeDocumentation Pmenu
 
 " Change color popup menu
 highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
@@ -477,9 +488,9 @@ nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 set shortmess+=c
 
 " completion-nvim - Autocomplete
-let g:completion_enable_snippet = 'UltiSnips'
-let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
-let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
+" let g:completion_enable_snippet = 'UltiSnips'
+" let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
+" let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
 "let g:completion_chain_complete_list = {
 "\   'default' : {
 "\       'default' : [
@@ -492,11 +503,11 @@ let g:completion_trigger_keyword_length = 1 " After how many characters it shoul
 "\       ]
 "\   },
 "\}
-let g:completion_chain_complete_list = [
-    \{'complete_items': ['buffers', 'lsp', 'snippet']},
-    \{'mode': '<c-p>'},
-    \{'mode': '<c-n>'}
-\]
+" let g:completion_chain_complete_list = [
+    " \{'complete_items': ['buffers', 'lsp', 'snippet']},
+    " \{'mode': '<c-p>'},
+    " \{'mode': '<c-n>'}
+" \]
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
