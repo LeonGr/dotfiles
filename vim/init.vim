@@ -71,6 +71,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
     " Plug 'steelsojka/completion-buffers'                          " Buffer completion source
     Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
+    Plug 'ojroques/nvim-lspfuzzy'                                 " Replace LSP windows with fzf ones
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
