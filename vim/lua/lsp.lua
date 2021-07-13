@@ -4,9 +4,10 @@ local configs = require'lspconfig/configs'
 
 -- function to attach completion and diagnostics
 -- when setting up lsp
--- local on_attach = function(client)
+local on_attach = function(client)
     -- require'completion'.on_attach(client)
--- end
+    require'virtualtypes'.on_attach()
+end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
@@ -19,14 +20,15 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- Enable rust_analyzer (Rust)
-lspconfig.rust_analyzer.setup({ capabilities=capabilities })
+lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable hls (Haskell)
-lspconfig.hls.setup({ capabilities=capabilities })
+lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable python-language-server (Python)
 lspconfig.pyls.setup({
     capabilities=capabilities;
+    on_attach=on_attach;
     settings = {
         pyls = {
             configurationSources = { "flake8" } -- reads ~/.config/flake8
@@ -35,17 +37,17 @@ lspconfig.pyls.setup({
 })
 
 -- Enable vscode language servers (HTML, CSS, JSON)
-lspconfig.cssls.setup({ capabilities=capabilities })
-lspconfig.html.setup({ capabilities=capabilities })
-lspconfig.jsonls.setup({ capabilities=capabilities; cmd={"json-languageserver", "--stdio"} })
+lspconfig.cssls.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.html.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
 
 -- Enable flow (JavaScript)
-lspconfig.flow.setup({ capabilities=capabilities })
+lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
     on_attach=function(client, _)
-        -- on_attach(client)
+        on_attach(client)
 
         require("nvim-lsp-ts-utils").setup {}
     end,
@@ -53,20 +55,30 @@ lspconfig.tsserver.setup({
 })
 
 -- Enable bashls (Bash)
-lspconfig.bashls.setup({ capabilities=capabilities })
+lspconfig.bashls.setup({
+    capabilities=capabilities;
+    -- on_attach=on_attach
+})
 
 -- Enable vim-language-server (vimscript)
-lspconfig.vimls.setup({ capabilities=capabilities })
+lspconfig.vimls.setup({
+    capabilities=capabilities;
+    -- on_attach=on_attach
+})
 
 -- Enable Vue Language Server (Vue.js)
-lspconfig.vuels.setup({ capabilities=capabilities })
+lspconfig.vuels.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable Clangd (C/C++)
-lspconfig.clangd.setup({ capabilities=capabilities })
+lspconfig.clangd.setup({
+    capabilities=capabilities;
+    -- on_attach=on_attach
+})
 
 -- Enable lua-language-server (Lua)
 lspconfig.sumneko_lua.setup({
-    capabilities=capabilities ;
+    capabilities=capabilities;
+    -- on_attach=on_attach;
     cmd = { "/bin/lua-language-server", "-E", vim.fn.stdpath('cache').."/lspconfig/sumneko_lua/lua-language-server/main.lua" };
     settings = {
         Lua = {

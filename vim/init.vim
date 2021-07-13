@@ -72,6 +72,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     " Plug 'steelsojka/completion-buffers'                          " Buffer completion source
     Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
     Plug 'ojroques/nvim-lspfuzzy'                                 " Replace LSP windows with fzf ones
+    Plug 'jubnzv/virtual-types.nvim'                              " Show type annotations
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
