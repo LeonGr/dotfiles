@@ -86,7 +86,7 @@ require'compe'.setup {
     enabled = true;
     autocomplete = true;
     debug = false;
-    min_length = 1;
+    min_length = 2;
     preselect = 'enable';
     throttle_time = 80;
     source_timeout = 200;
@@ -137,8 +137,8 @@ _G.tab_complete = function()
     -- return t "<Plug>(vsnip-expand-or-jump)"
   elseif check_back_space() then
     return t "<Tab>"
-  else
-    return vim.fn['compe#complete']()
+  -- else
+    -- return vim.fn['compe#complete']()
   end
 end
 _G.s_tab_complete = function()
@@ -158,9 +158,21 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 ---- windwp/nvim-autopairs
-require('nvim-autopairs').setup()
+require'nvim-autopairs'.setup()
 
 require("nvim-autopairs.completion.compe").setup({
     map_cr = true, --  map <CR> on insert mode
     map_complete = true -- it will auto insert `(` after select function or method item
+})
+
+---- norcalli/nvim-colorizer.lua
+require'colorizer'.setup( nil, { 
+    RGB      = true;        -- #RGB hex codes
+	RRGGBB   = true;        -- #RRGGBB hex codes
+	names    = true;        -- "Name" codes like Blue
+	RRGGBBAA = true;        -- #RRGGBBAA hex codes
+	rgb_fn   = true;        -- CSS rgb() and rgba() functions
+	hsl_fn   = true;        -- CSS hsl() and hsla() functions
+	css      = true;        -- Enable all CSS features: rgb_fn, hsl_fn, names, RGB, RRGGBB
+	css_fn   = true;        -- Enable all CSS *functions*: rgb_fn, hsl_fn
 })

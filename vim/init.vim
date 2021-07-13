@@ -39,7 +39,8 @@ Plug 'yaroot/vissort'                                             " Sort by visu
 Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'pangloss/vim-javascript'                                    " Javascript support
-Plug 'ap/vim-css-color'                                           " Show css colors in files
+" Plug 'ap/vim-css-color'                                           " Show css colors in files
+Plug 'norcalli/nvim-colorizer.lua'                                " Color highlighter
 Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
 Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
 Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
@@ -366,6 +367,21 @@ let NERDTreeShowHidden = 1
 " Auto pairs settings
 " let g:AutoPairsShortcutToggle = '<M-p>'
 "let g:AutoPairsMapCR=1
+let g:PairsOn = 1
+function ToggleAutoPairs()
+    if g:PairsOn == 1
+        lua require('nvim-autopairs').disable()
+        let g:PairsOn = 0
+        echo("Disabled AutoPairs")
+    else
+        lua require('nvim-autopairs').enable()
+        let g:PairsOn = 1
+        echo("Enabled AutoPairs")
+    endif
+endfunction
+
+nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
+
 
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
