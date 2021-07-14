@@ -25,8 +25,8 @@ Plug 'chip/vim-fat-finger'                                        " Series of ab
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
 " Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if) (comment: does not work well with nvim-autopairs)
-"Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-"Plug 'airblade/vim-gitgutter'                                     " Show git changes (comment: deprecated by gitsigns)
+" Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
+" Plug 'airblade/vim-gitgutter'                                     " Show git changes (comment: deprecated by gitsigns)
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
@@ -52,8 +52,7 @@ Plug 'chrisbra/csv.vim'                                           " Browse csv f
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
 Plug 'jparise/vim-graphql'                                        " GraphQL support
-Plug 'dag/vim-fish'                                             " Fish script support
-"Plug 'kevinhwang91/nvim-bqf'
+Plug 'dag/vim-fish'                                               " Fish script support
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
@@ -63,6 +62,8 @@ Plug 'TimUntersberger/neogit'                                     " Magit clone 
 Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
 Plug 'hrsh7th/nvim-compe'                                         " Completion for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
+Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
+Plug 'itchyny/vim-cursorword'                                     " Underline the word under the cursor
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -697,3 +698,8 @@ let g:context_filetype_blacklist = [""]
 " stops flickering but may cause artifacts
 "let g:context_nvim_no_redraw = 1
 let g:context_enabled = 0
+
+" vim-cursorword
+let g:cursorword_highlight = 0 " Disable default colours
+highlight CursorWord0 gui=reverse
+highlight link CursorWord1 CursorWord0
