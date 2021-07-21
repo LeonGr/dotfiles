@@ -63,7 +63,8 @@ Plug 'vhyrro/neorg'                                               " Org-mode for
 Plug 'hrsh7th/nvim-compe'                                         " Completion for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
-Plug 'itchyny/vim-cursorword'                                     " Underline the word under the cursor
+" Plug 'itchyny/vim-cursorword'                                     " Underline the word under the cursor
+Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -121,6 +122,9 @@ set inccommand=nosplit
 if (has("termguicolors"))
     set termguicolors
 endif
+
+" Set shell
+set shell=/usr/bin/bash
 
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
@@ -448,8 +452,6 @@ autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 inoremap <silent><expr> <C-Space> compe#complete()
 inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
 inoremap <silent><expr> <C-e>     compe#close('<C-e>')
-inoremap <silent><expr> <C-f>     compe#scroll({ 'delta': +4 })
-inoremap <silent><expr> <C-d>     compe#scroll({ 'delta': -4 })
 
 highlight link CompeDocumentation Pmenu
 
@@ -699,7 +701,5 @@ let g:context_filetype_blacklist = [""]
 "let g:context_nvim_no_redraw = 1
 let g:context_enabled = 0
 
-" vim-cursorword
-let g:cursorword_highlight = 0 " Disable default colours
-highlight CursorWord0 gui=reverse
-highlight link CursorWord1 CursorWord0
+" nvim-cursorword
+highlight CursorWord gui=reverse
