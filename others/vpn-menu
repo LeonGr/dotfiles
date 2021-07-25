@@ -1,4 +1,7 @@
 #!/bin/bash
+
+# LeonGr - 2021/07/25 
+
 log() {
     tput setaf 1; echo "### $1 ###"; tput sgr 0
 }
