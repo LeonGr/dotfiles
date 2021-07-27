@@ -17,7 +17,6 @@ Plug 'scrooloose/nerdtree'                                        " File browser
 Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
 Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
-" Plug 'christoomey/vim-tmux-navigator'                             " Navigate tmux windows using hjkl (comment: deprecated by tmux.nvim)
 Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
 Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
@@ -26,7 +25,6 @@ Plug 'tpope/vim-repeat'                                           " Repeat more 
 Plug 'godlygeek/tabular'                                          " Easy text align
 " Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if) (comment: does not work well with nvim-autopairs)
 " Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-" Plug 'airblade/vim-gitgutter'                                     " Show git changes (comment: deprecated by gitsigns)
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
@@ -39,7 +37,6 @@ Plug 'yaroot/vissort'                                             " Sort by visu
 Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'pangloss/vim-javascript'                                    " Javascript support
-" Plug 'ap/vim-css-color'                                           " Show css colors in files
 Plug 'norcalli/nvim-colorizer.lua'                                " Color highlighter
 Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
 Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
@@ -63,7 +60,6 @@ Plug 'vhyrro/neorg'                                               " Org-mode for
 Plug 'hrsh7th/nvim-compe'                                         " Completion for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
-" Plug 'itchyny/vim-cursorword'                                     " Underline the word under the cursor
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
 
 " neovim LSP plugins
@@ -403,10 +399,10 @@ let g:hardtime_maxcount = 4
 let g:hardtime_ignore_quickfix = 1
 let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
 
-"Retain indentation on next line
-set autoindent
+"Retain indentation on next line (apparently not needed with filetype indent)
+" set autoindent
 "Turn on autoindenting of blocks
-set smartindent
+" set smartindent
 
 " Number of spaces that a Tab is
 set tabstop=4
@@ -420,33 +416,6 @@ set list listchars=tab:»·,trail:-
 
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-
-" Completion settings
-"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-" Trigger completion with <Tab>
-" inoremap <silent><expr> <TAB>
-    " \ pumvisible() ? "\<C-n>" :
-    " \ <SID>check_back_space() ? "\<TAB>" :
-    " \ completion#trigger_completion()
-
-" inoremap <silent><expr> <S-TAB>
-    " \ pumvisible() ? "\<C-p>" : "\<S-Tab"
-
-" Make <CR> select completion work with auto-pairs and endwise
-" let g:completion_confirm_key = ""
-" inoremap <expr> <CR> <SID>CRInsert()
-
-    " return pumvisible() ? \"\<Plug>(completion_confirm_completion)" : \"\<CR>"
-" function! s:CRInsert()
-    " return pumvisible() ? complete_info()["selected"] != "-1" ?
-                 " \ "\<Plug>(completion_confirm_completion)"  : "\<c-e>\<CR>" :  "\<CR>"
-" endfunction
-
-" function! s:check_back_space() abort
-    " let col = col('.') - 1
-    " return !col || getline('.')[col - 1]  =~ '\s'
-" endfunction
 
 " nvim-compe
 inoremap <silent><expr> <C-Space> compe#complete()
@@ -492,7 +461,7 @@ nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
 " Lists all the references in quickfix window
 nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
 " Lists all symbols current buffer in quickfix window
-nnoremap g0    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap gt    <cmd>lua vim.lsp.buf.document_symbol()<CR>
 " Lists all symbols current workspace in quickfix window
 nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
 " Jump to declaration
@@ -507,28 +476,6 @@ nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
-
-" completion-nvim - Autocomplete
-" let g:completion_enable_snippet = 'UltiSnips'
-" let g:completion_trigger_on_delete = 1 " Show suggestions after removing characters
-" let g:completion_trigger_keyword_length = 1 " After how many characters it should show suggestions
-"let g:completion_chain_complete_list = {
-"\   'default' : {
-"\       'default' : [
-"\           {'complete_items': ['buffers', 'lsp', 'snippet']},
-"\           {'mode': '<c-p>'},
-"\           {'mode': '<c-n>'}
-"\       ],
-"\       'string' : [
-"\           { 'mode': 'file' },
-"\       ]
-"\   },
-"\}
-" let g:completion_chain_complete_list = [
-    " \{'complete_items': ['buffers', 'lsp', 'snippet']},
-    " \{'mode': '<c-p>'},
-    " \{'mode': '<c-n>'}
-" \]
 
 " Set updatetime for CursorHold
 " 300ms of no cursor movement to trigger CursorHold
@@ -633,6 +580,8 @@ let g:indent_guides_color_change_percent = 50
 let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 highlight QuickScopePrimary guifg=#5af78e gui=underline,bold
 highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
+" Set highlight priority to override nvim-cursorword highlight
+let g:qs_hi_priority = 10
 
 " GitGutter settings
 let g:gitgutter_sign_removed = '—'
