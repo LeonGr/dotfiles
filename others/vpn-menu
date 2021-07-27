@@ -1,0 +1,53 @@
+#!/bin/bash
+
+# LeonGr - 2021/07/25 
+
+log() {
+    tput setaf 1; echo "### $1 ###"; tput sgr 0
+}
+
+turn_off() {
+
+    if [[ "$current_vpn" != "" ]]; then
+        log "Turning off VPN interface $current_vpn"
+
+        wg-quick down $current_vpn
+    fi
+}
+
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Script has to be run as root"
+    exit
+fi
+
+current_vpn=$(wg show | head -n 1 | sd "interface: " "")
+
+if [[ $1 == "--off" ]]; then
+    turn_off
+    log "Done"
+
+    exit 0
+else
+    echo "Current interface: $current_vpn"
+    log "Select a VPN interface:"
+
+    vpn_options=$(ls /etc/wireguard/)
+
+    select selection in $vpn_options
+    do
+        turn_off
+
+        selection=$(echo "$selection" | sd ".conf" "")
+
+        log "Turning on VPN interface $selection"
+
+        sudo wg-quick up $selection
+
+        log "Done"
+
+        curl https://am.i.mullvad.net/connected
+
+        exit 0
+    done
+fi
+
