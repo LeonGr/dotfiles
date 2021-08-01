@@ -667,11 +667,6 @@ cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
 " Enable for search (/,? and commands :)
 call wilder#set_option('modes', ['/', '?', ':'])
 
-" Use pop-up
-" call wilder#set_option('renderer', wilder#popupmenu_renderer({
-      " \ 'highlighter': wilder#basic_highlighter(),
-      " \ }))
-
 " Enable fuzzy searching
 call wilder#set_option('pipeline', [
       \   wilder#branch(
@@ -690,11 +685,16 @@ let s:highlighters = [
         \ wilder#basic_highlighter(),
         \ ]
 
-call wilder#set_option('renderer', wilder#renderer_mux({
-      \ ':': wilder#popupmenu_renderer({
+" pop-up rather than in statusline (for commands)
+" call wilder#set_option('renderer', wilder#renderer_mux({
+      " \ ':': wilder#popupmenu_renderer({
+      " \   'highlighter': s:highlighters,
+      " \ }),
+      " \ '/': wilder#wildmenu_renderer({
+      " \   'highlighter': s:highlighters,
+      " \ }),
+      " \ }))
+
+call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \   'highlighter': s:highlighters,
-      \ }),
-      \ '/': wilder#wildmenu_renderer({
-      \   'highlighter': s:highlighters,
-      \ }),
       \ }))
