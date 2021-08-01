@@ -61,6 +61,7 @@ Plug 'hrsh7th/nvim-compe'                                         " Completion f
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
+Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -73,7 +74,8 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'jubnzv/virtual-types.nvim'                              " Show type annotations
 
 " TreeSitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}       " Treesitter configurations and abstraction layer for Neovim
+Plug 'nvim-treesitter/playground', {'do': ':TSInstall query'}     " View treesitter information directly in Neovim
 
 " Themes
 Plug 'vim-airline/vim-airline-themes'
@@ -542,6 +544,9 @@ autocmd FileType java call JavaAbbrs()
 autocmd FileType vue call JsAbbrs()
 autocmd FileType javascript call JsAbbrs()
 
+" make :Q work as :q
+cabbr Q q
+
 " xkcd scroll through time instead of space
 "set mouse=a
 "nnoremap <ScrollWheelUp> u
@@ -652,3 +657,44 @@ let g:context_enabled = 0
 
 " nvim-cursorword
 highlight CursorWord gui=reverse
+
+" wilder.nvim
+call wilder#enable_cmdline_enter()
+set wildcharm=<Tab>
+cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
+cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+
+" Enable for search (/,? and commands :)
+call wilder#set_option('modes', ['/', '?', ':'])
+
+" Use pop-up
+" call wilder#set_option('renderer', wilder#popupmenu_renderer({
+      " \ 'highlighter': wilder#basic_highlighter(),
+      " \ }))
+
+" Enable fuzzy searching
+call wilder#set_option('pipeline', [
+      \   wilder#branch(
+      \     wilder#cmdline_pipeline({
+      \       'fuzzy': 1,
+      \     }),
+      \     wilder#python_search_pipeline({
+      \       'pattern': 'fuzzy',
+      \     }),
+      \   ),
+      \ ])
+
+" Set highlighters
+let s:highlighters = [
+        \ wilder#pcre2_highlighter(),
+        \ wilder#basic_highlighter(),
+        \ ]
+
+call wilder#set_option('renderer', wilder#renderer_mux({
+      \ ':': wilder#popupmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ }),
+      \ '/': wilder#wildmenu_renderer({
+      \   'highlighter': s:highlighters,
+      \ }),
+      \ }))
