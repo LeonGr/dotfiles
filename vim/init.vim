@@ -154,8 +154,8 @@ highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 source ~/.cache/wal/colors-wal.vim
 execute 'highlight StatusLine guifg='   . background
 execute 'highlight StatusLine guibg='   . color2
-execute 'highlight StatusLineNC guifg=' . foreground
-execute 'highlight StatusLineNC guibg=' . color0
+execute 'highlight StatusLineNC guifg=' . color2
+execute 'highlight StatusLineNC guibg=' . background
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
