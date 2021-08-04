@@ -179,3 +179,22 @@ require'colorizer'.setup( nil, {
 
 ---- ojroques/nvim-lspfuzzy
 require'lspfuzzy'.setup {}
+
+---- nvim-telescope/telescope.nvim
+require'telescope'.setup {
+    defaults = {
+        prompt_prefix = "λ ",
+        mappings = {
+            i = {
+                ["<C-u>"] = false,
+            }
+        }
+    },
+    extensions = {
+        fzf = {
+
+        }
+    }
+}
+
+require'telescope'.load_extension('fzf')

@@ -62,6 +62,11 @@ Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
+Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
+
+" Telescope
+Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " port of fzf
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -207,16 +212,20 @@ nnoremap <Leader>w     :w<CR>
 nnoremap <Leader>x     :x<CR>
 nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
-nnoremap <Leader>b     :Buffers<CR>
-nnoremap <Leader>f     :Lines<CR>
+" nnoremap <Leader>b     :Buffers<CR>
+nnoremap <Leader>b     :Telescope buffers<CR>
+" nnoremap <Leader>f     :Lines<CR>
+nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
 "nnoremap <Leader>g     :GFiles?<CR>
-nnoremap <Leader>o     :Files<CR>
-nnoremap <Leader>p     :GFiles<CR>
-nnoremap <Leader>r     :Rg<CR>
-nnoremap <Leader>/     :BLines<CR>
+nnoremap <Leader>o     :Telescope find_files<CR>
+" nnoremap <Leader>p     :GFiles<CR>
+nnoremap <Leader>p     :Telescope git_files<CR>
+" nnoremap <Leader>r     :Rg<CR>
+nnoremap <Leader>r     :Telescope live_grep<CR>
+" nnoremap <Leader>/     :BLines<CR>
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
-     map <Leader>n     <plug>NERDTreeTabsToggle<CR>
+     map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
      map <Leader>m     :ExpSel<CR>
      map <Leader>g     <Plug>Lightspeed_s
      map <Leader>G     <Plug>Lightspeed_S
@@ -449,32 +458,54 @@ lua require('lsp')
 " Overwrite some functions
 lua require('overwrite')
 
-" LSP mappings
+""" LSP mappings
+
 " Jump to definition
-nnoremap gf    <cmd>lua vim.lsp.buf.definition()<CR>
+" nnoremap gf    <cmd>lua vim.lsp.buf.definition()<CR>
+nnoremap gf    :Telescope lsp_definitions<CR>
+
 " Displays hover information in floating window
 nnoremap K     <cmd>lua vim.lsp.buf.hover()<CR>
+
 " Lists implementations in quickfix window
-nnoremap gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+" nnoremap gD    <cmd>lua vim.lsp.buf.implementation()<CR>
+nnoremap gD    :Telescope lsp_implementations<CR>
+
 " Displays signature information in floating window
 nnoremap gs    <cmd>lua vim.lsp.buf.signature_help()<CR>
+
 " Jump to definition of type
 nnoremap 1gD   <cmd>lua vim.lsp.buf.type_definition()<CR>
+
 " Lists all the references in quickfix window
-nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+" nnoremap gr    <cmd>lua vim.lsp.buf.references()<CR>
+nnoremap gr    :Telescope lsp_references<CR>
+
 " Lists all symbols current buffer in quickfix window
-nnoremap gt    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+" nnoremap gt    <cmd>lua vim.lsp.buf.document_symbol()<CR>
+nnoremap gt    :Telescope lsp_document_symbols<CR>
+
 " Lists all symbols current workspace in quickfix window
-nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+" nnoremap gW    <cmd>lua vim.lsp.buf.workspace_symbol()<CR>
+nnoremap gw    :Telescope lsp_dynamic_workspace_symbols<CR>
+
 " Jump to declaration
 nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
+
 " Selects a code action from input list available
 nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
+
 " Goto previous/next diagnostic warning/error
 nnoremap gj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+
 nnoremap gk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+
 " Show diagnostic popup
 nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+
+" Rename
+nnoremap gw <cmd>lua vim.lsp.buf.rename()<CR>
+
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
