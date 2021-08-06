@@ -1,0 +1,67 @@
+#!/bin/bash
+
+# LeonGr - 2021/07/25 
+
+log() {
+    tput setaf 1; echo "### $1 ###"; tput sgr 0
+}
+
+turn_off() {
+    if [[ "$current_vpn" != "" ]]; then
+        log "Turning off VPN interface $current_vpn"
+
+        systemctl stop "wg-quick@$current_vpn"
+    fi
+}
+
+if [[ $(/usr/bin/id -u) -ne 0 ]]; then
+    echo "Script has to be run as root"
+    exit
+fi
+
+current_vpn=$(wg show | head -n 1 | sd "interface: " "")
+
+if [[ $1 == "--off" ]]; then
+    turn_off
+    log "Done"
+
+    exit 0
+else
+    echo "Current interface: $current_vpn"
+    log "Select a VPN interface:"
+
+    vpn_options=$(ls /etc/wireguard/)
+
+    select selection in $vpn_options
+    do
+        selection=$(echo "$selection" | sd ".conf" "")
+
+        if [[ "$current_vpn" == "$selection" ]]; then
+            log "Already connected to VPN interface $selection"
+            exit 1
+        fi
+
+        turn_off
+
+        log "Turning on VPN interface $selection"
+
+        systemctl start "wg-quick@$selection"
+        if [[ "$?" != 0 ]]; then
+            interface=$(ip -o a | rg enp | sd '^.*(enp\ds\d).*' '$1')
+
+            log "File Exists error, flushing interface $interface"
+
+            ip addr flush "$interface"
+            systemctl start "wg-quick@$selection"
+
+            sleep 5
+        fi
+
+        log "Done"
+
+        curl https://am.i.mullvad.net/connected
+
+        exit 0
+    done
+fi
+
