@@ -120,6 +120,9 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # add yarn bins to path
 export PATH="$HOME/.yarn/bin:$PATH"
 
+# add dotnetbins to path
+export PATH="$HOME/.dotnet/tools:$PATH"
+
 # grc alias support
 [[ -s "/etc/grc.zsh" ]] && source /etc/grc.zsh
 
