@@ -25,7 +25,7 @@ lspconfig.rust_analyzer.setup({ on_attach=on_attach })
 lspconfig.hls.setup({ on_attach=on_attach })
 
 -- Enable python-language-server (Python)
-lspconfig.pyls.setup({
+lspconfig.pylsp.setup({
     on_attach=on_attach;
     settings = {
         pyls = {
@@ -91,4 +91,13 @@ lspconfig.sumneko_lua.setup({
             },
         },
     },
+})
+
+-- enable FsAutoComplete (F#)
+lspconfig.fsautocomplete.setup({
+    on_attach=on_attach;
+    cmd = { "dotnet", "fsautocomplete", "--background-service-enabled" };
+    init_options = {
+      AutomaticWorkspaceInit = true
+    };
 })
