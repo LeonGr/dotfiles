@@ -63,6 +63,7 @@ Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/Bas
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
+Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
@@ -164,7 +165,7 @@ execute 'highlight StatusLineNC guibg=' . background
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
-    return strlen(l:ls) > 0 ? ' '.l:ls : ''
+    return strlen(l:ls) > 0 ? '  「'.l:ls.'」' : ''
 endfunction
 
 " Line numbers
@@ -217,11 +218,11 @@ nnoremap <Leader>b     :Telescope buffers<CR>
 " nnoremap <Leader>f     :Lines<CR>
 nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
 "nnoremap <Leader>g     :GFiles?<CR>
-nnoremap <Leader>o     :Telescope find_files<CR>
+nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
 " nnoremap <Leader>p     :GFiles<CR>
 nnoremap <Leader>p     :Telescope git_files<CR>
-" nnoremap <Leader>r     :Rg<CR>
-nnoremap <Leader>r     :Telescope live_grep<CR>
+nnoremap <Leader>r     :Rg<CR>
+" nnoremap <Leader>r     :Telescope live_grep<CR>
 " nnoremap <Leader>/     :BLines<CR>
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
@@ -729,3 +730,16 @@ let s:highlighters = [
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \   'highlighter': s:highlighters,
       \ }))
+
+"" nvim-gdb
+let g:nvimgdb_disable_start_keymaps = 1
+
+function! Nothing()
+    tnoremap <silent> <buffer> <esc> <c-\><c-n>
+endfunction
+
+let g:nvimgdb_config_override = {
+  \ 'set_tkeymaps':   'Nothing',
+  \ 'set_keymaps':    'Nothing',
+  \ 'unset_keymaps':  'Nothing',
+  \ }
