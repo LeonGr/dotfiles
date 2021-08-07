@@ -188,7 +188,13 @@ require'telescope'.setup {
             i = {
                 ["<C-u>"] = false,
             }
-        }
+        },
+        layout_config = {
+            horizontal = {
+                prompt_position = "top"
+            }
+        },
+        sorting_strategy = "ascending"
     },
     extensions = {
         fzf = {
