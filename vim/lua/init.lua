@@ -27,6 +27,9 @@ require'nvim-treesitter.configs'.setup {
             node_decremental = "grm",
         },
     },
+    autopairs = {
+        enable = true,
+    },
 }
 
 ---- sindrets/diffview.nvim
@@ -158,7 +161,9 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 ---- windwp/nvim-autopairs
-require'nvim-autopairs'.setup()
+require'nvim-autopairs'.setup({
+    check_ts = true,
+})
 
 require("nvim-autopairs.completion.compe").setup({
     map_cr = true, --  map <CR> on insert mode
@@ -166,7 +171,7 @@ require("nvim-autopairs.completion.compe").setup({
 })
 
 ---- norcalli/nvim-colorizer.lua
-require'colorizer'.setup( nil, { 
+require'colorizer'.setup( nil, {
     RGB      = true;        -- #RGB hex codes
     RRGGBB   = true;        -- #RRGGBB hex codes
     names    = true;        -- "Name" codes like Blue
