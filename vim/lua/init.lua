@@ -27,6 +27,9 @@ require'nvim-treesitter.configs'.setup {
             node_decremental = "grm",
         },
     },
+    autopairs = {
+        enable = true,
+    },
 }
 
 ---- sindrets/diffview.nvim
@@ -50,7 +53,7 @@ require'tmux'.setup {
     copy_sync = {
         -- enables copy sync and overwrites all register actions to
         -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-        enable = false,
+        enable = true, -- MANUALLY disable setting vim.g.clipboard in tmux.nvim/lua/tmux/copy.lua
         -- TMUX >= 3.2: yanks (and deletes) will get redirected to system
         -- clipboard by tmux
         redirect_to_clipboard = true,
@@ -158,7 +161,9 @@ vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 ---- windwp/nvim-autopairs
-require'nvim-autopairs'.setup()
+require'nvim-autopairs'.setup({
+    check_ts = true,
+})
 
 require("nvim-autopairs.completion.compe").setup({
     map_cr = true, --  map <CR> on insert mode
@@ -166,7 +171,7 @@ require("nvim-autopairs.completion.compe").setup({
 })
 
 ---- norcalli/nvim-colorizer.lua
-require'colorizer'.setup( nil, { 
+require'colorizer'.setup( nil, {
     RGB      = true;        -- #RGB hex codes
     RRGGBB   = true;        -- #RRGGBB hex codes
     names    = true;        -- "Name" codes like Blue
@@ -188,7 +193,13 @@ require'telescope'.setup {
             i = {
                 ["<C-u>"] = false,
             }
-        }
+        },
+        layout_config = {
+            horizontal = {
+                prompt_position = "top"
+            }
+        },
+        sorting_strategy = "ascending"
     },
     extensions = {
         fzf = {
