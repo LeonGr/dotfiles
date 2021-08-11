@@ -64,6 +64,7 @@ Plug 'xiyaowong/nvim-cursorword'                                  " Underline th
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
@@ -152,16 +153,20 @@ highlight link FloatBorder Normal
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
 source ~/.cache/wal/colors-wal.vim
-execute 'highlight StatusLine guifg='   . background
-execute 'highlight StatusLine guibg='   . color2
-execute 'highlight StatusLineNC guifg=' . color2
-execute 'highlight StatusLineNC guibg=' . background
+" execute 'highlight StatusLine guifg='   . background
+" execute 'highlight StatusLine guibg='   . color2
+" execute 'highlight StatusLineNC guifg=' . color2
+" execute 'highlight StatusLineNC guibg=' . background
+
+" execute 'highlight StatusLine guibg='   . background
+" execute 'highlight StatusLineNC guibg=' . color2
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
