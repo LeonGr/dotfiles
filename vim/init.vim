@@ -66,6 +66,7 @@ Plug 'xiyaowong/nvim-cursorword'                                  " Underline th
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
@@ -163,16 +164,20 @@ highlight link FloatBorder Normal
 set laststatus=2
 
 " Statusline for when it is visible
-set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
-"source ~/.cache/wal/colors-wal.vim
-"execute 'highlight StatusLine guifg='   . background
-"execute 'highlight StatusLine guibg='   . color2
-"execute 'highlight StatusLineNC guifg=' . foreground
-"execute 'highlight StatusLineNC guibg=' . color0
+" source ~/.cache/wal/colors-wal.vim
+" execute 'highlight StatusLine guifg='   . background
+" execute 'highlight StatusLine guibg='   . color2
+" execute 'highlight StatusLineNC guifg=' . color2
+" execute 'highlight StatusLineNC guibg=' . background
+
+" execute 'highlight StatusLine guibg='   . background
+" execute 'highlight StatusLineNC guibg=' . color2
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
@@ -656,7 +661,7 @@ let g:NERDSpaceDelims = 1 " Add space after comment delimiter
     "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
 "augroup END
 
-" vim-test config
+"" vim-test
 let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
 nnoremap <Leader>tt :TestNearest<CR>
@@ -664,34 +669,47 @@ nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
 
-" vimspector config
-nnoremap <Leader>sa :call vimspector#Launch()<CR>
-nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
-nnoremap <Leader>sw :call AddToWatch()<CR>
-nnoremap <Leader>sx :call vimspector#Reset()<CR>
-nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
-nnoremap <Leader>sr :call vimspector#Restart()<CR>
-nnoremap <Leader>sc :call vimspector#Continue()<CR>
-nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
-nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
-nnoremap <Leader>so :call vimspector#StepOut()<CR>
-nnoremap <Leader>si :call vimspector#StepInto()<CR>
-nnoremap <Leader>sn :call vimspector#StepOver()<CR>
+"" vimspector
+" nnoremap <Leader>sa :call vimspector#Launch()<CR>
+" nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
+" nnoremap <Leader>sw :call AddToWatch()<CR>
+" nnoremap <Leader>sx :call vimspector#Reset()<CR>
+" nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
+" nnoremap <Leader>sr :call vimspector#Restart()<CR>
+" nnoremap <Leader>sc :call vimspector#Continue()<CR>
+" nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
+" nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
+" nnoremap <Leader>so :call vimspector#StepOut()<CR>
+" nnoremap <Leader>si :call vimspector#StepInto()<CR>
+" nnoremap <Leader>sn :call vimspector#StepOver()<CR>
 
-" Method to start debugging of test
-function! JestStrategy(cmd)
-    let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-    call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-endfunction
-let g:test#custom_strategies = {'jest': function('JestStrategy')}
+" " Method to start debugging of test
+" function! JestStrategy(cmd)
+    " let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
+    " call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
+" endfunction
+" let g:test#custom_strategies = {'jest': function('JestStrategy')}
 
-" Method to add expression to debugger watch list
-func! AddToWatch()
-    let word = expand("<cexpr>")
-    call vimspector#AddWatch(word)
-endfunction
+" " Method to add expression to debugger watch list
+" func! AddToWatch()
+    " let word = expand("<cexpr>")
+    " call vimspector#AddWatch(word)
+" endfunction
 
-" context.vim
+"" nvim-gdb
+
+nnoremap <Leader>sb :GdbBreakpointToggle<CR>
+nnoremap <Leader>s_ :GdbBreakpointClearAll<CR>
+nnoremap <Leader>sh :GdbUntil<CR>
+nnoremap <Leader>sc :GdbContinue<CR>
+nnoremap <Leader>so :GdbFrameUp<CR>
+nnoremap <Leader>si :GdbFrameDown<CR>
+nnoremap <Leader>sn :GdbStep<CR>
+nnoremap <Leader>sw :GdbEvalWord<CR>
+nnoremap <Leader>sx :GdbDebugStop<CR>
+nnoremap <Leader>sr :GdbInterrupt<CR>
+
+"" context.vim
 
 " don't show context in files without filetype (mostly for debugger)
 let g:context_filetype_blacklist = [""]
@@ -700,7 +718,7 @@ let g:context_filetype_blacklist = [""]
 "let g:context_nvim_no_redraw = 1
 let g:context_enabled = 0
 
-" nvim-cursorword
+"" nvim-cursorword
 highlight CursorWord gui=reverse
 
 " wilder.nvim

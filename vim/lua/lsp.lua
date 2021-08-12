@@ -30,7 +30,8 @@ capabilities.textDocument.completion.completionItem.resolveSupport = {
 }
 
 -- Enable rust_analyzer (Rust)
-lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.rust_analyzer.setup({ capabilities=capabilities })
+-- lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
