@@ -441,6 +441,7 @@ gls.right[7] = {
     line_percentage = {
         provider = function()
             local current_line = vim.fn.line(".")
+            local current_col = vim.fn.col(".")
             local total_line = vim.fn.line("$")
 
             -- if current_line == 1 then
@@ -449,7 +450,7 @@ gls.right[7] = {
                 -- return "  Bot "
             -- end
             local result, _ = math.modf((current_line / total_line) * 100)
-            return "  " .. result .. "% "
+            return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
         end,
         highlight = {colors.green, colors.bg}
     }
