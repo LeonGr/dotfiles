@@ -226,18 +226,18 @@ local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
 local wal_colors = vim.fn.json_decode(colorjson)
 colors.white = wal_colors.special.foreground
 colors.fg = wal_colors.special.foreground
-colors.blue = wal_colors.colors.color2
+colors.wal_blue = wal_colors.colors.color2
 
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)
-vim.cmd("highlight StatusLineNC guibg=" .. colors.blue)
+vim.cmd("highlight StatusLineNC guibg=" .. colors.wal_blue)
 
 gls.left[1] = {
     FirstElement = {
         provider = function()
             return "▋"
         end,
-        highlight = {colors.blue, colors.blue}
+        highlight = {colors.wal_blue, colors.wal_blue}
     }
 }
 
@@ -246,9 +246,9 @@ gls.left[2] = {
         provider = function()
             return "  "
         end,
-        highlight = {colors.bg, colors.blue},
+        highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg}
     }
 }
 
@@ -262,7 +262,7 @@ gls.left[3] = {
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.blue}
+        separator_highlight = {colors.bg, colors.wal_blue}
     }
 }
 
@@ -270,7 +270,7 @@ gls.left[4] = {
     FileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.blue}
+        highlight = {colors.bg, colors.wal_blue}
     }
 }
 
@@ -278,9 +278,9 @@ gls.left[5] = {
     FileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.blue},
+        highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg}
     }
 }
 
@@ -381,9 +381,9 @@ gls.right[4] = {
         provider = function()
             return " "
         end,
-        highlight = {colors.bg, colors.red},
         separator = " ",
-        separator_highlight = {colors.red, colors.bg}
+        highlight = 'GalaxyViModeInvert',
+        separator_highlight = 'GalaxyViMode'
     }
 }
 
@@ -400,6 +400,21 @@ gls.right[5] = {
                 R = "Replace"
             }
             local current_Mode = alias[vim.fn.mode()]
+
+            local mode_color = {
+                -- see :help mode()
+                n = colors.red, i = colors.blue, v = colors.orange,
+                [''] = colors.orange,V=colors.orange,
+                c = colors.magenta,no = colors.red,s = colors.orange,
+                S=colors.orange,[''] = colors.orange,
+                ic = colors.yellow,R = colors.violet,Rv = colors.violet,
+                cv = colors.red,ce=colors.red, r = colors.cyan,
+                rm = colors.cyan, ['r?'] = colors.cyan,
+                ['!']  = colors.red,t = colors.cyan
+            }
+
+            vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()]..' guibg='..colors.bg)
+            vim.api.nvim_command('hi GalaxyViModeInvert guibg='..mode_color[vim.fn.mode()]..' guifg='..colors.bg)
 
             if current_Mode == nil then
                 return "  Terminal "
@@ -454,9 +469,9 @@ gls.short_line_left[2] = {
         provider = function()
             return " ⏾ "
         end,
-        highlight = {colors.blue, colors.bg},
+        highlight = {colors.wal_blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.blue}
+        separator_highlight = {colors.bg, colors.wal_blue}
     }
 }
 
@@ -468,9 +483,9 @@ gls.short_line_left[3] = {
             local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             return "  " .. dir_name .. " "
         end,
-        highlight = {colors.bg, colors.blue},
+        highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg}
     }
 }
 
@@ -478,7 +493,7 @@ gls.short_line_left[4] = {
     ShortLineFileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.blue, colors.bg}
+        highlight = {colors.wal_blue, colors.bg}
     }
 }
 
@@ -486,8 +501,8 @@ gls.short_line_left[5] = {
     ShortLineFileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.blue, colors.bg},
+        highlight = {colors.wal_blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.blue}
+        separator_highlight = {colors.bg, colors.wal_blue}
     }
 }
