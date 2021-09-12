@@ -1,4 +1,6 @@
 #!/bin/sh
+xrandr --auto
+
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
 sysresources=/etc/X11/xinit/.Xresources
@@ -32,12 +34,12 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 # Env variables
-export QT_QPA_PLATFORMTHEME="qt5ct"
-export LIBVA_DRIVER_NAME="radeonsi"
-export VDPAU_DRIVER="radeonsi"
+#export QT_QPA_PLATFORMTHEME="qt5ct"
+#export LIBVA_DRIVER_NAME="radeonsi"
+#export VDPAU_DRIVER="radeonsi"
 
 xset -b &
-setxkbmap -option caps:escape &
+caps2esc &
 xbindkeys &
 sxhkd &
 wal -R &

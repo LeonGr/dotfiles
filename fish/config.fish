@@ -20,7 +20,8 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
+alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
+#alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
@@ -50,14 +51,36 @@ set -x EDITOR /usr/bin/nvim
 # set location of z files
 #set -x Z_DATA ~/z/.z.
 
+set -x COLORTERM "truecolor"
+
 # print coloured motd
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
+<<<<<<< HEAD
 fancy_motd
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
 #cat ~/.cache/wal/sequences &
+=======
+# print randomly coloured fish logo
+function random_fish
+    set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
+    set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
+    set args (string split ' ' $color_sample)
+    fish_logo $args
+    echo ""
+end
+
+#  only execute these in tty
+if tty > /dev/null
+    random_fish
+
+    # source wal colors
+    cat ~/.cache/wal/sequences &
+end
+
+>>>>>>> f3848681c32859ead8bdbbd44b456abc1352d1c0
 
 # give man colors
 set -x MANROFFOPT '-c'
