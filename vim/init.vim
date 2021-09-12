@@ -53,7 +53,6 @@ Plug 'dag/vim-fish'                                               " Fish script 
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
-Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
@@ -695,15 +694,6 @@ nnoremap <Leader>sn :GdbStep<CR>
 nnoremap <Leader>sw :GdbEvalWord<CR>
 nnoremap <Leader>sx :GdbDebugStop<CR>
 nnoremap <Leader>sr :GdbInterrupt<CR>
-
-"" context.vim
-
-" don't show context in files without filetype (mostly for debugger)
-let g:context_filetype_blacklist = [""]
-
-" stops flickering but may cause artifacts
-"let g:context_nvim_no_redraw = 1
-let g:context_enabled = 0
 
 "" nvim-cursorword
 highlight CursorWord gui=reverse
