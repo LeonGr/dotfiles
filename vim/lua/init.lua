@@ -34,9 +34,7 @@ require'nvim-treesitter.configs'.setup {
 
 ---- sindrets/diffview.nvim
 require'diffview'.setup {
-    file_panel = {
-        use_icons = false
-    }
+    use_icons = false
 }
 
 ---- TimUntersberger/neogit
@@ -222,22 +220,21 @@ local gls = gl.section
 gl.short_line_list = {" "}
 
 local colors = require('galaxyline.theme').default
-local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
-local wal_colors = vim.fn.json_decode(colorjson)
-colors.white = wal_colors.special.foreground
-colors.fg = wal_colors.special.foreground
-colors.wal_blue = wal_colors.colors.color2
+-- local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
+-- local wal_colors = vim.fn.json_decode(colorjson)
+-- colors.white = wal_colors.special.foreground
+-- colors.fg = wal_colors.special.foreground
 
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)
-vim.cmd("highlight StatusLineNC guibg=" .. colors.wal_blue)
+vim.cmd("highlight StatusLineNC guibg=" .. colors.blue)
 
 gls.left[1] = {
     FirstElement = {
         provider = function()
             return "▋"
         end,
-        highlight = {colors.wal_blue, colors.wal_blue}
+        highlight = {colors.blue, colors.blue}
     }
 }
 
@@ -246,9 +243,9 @@ gls.left[2] = {
         provider = function()
             return "  "
         end,
-        highlight = {colors.bg, colors.wal_blue},
+        highlight = {colors.bg, colors.blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.blue, colors.bg}
     }
 }
 
@@ -262,7 +259,7 @@ gls.left[3] = {
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.blue}
     }
 }
 
@@ -270,7 +267,7 @@ gls.left[4] = {
     FileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue}
+        highlight = {colors.bg, colors.blue}
     }
 }
 
@@ -278,9 +275,9 @@ gls.left[5] = {
     FileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue},
+        highlight = {colors.bg, colors.blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.blue, colors.bg}
     }
 }
 
@@ -470,9 +467,9 @@ gls.short_line_left[2] = {
         provider = function()
             return " ⏾ "
         end,
-        highlight = {colors.wal_blue, colors.bg},
+        highlight = {colors.blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.blue}
     }
 }
 
@@ -484,9 +481,9 @@ gls.short_line_left[3] = {
             local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             return "  " .. dir_name .. " "
         end,
-        highlight = {colors.bg, colors.wal_blue},
+        highlight = {colors.bg, colors.blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.blue, colors.bg}
     }
 }
 
@@ -494,7 +491,7 @@ gls.short_line_left[4] = {
     ShortLineFileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg}
+        highlight = {colors.blue, colors.bg}
     }
 }
 
@@ -502,8 +499,8 @@ gls.short_line_left[5] = {
     ShortLineFileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg},
+        highlight = {colors.blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.blue}
     }
 }

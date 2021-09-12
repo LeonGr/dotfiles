@@ -56,31 +56,28 @@ set -x COLORTERM "truecolor"
 # print coloured motd
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
-<<<<<<< HEAD
 fancy_motd
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
 #cat ~/.cache/wal/sequences &
-=======
-# print randomly coloured fish logo
-function random_fish
-    set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
-    set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
-    set args (string split ' ' $color_sample)
-    fish_logo $args
-    echo ""
-end
 
-#  only execute these in tty
-if tty > /dev/null
-    random_fish
-
-    # source wal colors
-    cat ~/.cache/wal/sequences &
-end
-
->>>>>>> f3848681c32859ead8bdbbd44b456abc1352d1c0
+# # print randomly coloured fish logo
+# function random_fish
+#     set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
+#     set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
+#     set args (string split ' ' $color_sample)
+#     fish_logo $args
+#     echo ""
+# end
+# 
+# #  only execute these in tty
+# if tty > /dev/null
+#     random_fish
+# 
+#     # source wal colors
+#     cat ~/.cache/wal/sequences &
+# end
 
 # give man colors
 set -x MANROFFOPT '-c'
