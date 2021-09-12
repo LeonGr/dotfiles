@@ -36,9 +36,9 @@ alias lat='exa -laT'
 alias lar='exa -laR'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
-if [ -n "$TMUX" ]
-    set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
-end
+#if [ -n "$TMUX" ]
+    #set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
+#end
 
 # git aliases
 source ~/.config/fish/git.fish
@@ -48,14 +48,16 @@ set -x SUDO_EDITOR /usr/bin/nvim
 set -x EDITOR /usr/bin/nvim
 
 # set location of z files
-set -x Z_DATA /home/leon/z/.z.
+#set -x Z_DATA ~/z/.z.
 
 # print coloured motd
-cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
+fancy_motd
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
-cat ~/.cache/wal/sequences &
+#cat ~/.cache/wal/sequences &
 
 # give man colors
 set -x MANROFFOPT '-c'
@@ -73,7 +75,7 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-set PATH $PATH "$HOME/.cargo/bin:$PATH"
+#set PATH $PATH "$HOME/.cargo/bin:$PATH"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
