@@ -55,7 +55,7 @@ Plug 'dag/vim-fish'                                             " Fish script su
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
-Plug 'wellle/context.vim'                                         " Shows context of visible buffer content
+Plug 'mtdl9/vim-log-highlighting'
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -138,11 +138,11 @@ highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
-source ~/.cache/wal/colors-wal.vim
-execute 'highlight StatusLine guifg='   . background
-execute 'highlight StatusLine guibg='   . color2
-execute 'highlight StatusLineNC guifg=' . foreground
-execute 'highlight StatusLineNC guibg=' . color0
+"source ~/.cache/wal/colors-wal.vim
+"execute 'highlight StatusLine guifg='   . background
+"execute 'highlight StatusLine guibg='   . color2
+"execute 'highlight StatusLineNC guifg=' . foreground
+"execute 'highlight StatusLineNC guibg=' . color0
 
 function! StatusLineLsp()
     let l:ls = LspStatus()
@@ -651,11 +651,5 @@ func! AddToWatch()
     call vimspector#AddWatch(word)
 endfunction
 
-" context.vim
-
-" don't show context in files without filetype (mostly for debugger)
-let g:context_filetype_blacklist = [""]
-
-" stops flickering but may cause artifacts
-"let g:context_nvim_no_redraw = 1
-let g:context_enabled = 0
+" For IRC logs
+highlight link logString NONE
