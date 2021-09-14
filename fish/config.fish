@@ -20,7 +20,8 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
+alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
+#alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
@@ -49,6 +50,8 @@ set -x EDITOR /usr/bin/nvim
 
 # set location of z files
 set -x Z_DATA /home/leon/z/.z.
+
+set -x COLORTERM "truecolor"
 
 # print coloured motd
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""

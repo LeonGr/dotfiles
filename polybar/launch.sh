@@ -8,7 +8,7 @@ killall -q polybar
 
 RESOLUTION=$(xrandr | rg "connected primary" | sd '.*connected primary (.*?) .*' '$1')
 
-if [ "$RESOLUTION" = "3840x2160+0+0" ]; then
+if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     echo "4K"
     width="100%"
     #width="98%"
@@ -21,7 +21,7 @@ if [ "$RESOLUTION" = "3840x2160+0+0" ]; then
     font2="M+ 1mn:bold:pixelsize=14;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     left="bspwm"
     center="xwindow"
-    right="updates-pacman-aurhelper sep network sep date sep pulseaudio"
+    right="vpn-status sep updates-pacman-aurhelper sep network sep date sep pulseaudio"
     interface="enp7s0"
 else
     echo "1080p"
