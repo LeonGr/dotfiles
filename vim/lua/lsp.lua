@@ -26,7 +26,7 @@ lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach }
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable python-language-server (Python)
-lspconfig.pyls.setup({
+lspconfig.pylsp.setup({
     capabilities=capabilities;
     on_attach=on_attach;
     settings = {
