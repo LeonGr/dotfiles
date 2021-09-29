@@ -20,7 +20,8 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
+alias aurfind="echo 'use paruz'"
+# alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
 #alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
 alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
@@ -97,3 +98,21 @@ set -x GPG_TTY (tty)
 
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
+
+# fuck alias
+function fuck -d "Correct your previous console command"
+    set -l fucked_up_command $history[1]
+    env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command
+
+    if [ "$unfucked_command" != "" ]
+        eval $unfucked_command
+        builtin history delete --exact --case-sensitive -- $fucked_up_command
+        builtin history merge
+    end
+end
+
+# theme-updater with automatic history merge
+function udt
+    theme-updater &
+    builtin history merge
+end
