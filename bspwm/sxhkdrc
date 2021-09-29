@@ -8,7 +8,7 @@ super + {_,shift +}Return
 
 # program launcher
 super + space
-    rofi -show run -width 1000 -font "Dejavu Sans Mono 25"
+    rofi -show run -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi
     #rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
     #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
 
@@ -98,7 +98,12 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
+	bspc wm -O HDMI-A-0 DisplayPort-1 DisplayPort-0; \
 	bspc {desktop -f,node -d} '^{1-9,10}'
+
+# focus or send to the given monitor
+super + alt + {1-3}
+	bspc node -m '^{1-3}'
 
 # send node to last monitor
 super + shift + Tab
