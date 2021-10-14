@@ -707,6 +707,9 @@ nnoremap <Leader>sr :GdbInterrupt<CR>
 "" nvim-cursorword
 highlight CursorWord gui=reverse
 
+autocmd InsertEnter * highlight clear CursorWord
+autocmd InsertLeave * highlight CursorWord gui=reverse
+
 " wilder.nvim
 call wilder#enable_cmdline_enter()
 set wildcharm=<Tab>
