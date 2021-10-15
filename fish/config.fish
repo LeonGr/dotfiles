@@ -23,7 +23,8 @@ alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
 # alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
 #alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
+# alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
+alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 
@@ -40,6 +41,7 @@ alias lar='exa -laR'
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ]
     set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
+    set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
 end
 
 # git aliases

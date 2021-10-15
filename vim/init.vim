@@ -763,3 +763,9 @@ let g:nvimgdb_config_override = {
   \ 'set_keymaps':    'Nothing',
   \ 'unset_keymaps':  'Nothing',
   \ }
+
+augroup ConfigureKitty
+    au!
+    au VimEnter * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin-bottom=8 margin-left=0 margin-right=0
+    au VimLeave * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=8
+augroup END
