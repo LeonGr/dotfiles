@@ -118,3 +118,13 @@ function udt
     theme-updater &
     builtin history merge
 end
+
+# fish Vi-style keybindings with Emacs keybindings in insert mode
+function fish_user_key_bindings
+    fish_default_key_bindings -M insert
+    fish_vi_key_bindings --no-erase insert
+    fzf_key_bindings
+end
+
+# Insert mode cursor should be line
+set -g fish_cursor_insert line
