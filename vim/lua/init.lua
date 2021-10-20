@@ -249,7 +249,8 @@ gls.left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
@@ -473,7 +474,9 @@ gls.short_line_left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
+            print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.bg, colors.wal_blue},
