@@ -58,7 +58,6 @@ Plug 'adelarsq/neofsharp.vim'
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
-Plug 'hrsh7th/nvim-compe'                                         " Completion for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
@@ -66,6 +65,14 @@ Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+
+" nvim-cmp (replaces nvim-compe)
+Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
+    Plug 'hrsh7th/cmp-nvim-lsp'                                 " nvim-cmp source for neovim builtin LSP client
+    Plug 'hrsh7th/cmp-buffer'                                   " nvim-cmp source for buffer words
+    Plug 'hrsh7th/cmp-path'                                     " nvim-cmp source for paths
+    Plug 'ray-x/cmp-treesitter'                                 " nvim-cmp source for treesitter
+    Plug 'quangnguyen30192/cmp-nvim-ultisnips'                  " ultisnips completion source for nvim-cmp
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
@@ -447,11 +454,12 @@ set list listchars=tab:»·,trail:-
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
 
 " nvim-compe
-inoremap <silent><expr> <C-Space> compe#complete()
-inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-inoremap <silent><expr> <C-e>     compe#close('<C-e>')
+" inoremap <silent><expr> <C-Space> compe#complete()
+" inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
+" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
-highlight link CompeDocumentation Pmenu
+highlight link CmpDocumentation Pmenu
+highlight link CmpDocumentationBorder Pmenu
 
 " Change color popup menu
 highlight Pmenu ctermbg=gray guibg=#202020 guifg=#FFFFFF
@@ -462,7 +470,8 @@ highlight NormalFloat ctermbg=gray guibg=none
     " noinsert: Do not insert text until a selection is made
     " noselect: Do not select, force user to select one from the menu
 "set completeopt=noinsert,menuone,noselect
-set completeopt=menuone,noselect
+" set completeopt=menuone,noselect
+set completeopt=menu,menuone,noselect
 
 " Set Ultisnips/snippets expansion key
 let g:UltiSnipsExpandTrigger       = "<c-s>"
@@ -711,6 +720,9 @@ nnoremap <Leader>sr :GdbInterrupt<CR>
 "" nvim-cursorword
 highlight CursorWord gui=reverse
 
+autocmd InsertEnter * highlight clear CursorWord
+autocmd InsertLeave * highlight CursorWord gui=reverse
+
 " wilder.nvim
 call wilder#enable_cmdline_enter()
 set wildcharm=<Tab>
@@ -764,3 +776,9 @@ let g:nvimgdb_config_override = {
   \ 'set_keymaps':    'Nothing',
   \ 'unset_keymaps':  'Nothing',
   \ }
+
+augroup ConfigureKitty
+    au!
+    au VimEnter * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin-bottom=8 margin-left=0 margin-right=0
+    au VimLeave * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=8
+augroup END

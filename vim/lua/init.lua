@@ -82,39 +82,33 @@ require'neorg'.setup {
     },
 }
 
----- hrsh7th/nvim-compe
-require'compe'.setup {
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 2;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    resolve_timeout = 800;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
+---- hrsh7th/nvim-cmp
+local cmp = require'cmp'
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    mapping = {
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' },
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'treesitter' },
+    },
     documentation = {
-        border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-        winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-        max_width = 120,
-        min_width = 60,
-        max_height = math.floor(vim.o.lines * 0.3),
-        min_height = 1,
-    };
-
-    source = {
-        path = true;
-        buffer = true;
-        calc = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = false;
-        ultisnips = true;
-        luasnip = false;
-        treesitter = true;
+        border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
+        winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+        -- max_width = 120,
+        -- min_width = 60,
+        -- max_height = math.floor(vim.o.lines * 0.3),
+        -- min_height = 1,
     };
 }
 
@@ -163,9 +157,9 @@ require'nvim-autopairs'.setup({
     check_ts = true,
 })
 
-require("nvim-autopairs.completion.compe").setup({
+require("nvim-autopairs.completion.cmp").setup({
     map_cr = true, --  map <CR> on insert mode
-    map_complete = true -- it will auto insert `(` after select function or method item
+    map_complete = true, -- it will auto insert `(` (map_char) after select function or method item
 })
 
 ---- norcalli/nvim-colorizer.lua
@@ -255,7 +249,8 @@ gls.left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
@@ -479,7 +474,9 @@ gls.short_line_left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
+            print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.bg, colors.wal_blue},
