@@ -44,6 +44,11 @@ if [ -n "$TMUX" ]
     set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
 end
 
+# always highlight URLs kitty
+set URL_PREFIXES "http|https|file|ftp|gemini|irc|gopher|mailto|news|git"
+set URL_REGEX "($URL_PREFIXES):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?"
+kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
+
 # git aliases
 source ~/.config/fish/git.fish
 
@@ -128,3 +133,5 @@ end
 
 # Insert mode cursor should be line
 set -g fish_cursor_insert line
+
+set -U __done_min_cmd_duration 5000
