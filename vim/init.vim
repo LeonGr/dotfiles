@@ -62,7 +62,8 @@ Plug 'xiyaowong/nvim-cursorword'                                  " Underline th
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
 
 " nvim-cmp (replaces nvim-compe)
 Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
@@ -301,12 +302,12 @@ function! FloatingFZF()
     let left = (&columns - width) / 2
     let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-    "let top = "╭" . repeat("─", width - 2) . "╮"
-    "let mid = "│" . repeat(" ", width - 2) . "│"
-    "let bot = "╰" . repeat("─", width - 2) . "╯"
-    let top = "╔" . repeat("═", width - 2) . "╗"
-    let mid = "║" . repeat(" ", width - 2) . "║"
-    let bot = "╚" . repeat("═", width - 2) . "╝"
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    " let top = "╔" . repeat("═", width - 2) . "╗"
+    " let mid = "║" . repeat(" ", width - 2) . "║"
+    " let bot = "╚" . repeat("═", width - 2) . "╝"
     let lines = [top] + repeat([mid], height - 2) + [bot]
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
