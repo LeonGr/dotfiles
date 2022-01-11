@@ -19,7 +19,6 @@ Plug 'scrooloose/nerdcommenter'                                   " Easy comment
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
 Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
-Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
@@ -240,8 +239,6 @@ nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
      map <Leader>m     :ExpSel<CR>
-     map <Leader>g     <Plug>Lightspeed_s
-     map <Leader>G     <Plug>Lightspeed_S
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -511,12 +508,12 @@ nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Goto previous/next diagnostic warning/error
-nnoremap gj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap gj <cmd>lua vim.diagnostic.goto_next()<CR>
 
-nnoremap gk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap gk <cmd>lua vim.diagnostic.goto_prev()<CR>
 
 " Show diagnostic popup
-nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "single" })<CR>
 
 " Rename
 nnoremap gw <cmd>lua vim.lsp.buf.rename()<CR>
@@ -530,7 +527,7 @@ set shortmess+=c
 set updatetime=300
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 \ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
 
 " Statusline
