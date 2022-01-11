@@ -467,8 +467,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 lua require('init')
 " LSP settings
 lua require('lsp')
-" Overwrite some functions
-lua require('overwrite')
 
 """ LSP mappings
 
