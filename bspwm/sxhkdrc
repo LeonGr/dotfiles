@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + {_,shift +}Return
-    {urxvt, bspc rule -a \* -o state=floating && urxvt}
+    {kitty, bspc rule -a \* -o state=floating && kitty}
 
 # program launcher
 super + space
@@ -98,6 +98,7 @@ super + {o,i}
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
+	bspc wm -O HDMI-A-0 DisplayPort-1 DisplayPort-0; \
 	bspc {desktop -f,node -d} '^{1-9,10}'
 
 # focus or send to the given monitor
@@ -150,7 +151,7 @@ super + {Left,Down,Up,Right}
 
 # scratchpad
 super + u
-    tdrop --wm bspwm -ma -w 60% -h 60% -x 20% -s dropdown urxvt
+    tdrop --wm bspwm -ma -w 60% -h 60% -x 20% -s dropdown kitty
 
 # rotate layout 90 degrees (Will swap horizontal/vertical with 2 panels)
 super + r

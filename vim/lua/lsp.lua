@@ -9,15 +9,16 @@ local on_attach = function(client)
     require'virtualtypes'.on_attach()
 end
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.resolveSupport = {
+local client_capabilities = vim.lsp.protocol.make_client_capabilities()
+client_capabilities.textDocument.completion.completionItem.snippetSupport = true
+client_capabilities.textDocument.completion.completionItem.resolveSupport = {
   properties = {
     'documentation',
     'detail',
     'additionalTextEdits',
   }
 }
+local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })

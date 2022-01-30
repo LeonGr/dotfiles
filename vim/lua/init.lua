@@ -1,5 +1,49 @@
 ------ Lua settings
 
+-- configure diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = true,
+        signs = true,
+        update_in_insert = true,
+    }
+)
+
+-- set inline diagnostics prefix
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "",
+    },
+})
+
+-- local border_vertical   = "║"
+-- local border_horizontal = "═"
+-- local border_topleft    = "╔"
+-- local border_topright   = "╗"
+-- local border_botleft    = "╚"
+-- local border_botright   = "╝"
+-- local border_juncleft   = "╠"
+-- local border_juncright  = "╣"
+
+-- add border to hover
+vim.lsp.handlers["textDocument/hover"] =
+  vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {
+    border = "single"
+  }
+)
+
+-- add border to signature
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {
+    border = "single"
+  }
+)
+
 ---- lewis6991/gitsigns.nvim
 require('gitsigns').setup {
     signs = {
@@ -82,91 +126,45 @@ require'neorg'.setup {
     },
 }
 
----- hrsh7th/nvim-compe
-require'compe'.setup {
-    enabled = true;
-    autocomplete = true;
-    debug = false;
-    min_length = 2;
-    preselect = 'enable';
-    throttle_time = 80;
-    source_timeout = 200;
-    resolve_timeout = 800;
-    incomplete_delay = 400;
-    max_abbr_width = 100;
-    max_kind_width = 100;
-    max_menu_width = 100;
+---- hrsh7th/nvim-cmp
+local cmp = require'cmp'
+cmp.setup {
+    snippet = {
+        expand = function(args)
+            vim.fn["UltiSnips#Anon"](args.body)
+        end,
+    },
+    mapping = {
+        ['<C-Space>'] = cmp.mapping.complete(),
+        ['<C-e>'] = cmp.mapping.close(),
+        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+        ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+    },
+    sources = {
+        { name = 'nvim_lsp' },
+        { name = 'ultisnips' },
+        { name = 'buffer' },
+        { name = 'path' },
+        { name = 'treesitter' },
+    },
     documentation = {
-        border = { '', '' ,'', ' ', '', '', '', ' ' }, -- the border option is the same as `|help nvim_open_win|`
-        winhighlight = "NormalFloat:CompeDocumentation,FloatBorder:CompeDocumentationBorder",
-        max_width = 120,
-        min_width = 60,
-        max_height = math.floor(vim.o.lines * 0.3),
-        min_height = 1,
-    };
-
-    source = {
-        path = true;
-        buffer = true;
-        calc = true;
-        nvim_lsp = true;
-        nvim_lua = true;
-        vsnip = false;
-        ultisnips = true;
-        luasnip = false;
-        treesitter = true;
+        border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
+        winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+        -- max_width = 120,
+        -- min_width = 60,
+        -- max_height = math.floor(vim.o.lines * 0.3),
+        -- min_height = 1,
     };
 }
-
--- map Tab and S-Tab to complete jumps
-local t = function(str)
-  return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col('.') - 1
-    return col == 0 or vim.fn.getline('.'):sub(col, col):match('%s') ~= nil
-end
-
--- Use (s-)tab to:
---- move to prev/next item in completion menuone
---- jump to prev/next snippet's placeholder
-_G.tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-n>"
-  -- elseif vim.fn['vsnip#available'](1) == 1 then
-    -- return t "<Plug>(vsnip-expand-or-jump)"
-  elseif check_back_space() then
-    return t "<Tab>"
-  -- else
-    -- return vim.fn['compe#complete']()
-  end
-end
-_G.s_tab_complete = function()
-  if vim.fn.pumvisible() == 1 then
-    return t "<C-p>"
-  -- elseif vim.fn['vsnip#jumpable'](-1) == 1 then
-    -- return t "<Plug>(vsnip-jump-prev)"
-  else
-    -- If <S-Tab> is not working in your terminal, change it to <C-h>
-    return t "<S-Tab>"
-  end
-end
-
-vim.api.nvim_set_keymap("i", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<Tab>", "v:lua.tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("i", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
-vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", {expr = true})
 
 ---- windwp/nvim-autopairs
 require'nvim-autopairs'.setup({
     check_ts = true,
 })
 
-require("nvim-autopairs.completion.compe").setup({
-    map_cr = true, --  map <CR> on insert mode
-    map_complete = true -- it will auto insert `(` after select function or method item
-})
+local cmp_autopairs = require("nvim-autopairs.completion.cmp")
+cmp.event:on( 'confirm_done', cmp_autopairs.on_confirm_done({  map_char = { tex = '' } }))
 
 ---- norcalli/nvim-colorizer.lua
 require'colorizer'.setup( nil, {
@@ -254,7 +252,8 @@ gls.left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
@@ -478,7 +477,9 @@ gls.short_line_left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
+            print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.bg, colors.blue},

@@ -20,11 +20,15 @@ alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
-alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
+alias aurfind="echo 'use paruz'"
+# alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
 #alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
+# alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
+alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
+alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
+alias weechat='TERM=tmux-256color /usr/bin/weechat'
 
 # ls -> exa
 alias exa='exa --git'
@@ -37,9 +41,17 @@ alias lat='exa -laT'
 alias lar='exa -laR'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
-#if [ -n "$TMUX" ]
-    #set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
-#end
+if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
+    set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
+    set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
+end
+
+if [ -n "$KITTY_LISTEN_ON" ]
+    # always highlight URLs kitty
+    set URL_PREFIXES "http|https|file|ftp|gemini|irc|gopher|mailto|news|git"
+    set URL_REGEX "($URL_PREFIXES):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?"
+    kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
+end
 
 # git aliases
 source ~/.config/fish/git.fish
@@ -102,3 +114,33 @@ set -x GPG_TTY (tty)
 
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
+
+# fuck alias
+function fuck -d "Correct your previous console command"
+    set -l fucked_up_command $history[1]
+    env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command
+
+    if [ "$unfucked_command" != "" ]
+        eval $unfucked_command
+        builtin history delete --exact --case-sensitive -- $fucked_up_command
+        builtin history merge
+    end
+end
+
+# theme-updater with automatic history merge
+function udt
+    theme-updater &
+    builtin history merge
+end
+
+# fish Vi-style keybindings with Emacs keybindings in insert mode
+function fish_user_key_bindings
+    fish_default_key_bindings -M insert
+    fish_vi_key_bindings --no-erase insert
+    fzf_key_bindings
+end
+
+# Insert mode cursor should be line
+set -g fish_cursor_insert line
+
+set -U __done_min_cmd_duration 5000
