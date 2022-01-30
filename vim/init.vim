@@ -204,7 +204,7 @@ set smartcase       " ...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 "highlight clear Search
-highlight Search guifg=#000000 guibg=#FFFFFF
+" highlight Search guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -405,7 +405,6 @@ function ToggleAutoPairs()
 endfunction
 
 nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
-
 
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
