@@ -46,6 +46,19 @@ lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach; cmd={"j
 -- Enable flow (JavaScript)
 lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
+-- Enable java_language_server (Java)
+lspconfig.java_language_server.setup({
+    capabilities=capabilities;
+    on_attach=on_attach;
+    cmd={ "/usr/share/java/java-language-server/lang_server_linux.sh" };
+    settings = {
+        java = {
+            home = "/usr/lib/jvm/default/"
+        }
+    }
+})
+
+
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
     on_attach=function(client, _)
