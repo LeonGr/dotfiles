@@ -1,5 +1,6 @@
 #!/bin/sh
-#xrandr --auto
+# for laptop:
+# xrandr --output eDP-1-1 --primary --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
