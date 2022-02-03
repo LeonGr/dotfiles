@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + {_,shift +}Return
-    {urxvt, bspc rule -a \* -o state=floating && urxvt}
+    {kitty, bspc rule -a \* -o state=floating && kitty}
 
 # program launcher
 super + space
@@ -12,9 +12,13 @@ super + space
     #rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
     #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
 
+# passwords (open bitwarden-rofi)
+super + p
+    bwmenu --clear 20 --auto-lock 600 -- -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi
+
 # calculator
-super + equal
-    = -width 600
+# super + equal
+    # = -width 600
 
 super + shift + space
     rofi -fake-transparency -opacity 90 -show
@@ -43,12 +47,12 @@ super + m
 	bspc desktop -l next
 
 # maximize screen usage by removing borders
-super + n
-    max_screen
+# super + n
+    # max_screen
 
 # if the current node is automatic, send it to the last manual, otherwise pull the last leaf
-super + y
-	bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
+# super + y
+	# bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
 
 # swap the current node and the biggest node
 super + g
@@ -70,13 +74,17 @@ super + ctrl + {x,y,z}
 # focus/swap
 #
 
-# focus the node in the given direction
+# focus/swap the node in the given direction
 super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+	bspc node -{f,s} {west,south,north,east} --follow
+
+# move node to left/right window
+super + {b,n}
+    bspc node -m {west,east} --follow
 
 # focus the node for the given path jump
-super + {p,b,comma,period}
-	bspc node -f @{parent,brother,first,second}
+# super + {p,b,comma,period}
+	# bspc node -f @{parent,brother,first,second}
 
 # focus the next/previous node
 super + {_,shift + }c
@@ -151,7 +159,7 @@ super + {Left,Down,Up,Right}
 
 # scratchpad
 super + u
-    tdrop --wm bspwm -ma -w 60% -h 60% -x 20% -s dropdown urxvt
+    tdrop --wm bspwm -ma -w 60% -h 60% -x 20% -s dropdown kitty
 
 # rotate layout 90 degrees (Will swap horizontal/vertical with 2 panels)
 super + r

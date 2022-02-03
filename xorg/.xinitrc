@@ -1,5 +1,6 @@
 #!/bin/sh
-xrandr --output eDP-1-1 --primary --auto
+# for laptop:
+# xrandr --output eDP-1-1 --primary --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -41,10 +42,11 @@ fi
 xset -b &
 caps2esc &
 xbindkeys &
-sxhkd &
+sxhkd -r /tmp/output &
 wal -R &
-urxvt &
+kitty &
 xset +fp /home/leon/GitClones/tewi-font/out &
 #picom --config ~/dotfiles/others/picom.conf &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
+#xrandr --output DVI-D-0 --mode 1920x1080 --scale 2x2 --left-of HDMI-A-0 --output HDMI-A-0 --primary --panning 3840x2160+3840+0 --output DisplayPort-0 --panning 3840x2160+7680+0
 exec bspwm
