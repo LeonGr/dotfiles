@@ -1,5 +1,5 @@
 #!/bin/sh
-xrandr --auto
+xrandr --output eDP-1-1 --primary --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
