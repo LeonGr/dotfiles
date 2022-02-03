@@ -43,7 +43,6 @@ caps2esc &
 xbindkeys &
 sxhkd -r /tmp/output &
 wal -R &
-kitty &
 xset +fp /home/leon/GitClones/tewi-font/out &
 #picom --config ~/dotfiles/others/picom.conf &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
