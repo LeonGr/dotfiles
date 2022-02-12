@@ -68,7 +68,9 @@ set -x COLORTERM "truecolor"
 # print coloured motd
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
-fancy_motd
+if [ -z "$TMUX" ]
+    fancy_motd
+end
 
 # source wal colors
 #. ~/.cache/wal/colors.sh
