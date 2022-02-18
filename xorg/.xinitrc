@@ -1,5 +1,6 @@
 #!/bin/sh
-#xrandr --auto
+# for laptop:
+# xrandr --output eDP-1-1 --primary --auto
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -43,7 +44,6 @@ caps2esc &
 xbindkeys &
 sxhkd -r /tmp/output &
 wal -R &
-kitty &
 xset +fp /home/leon/GitClones/tewi-font/out &
 #picom --config ~/dotfiles/others/picom.conf &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &

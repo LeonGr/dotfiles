@@ -26,7 +26,9 @@ alias aurfind="echo 'use paruz'"
 # alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
+alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
+alias weechat='TERM=tmux-256color /usr/bin/weechat'
 
 # ls -> exa
 alias exa='exa --git'
@@ -39,9 +41,16 @@ alias lat='exa -laT'
 alias lar='exa -laR'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
-if [ -n "$TMUX" ]
+if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
     set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
     set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
+end
+
+if [ -n "$KITTY_LISTEN_ON" ]
+    # always highlight URLs kitty
+    set URL_PREFIXES "http|https|file|ftp|gemini|irc|gopher|mailto|news|git"
+    set URL_REGEX "($URL_PREFIXES):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?"
+    kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
 end
 
 # git aliases
@@ -128,3 +137,5 @@ end
 
 # Insert mode cursor should be line
 set -g fish_cursor_insert line
+
+set -U __done_min_cmd_duration 5000

@@ -19,7 +19,6 @@ Plug 'scrooloose/nerdcommenter'                                   " Easy comment
 Plug 'tpope/vim-obsession'                                        " Save vim sessions
 Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
 Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
-Plug 'ggandor/lightspeed.nvim'                                    " Quick navigation
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
@@ -64,7 +63,8 @@ Plug 'xiyaowong/nvim-cursorword'                                  " Underline th
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}
+Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
 
 " nvim-cmp (replaces nvim-compe)
 Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
@@ -215,7 +215,7 @@ set smartcase       " ...unless uppercase letters used
 
 set hlsearch        "Highlight all matches
 "highlight clear Search
-highlight Search guifg=#000000 guibg=#FFFFFF
+" highlight Search guifg=#000000 guibg=#FFFFFF
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -252,8 +252,6 @@ nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
      map <Leader>m     :ExpSel<CR>
-     map <Leader>g     <Plug>Lightspeed_s
-     map <Leader>G     <Plug>Lightspeed_S
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -314,12 +312,12 @@ function! FloatingFZF()
     let left = (&columns - width) / 2
     let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-    "let top = "╭" . repeat("─", width - 2) . "╮"
-    "let mid = "│" . repeat(" ", width - 2) . "│"
-    "let bot = "╰" . repeat("─", width - 2) . "╯"
-    let top = "╔" . repeat("═", width - 2) . "╗"
-    let mid = "║" . repeat(" ", width - 2) . "║"
-    let bot = "╚" . repeat("═", width - 2) . "╝"
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    " let top = "╔" . repeat("═", width - 2) . "╗"
+    " let mid = "║" . repeat(" ", width - 2) . "║"
+    " let bot = "╚" . repeat("═", width - 2) . "╝"
     let lines = [top] + repeat([mid], height - 2) + [bot]
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
@@ -421,7 +419,6 @@ endfunction
 
 nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
 
-
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
 
@@ -482,8 +479,6 @@ let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
 lua require('init')
 " LSP settings
 lua require('lsp')
-" Overwrite some functions
-lua require('overwrite')
 
 """ LSP mappings
 
@@ -523,12 +518,12 @@ nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Goto previous/next diagnostic warning/error
-nnoremap gj <cmd>lua vim.lsp.diagnostic.goto_next()<CR>
+nnoremap gj <cmd>lua vim.diagnostic.goto_next()<CR>
 
-nnoremap gk <cmd>lua vim.lsp.diagnostic.goto_prev()<CR>
+nnoremap gk <cmd>lua vim.diagnostic.goto_prev()<CR>
 
 " Show diagnostic popup
-nnoremap <Leader>d <cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>
+nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "single" })<CR>
 
 " Rename
 nnoremap gw <cmd>lua vim.lsp.buf.rename()<CR>
@@ -542,7 +537,7 @@ set shortmess+=c
 set updatetime=300
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *
+autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
 \ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
 
 " Statusline
