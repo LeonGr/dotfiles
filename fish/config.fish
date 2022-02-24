@@ -79,7 +79,9 @@ end
 
 #  only execute these in tty
 if tty > /dev/null
-    random_fish
+    if status --is-interactive
+        random_fish
+    end
 
     # source wal colors
     cat ~/.cache/wal/sequences &
