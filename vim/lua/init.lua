@@ -57,7 +57,7 @@ require('gitsigns').setup {
 
 ---- nvim-treesitter/nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = "all",
     highlight = {
         enable = true,              -- false will disable the whole extension
         --disable = { "c", "rust" },  -- list of language that will be disabled
@@ -139,7 +139,9 @@ cmp.setup {
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
     },
     sources = {
         { name = 'nvim_lsp' },
@@ -148,14 +150,16 @@ cmp.setup {
         { name = 'path' },
         { name = 'treesitter' },
     },
-    documentation = {
-        border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
-        winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-        -- max_width = 120,
-        -- min_width = 60,
-        -- max_height = math.floor(vim.o.lines * 0.3),
-        -- min_height = 1,
-    };
+    window = {
+        documentation = {
+            border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
+            winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+            -- max_width = 120,
+            -- min_width = 60,
+            -- max_height = math.floor(vim.o.lines * 0.3),
+            -- min_height = 1,
+        };
+    }
 }
 
 ---- windwp/nvim-autopairs
