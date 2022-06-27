@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Check for dependencies
+INSTALLED_ERROR="has to be installed. Exiting."
+command -v sed >/dev/null  2>&1 || { echo >&2 "'sed' $INSTALLED_ERROR"; exit 1; }
+command -v find >/dev/null 2>&1 || { echo >&2 "'find' $INSTALLED_ERROR"; exit 1; }
+command -v rofi >/dev/null 2>&1 || { echo >&2 "'rofi' $INSTALLED_ERROR"; exit 1; }
+
+OBSIDIAN_DIR="/home/leon/Sync/Obsidian"
+VAULT_NAME="Notes"
+
+# Use rofi to get the path to the desired file
+SELECTED=$(
+    # find all files in vault, which are not hidden
+    find "$OBSIDIAN_DIR/$VAULT_NAME/" -type f -not -path '*/.*' | \
+    # Remove base dir from paths
+    sed -e "s|$OBSIDIAN_DIR/$VAULT_NAME/||" | \
+    # Open list in rofi
+    rofi -i -dmenu -p "open" -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi
+)
+
+# Exit if no file was selected
+if [[ "$SELECTED" == "" ]]
+then
+    exit 0
+fi
+
+# Open selected file in Obsidian, send process to background
+xdg-open "obsidian://open?vault=$VAULT_NAME&file=$SELECTED" &
+
+# ensure shell does not own Obsidian process
+disown "$!"
+
+# exit
+exit 0
