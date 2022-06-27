@@ -16,7 +16,7 @@ SELECTED=$(
     # Remove base dir from paths
     sed -e "s|$OBSIDIAN_DIR/$VAULT_NAME/||" | \
     # Open list in rofi
-    rofi -i -dmenu -p "obsidian" -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi
+    rofi -i -dmenu -p "obsidian" -sort -sorting-method fzf -matching fuzzy -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi
 )
 
 # Exit if no file was selected
