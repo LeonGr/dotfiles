@@ -22,6 +22,9 @@ local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabili
 
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })
+
+-- Enable rust-tools
+require('rust-tools').setup({})
 -- lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable hls (Haskell)

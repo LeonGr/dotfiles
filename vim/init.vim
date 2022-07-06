@@ -85,6 +85,7 @@ Plug 'neovim/nvim-lspconfig'                                      " Collection o
     Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
     Plug 'ojroques/nvim-lspfuzzy'                                 " Replace LSP windows with fzf ones
     Plug 'jubnzv/virtual-types.nvim'                              " Show type annotations
+    Plug 'simrat39/rust-tools.nvim'                               " Extra Rust LSP tools (fixes inlay-hints)
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}       " Treesitter configurations and abstraction layer for Neovim
@@ -239,6 +240,8 @@ nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
      map <Leader>m     :ExpSel<CR>
+" Toggle case of first letter of current word
+nnoremap <Leader>u     m`viw<ESC>b~``
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -524,8 +527,8 @@ set shortmess+=c
 set updatetime=300
 
 " Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
+" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
+" \ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
 
 " Statusline
 function! LspStatus() abort
@@ -553,9 +556,9 @@ nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
 
 let g:ale_linters = {
             \ 'python'  : ['flake8', 'mypy', 'bandit'],
-            \ 'rust'    : ['rustc', 'rls', 'cargo'],
             \ 'haskell' : ['cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
             \ }
+            " \ 'rust'    : ['rustc', 'rls', 'cargo'],
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
