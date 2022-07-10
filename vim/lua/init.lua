@@ -57,11 +57,10 @@ require('gitsigns').setup {
 
 ---- nvim-treesitter/nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-    -- ensure_installed = "all",
     ensure_installed = "all",
     highlight = {
         enable = true,              -- false will disable the whole extension
-        --disable = { "c", "rust" },  -- list of language that will be disabled
+        disable = { "markdown" },   -- list of language that will be disabled
     },
     incremental_selection = {
         enable = true,
