@@ -65,8 +65,6 @@ set -x Z_DATA /home/leon/z/.z.
 
 set -x COLORTERM "truecolor"
 
-# print coloured motd
-#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
 # print randomly coloured fish logo
 function random_fish
@@ -80,7 +78,10 @@ end
 #  only execute these in tty
 if tty > /dev/null
     if status --is-interactive
-        random_fish
+        # random_fish
+
+        # print coloured motd
+        cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
     end
 
     # source wal colors
@@ -105,6 +106,9 @@ set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
 set PATH $PATH "$HOME/.cargo/bin:$PATH"
+
+# add personal bins to path
+set PATH $PATH "$HOME/bin:$PATH"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
@@ -141,3 +145,11 @@ end
 set -g fish_cursor_insert line
 
 set -U __done_min_cmd_duration 5000
+
+# command that creates a directory and then changes the current directory to it
+# inspired by zsh, taken from https://unix.stackexchange.com/a/678533/
+function take
+    mkdir -p "$argv[1]"; and cd "$argv[1]"
+end
+
+funcsave take
