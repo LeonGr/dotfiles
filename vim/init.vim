@@ -7,7 +7,7 @@
 " Vim-Plug
 call plug#begin()
 
-" Tweaks
+" Misc
 Plug 'tpope/vim-surround'                                         " Wrap text easily
 Plug 'mattn/emmet-vim'                                            " html autocomplete
 Plug 'scrooloose/nerdtree'                                        " File browser in vim
@@ -20,41 +20,49 @@ Plug 'chip/vim-fat-finger'                                        " Series of ab
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
-Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
-Plug 'tpope/vim-fugitive'                                         " Git wrapper
-Plug 'SirVer/ultisnips'                                           " Snippets engine
-Plug 'honza/vim-snippets'                                         " Snippets themselves
 Plug 'dense-analysis/ale'                                         " Async Lint Engine
 Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
 Plug 'yaroot/vissort'                                             " Sort by visual block
 Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'pangloss/vim-javascript'                                    " Javascript support
 Plug 'norcalli/nvim-colorizer.lua'                                " Color highlighter
 Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
 Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
-Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
-Plug 'posva/vim-vue'                                              " Vue syntax
-Plug 'leafgarland/typescript-vim'                                 " TypeScript support
-Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
-Plug 'chrisbra/csv.vim'                                           " Browse csv files
-Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
-Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
-Plug 'jparise/vim-graphql'                                        " GraphQL support
-Plug 'dag/vim-fish'                                               " Fish script support
 Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
-Plug 'puremourning/vimspector'                                    " Debugger for vim
-Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
-Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
 Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
 Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
+
+" debugging
+" Plug 'puremourning/vimspector'                                    " Debugger for vim
+" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
+
+" git
+Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
+Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
+Plug 'tpope/vim-fugitive'                                         " Git wrapper
+Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
+
+" snippets
+Plug 'SirVer/ultisnips'                                           " Snippets engine
+Plug 'honza/vim-snippets'                                         " Snippets themselves
+
+" languages
+Plug 'pangloss/vim-javascript'                                    " Javascript support
+Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
+Plug 'dag/vim-fish'                                               " Fish script support
+Plug 'chrisbra/csv.vim'                                           " Browse csv files
+Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
+Plug 'posva/vim-vue'                                              " Vue syntax
+Plug 'leafgarland/typescript-vim'                                 " TypeScript support
+Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
+Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
+Plug 'jparise/vim-graphql'                                        " GraphQL support
 
 " nvim-cmp
 Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
@@ -99,6 +107,21 @@ Plug 'dylanaraps/wal.vim'
 Plug 'chriskempson/base16-vim'
 call plug#end()
 
+" Color settings
+syntax enable
+syntax on
+let g:gruvbox_italic=1 " alacritty supports italics, enable it
+colorscheme gruvbox
+
+if (has("termguicolors"))
+    set termguicolors
+endif
+
+" (require checks file in ~/.config/nvim/lua)
+lua require('init')
+" LSP settings
+lua require('lsp')
+
 " Scrolling
 set mouse=a
 " Blinking cursors and styles
@@ -106,34 +129,23 @@ set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
 
+" Show substitute in real time
+set inccommand=nosplit
+
+" Set shell
+set shell=/usr/bin/bash
+
+" Turn of swap files
+set noswapfile
+
 " Show commands as they're typed
 set showcmd
 
 " Highlight current line
 set cursorline
 
-" Turn of swap files
-set noswapfile
-
-" Show substitute in real time
-set inccommand=nosplit
-
-" Color configurations
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-" Set shell
-set shell=/usr/bin/bash
-
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
-
-" Color settings
-syntax enable
-syntax on
-let g:gruvbox_italic=1 " alacritty supports italics, enable it
-colorscheme gruvbox
 
 " Make line nr and background fit terminal background
 highlight Normal guibg=NONE ctermbg=NONE
@@ -145,7 +157,7 @@ highlight link FloatBorder Normal
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
-" Statusline
+"" Statusline
 " function! LspStatus() abort
     " if luaeval('#vim.lsp.buf_get_clients() > 0')
         " try
@@ -199,13 +211,11 @@ autocmd FileType * setlocal formatoptions-=o
 "autocmd FileType * setlocal formatoptions-=c
 
 " Searching improvements
-set incsearch       "Lookahead as search pattern is specified
-set ignorecase      "Ignore case in all searches...
+set incsearch       " Lookahead as search pattern is specified
+set ignorecase      " Ignore case in all searches...
 set smartcase       " ...unless uppercase letters used
 
-set hlsearch        "Highlight all matches
-"highlight clear Search
-" highlight Search guifg=#000000 guibg=#FFFFFF
+set hlsearch        " Highlight all matches
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -219,26 +229,29 @@ set backspace=2
 " Leader commands
 let mapleader = "\<Space>"
 
+" General
 nnoremap <Leader>w     :w<CR>
 nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
-" nnoremap <Leader>b     :Buffers<CR>
-nnoremap <Leader>b     :Telescope buffers<CR>
-" nnoremap <Leader>f     :Lines<CR>
-nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
-"nnoremap <Leader>g     :GFiles?<CR>
-nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
-" nnoremap <Leader>p     :GFiles<CR>
-nnoremap <Leader>p     :Telescope git_files<CR>
-nnoremap <Leader>r     :Rg<CR>
-" nnoremap <Leader>r     :Telescope live_grep<CR>
-" nnoremap <Leader>/     :BLines<CR>
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 nnoremap <Leader>q     :copen<CR>
-     map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
      map <Leader>m     :ExpSel<CR>
 " Toggle case of first letter of current word
 nnoremap <Leader>u     m`viw<ESC>b~``
+" nnoremap <Leader>b     :Buffers<CR>
+" nnoremap <Leader>f     :Lines<CR>
+" nnoremap <Leader>g     :GFiles?<CR>
+" nnoremap <Leader>p     :GFiles<CR>
+" nnoremap <Leader>r     :Rg<CR>
+" nnoremap <Leader>/     :BLines<CR>
+
+" Telescope leader commands
+nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
+nnoremap <Leader>b     :Telescope buffers<CR>
+nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
+nnoremap <Leader>p     :Telescope git_files<CR>
+nnoremap <Leader>r     :Telescope live_grep<CR>
+     map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
@@ -269,87 +282,6 @@ let g:fzf_history_dir = '~/.local/share/fzf-history'
 let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
-function! FloatingFZF()
-    " With Border
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let top = ((&lines - height) / 2) - 1
-    let left = (&columns - width) / 2
-    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-    let top = "╭" . repeat("─", width - 2) . "╮"
-    let mid = "│" . repeat(" ", width - 2) . "│"
-    let bot = "╰" . repeat("─", width - 2) . "╯"
-    let lines = [top] + repeat([mid], height - 2) + [bot]
-    let s:buf = nvim_create_buf(v:false, v:true)
-    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-    call nvim_open_win(s:buf, v:true, opts)
-    set winhl=Normal:Floating
-    let opts.row += 1
-    let opts.height -= 2
-    let opts.col += 2
-    let opts.width -= 4
-    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    au BufWipeout <buffer> exe 'bw '.s:buf
-endfunction
-
-let g:FloatingQFOpen = 0
-function! FloatingQuickfix(timer)
-    if g:FloatingQFOpen == 0
-        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
-        " so we set this variable to 1 to stop creating an infinite loop
-        let g:FloatingQFOpen = 1
-
-        let height = &lines - 3
-        let width = float2nr(&columns - (&columns * 2 / 10))
-        let top = ((&lines - height) / 2) - 1
-        let left = (&columns - width) / 2
-        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-        let top = "╭" . repeat("─", width - 2) . "╮"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "╰" . repeat("─", width - 2) . "╯"
-        " let top = "╔" . repeat("═", width - 2) . "╗"
-        " let mid = "║" . repeat(" ", width - 2) . "║"
-        " let bot = "╚" . repeat("═", width - 2) . "╝"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let s:buf = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-        call nvim_open_win(s:buf, v:true, opts)
-        set winhl=Normal:Floating
-
-        let buf = nvim_create_buf(v:false, v:true)
-        call setbufvar(buf, '&signcolumn', 'no')
-
-        " Close and open QF window so bn opens it instead of the file we're editing
-        cclose | copen
-
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-
-        " Open floating window
-        let win = nvim_open_win(buf, v:true, opts)
-        " Set content to QF buffer | close original QF window
-        bn | cclose
-
-        " Make transparent
-        set winhl=Normal:Floating
-        set number
-        " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
-        " After opening, show message in highlight style of ModeMsg
-        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
-    endif
-endfunction
-
-" Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
-autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
-
-" Close quickfix window on escape
-nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
-
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
 let g:tern_map_keys=1
@@ -374,7 +306,7 @@ endfunction
 
 nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
 
-"vCoolor settings
+" vCoolor settings
 let g:vcoolor_map = '<M-z>'
 
 " Number of spaces that a Tab is
@@ -409,11 +341,6 @@ set completeopt=menu,menuone,noselect
 let g:UltiSnipsExpandTrigger       = "<c-s>"
 let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
 let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
-
-" (require checks file in ~/.config/nvim/lua)
-lua require('init')
-" LSP settings
-lua require('lsp')
 
 """ LSP mappings
 
@@ -454,7 +381,6 @@ nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Goto previous/next diagnostic warning/error
 nnoremap gj <cmd>lua vim.diagnostic.goto_next()<CR>
-
 nnoremap gk <cmd>lua vim.diagnostic.goto_prev()<CR>
 
 " Show diagnostic popup
@@ -642,3 +568,84 @@ augroup ConfigureKitty
     au VimEnter * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin-bottom=8 margin-left=0 margin-right=0
     au VimLeave * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=8
 augroup END
+
+function! FloatingFZF()
+    " With Border
+    let height = &lines - 3
+    let width = float2nr(&columns - (&columns * 2 / 10))
+    let top = ((&lines - height) / 2) - 1
+    let left = (&columns - width) / 2
+    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+    let top = "╭" . repeat("─", width - 2) . "╮"
+    let mid = "│" . repeat(" ", width - 2) . "│"
+    let bot = "╰" . repeat("─", width - 2) . "╯"
+    let lines = [top] + repeat([mid], height - 2) + [bot]
+    let s:buf = nvim_create_buf(v:false, v:true)
+    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+    call nvim_open_win(s:buf, v:true, opts)
+    set winhl=Normal:Floating
+    let opts.row += 1
+    let opts.height -= 2
+    let opts.col += 2
+    let opts.width -= 4
+    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
+    au BufWipeout <buffer> exe 'bw '.s:buf
+endfunction
+
+let g:FloatingQFOpen = 0
+function! FloatingQuickfix(timer)
+    if g:FloatingQFOpen == 0
+        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
+        " so we set this variable to 1 to stop creating an infinite loop
+        let g:FloatingQFOpen = 1
+
+        let height = &lines - 3
+        let width = float2nr(&columns - (&columns * 2 / 10))
+        let top = ((&lines - height) / 2) - 1
+        let left = (&columns - width) / 2
+        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
+
+        let top = "╭" . repeat("─", width - 2) . "╮"
+        let mid = "│" . repeat(" ", width - 2) . "│"
+        let bot = "╰" . repeat("─", width - 2) . "╯"
+        " let top = "╔" . repeat("═", width - 2) . "╗"
+        " let mid = "║" . repeat(" ", width - 2) . "║"
+        " let bot = "╚" . repeat("═", width - 2) . "╝"
+        let lines = [top] + repeat([mid], height - 2) + [bot]
+        let s:buf = nvim_create_buf(v:false, v:true)
+        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
+        call nvim_open_win(s:buf, v:true, opts)
+        set winhl=Normal:Floating
+
+        let buf = nvim_create_buf(v:false, v:true)
+        call setbufvar(buf, '&signcolumn', 'no')
+
+        " Close and open QF window so bn opens it instead of the file we're editing
+        cclose | copen
+
+        let opts.row += 1
+        let opts.height -= 2
+        let opts.col += 2
+        let opts.width -= 4
+
+        " Open floating window
+        let win = nvim_open_win(buf, v:true, opts)
+        " Set content to QF buffer | close original QF window
+        bn | cclose
+
+        " Make transparent
+        set winhl=Normal:Floating
+        set number
+        " If we leave the buffer, close the floating window and reset the variable
+        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
+        " After opening, show message in highlight style of ModeMsg
+        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
+    endif
+endfunction
+
+" Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
+autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
+
+" Close quickfix window on escape
+nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
