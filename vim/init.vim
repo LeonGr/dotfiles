@@ -4,13 +4,10 @@
 "  / /___/  __/ /_/ / / / /  (__  )  / / / / / / /__| |/ / / / / / / /
 " /_____/\___/\____/_/ /_/  /____/  /_/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-set nocompatible " be iMproved, required
-"filetype off     " required
-
 " Vim-Plug
 call plug#begin()
 
-"Tweaks
+" Tweaks
 Plug 'tpope/vim-surround'                                         " Wrap text easily
 Plug 'mattn/emmet-vim'                                            " html autocomplete
 Plug 'scrooloose/nerdtree'                                        " File browser in vim
@@ -22,12 +19,9 @@ Plug 'unblevable/quick-scope'                                     " Higlight wor
 Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
 Plug 'tpope/vim-repeat'                                           " Repeat more than one command
 Plug 'godlygeek/tabular'                                          " Easy text align
-" Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if) (comment: does not work well with nvim-autopairs)
-" Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
 Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
-" Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
 Plug 'SirVer/ultisnips'                                           " Snippets engine
 Plug 'honza/vim-snippets'                                         " Snippets themselves
 Plug 'dense-analysis/ale'                                         " Async Lint Engine
@@ -43,7 +37,6 @@ Plug 'keith/swift.vim'                                            " Swift syntax
 Plug 'posva/vim-vue'                                              " Vue syntax
 Plug 'leafgarland/typescript-vim'                                 " TypeScript support
 Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
-Plug 'jalvesaq/nvim-r'                                            " R support
 Plug 'chrisbra/csv.vim'                                           " Browse csv files
 Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
 Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
@@ -54,7 +47,6 @@ Plug 'janko-m/vim-test'                                           " Vim wrapper 
 Plug 'puremourning/vimspector'                                    " Debugger for vim
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
-Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
@@ -64,13 +56,13 @@ Plug 'kyazdani42/nvim-web-devicons'                               " filetype ico
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
 
-" nvim-cmp (replaces nvim-compe)
+" nvim-cmp
 Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
-    Plug 'hrsh7th/cmp-nvim-lsp'                                 " nvim-cmp source for neovim builtin LSP client
-    Plug 'hrsh7th/cmp-buffer'                                   " nvim-cmp source for buffer words
-    Plug 'hrsh7th/cmp-path'                                     " nvim-cmp source for paths
-    Plug 'ray-x/cmp-treesitter'                                 " nvim-cmp source for treesitter
-    Plug 'quangnguyen30192/cmp-nvim-ultisnips'                  " ultisnips completion source for nvim-cmp
+Plug 'hrsh7th/cmp-nvim-lsp'                                     " nvim-cmp source for neovim builtin LSP client
+Plug 'hrsh7th/cmp-buffer'                                       " nvim-cmp source for buffer words
+Plug 'hrsh7th/cmp-path'                                         " nvim-cmp source for paths
+Plug 'ray-x/cmp-treesitter'                                     " nvim-cmp source for treesitter
+Plug 'quangnguyen30192/cmp-nvim-ultisnips'                      " ultisnips completion source for nvim-cmp
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
@@ -78,14 +70,12 @@ Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " port of fzf
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
-    Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
-    " Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
-    Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
-    " Plug 'steelsojka/completion-buffers'                          " Buffer completion source
-    Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
-    Plug 'ojroques/nvim-lspfuzzy'                                 " Replace LSP windows with fzf ones
-    Plug 'jubnzv/virtual-types.nvim'                              " Show type annotations
-    Plug 'simrat39/rust-tools.nvim'                               " Extra Rust LSP tools (fixes inlay-hints)
+Plug 'nvim-lua/lsp_extensions.nvim'                               " Extensions to built-in LSP, for example, providing type inlay hints
+Plug 'nvim-lua/lsp-status.nvim'                                   " Get information about the current language server
+Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                       " TypeScript lsp functions
+Plug 'ojroques/nvim-lspfuzzy'                                     " Replace LSP windows with fzf ones
+Plug 'jubnzv/virtual-types.nvim'                                  " Show type annotations
+Plug 'simrat39/rust-tools.nvim'                                   " Extra Rust LSP tools (fixes inlay-hints)
 
 " TreeSitter
 Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}       " Treesitter configurations and abstraction layer for Neovim
@@ -98,8 +88,7 @@ Plug 'flazz/vim-colorschemes'
 Plug 'altercation/vim-colors-solarized'
 Plug 'jdkanani/vim-material-theme'
 Plug 'nanotech/jellybeans.vim'
-"Plug 'morhetz/gruvbox' " already added by vim-colorschemes
-Plug 'dkasak/gruvbox'   " Fork that fixes haskell highlight issues
+Plug 'dkasak/gruvbox'
 Plug 'marcopaganini/termschool-vim-theme'
 Plug 'godlygeek/csapprox'
 Plug 'jacoborus/tender'
@@ -112,7 +101,6 @@ call plug#end()
 
 " Scrolling
 set mouse=a
-"set guicursor= " to disable guicursor
 " Blinking cursors and styles
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
@@ -144,8 +132,6 @@ filetype plugin indent on
 " Color settings
 syntax enable
 syntax on
-"set t_Co=256
-" let g:gruvbox_italic=1 " urxvt supports italics, enable it
 let g:gruvbox_italic=1 " alacritty supports italics, enable it
 colorscheme gruvbox
 
@@ -159,9 +145,28 @@ highlight link FloatBorder Normal
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
+" Statusline
+" function! LspStatus() abort
+    " if luaeval('#vim.lsp.buf_get_clients() > 0')
+        " try
+            " return luaeval("vim.lsp.buf_get_clients()[1].name")
+        " catch
+            " return 'LSP: '
+        " endtry
+    " endif
+
+    " return ''
+" endfunction
+
 " Statusline for when it is visible
 " set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 " set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
+
+" function! StatusLineLsp()
+    " let l:ls = LspStatus()
+    " return strlen(l:ls) > 0 ? '  「'.l:ls.'」' : ''
+" endfunction
+
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
@@ -174,11 +179,6 @@ source ~/.cache/wal/colors-wal.vim
 
 " execute 'highlight StatusLine guibg='   . background
 " execute 'highlight StatusLineNC guibg=' . color2
-
-function! StatusLineLsp()
-    let l:ls = LspStatus()
-    return strlen(l:ls) > 0 ? '  「'.l:ls.'」' : ''
-endfunction
 
 " Line numbers
 set number relativenumber
@@ -219,10 +219,7 @@ set backspace=2
 " Leader commands
 let mapleader = "\<Space>"
 
-nnoremap <Leader>;     g;
-nnoremap <Leader>,     g,
 nnoremap <Leader>w     :w<CR>
-nnoremap <Leader>x     :x<CR>
 nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
 " nnoremap <Leader>b     :Buffers<CR>
@@ -273,28 +270,6 @@ let $FZF_DEFAULT_OPTS='--layout=reverse'
 let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 function! FloatingFZF()
-    " Original
-    "let buf = nvim_create_buf(v:false, v:true)
-    "call setbufvar(buf, '&signcolumn', 'no')
-
-    "let height = &lines - 3
-    "let width = float2nr(&columns - (&columns * 2 / 10))
-    "let col = float2nr((&columns - width) / 2)
-
-    "let opts = {
-        "\ 'relative': 'editor',
-        "\ 'row': 1,
-        "\ 'col': col,
-        "\ 'width': width,
-        "\ 'height': height
-        "\ }
-
-    "let win = nvim_open_win(buf, v:true, opts)
-    "call setwinvar(win, '&relativenumber', 0)
-
-    "let width = min([&columns - 4, max([80, &columns - 20])])
-    "let height = min([&lines - 4, max([20, &lines - 10])])
-
     " With Border
     let height = &lines - 3
     let width = float2nr(&columns - (&columns * 2 / 10))
@@ -305,9 +280,6 @@ function! FloatingFZF()
     let top = "╭" . repeat("─", width - 2) . "╮"
     let mid = "│" . repeat(" ", width - 2) . "│"
     let bot = "╰" . repeat("─", width - 2) . "╯"
-    " let top = "╔" . repeat("═", width - 2) . "╗"
-    " let mid = "║" . repeat(" ", width - 2) . "║"
-    " let bot = "╚" . repeat("═", width - 2) . "╝"
     let lines = [top] + repeat([mid], height - 2) + [bot]
     let s:buf = nvim_create_buf(v:false, v:true)
     call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
@@ -328,23 +300,18 @@ function! FloatingQuickfix(timer)
         " so we set this variable to 1 to stop creating an infinite loop
         let g:FloatingQFOpen = 1
 
-        "let height = &lines - 3
-        "let width = float2nr(&columns - (&columns * 2 / 10))
-        "let col = float2nr((&columns - width) / 2)
-        "let opts = { 'relative': 'editor', 'row': 1, 'col': col, 'width': width, 'height': height }
-
         let height = &lines - 3
         let width = float2nr(&columns - (&columns * 2 / 10))
         let top = ((&lines - height) / 2) - 1
         let left = (&columns - width) / 2
         let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
 
-        "let top = "╭" . repeat("─", width - 2) . "╮"
-        "let mid = "│" . repeat(" ", width - 2) . "│"
-        "let bot = "╰" . repeat("─", width - 2) . "╯"
-        let top = "╔" . repeat("═", width - 2) . "╗"
-        let mid = "║" . repeat(" ", width - 2) . "║"
-        let bot = "╚" . repeat("═", width - 2) . "╝"
+        let top = "╭" . repeat("─", width - 2) . "╮"
+        let mid = "│" . repeat(" ", width - 2) . "│"
+        let bot = "╰" . repeat("─", width - 2) . "╯"
+        " let top = "╔" . repeat("═", width - 2) . "╗"
+        " let mid = "║" . repeat(" ", width - 2) . "║"
+        " let bot = "╚" . repeat("═", width - 2) . "╝"
         let lines = [top] + repeat([mid], height - 2) + [bot]
         let s:buf = nvim_create_buf(v:false, v:true)
         call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
@@ -392,8 +359,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDTreeShowHidden = 1
 
 " Auto pairs settings
-" let g:AutoPairsShortcutToggle = '<M-p>'
-"let g:AutoPairsMapCR=1
 let g:PairsOn = 1
 function ToggleAutoPairs()
     if g:PairsOn == 1
@@ -412,21 +377,6 @@ nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
 "vCoolor settings
 let g:vcoolor_map = '<M-z>'
 
-" HardTime settings
-let g:hardtime_default_on = 1
-let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
-let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:list_of_disabled_keys = []
-let g:hardtime_maxcount = 4
-let g:hardtime_ignore_quickfix = 1
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
-
-"Retain indentation on next line (apparently not needed with filetype indent)
-" set autoindent
-"Turn on autoindenting of blocks
-" set smartindent
-
 " Number of spaces that a Tab is
 set tabstop=4
 " Number of spaces for indent (>>, <<)
@@ -439,11 +389,6 @@ set list listchars=tab:»·,trail:-
 
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-
-" nvim-compe
-" inoremap <silent><expr> <C-Space> compe#complete()
-" inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 highlight link CmpDocumentation Pmenu
 highlight link CmpDocumentationBorder Pmenu
@@ -516,7 +461,7 @@ nnoremap gk <cmd>lua vim.diagnostic.goto_prev()<CR>
 nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "single" })<CR>
 
 " Rename
-nnoremap gw <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap ge <cmd>lua vim.lsp.buf.rename()<CR>
 
 
 " Avoid showing extra messages when using completion
@@ -526,30 +471,7 @@ set shortmess+=c
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 
-" Enable type inlay hints
-" autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-" \ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
-
-" Statusline
-function! LspStatus() abort
-    if luaeval('#vim.lsp.buf_get_clients() > 0')
-        try
-            return luaeval("vim.lsp.buf_get_clients()[1].name")
-        catch
-            return 'LSP: '
-        endtry
-    endif
-
-    return ''
-endfunction
-
 " ALE - Asynchronous Linter Engine settings
-
-"highlight link ALEError Error
-"highlight Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-"highlight link ALEWarning Warning
-"highlight link ALEInfo SpellCap
-
 nnoremap <Leader>e :call ale#cursor#ShowCursorDetail()<CR>
 nnoremap <silent> <Leader>j :ALENextWrap<CR>
 nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
@@ -569,24 +491,6 @@ let g:ale_rust_rustc_options = ''
 "let g:ale_lint_on_insert_leave = 0
 "let g:ale_lint_on_enter = 0
 
-function JavaAbbrs()
-    " Java Abbrs
-    abbr Sout System.out.println("
-    abbr SOut System.out.print("
-    abbr fori for(int i = 0, x = .length; i < x; i++)
-    abbr psv public static void main(String[] args)
-endfunction
-
-function JsAbbrs()
-    " Java Abbrs
-    abbr fori for(let i = 0, x = .length; i < x; i++)
-    abbr clog console.log
-endfunction
-
-autocmd FileType java call JavaAbbrs()
-autocmd FileType vue call JsAbbrs()
-autocmd FileType javascript call JsAbbrs()
-
 " make :Q work as :q
 cabbr Q q
 
@@ -599,19 +503,6 @@ cabbr Q q
 autocmd FileType vue syntax sync fromstart
 " Only try scss
 let g:vue_pre_processors = ['scss', 'typescript']
-
-" settings :: Nvim-R plugin
-" R output is highlighted with current colorscheme
-let g:rout_follow_colorscheme = 1
-
-" R commands in R output are highlighted
-let g:Rout_more_colors = 1
-
-let R_in_buffer = 0
-let R_applescript = 0
-"let R_tmux_split = 1
-
-let R_source = '~/.config/nvim/plugged/nvim-r/R/tmux_split.vim'
 
 " Indentguide settings
 let g:indent_guides_guide_size = 1
@@ -649,12 +540,7 @@ let g:user_emmet_mode='i'
 let g:NERDAltDelims_c = 1 " Use // for C
 let g:NERDSpaceDelims = 1 " Add space after comment delimiter
 
-"augroup SyntaxSettings
-    "autocmd!
-    "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-"augroup END
-
-"" vim-test
+" vim-test
 let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
 nnoremap <Leader>tt :TestNearest<CR>
@@ -690,19 +576,18 @@ nnoremap <Leader>tl :TestLast<CR>
 " endfunction
 
 "" nvim-gdb
+" nnoremap <Leader>sb :GdbBreakpointToggle<CR>
+" nnoremap <Leader>s_ :GdbBreakpointClearAll<CR>
+" nnoremap <Leader>sh :GdbUntil<CR>
+" nnoremap <Leader>sc :GdbContinue<CR>
+" nnoremap <Leader>so :GdbFrameUp<CR>
+" nnoremap <Leader>si :GdbFrameDown<CR>
+" nnoremap <Leader>sn :GdbStep<CR>
+" nnoremap <Leader>sw :GdbEvalWord<CR>
+" nnoremap <Leader>sx :GdbDebugStop<CR>
+" nnoremap <Leader>sr :GdbInterrupt<CR>
 
-nnoremap <Leader>sb :GdbBreakpointToggle<CR>
-nnoremap <Leader>s_ :GdbBreakpointClearAll<CR>
-nnoremap <Leader>sh :GdbUntil<CR>
-nnoremap <Leader>sc :GdbContinue<CR>
-nnoremap <Leader>so :GdbFrameUp<CR>
-nnoremap <Leader>si :GdbFrameDown<CR>
-nnoremap <Leader>sn :GdbStep<CR>
-nnoremap <Leader>sw :GdbEvalWord<CR>
-nnoremap <Leader>sx :GdbDebugStop<CR>
-nnoremap <Leader>sr :GdbInterrupt<CR>
-
-"" nvim-cursorword
+" nvim-cursorword
 highlight CursorWord gui=reverse
 
 autocmd InsertEnter * highlight clear CursorWord
@@ -735,21 +620,11 @@ let s:highlighters = [
         \ wilder#basic_highlighter(),
         \ ]
 
-" pop-up rather than in statusline (for commands)
-" call wilder#set_option('renderer', wilder#renderer_mux({
-      " \ ':': wilder#popupmenu_renderer({
-      " \   'highlighter': s:highlighters,
-      " \ }),
-      " \ '/': wilder#wildmenu_renderer({
-      " \   'highlighter': s:highlighters,
-      " \ }),
-      " \ }))
-
 call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \   'highlighter': s:highlighters,
       \ }))
 
-"" nvim-gdb
+" nvim-gdb
 let g:nvimgdb_disable_start_keymaps = 1
 
 function! Nothing()

@@ -17,15 +17,6 @@ vim.diagnostic.config({
     },
 })
 
--- local border_vertical   = "║"
--- local border_horizontal = "═"
--- local border_topleft    = "╔"
--- local border_topright   = "╗"
--- local border_botleft    = "╚"
--- local border_botright   = "╝"
--- local border_juncleft   = "╠"
--- local border_juncright  = "╣"
-
 -- add border to hover
 vim.lsp.handlers["textDocument/hover"] =
   vim.lsp.with(
@@ -110,22 +101,6 @@ require'tmux'.setup {
     }
 }
 
----- vhyrro/neorg
-require'neorg'.setup {
-    -- Tell Neorg what modules to load
-    load = {
-        ["core.defaults"] = {}, -- Load all the default modules
-        ["core.norg.concealer"] = {}, -- Allows for use of icons
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-                workspaces = {
-                    my_workspace = "~/neorg"
-                }
-            }
-        }
-    },
-}
-
 ---- hrsh7th/nvim-cmp
 local cmp = require'cmp'
 cmp.setup {
@@ -154,10 +129,6 @@ cmp.setup {
         documentation = {
             border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
             winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-            -- max_width = 120,
-            -- min_width = 60,
-            -- max_height = math.floor(vim.o.lines * 0.3),
-            -- min_height = 1,
         };
     }
 }
@@ -201,11 +172,6 @@ require'telescope'.setup {
         },
         sorting_strategy = "ascending"
     },
-    extensions = {
-        fzf = {
-
-        }
-    }
 }
 
 require'telescope'.load_extension('fzf')
@@ -284,41 +250,6 @@ gls.left[5] = {
         separator_highlight = {colors.wal_blue, colors.bg}
     }
 }
-
--- local checkwidth = function()
-    -- local squeeze_width = vim.fn.winwidth(0) / 2
-    -- if squeeze_width > 30 then
-        -- return true
-    -- end
-    -- return false
--- end
-
--- gls.left[6] = {
-    -- DiffAdd = {
-        -- provider = "DiffAdd",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.white, colors.bg}
-    -- }
--- }
-
--- gls.left[6] = {
-    -- DiffModified = {
-        -- provider = "DiffModified",
-        -- condition = checkwidth,
-        -- icon = "   ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
-
--- gls.left[7] = {
-    -- DiffRemove = {
-        -- provider = "DiffRemove",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
 
 gls.left[6] = {
     DiagnosticError = {
@@ -445,11 +376,6 @@ gls.right[7] = {
             local current_col = vim.fn.col(".")
             local total_line = vim.fn.line("$")
 
-            -- if current_line == 1 then
-                -- return "  Top "
-            -- elseif current_line == vim.fn.line("$") then
-                -- return "  Bot "
-            -- end
             local result, _ = math.modf((current_line / total_line) * 100)
             return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
         end,
@@ -482,7 +408,6 @@ gls.short_line_left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
