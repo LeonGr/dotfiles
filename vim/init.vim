@@ -40,6 +40,7 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown pre
 
 " debugging
 Plug 'mfussenegger/nvim-dap'                                      " Debug Adapter Protocol (DAP) client implementation
+Plug 'rcarriga/nvim-dap-ui'                                       " UI for nvim-dap
 " Plug 'puremourning/vimspector'                                    " Debugger for vim
 " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 
