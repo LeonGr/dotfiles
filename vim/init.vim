@@ -39,6 +39,7 @@ Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusli
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
 
 " debugging
+Plug 'mfussenegger/nvim-dap'                                      " Debug Adapter Protocol (DAP) client implementation
 " Plug 'puremourning/vimspector'                                    " Debugger for vim
 " Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 
@@ -73,8 +74,9 @@ Plug 'ray-x/cmp-treesitter'                                     " nvim-cmp sourc
 Plug 'quangnguyen30192/cmp-nvim-ultisnips'                      " ultisnips completion source for nvim-cmp
 
 " Telescope
-Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
+Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists with popups
 Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " port of fzf
+Plug 'nvim-telescope/telescope-dap.nvim'                          " nvim-dap integration with telescope
 
 " neovim LSP plugins
 Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
@@ -121,6 +123,8 @@ endif
 lua require('init')
 " LSP settings
 lua require('lsp')
+" DAP settings
+lua require('dap_settings')
 
 " Scrolling
 set mouse=a
@@ -255,6 +259,9 @@ nnoremap <Leader>r     :Telescope live_grep<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
+
+" Use escape to leave terminal mode
+tnoremap <Esc> <C-\><C-n>
 
 " Removes trailing spaces
 function TrimWhiteSpace()
@@ -512,6 +519,20 @@ nnoremap <Leader>tl :TestLast<CR>
 " nnoremap <Leader>sw :GdbEvalWord<CR>
 " nnoremap <Leader>sx :GdbDebugStop<CR>
 " nnoremap <Leader>sr :GdbInterrupt<CR>
+
+" nvim-dap
+nnoremap <Leader>s_ :lua require'dap'.clear_breakpoints()<CR>
+nnoremap <Leader>sr :lua require'dap'.run_last()<CR>
+nnoremap <Leader>sc :lua require'dap'.continue()<CR>
+nnoremap <Leader>sb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <Leader>sl :lua require'telescope'.extensions.dap.list_breakpoints()<CR>
+nnoremap <Leader>sv :lua require'telescope'.extensions.dap.variables()<CR>
+nnoremap <Leader>sh :lua require'dap'.run_to_cursor()<CR>
+nnoremap <Leader>so :lua require'dap'.step_out()<CR>
+nnoremap <Leader>si :lua require'dap'.step_into()<CR>
+nnoremap <Leader>sn :lua require'dap'.step_over()<CR>
+nnoremap <Leader>sw :lua require'dap.ui.widgets'.hover()<CR>
+nnoremap <Leader>s  <NOP>
 
 " nvim-cursorword
 highlight CursorWord gui=reverse
