@@ -41,8 +41,6 @@ Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown pre
 " debugging
 Plug 'mfussenegger/nvim-dap'                                      " Debug Adapter Protocol (DAP) client implementation
 Plug 'rcarriga/nvim-dap-ui'                                       " UI for nvim-dap
-" Plug 'puremourning/vimspector'                                    " Debugger for vim
-" Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 
 " git
 Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
@@ -481,45 +479,6 @@ nnoremap <Leader>tt :TestNearest<CR>
 nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
-
-"" vimspector
-" nnoremap <Leader>sa :call vimspector#Launch()<CR>
-" nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
-" nnoremap <Leader>sw :call AddToWatch()<CR>
-" nnoremap <Leader>sx :call vimspector#Reset()<CR>
-" nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
-" nnoremap <Leader>sr :call vimspector#Restart()<CR>
-" nnoremap <Leader>sc :call vimspector#Continue()<CR>
-" nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
-" nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
-" nnoremap <Leader>so :call vimspector#StepOut()<CR>
-" nnoremap <Leader>si :call vimspector#StepInto()<CR>
-" nnoremap <Leader>sn :call vimspector#StepOver()<CR>
-
-" " Method to start debugging of test
-" function! JestStrategy(cmd)
-    " let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-    " call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-" endfunction
-" let g:test#custom_strategies = {'jest': function('JestStrategy')}
-
-" " Method to add expression to debugger watch list
-" func! AddToWatch()
-    " let word = expand("<cexpr>")
-    " call vimspector#AddWatch(word)
-" endfunction
-
-"" nvim-gdb
-" nnoremap <Leader>sb :GdbBreakpointToggle<CR>
-" nnoremap <Leader>s_ :GdbBreakpointClearAll<CR>
-" nnoremap <Leader>sh :GdbUntil<CR>
-" nnoremap <Leader>sc :GdbContinue<CR>
-" nnoremap <Leader>so :GdbFrameUp<CR>
-" nnoremap <Leader>si :GdbFrameDown<CR>
-" nnoremap <Leader>sn :GdbStep<CR>
-" nnoremap <Leader>sw :GdbEvalWord<CR>
-" nnoremap <Leader>sx :GdbDebugStop<CR>
-" nnoremap <Leader>sr :GdbInterrupt<CR>
 
 " nvim-dap
 nnoremap <Leader>s_ :lua require'dap'.clear_breakpoints()<CR>
