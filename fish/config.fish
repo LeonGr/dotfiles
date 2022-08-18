@@ -78,6 +78,7 @@ end
 #  only execute these in tty
 if tty > /dev/null
     if status --is-interactive
+        funcsave --quiet take
         # random_fish
 
         # print coloured motd
@@ -105,10 +106,10 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-set PATH $PATH "$HOME/.cargo/bin:$PATH"
+fish_add_path -a "$HOME/.cargo/bin"
 
 # add personal bins to path
-set PATH $PATH "$HOME/bin:$PATH"
+fish_add_path -a "$HOME/bin"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
@@ -151,5 +152,3 @@ set -U __done_min_cmd_duration 5000
 function take
     mkdir -p "$argv[1]"; and cd "$argv[1]"
 end
-
-funcsave take
