@@ -493,6 +493,7 @@ nnoremap <Leader>so :lua require'dap'.step_out()<CR>
 nnoremap <Leader>si :lua require'dap'.step_into()<CR>
 nnoremap <Leader>sn :lua require'dap'.step_over()<CR>
 nnoremap <Leader>sw :lua require'dap.ui.widgets'.hover()<CR>
+nnoremap <Leader>sg :lua require'dapui'.toggle()<CR>
 nnoremap <Leader>s  <NOP>
 
 " nvim-cursorword
