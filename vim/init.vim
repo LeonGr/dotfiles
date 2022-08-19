@@ -485,6 +485,7 @@ nnoremap <Leader>s_ :lua require'dap'.clear_breakpoints()<CR>
 nnoremap <Leader>sr :lua require'dap'.run_last()<CR>
 nnoremap <Leader>sc :lua require'dap'.continue()<CR>
 nnoremap <Leader>sb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <Leader>sB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
 nnoremap <Leader>sl :lua require'telescope'.extensions.dap.list_breakpoints()<CR>
 nnoremap <Leader>sv :lua require'telescope'.extensions.dap.variables()<CR>
 nnoremap <Leader>sh :lua require'dap'.run_to_cursor()<CR>
