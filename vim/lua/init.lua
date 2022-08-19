@@ -183,6 +183,10 @@ require'telescope'.load_extension('dap')
 local gl = require'galaxyline'
 local condition = require'galaxyline.condition'
 
+condition.not_dap_ui = function()
+    return vim.o.filetype:find("dap") == nil
+end
+
 local gls = gl.section
 
 gl.short_line_list = {" "}
@@ -203,7 +207,7 @@ gls.left[1] = {
         provider = function()
             return "▋"
         end,
-        highlight = {colors.wal_blue, colors.wal_blue}
+        highlight = {colors.wal_blue, colors.wal_blue},
     }
 }
 
@@ -214,7 +218,8 @@ gls.left[2] = {
         end,
         highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -229,7 +234,8 @@ gls.left[3] = {
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.wal_blue},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -237,7 +243,7 @@ gls.left[4] = {
     FileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue}
+        highlight = {colors.bg, colors.wal_blue},
     }
 }
 
@@ -255,7 +261,8 @@ gls.left[6] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
-        highlight = {colors.red, colors.bg}
+        highlight = {colors.red, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -263,7 +270,8 @@ gls.left[7] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
-        highlight = {colors.yellow, colors.bg}
+        highlight = {colors.yellow, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -284,7 +292,8 @@ gls.right[1] = {
                 return ""
             end
         end,
-        highlight = {colors.fg, colors.bg}
+        highlight = {colors.fg, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -293,7 +302,7 @@ gls.right[2] = {
         provider = function()
             return " "
         end,
-        condition = require("galaxyline.condition").check_git_workspace,
+        condition = condition.check_git_workspace and condition.not_dap_ui,
         highlight = {colors.fg, colors.bg},
         separator = " ",
         separator_highlight = {colors.bg, colors.bg}
@@ -303,8 +312,8 @@ gls.right[2] = {
 gls.right[3] = {
     GitBranch = {
         provider = "GitBranch",
-        condition = require("galaxyline.condition").check_git_workspace,
-        highlight = {colors.fg, colors.bg}
+        condition = condition.check_git_workspace and condition.not_dap_ui,
+        highlight = {colors.fg, colors.bg},
     }
 }
 
@@ -365,7 +374,8 @@ gls.right[6] = {
         end,
         separator = "",
         separator_highlight = {colors.green, colors.bg},
-        highlight = {colors.bg, colors.green}
+        highlight = {colors.bg, colors.green},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -379,7 +389,8 @@ gls.right[7] = {
             local result, _ = math.modf((current_line / total_line) * 100)
             return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
         end,
-        highlight = {colors.green, colors.bg}
+        highlight = {colors.green, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -399,7 +410,8 @@ gls.short_line_left[2] = {
         end,
         highlight = {colors.wal_blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.wal_blue},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -409,12 +421,12 @@ gls.short_line_left[3] = {
             -- :p = full path
             -- :~ = relative to ~ if possible
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
