@@ -535,19 +535,6 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer({
       \   'highlighter': s:highlighters,
       \ }))
 
-" nvim-gdb
-let g:nvimgdb_disable_start_keymaps = 1
-
-function! Nothing()
-    tnoremap <silent> <buffer> <esc> <c-\><c-n>
-endfunction
-
-let g:nvimgdb_config_override = {
-  \ 'set_tkeymaps':   'Nothing',
-  \ 'set_keymaps':    'Nothing',
-  \ 'unset_keymaps':  'Nothing',
-  \ }
-
 " git-blame.nvim
 
 " Disable by default (toggle with :GitBlameToggle)
