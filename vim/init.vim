@@ -47,6 +47,7 @@ Plug 'sindrets/diffview.nvim'                                     " Show git dif
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
 Plug 'tpope/vim-fugitive'                                         " Git wrapper
 Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
+Plug 'f-person/git-blame.nvim'                                    " Git blame in Neovim
 
 " snippets
 Plug 'SirVer/ultisnips'                                           " Snippets engine
@@ -106,6 +107,7 @@ Plug 'larsbs/vimterial'
 Plug 'bcicen/vim-vice'
 Plug 'dylanaraps/wal.vim'
 Plug 'chriskempson/base16-vim'
+
 call plug#end()
 
 " Color settings
@@ -545,6 +547,11 @@ let g:nvimgdb_config_override = {
   \ 'set_keymaps':    'Nothing',
   \ 'unset_keymaps':  'Nothing',
   \ }
+
+" git-blame.nvim
+
+" Disable by default (toggle with :GitBlameToggle)
+let g:gitblame_enabled = 0
 
 augroup ConfigureKitty
     au!
