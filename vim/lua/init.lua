@@ -163,6 +163,8 @@ require'telescope'.setup {
         mappings = {
             i = {
                 ["<C-u>"] = false,
+                ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+                ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
             }
         },
         layout_config = {
