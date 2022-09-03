@@ -120,6 +120,8 @@ if (has("termguicolors"))
     set termguicolors
 endif
 
+let mapleader = "\<Space>"
+
 " (require checks file in ~/.config/nvim/lua)
 lua require('init')
 " LSP settings
@@ -232,7 +234,6 @@ set undodir=~/.vimundo/
 set backspace=2
 
 " Leader commands
-let mapleader = "\<Space>"
 
 " General
 nnoremap <Leader>w     :w<CR>
