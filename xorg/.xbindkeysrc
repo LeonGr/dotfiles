@@ -44,7 +44,7 @@
    XF86AudioLowerVolume
 
 # Toggle Play/Pause
-"playerctl play-pause; SONG=$(playerctl metadata xesam:title); ALBUM=$(playerctl metadata xesam:albumArtist && printf ' - ' && playerctl metadata xesam:album); /usr/bin/notify-send -u low "$SONG" "$ALBUM""
+"/home/leon/dotfiles/scripts/spotify_notification"
    XF86AudioPlay
 
 # Next Song

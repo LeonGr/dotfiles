@@ -1,14 +1,20 @@
 #!/bin/bash
 sleep 0.1
+
+killall -SIGUSR1 dunst # pause dunst
+
 scrot /tmp/screen.png
 convert /tmp/screen.png -scale 10% -scale 1000% /tmp/screen.png
 [[ -f $1 ]] && convert /tmp/screen.png $1 -gravity center -composite -matte /tmp/screen.png
 #i3lock -u -i /tmp/screen.png
-i3lock -i /tmp/screen.png \
+i3lock \
+    -i /tmp/screen.png \
     --inside-color='#37344500' --ring-color='#ffffffff' --line-uses-inside \
     --keyhl-color='#3C4DD2ff' --bshl-color='#d23c3dff' --separator-color='#00000000' \
     --insidever-color='#fecf4dff' --insidewrong-color='#d23c3dff' \
     --ringver-color='#ffffffff' --ringwrong-color='#ffffffff' --ind-pos="x+1132:y+1100" \
     --radius=44 --verif-text="" --wrong-text=""
+
+killall -SIGUSR2 dunst # resume dunst
 
 rm /tmp/screen.png

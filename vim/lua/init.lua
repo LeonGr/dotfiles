@@ -17,15 +17,6 @@ vim.diagnostic.config({
     },
 })
 
--- local border_vertical   = "║"
--- local border_horizontal = "═"
--- local border_topleft    = "╔"
--- local border_topright   = "╗"
--- local border_botleft    = "╚"
--- local border_botright   = "╝"
--- local border_juncleft   = "╠"
--- local border_juncright  = "╣"
-
 -- add border to hover
 vim.lsp.handlers["textDocument/hover"] =
   vim.lsp.with(
@@ -57,10 +48,10 @@ require('gitsigns').setup {
 
 ---- nvim-treesitter/nvim-treesitter
 require'nvim-treesitter.configs'.setup {
-    ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+    ensure_installed = "all",
     highlight = {
         enable = true,              -- false will disable the whole extension
-        --disable = { "c", "rust" },  -- list of language that will be disabled
+        disable = { "markdown" },   -- list of language that will be disabled
     },
     incremental_selection = {
         enable = true,
@@ -95,7 +86,7 @@ require'tmux'.setup {
     copy_sync = {
         -- enables copy sync and overwrites all register actions to
         -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-        enable = true, -- MANUALLY disable setting vim.g.clipboard in tmux.nvim/lua/tmux/copy.lua
+        enable = false, -- MANUALLY disable setting vim.g.clipboard in tmux.nvim/lua/tmux/copy.lua
         -- TMUX >= 3.2: yanks (and deletes) will get redirected to system
         -- clipboard by tmux
         redirect_to_clipboard = true,
@@ -108,22 +99,6 @@ require'tmux'.setup {
         -- enables default keybindings (A-hjkl) for normal mode
         enable_default_keybindings = true,
     }
-}
-
----- vhyrro/neorg
-require'neorg'.setup {
-    -- Tell Neorg what modules to load
-    load = {
-        ["core.defaults"] = {}, -- Load all the default modules
-        ["core.norg.concealer"] = {}, -- Allows for use of icons
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-                workspaces = {
-                    my_workspace = "~/neorg"
-                }
-            }
-        }
-    },
 }
 
 ---- hrsh7th/nvim-cmp
@@ -139,7 +114,9 @@ cmp.setup {
         ['<C-e>'] = cmp.mapping.close(),
         ['<CR>'] = cmp.mapping.confirm({ select = true }),
         ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+        ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
+        ['<Up>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
     },
     sources = {
         { name = 'nvim_lsp' },
@@ -148,14 +125,12 @@ cmp.setup {
         { name = 'path' },
         { name = 'treesitter' },
     },
-    documentation = {
-        border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
-        winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-        -- max_width = 120,
-        -- min_width = 60,
-        -- max_height = math.floor(vim.o.lines * 0.3),
-        -- min_height = 1,
-    };
+    window = {
+        documentation = {
+            border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
+            winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+        };
+    }
 }
 
 ---- windwp/nvim-autopairs
@@ -188,6 +163,8 @@ require'telescope'.setup {
         mappings = {
             i = {
                 ["<C-u>"] = false,
+                ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+                ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
             }
         },
         layout_config = {
@@ -197,21 +174,40 @@ require'telescope'.setup {
         },
         sorting_strategy = "ascending"
     },
-    extensions = {
-        fzf = {
-
-        }
-    }
 }
 
 require'telescope'.load_extension('fzf')
+require'telescope'.load_extension('dap')
 
+local function get_visual_selection()
+    local s_start = vim.fn.getpos("v")
+    local s_end = vim.fn.getpos(".")
+    local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+    local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+    lines[1] = string.sub(lines[1], s_start[3], -1)
+    if n_lines == 1 then
+        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+    else
+        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+    end
+    return table.concat(lines, '\n')
+end
+
+-- search for the current selection
+vim.keymap.set('v', '<Leader>R', function()
+    local text = get_visual_selection()
+    require('telescope.builtin').grep_string({ search = text })
+end, { expr = false })
 
 ---- glepnir/galaxyline.nvim
 
 -- config adapted from https://github.com/siduck76/NvChad/blob/main/lua/plugins/statusline.lua
 local gl = require'galaxyline'
 local condition = require'galaxyline.condition'
+
+condition.not_dap_ui = function()
+    return vim.o.filetype:find("dap") == nil
+end
 
 local gls = gl.section
 
@@ -243,7 +239,8 @@ gls.left[2] = {
         end,
         highlight = {colors.bg, colors.blue},
         separator = " ",
-        separator_highlight = {colors.blue, colors.bg}
+        separator_highlight = {colors.blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -258,7 +255,8 @@ gls.left[3] = {
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.blue}
+        separator_highlight = {colors.bg, colors.blue},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -280,46 +278,12 @@ gls.left[5] = {
     }
 }
 
--- local checkwidth = function()
-    -- local squeeze_width = vim.fn.winwidth(0) / 2
-    -- if squeeze_width > 30 then
-        -- return true
-    -- end
-    -- return false
--- end
-
--- gls.left[6] = {
-    -- DiffAdd = {
-        -- provider = "DiffAdd",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.white, colors.bg}
-    -- }
--- }
-
--- gls.left[6] = {
-    -- DiffModified = {
-        -- provider = "DiffModified",
-        -- condition = checkwidth,
-        -- icon = "   ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
-
--- gls.left[7] = {
-    -- DiffRemove = {
-        -- provider = "DiffRemove",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
-
 gls.left[6] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
-        highlight = {colors.red, colors.bg}
+        highlight = {colors.red, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -327,7 +291,8 @@ gls.left[7] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
-        highlight = {colors.yellow, colors.bg}
+        highlight = {colors.yellow, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -348,7 +313,8 @@ gls.right[1] = {
                 return ""
             end
         end,
-        highlight = {colors.fg, colors.bg}
+        highlight = {colors.fg, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -357,7 +323,7 @@ gls.right[2] = {
         provider = function()
             return " "
         end,
-        condition = require("galaxyline.condition").check_git_workspace,
+        condition = condition.check_git_workspace and condition.not_dap_ui,
         highlight = {colors.fg, colors.bg},
         separator = " ",
         separator_highlight = {colors.bg, colors.bg}
@@ -367,8 +333,8 @@ gls.right[2] = {
 gls.right[3] = {
     GitBranch = {
         provider = "GitBranch",
-        condition = require("galaxyline.condition").check_git_workspace,
-        highlight = {colors.fg, colors.bg}
+        condition = condition.check_git_workspace and condition.not_dap_ui,
+        highlight = {colors.fg, colors.bg},
     }
 }
 
@@ -429,7 +395,8 @@ gls.right[6] = {
         end,
         separator = "",
         separator_highlight = {colors.green, colors.bg},
-        highlight = {colors.bg, colors.green}
+        highlight = {colors.bg, colors.green},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -440,15 +407,11 @@ gls.right[7] = {
             local current_col = vim.fn.col(".")
             local total_line = vim.fn.line("$")
 
-            -- if current_line == 1 then
-                -- return "  Top "
-            -- elseif current_line == vim.fn.line("$") then
-                -- return "  Bot "
-            -- end
             local result, _ = math.modf((current_line / total_line) * 100)
             return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
         end,
-        highlight = {colors.green, colors.bg}
+        highlight = {colors.green, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -468,7 +431,8 @@ gls.short_line_left[2] = {
         end,
         highlight = {colors.blue, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.blue}
+        separator_highlight = {colors.bg, colors.blue},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -477,14 +441,13 @@ gls.short_line_left[3] = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            print(vim.fn.expand('%:p:h'))
             return "  " .. dir_name .. " "
         end,
         highlight = {colors.bg, colors.blue},
         separator = " ",
-        separator_highlight = {colors.blue, colors.bg}
+        separator_highlight = {colors.blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 

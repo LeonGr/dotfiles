@@ -5,7 +5,6 @@ local configs = require'lspconfig/configs'
 -- function to attach completion and diagnostics
 -- when setting up lsp
 local on_attach = function(client)
-    -- require'completion'.on_attach(client)
     require'virtualtypes'.on_attach()
 end
 
@@ -18,11 +17,14 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+
 local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })
--- lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
+
+-- Enable rust-tools
+require('rust-tools').setup({})
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
@@ -46,6 +48,19 @@ lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach; cmd={"j
 -- Enable flow (JavaScript)
 lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
+-- Enable java_language_server (Java)
+lspconfig.java_language_server.setup({
+    capabilities=capabilities;
+    on_attach=on_attach;
+    cmd={ "/usr/share/java/java-language-server/lang_server_linux.sh" };
+    settings = {
+        java = {
+            home = "/usr/lib/jvm/default/"
+        }
+    }
+})
+
+
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
     on_attach=function(client, _)
@@ -57,25 +72,16 @@ lspconfig.tsserver.setup({
 })
 
 -- Enable bashls (Bash)
-lspconfig.bashls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.bashls.setup({ capabilities=capabilities })
 
 -- Enable vim-language-server (vimscript)
-lspconfig.vimls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.vimls.setup({ capabilities=capabilities })
 
 -- Enable Vue Language Server (Vue.js)
 lspconfig.vuels.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable Clangd (C/C++)
-lspconfig.clangd.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.clangd.setup({ capabilities=capabilities })
 
 -- Enable lua-language-server (Lua)
 lspconfig.sumneko_lua.setup({

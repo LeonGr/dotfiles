@@ -65,8 +65,6 @@ set -x EDITOR /usr/bin/nvim
 
 set -x COLORTERM "truecolor"
 
-# print coloured motd
-#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
 if [ -z "$TMUX" ]
     if status --is-interactive
@@ -74,26 +72,12 @@ if [ -z "$TMUX" ]
     end
 end
 
-# source wal colors
-#. ~/.cache/wal/colors.sh
-#cat ~/.cache/wal/sequences &
-
-# # print randomly coloured fish logo
-# function random_fish
-#     set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
-#     set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
-#     set args (string split ' ' $color_sample)
-#     fish_logo $args
-#     echo ""
-# end
-# 
-# #  only execute these in tty
-# if tty > /dev/null
-#     random_fish
-# 
-#     # source wal colors
-#     cat ~/.cache/wal/sequences &
-# end
+#  only execute these in tty
+if tty > /dev/null
+    if status --is-interactive
+        funcsave --quiet take
+    end
+end
 
 # give man colors
 set -x MANROFFOPT '-c'
@@ -111,7 +95,10 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-#set PATH $PATH "$HOME/.cargo/bin:$PATH"
+# fish_add_path -a "$HOME/.cargo/bin"
+
+# add personal bins to path
+# fish_add_path -a "$HOME/bin"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
@@ -148,3 +135,9 @@ end
 set -g fish_cursor_insert line
 
 set -U __done_min_cmd_duration 5000
+
+# command that creates a directory and then changes the current directory to it
+# inspired by zsh, taken from https://unix.stackexchange.com/a/678533/
+function take
+    mkdir -p "$argv[1]"; and cd "$argv[1]"
+end
