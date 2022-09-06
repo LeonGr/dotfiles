@@ -69,7 +69,9 @@ set -x COLORTERM "truecolor"
 #cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
 if [ -z "$TMUX" ]
-    fancy_motd
+    if status --is-interactive
+        fancy_motd
+    end
 end
 
 # source wal colors
