@@ -45,7 +45,17 @@
 
 # Toggle Play/Pause
 "/home/leon/dotfiles/scripts/spotify_notification"
+   m:0x0 + c:208
    XF86AudioPlay
+
+# Toggle Play/Pause
+"/home/leon/dotfiles/scripts/spotify_notification"
+   m:0x0 + c:172
+   XF86AudioPlay
+
+# Toggle Play/Pause
+"/home/leon/dotfiles/scripts/spotify_notification"
+   XF86AudioPause
 
 # Next Song
 "playerctl next"
