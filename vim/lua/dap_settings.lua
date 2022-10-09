@@ -1,9 +1,9 @@
 local dap = require('dap')
 
 vim.fn.sign_define('DapBreakpoint', { text='', texthl='DapBreakpoint', numhl='DapBreakpoint' })
-vim.highlight.create('DapBreakpoint', { ctermbg=0, guifg='#993939' }, false)
+vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg=0, fg='#993939' })
 vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', numhl='DapStopped' })
-vim.highlight.create('DapStopped', { ctermbg=0, guifg='#98c379' }, false)
+vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg=0, fg='#98c379' })
 
 -- Use LLDB
 dap.adapters.codelldb = {
