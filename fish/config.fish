@@ -40,6 +40,10 @@ alias lr='exa -R'
 alias lat='exa -laT'
 alias lar='exa -laR'
 
+# deleting (https://github.com/andreafrancia/trash-cli)
+alias rm='echo "Use trash (t)"; false'
+alias t='trash'
+
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
     set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
