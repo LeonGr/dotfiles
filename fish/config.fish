@@ -2,22 +2,16 @@
 set -x HISTSIZE 999999999
 set -x SAVEHIST $HISTSIZE
 
-# aliases
+### aliases ###
 alias phpserver='php -S localhost:8000'
 alias pythonserver='python -m http.server'
 alias py='python'
 alias :wq='exit'
 alias :q='exit'
-alias ack='ack-grep'
-alias msfconsole="/opt/metasploit/msfconsole -x \"db_connect $USER@msf\""
-alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-alias stop='sudo systemctl stop'
-alias start='sudo systemctl start'
-alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
