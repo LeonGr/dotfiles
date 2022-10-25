@@ -15,15 +15,11 @@ alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum:
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-#alias status='sudo systemctl status'
 alias stop='sudo systemctl stop'
 alias start='sudo systemctl start'
 alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
-# alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
-#alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-# alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
