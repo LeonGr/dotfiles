@@ -28,7 +28,7 @@ alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
-alias weechat='TERM=tmux-256color /usr/bin/weechat'
+alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
 
 # ls -> exa
 alias exa='exa --git'
