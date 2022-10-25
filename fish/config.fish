@@ -25,6 +25,7 @@ alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
+alias g.='git status .'
 
 # ls -> exa
 alias exa='exa --git'
