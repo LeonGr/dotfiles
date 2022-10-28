@@ -9,8 +9,6 @@ super + {_,shift +}Return
 # program launcher
 super + space
     rofi -show run -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 - matching prefix
-    #rofi -fake-transparency -opacity 90 -show run -width 1000 -font "Dejavu Sans Mono 20"
-    #dmenu_run -nb '#111111' -b -fn 'Menlo:pixelsize=12'
 
 # passwords (open bitwarden-rofi)
 super + p
@@ -19,10 +17,6 @@ super + p
 # open obsidian file
 super + o
     rofi_obsidian
-
-# calculator
-# super + equal
-    # = -width 600
 
 super + shift + space
     rofi -fake-transparency -opacity 90 -show
@@ -54,10 +48,6 @@ super + m
 # super + n
     # max_screen
 
-# if the current node is automatic, send it to the last manual, otherwise pull the last leaf
-# super + y
-	# bspc query -N -n focused.automatic && bspc node -n last.!automatic || bspc node last.leaf -n focused
-
 # swap the current node and the biggest node
 super + g
 	bspc node -s biggest
@@ -86,10 +76,6 @@ super + {_,shift + }{h,j,k,l}
 super + {b,n}
     bspc node -m {west,east} --follow
 
-# focus the node for the given path jump
-# super + {p,b,comma,period}
-	# bspc node -f @{parent,brother,first,second}
-
 # focus the next/previous node
 super + {_,shift + }c
 	bspc node -f {next,prev}
@@ -101,12 +87,6 @@ super + bracket{left,right}
 # focus the last node/desktop
 super + {grave,Tab}
 	bspc {node,desktop} -f last
-
-# focus the older or newer node in the focus history
-# super + {o,i}
-	# bspc wm -h off; \
-	# bspc node {older,newer} -f; \
-	# bspc wm -h on
 
 # focus or send to the given desktop
 super + {_,shift + }{1-9,0}
