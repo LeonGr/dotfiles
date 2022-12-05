@@ -18,13 +18,28 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
   }
 }
 
-local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
-lspconfig.rust_analyzer.setup({ capabilities=capabilities })
+lspconfig.rust_analyzer.setup({
+    capabilities=capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy"
+            },
+            procMacro = {
+                enable = true,
+            },
+            cargo = {
+                allFeatures = true;
+            }
+        }
+    }
+})
 
 -- Enable rust-tools
-require('rust-tools').setup({})
+-- require('rust-tools').setup({})
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
