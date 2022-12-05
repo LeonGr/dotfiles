@@ -39,7 +39,7 @@ lspconfig.rust_analyzer.setup({
 })
 
 -- Enable rust-tools
--- require('rust-tools').setup({})
+require('rust-tools').setup({})
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
