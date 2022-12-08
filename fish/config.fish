@@ -70,6 +70,21 @@ function random_fish
     echo ""
 end
 
+function backup_check
+    set backup_datetime (systemctl show backup.service --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' '')
+    set current_datetime (date)
+    set backup_datetime_epoch (date --date=$backup_datetime '+%s')
+    set current_datetime_epoch (date --date=$current_datetime '+%s')
+    set days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
+
+    echo -e "Last backup: $backup_datetime"
+    if test $days_diff -gt 0
+        echo -e "\033[30;41m $days_diff days since last backup \033[0m"
+    else
+        echo ""
+    end
+end
+
 #  only execute these in tty
 if tty > /dev/null
     if status --is-interactive
@@ -78,6 +93,8 @@ if tty > /dev/null
 
         # print coloured motd
         cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
+        backup_check
     end
 
     # source wal colors
