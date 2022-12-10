@@ -1,6 +1,12 @@
 #!/bin/sh
+
+# read 'xinit <{1}>'
+session=${1}
+
 # for laptop:
-# xrandr --output eDP-1-1 --primary --auto
+if [ "$session" = "laptop" ]; then
+    xrandr --output eDP-1-1 --primary --auto
+fi
 
 userresources=$HOME/.Xresources
 usermodmap=$HOME/.Xmodmap
@@ -34,18 +40,13 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
  unset f
 fi
 
-# Env variables
-#export QT_QPA_PLATFORMTHEME="qt5ct"
-#export LIBVA_DRIVER_NAME="radeonsi"
-#export VDPAU_DRIVER="radeonsi"
-
 xset -b &
-caps2esc &
+if [ "$session" = "laptop" ]; then
+    caps2esc &
+fi
 xbindkeys &
 sxhkd -r /tmp/output &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
-#picom --config ~/dotfiles/others/picom.conf &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
-#xrandr --output DVI-D-0 --mode 1920x1080 --scale 2x2 --left-of HDMI-A-0 --output HDMI-A-0 --primary --panning 3840x2160+3840+0 --output DisplayPort-0 --panning 3840x2160+7680+0
 exec bspwm
