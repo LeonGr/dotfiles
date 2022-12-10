@@ -148,14 +148,12 @@ cmp.setup {
         { name = 'path' },
         { name = 'treesitter' },
     },
-    documentation = {
-        border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
-        winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-        -- max_width = 120,
-        -- min_width = 60,
-        -- max_height = math.floor(vim.o.lines * 0.3),
-        -- min_height = 1,
-    };
+    window = {
+        documentation = {
+            border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
+            winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
+        };
+    }
 }
 
 ---- windwp/nvim-autopairs
