@@ -43,9 +43,11 @@ fi
 xset -b &
 if [ "$session" = "laptop" ]; then
     caps2esc &
+    ROFI_FONT="Dejavu Sans Mono 16" sxhkd -r /tmp/output &
+else
+    ROFI_FONT="Dejavu Sans Mono 25" sxhkd -r /tmp/output &
 fi
 xbindkeys &
-sxhkd -r /tmp/output &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
 picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
