@@ -16,7 +16,7 @@ super + p
 
 # open obsidian file
 super + o
-    rofi_obsidian
+    rofi_obsidian "$ROFI_FONT"
 
 super + shift + space
     rofi -fake-transparency -opacity 90 -show

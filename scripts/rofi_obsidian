@@ -1,5 +1,7 @@
 #!/bin/bash
 
+ROFI_FONT=${1}
+
 # Check for dependencies
 INSTALLED_ERROR="has to be installed. Exiting."
 command -v sed >/dev/null  2>&1 || { echo >&2 "'sed' $INSTALLED_ERROR"; exit 1; }
@@ -16,7 +18,7 @@ SELECTED=$(
     # Remove base dir from paths
     sed -e "s|$OBSIDIAN_DIR/$VAULT_NAME/||" | \
     # Open list in rofi
-    rofi -i -dmenu -p "obsidian" -sort -sorting-method fzf -matching fuzzy -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+    rofi -i -dmenu -p "obsidian" -sort -sorting-method fzf -matching fuzzy -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 )
 
 # Exit if no file was selected
