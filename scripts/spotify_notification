@@ -1,0 +1,17 @@
+#!/bin/bash
+
+# Toggle playing status
+playerctl play-pause
+
+# Get song info
+ARTIST_ALBUM="$(playerctl metadata xesam:albumArtist) - $(playerctl metadata xesam:album)"
+SONG="$(playerctl metadata xesam:title)"
+
+# Get album art URL
+IMAGE_URL="$(playerctl metadata mpris:artUrl)"
+
+# Download image
+wget -O /tmp/album_icon.jpg "$IMAGE_URL"
+
+# Show notification
+/usr/bin/notify-send -u low "$SONG" "$ARTIST_ALBUM" --icon /tmp/album_icon.jpg

@@ -2,33 +2,24 @@
 set -x HISTSIZE 999999999
 set -x SAVEHIST $HISTSIZE
 
-# aliases
+### aliases ###
 alias phpserver='php -S localhost:8000'
 alias pythonserver='python -m http.server'
 alias py='python'
 alias :wq='exit'
 alias :q='exit'
-alias ack='ack-grep'
-alias msfconsole="/opt/metasploit/msfconsole -x \"db_connect $USER@msf\""
-alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-#alias status='sudo systemctl status'
-alias stop='sudo systemctl stop'
-alias start='sudo systemctl start'
-alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
-# alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
-#alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-# alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
-alias weechat='TERM=tmux-256color /usr/bin/weechat'
+alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
+alias g.='git status .'
 
 # ls -> exa
 alias exa='exa --git'
@@ -39,6 +30,10 @@ alias lt='exa -T'
 alias lr='exa -R'
 alias lat='exa -laT'
 alias lar='exa -laR'
+
+# deleting (https://github.com/andreafrancia/trash-cli)
+alias rm='echo "Use trash (t)"; false'
+alias t='trash'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
@@ -65,8 +60,6 @@ set -x Z_DATA /home/leon/z/.z.
 
 set -x COLORTERM "truecolor"
 
-# print coloured motd
-#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
 
 # print randomly coloured fish logo
 function random_fish
@@ -77,9 +70,32 @@ function random_fish
     echo ""
 end
 
+function backup_check
+    set backup_datetime (systemctl show backup.service --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' '')
+    set current_datetime (date)
+    set backup_datetime_epoch (date --date=$backup_datetime '+%s')
+    set current_datetime_epoch (date --date=$current_datetime '+%s')
+    set days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
+
+    echo -e "Last backup: $backup_datetime"
+    if test $days_diff -gt 0
+        echo -e "\033[30;41m $days_diff days since last backup \033[0m"
+    else
+        echo ""
+    end
+end
+
 #  only execute these in tty
 if tty > /dev/null
-    random_fish
+    if status --is-interactive
+        funcsave --quiet take
+        # random_fish
+
+        # print coloured motd
+        cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
+        backup_check
+    end
 
     # source wal colors
     cat ~/.cache/wal/sequences &
@@ -102,7 +118,10 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-set PATH $PATH "$HOME/.cargo/bin:$PATH"
+fish_add_path -a "$HOME/.cargo/bin"
+
+# add personal bins to path
+fish_add_path -a "$HOME/bin"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
@@ -139,3 +158,9 @@ end
 set -g fish_cursor_insert line
 
 set -U __done_min_cmd_duration 5000
+
+# command that creates a directory and then changes the current directory to it
+# inspired by zsh, taken from https://unix.stackexchange.com/a/678533/
+function take
+    mkdir -p "$argv[1]"; and cd "$argv[1]"
+end

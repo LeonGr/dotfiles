@@ -5,7 +5,6 @@ local configs = require'lspconfig/configs'
 -- function to attach completion and diagnostics
 -- when setting up lsp
 local on_attach = function(client)
-    -- require'completion'.on_attach(client)
     require'virtualtypes'.on_attach()
 end
 
@@ -18,11 +17,29 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
-local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
+
+local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
-lspconfig.rust_analyzer.setup({ capabilities=capabilities })
--- lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.rust_analyzer.setup({
+    capabilities=capabilities,
+    settings = {
+        ["rust-analyzer"] = {
+            checkOnSave = {
+                command = "clippy"
+            },
+            procMacro = {
+                enable = true,
+            },
+            cargo = {
+                allFeatures = true;
+            }
+        }
+    }
+})
+
+-- Enable rust-tools
+require('rust-tools').setup({})
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
@@ -70,25 +87,16 @@ lspconfig.tsserver.setup({
 })
 
 -- Enable bashls (Bash)
-lspconfig.bashls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.bashls.setup({ capabilities=capabilities })
 
 -- Enable vim-language-server (vimscript)
-lspconfig.vimls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.vimls.setup({ capabilities=capabilities })
 
 -- Enable Vue Language Server (Vue.js)
 lspconfig.vuels.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable Clangd (C/C++)
-lspconfig.clangd.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.clangd.setup({ capabilities=capabilities })
 
 -- Enable lua-language-server (Lua)
 lspconfig.sumneko_lua.setup({

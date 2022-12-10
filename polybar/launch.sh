@@ -19,7 +19,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     font2="M+ 1mn:bold:pixelsize=14;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     left="bspwm"
     center="xwindow"
-    right="vpn-status sep updates-pacman-aurhelper sep network sep date sep pulseaudio"
+    right="updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
     interface="enp7s0"
 else
     echo "1080p"
