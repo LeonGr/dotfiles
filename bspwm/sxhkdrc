@@ -45,7 +45,7 @@ super + m
 	bspc desktop -l next
 
 # maximize screen usage by removing borders
-super + n
+super + ,
     max_screen
 
 # swap the current node and the biggest node
