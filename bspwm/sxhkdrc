@@ -8,15 +8,15 @@ super + {_,shift +}Return
 
 # program launcher
 super + space
-    rofi -show run -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
+    rofi -show run -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
 
 # passwords (open bitwarden-rofi)
 super + p
-    bwmenu --clear 20 --auto-lock 600 -- -width 1000 -font "Dejavu Sans Mono 25" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+    bwmenu --clear 20 --auto-lock 600 -- -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
 # open obsidian file
 super + o
-    rofi_obsidian
+    rofi_obsidian "$ROFI_FONT"
 
 super + shift + space
     rofi -fake-transparency -opacity 90 -show
@@ -45,8 +45,8 @@ super + m
 	bspc desktop -l next
 
 # maximize screen usage by removing borders
-# super + n
-    # max_screen
+super + n
+    max_screen
 
 # swap the current node and the biggest node
 super + g
