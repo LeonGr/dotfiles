@@ -18,12 +18,6 @@ super + p
 super + o
     rofi_obsidian "$ROFI_FONT"
 
-super + shift + space
-    rofi -fake-transparency -opacity 90 -show
-
-ctrl + alt + Escape
-    scrot
-
 # make sxhkd reload its configuration files:
 super + Escape
 	pkill -USR1 -x sxhkd
@@ -48,10 +42,6 @@ super + m
 super + ,
     max_screen
 
-# swap the current node and the biggest node
-super + g
-	bspc node -s biggest
-
 #
 # state/flags
 #
@@ -59,10 +49,6 @@ super + g
 # set the window state
 super + {t,shift + t,s,f}
 	bspc node -t {tiled,pseudo_tiled,floating,fullscreen}
-
-# set the node flags
-super + ctrl + {x,y,z}
-	bspc node -g {locked,sticky,private}
 
 #
 # focus/swap
@@ -75,10 +61,6 @@ super + {_,shift + }{h,j,k,l}
 # move node to left/right window
 super + {b,n}
     bspc node -m {west,east} --follow
-
-# focus the next/previous node
-super + {_,shift + }c
-	bspc node -f {next,prev}
 
 # focus the next/previous desktop
 super + bracket{left,right}
@@ -96,10 +78,6 @@ super + {_,shift + }{1-9,0}
 # focus or send to the given monitor
 super + alt + {1-3}
 	bspc node -m '^{1-3}'
-
-# send node to last monitor
-super + shift + Tab
-    bspc node -m last
 
 #
 # preselect
