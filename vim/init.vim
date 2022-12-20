@@ -43,10 +43,7 @@ Plug 'mfussenegger/nvim-dap'                                      " Debug Adapte
 Plug 'rcarriga/nvim-dap-ui'                                       " UI for nvim-dap
 
 " git
-Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
-Plug 'tpope/vim-fugitive'                                         " Git wrapper
-Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
 Plug 'f-person/git-blame.nvim'                                    " Git blame in Neovim
 
 " snippets

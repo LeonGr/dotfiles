@@ -67,18 +67,6 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
----- sindrets/diffview.nvim
-require'diffview'.setup {
-    use_icons = false
-}
-
----- TimUntersberger/neogit
-require'neogit'.setup {
-    integrations = {
-        diffview = true
-    }
-}
-
 ---- aserowy/tmux.nvim
 require'tmux'.setup {
     -- overwrite default configuration
