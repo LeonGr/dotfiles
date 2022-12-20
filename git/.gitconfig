@@ -31,3 +31,19 @@
     gpgsign = true
 [gpg]
     program = gpg2
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+
+[delta]
+    plus-style = "syntax #013800"
+    minus-style = "syntax #340001"
+    syntax-theme = Monokai Extended
+    line-numbers = true
+    navigate = true
+
+[interactive]
+    diffFilter = delta --color-only
