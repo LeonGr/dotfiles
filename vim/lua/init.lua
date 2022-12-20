@@ -51,7 +51,7 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
     highlight = {
         enable = true,              -- false will disable the whole extension
-        disable = { "markdown" },   -- list of language that will be disabled
+        disable = { "markdown", "gitcommit" },   -- list of language that will be disabled
     },
     incremental_selection = {
         enable = true,
