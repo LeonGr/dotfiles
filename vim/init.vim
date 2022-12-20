@@ -37,10 +37,12 @@ Plug 'nvim-lua/popup.nvim'                                        " vim compatib
 Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
 Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
+Plug 'stevearc/dressing.nvim'                                     " Allow overriding UI hooks (used for RustRunnables w/ Telescope)
 
 " debugging
 Plug 'mfussenegger/nvim-dap'                                      " Debug Adapter Protocol (DAP) client implementation
 Plug 'rcarriga/nvim-dap-ui'                                       " UI for nvim-dap
+Plug 'theHamsta/nvim-dap-virtual-text'                            " Variable values as virtual text
 
 " git
 Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
@@ -407,6 +409,12 @@ nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", borde
 " Rename
 nnoremap ge <cmd>lua vim.lsp.buf.rename()<CR>
 
+" Show runnables (Rust)
+nnoremap <silent>gu :RustRunnables<CR>
+
+" Show debuggables (Rust)
+nnoremap <silent>gy :RustDebuggables<CR>
+
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
@@ -423,8 +431,8 @@ nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
 let g:ale_linters = {
             \ 'python'  : ['flake8', 'mypy', 'bandit'],
             \ 'haskell' : ['cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
+            \ 'rust'    : [],
             \ }
-            " \ 'rust'    : ['rustc', 'rls', 'cargo'],
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'

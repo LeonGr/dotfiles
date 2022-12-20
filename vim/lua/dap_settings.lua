@@ -5,7 +5,7 @@ vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg=0, fg='#993939' })
 vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', numhl='DapStopped' })
 vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg=0, fg='#98c379' })
 
--- Use LLDB
+-- Use codeLLDB
 dap.adapters.codelldb = {
     type = 'server',
     port = "${port}",
@@ -20,14 +20,14 @@ dap.adapters.codelldb = {
 
 dap.configurations.cpp = {
     {
-        name = "Launch file",
+        name = "Launch lldb",
         type = "codelldb",
         request = "launch",
         program = function()
             return vim.fn.input('Path to executable: ', vim.fn.getcwd() .. '/', 'file')
         end,
         cwd = '${workspaceFolder}',
-        stopOnEntry = true,
+        stopOnEntry = false,
         terminal = "integrated",
     },
 }
@@ -132,4 +132,9 @@ require("dapui").setup({
     render = {
         max_type_length = nil, -- Can be integer or nil.
     }
+})
+
+-- nvim-dap-virtual-text
+require("nvim-dap-virtual-text").setup({
+    show_stop_reason = true,
 })

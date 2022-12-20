@@ -23,6 +23,8 @@ local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabil
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })
 
+local rust_tools = require('rust-tools')
+
 -- Configure LSP through rust-tools.nvim plugin.
 -- rust-tools will configure and enable certain LSP features for us.
 -- See https://github.com/simrat39/rust-tools.nvim#configuration
@@ -33,12 +35,15 @@ local opts = {
       use_telescope = true,
     },
     inlay_hints = {
-      auto = true,
+      auto = false,
       show_parameter_hints = true,
       -- parameter_hints_prefix = "",
       -- other_hints_prefix = "",
     },
     reload_workspace_from_cargo_toml = true,
+      hover_actions = {
+          auto_focus = true,
+      }
   },
 
   -- all the opts to send to nvim-lspconfig
@@ -46,7 +51,12 @@ local opts = {
   -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
   server = {
     -- on_attach is a callback called when the language server attachs to the buffer
-    on_attach = on_attach,
+    on_attach = function(client, bufnr)
+        on_attach(client)
+
+        -- Hover actions
+        vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+    end,
     settings = {
       -- to enable rust-analyzer settings visit:
       -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
@@ -65,10 +75,17 @@ local opts = {
       },
     },
   },
+  -- debugging
+  dap = {
+      adapter = require('rust-tools.dap').get_codelldb_adapter(
+        '/usr/bin/codelldb',
+        '/lib/liblldb.so'
+      )
+  },
 }
 
 -- Enable rust-tools
-require('rust-tools').setup(opts)
+rust_tools.setup(opts)
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
