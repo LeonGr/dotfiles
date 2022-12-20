@@ -50,8 +50,10 @@ Plug 'TimUntersberger/neogit'                                     " Magit clone 
 Plug 'f-person/git-blame.nvim'                                    " Git blame in Neovim
 
 " snippets
-Plug 'SirVer/ultisnips'                                           " Snippets engine
-Plug 'honza/vim-snippets'                                         " Snippets themselves
+Plug 'hrsh7th/vim-vsnip'                                          " Snippet engine (+ snippets)
+Plug 'hrsh7th/cmp-vsnip'                                          " nvim-cmp integration
+Plug 'hrsh7th/vim-vsnip-integ'                                    " LSP integration
+Plug 'rafamadriz/friendly-snippets'                               " Extra snippets
 
 " languages
 Plug 'pangloss/vim-javascript'                                    " Javascript support
@@ -71,7 +73,6 @@ Plug 'hrsh7th/cmp-nvim-lsp'                                     " nvim-cmp sourc
 Plug 'hrsh7th/cmp-buffer'                                       " nvim-cmp source for buffer words
 Plug 'hrsh7th/cmp-path'                                         " nvim-cmp source for paths
 Plug 'ray-x/cmp-treesitter'                                     " nvim-cmp source for treesitter
-Plug 'quangnguyen30192/cmp-nvim-ultisnips'                      " ultisnips completion source for nvim-cmp
 
 " Telescope
 Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists with popups
@@ -346,10 +347,20 @@ highlight NormalFloat ctermbg=gray guibg=none
 " set completeopt=menuone,noselect
 set completeopt=menu,menuone,noselect
 
-" Set Ultisnips/snippets expansion key
-let g:UltiSnipsExpandTrigger       = "<c-s>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+""" Set vsnip snippets keys
+" Expand
+imap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : ''
+smap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : ''
+
+" Expand or jump
+" imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : ''
+" smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : ''
+
+" Jump forward or backward
+imap <expr> <C-l>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : ''
+smap <expr> <C-l>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : ''
+imap <expr> <C-k>   vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : ''
+smap <expr> <C-k>   vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : ''
 
 """ LSP mappings
 
