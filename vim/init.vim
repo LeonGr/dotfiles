@@ -151,6 +151,7 @@ set showcmd
 
 " Highlight current line
 set cursorline
+highlight CursorLine guibg=#212020
 
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
@@ -511,10 +512,10 @@ nnoremap <Leader>sg :lua require'dapui'.toggle()<CR>
 nnoremap <Leader>s  <NOP>
 
 " nvim-cursorword
-highlight CursorWord gui=reverse
+highlight CursorWord guibg=#423F3C gui=none
 
 autocmd InsertEnter * highlight clear CursorWord
-autocmd InsertLeave * highlight CursorWord gui=reverse
+autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 
 " wilder.nvim
 call wilder#enable_cmdline_enter()
