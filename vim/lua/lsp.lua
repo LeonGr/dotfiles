@@ -38,6 +38,7 @@ local opts = {
       -- parameter_hints_prefix = "",
       -- other_hints_prefix = "",
     },
+    reload_workspace_from_cargo_toml = true,
   },
 
   -- all the opts to send to nvim-lspconfig
