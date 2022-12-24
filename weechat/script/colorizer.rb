@@ -128,7 +128,7 @@ def parse_config
 		next if regex.nil? or regex.empty? or color.nil? or color.empty?
 
 		begin
-			rules[/(#{regex})/i] = color
+			rules[/(#{regex})/] = color
 		rescue Exception => e
 			pp_error( e, 'There was a problem with rule %d:' % [i] )
 		end
