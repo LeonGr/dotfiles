@@ -517,6 +517,7 @@ nnoremap <Leader>sg :lua require'dapui'.toggle()<CR>
 nnoremap <Leader>s  <NOP>
 
 " nvim-cursorword
+let g:cursorword_min_width = 2
 highlight CursorWord guibg=#423F3C gui=none
 
 autocmd InsertEnter * highlight clear CursorWord
