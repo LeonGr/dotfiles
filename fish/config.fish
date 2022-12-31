@@ -55,10 +55,6 @@ source ~/.config/fish/git.fish
 # set neovim as editor
 set -x SUDO_EDITOR /usr/bin/nvim
 set -x EDITOR /usr/bin/nvim
-
-# set location of z files
-set -x Z_DATA /home/leon/z/.z.
-
 set -x COLORTERM "truecolor"
 
 
