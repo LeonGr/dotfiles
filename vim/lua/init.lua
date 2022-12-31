@@ -212,7 +212,7 @@ colors.wal_blue = wal_colors.colors.color2
 
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)
-vim.cmd("highlight StatusLineNC guibg=" .. colors.wal_blue)
+vim.cmd("highlight StatusLineNC guibg=" .. colors.bg)
 
 gls.left[1] = {
     FirstElement = {
@@ -416,46 +416,22 @@ gls.short_line_left[1] = {
 }
 
 gls.short_line_left[2] = {
-    ShortLinestatusIcon = {
-        provider = function()
-            return " ⏾ "
-        end,
-        highlight = {colors.wal_blue, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.short_line_left[3] = {
     ShortLinecurrent_dir = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return "  " .. dir_name .. " "
+            return dir_name
         end,
-        highlight = {colors.bg, colors.wal_blue},
-        separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg},
+        highlight = {colors.wal_blue, colors.bg},
         condition = condition.not_dap_ui,
     }
 }
 
-gls.short_line_left[4] = {
-    ShortLineFileIcon = {
-        provider = "FileIcon",
-        condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg}
-    }
-}
-
-gls.short_line_left[5] = {
+gls.short_line_left[3] = {
     ShortLineFileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
         highlight = {colors.wal_blue, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
     }
 }
