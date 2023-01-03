@@ -13,5 +13,12 @@ IMAGE_URL="$(playerctl metadata mpris:artUrl)"
 # Download image
 wget -O /tmp/album_icon.jpg "$IMAGE_URL"
 
+STATUS=$(playerctl status)
+if [[ $STATUS = "Playing" ]]; then
+    STATUS=""
+else
+    STATUS=""
+fi
+
 # Show notification
-/usr/bin/notify-send -u low "$SONG" "$ARTIST_ALBUM" --icon /tmp/album_icon.jpg
+/usr/bin/notify-send -u low "$SONG $STATUS" "$ARTIST_ALBUM" --icon /tmp/album_icon.jpg
