@@ -1,7 +1,10 @@
 #!/bin/bash
 
-# Toggle playing status
-playerctl play-pause
+# Try to toggle playing status
+if ! playerctl play-pause; then
+    /usr/bin/notify-send -u low "No players found"
+    exit 1
+fi
 
 # Get song info
 ARTIST_ALBUM="$(playerctl metadata xesam:albumArtist) - $(playerctl metadata xesam:album)"
