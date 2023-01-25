@@ -44,17 +44,17 @@
    XF86AudioLowerVolume
 
 # Toggle Play/Pause
-"/home/leon/dotfiles/scripts/spotify_notification"
+"/home/leon/dotfiles/scripts/playerctl_notification"
    m:0x0 + c:208
    XF86AudioPlay
 
 # Toggle Play/Pause
-"/home/leon/dotfiles/scripts/spotify_notification"
+"/home/leon/dotfiles/scripts/playerctl_notification"
    m:0x0 + c:172
    XF86AudioPlay
 
 # Toggle Play/Pause
-"/home/leon/dotfiles/scripts/spotify_notification"
+"/home/leon/dotfiles/scripts/playerctl_notification"
    XF86AudioPause
 
 # Next Song
