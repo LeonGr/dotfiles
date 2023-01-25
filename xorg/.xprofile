@@ -1,0 +1,10 @@
+export PATH="$HOME/bin:$PATH"
+
+RESOLUTION=$(xrandr | rg "connected primary" | sd '.*connected primary (.*?) .*' '$1')
+if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
+    echo "4K"
+    export ROFI_FONT="dejavu sans mono 25"
+else
+    echo "1080p"
+    export ROFI_FONT="dejavu sans mono 16"
+fi
