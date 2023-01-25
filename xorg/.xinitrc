@@ -41,14 +41,16 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xset -b &
-if [ "$session" = "laptop" ]; then
-    caps2esc &
-    ROFI_FONT="Dejavu Sans Mono 16" sxhkd -r /tmp/output &
-else
-    ROFI_FONT="Dejavu Sans Mono 25" sxhkd -r /tmp/output &
-fi
+# if [ "$session" = "laptop" ]; then
+    # caps2esc &
+    # rofi_font="dejavu sans mono 16" sxhkd -r /tmp/output &
+# else
+    # rofi_font="dejavu sans mono 25" sxhkd -r /tmp/output &
+# fi
 xbindkeys &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
 # picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
-exec bspwm
+# exec bspwm
+# exec awesome
+exec i3
