@@ -248,6 +248,28 @@ mode "switch_workspace" {
 
 bindsym $mod+g mode "switch_workspace"
 
+# rename workspace
+mode "rename_workspace" {
+    # rename workspace
+    bindsym 1 rename workspace to 1; mode "default"
+    bindsym 2 rename workspace to 2; mode "default"
+    bindsym 3 rename workspace to 3; mode "default"
+    bindsym 4 rename workspace to 4; mode "default"
+    bindsym 5 rename workspace to 5; mode "default"
+    bindsym 6 rename workspace to 6; mode "default"
+    bindsym 7 rename workspace to 7; mode "default"
+    bindsym 8 rename workspace to 8; mode "default"
+    bindsym 9 rename workspace to 9; mode "default"
+    bindsym 0 rename workspace to 0; mode "default"
+
+    # back to normal: Enter or Escape or $mod+r
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+
+bindsym $mod+y mode "rename_workspace"
+
 ### window rules
 
 # Launch feh in floating state
