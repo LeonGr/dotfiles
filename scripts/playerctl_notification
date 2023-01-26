@@ -7,14 +7,27 @@ if ! playerctl play-pause; then
 fi
 
 # Get song info
-ARTIST_ALBUM="$(playerctl metadata xesam:albumArtist) - $(playerctl metadata xesam:album)"
-SONG="$(playerctl metadata xesam:title)"
+ARTIST=$(playerctl metadata xesam:albumArtist)
+ALBUM=$(playerctl metadata xesam:album)
+SONG=$(playerctl metadata xesam:title)
+
+if [[ $ARTIST = "" ]]; then
+    ARTIST=$(playerctl metadata xesam:artist)
+    DETAILS=$ARTIST
+else
+    DETAILS="$ARTIST - $ALBUM"
+fi
 
 # Get album art URL
 IMAGE_URL="$(playerctl metadata mpris:artUrl)"
 
-# Download image
-wget -O /tmp/album_icon.jpg "$IMAGE_URL"
+if [[ $IMAGE_URL = "file://"* ]]; then
+    IMAGE_PATH=$(echo "$IMAGE_URL" | sd 'file://' '')
+    cp "$IMAGE_PATH" /tmp/album_icon.jpg
+else
+    # Download image
+    wget -O /tmp/album_icon.jpg "$IMAGE_URL"
+fi
 
 STATUS=$(playerctl status)
 if [[ $STATUS = "Playing" ]]; then
@@ -24,4 +37,4 @@ else
 fi
 
 # Show notification
-/usr/bin/notify-send -u low "$SONG $STATUS" "$ARTIST_ALBUM" --icon /tmp/album_icon.jpg
+/usr/bin/notify-send -u low "$SONG $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
