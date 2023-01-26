@@ -195,7 +195,7 @@ mode "resize" {
 bindsym $mod+r mode "resize"
 
 # move window to workspace
-mode "move_workspace" {
+mode "move_window" {
     # move to workspace
     bindsym 1 move container to workspace number $ws1
     bindsym 2 move container to workspace number $ws2
@@ -220,7 +220,7 @@ mode "move_workspace" {
     bindsym $mod+r mode "default"
 }
 
-bindsym $mod+Shift+m mode "move_workspace"
+bindsym $mod+Shift+m mode "move_window"
 
 # switch to workspace
 mode "switch_workspace" {
