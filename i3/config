@@ -160,6 +160,10 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # toggle between current and previous workspace
 bindsym $mod+Tab workspace back_and_forth
 
+# move workspace left/right
+bindsym $mod+b move workspace to output left
+bindsym $mod+n move workspace to output right
+
 # reload the configuration file
 bindsym $mod+Shift+c reload
 # restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
