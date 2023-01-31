@@ -1,17 +1,16 @@
-#!/bin/sh
-# https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/updates-pacman-aurhelper
+#!/bin/bash
+# based on: https://github.com/polybar/polybar-scripts/tree/master/polybar-scripts/updates-pacman-aurhelper
 
-if ! updates_arch=$(checkupdates 2> /dev/null | wc -l ); then
-    updates_arch=0
+pacman_updates=$(pacman -Quq 2> /dev/null)
+paru_updates=$(paru -Quq 2> /dev/null)
+
+all_updates="${pacman_updates}\n${paru_updates}"
+
+if [[ $all_updates = "\n" ]]; then
+    updates=0
+else
+    updates=$(echo -e "$all_updates" | sort -u | wc -l)
 fi
-
-if ! updates_aur=$(paru -Qum 2> /dev/null | wc -l); then
-    updates_aur=0
-fi
-
-updates=$(("$updates_arch" + "$updates_aur"))
-
-#notify-send " AUR/pacman" "$updates new updates"
 
 if [ "$updates" -gt 0 ]; then
     echo " $updates"
