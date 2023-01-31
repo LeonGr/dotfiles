@@ -4,118 +4,6 @@
 "  / /___/  __/ /_/ / / / /  (__  )  / / / / / / /__| |/ / / / / / / /
 " /_____/\___/\____/_/ /_/  /____/  /_/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-" Vim-Plug
-call plug#begin()
-
-" Misc
-Plug 'tpope/vim-surround'                                         " Wrap text easily
-Plug 'mattn/emmet-vim'                                            " html autocomplete
-Plug 'scrooloose/nerdtree'                                        " File browser in vim
-Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
-Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
-Plug 'tpope/vim-obsession'                                        " Save vim sessions
-Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
-Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
-Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
-Plug 'tpope/vim-repeat'                                           " Repeat more than one command
-Plug 'godlygeek/tabular'                                          " Easy text align
-Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
-Plug 'dense-analysis/ale'                                         " Async Lint Engine
-Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
-Plug 'yaroot/vissort'                                             " Sort by visual block
-Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'norcalli/nvim-colorizer.lua'                                " Color highlighter
-Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
-Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
-Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
-Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
-Plug 'windwp/nvim-autopairs'                                      " Auto pairs
-Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
-Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
-Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
-Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
-Plug 'stevearc/dressing.nvim'                                     " Allow overriding UI hooks (used for RustRunnables w/ Telescope)
-
-" debugging
-Plug 'mfussenegger/nvim-dap'                                      " Debug Adapter Protocol (DAP) client implementation
-Plug 'rcarriga/nvim-dap-ui'                                       " UI for nvim-dap
-Plug 'theHamsta/nvim-dap-virtual-text'                            " Variable values as virtual text
-
-" git
-Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
-Plug 'f-person/git-blame.nvim'                                    " Git blame in Neovim
-
-" snippets
-Plug 'hrsh7th/vim-vsnip'                                          " Snippet engine (+ snippets)
-Plug 'hrsh7th/cmp-vsnip'                                          " nvim-cmp integration
-Plug 'hrsh7th/vim-vsnip-integ'                                    " LSP integration
-Plug 'rafamadriz/friendly-snippets'                               " Extra snippets
-
-" languages
-Plug 'pangloss/vim-javascript'                                    " Javascript support
-Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
-Plug 'dag/vim-fish'                                               " Fish script support
-Plug 'chrisbra/csv.vim'                                           " Browse csv files
-Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
-Plug 'posva/vim-vue'                                              " Vue syntax
-Plug 'leafgarland/typescript-vim'                                 " TypeScript support
-Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
-Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
-Plug 'jparise/vim-graphql'                                        " GraphQL support
-
-" nvim-cmp
-Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
-Plug 'hrsh7th/cmp-nvim-lsp'                                     " nvim-cmp source for neovim builtin LSP client
-Plug 'hrsh7th/cmp-buffer'                                       " nvim-cmp source for buffer words
-Plug 'hrsh7th/cmp-path'                                         " nvim-cmp source for paths
-Plug 'ray-x/cmp-treesitter'                                     " nvim-cmp source for treesitter
-
-" Telescope
-Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists with popups
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " port of fzf
-Plug 'nvim-telescope/telescope-dap.nvim'                          " nvim-dap integration with telescope
-
-" neovim LSP plugins
-Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
-Plug 'nvim-lua/lsp_extensions.nvim'                               " Extensions to built-in LSP, for example, providing type inlay hints
-Plug 'nvim-lua/lsp-status.nvim'                                   " Get information about the current language server
-Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                       " TypeScript lsp functions
-Plug 'ojroques/nvim-lspfuzzy'                                     " Replace LSP windows with fzf ones
-Plug 'jubnzv/virtual-types.nvim'                                  " Show type annotations
-Plug 'simrat39/rust-tools.nvim'                                   " Extra Rust LSP tools (fixes inlay-hints)
-
-" TreeSitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}       " Treesitter configurations and abstraction layer for Neovim
-Plug 'nvim-treesitter/playground', {'do': ':TSInstall query'}     " View treesitter information directly in Neovim
-
-" Themes
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'flazz/vim-colorschemes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'jdkanani/vim-material-theme'
-Plug 'nanotech/jellybeans.vim'
-Plug 'dkasak/gruvbox'
-Plug 'marcopaganini/termschool-vim-theme'
-Plug 'godlygeek/csapprox'
-Plug 'jacoborus/tender'
-Plug 'endel/vim-github-colorscheme'
-Plug 'larsbs/vimterial'
-Plug 'bcicen/vim-vice'
-Plug 'dylanaraps/wal.vim'
-Plug 'chriskempson/base16-vim'
-
-call plug#end()
-
-" Color settings
-syntax enable
-syntax on
-let g:gruvbox_italic=1 " alacritty supports italics, enable it
-colorscheme gruvbox
-
 if (has("termguicolors"))
     set termguicolors
 endif
@@ -124,6 +12,13 @@ let mapleader = "\<Space>"
 
 " (require checks file in ~/.config/nvim/lua)
 lua require('init')
+
+" Color settings
+syntax enable
+syntax on
+let g:gruvbox_italic=1 " alacritty supports italics, enable it
+colorscheme gruvbox
+
 " LSP settings
 lua require('lsp')
 " DAP settings
