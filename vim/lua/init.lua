@@ -66,6 +66,14 @@ local plugins = {
         ft = { "rust", "c", "cpp", "python",  },
     },
 
+    -- mason
+    { 'williamboman/mason.nvim', -- Package manager for neovim LSP servers, DAP servers, etc.
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim' -- bridge between lspconfig & mason.nvim
+        },
+        lazy = false,
+    },
+
     -- git
     'lewis6991/gitsigns.nvim',                                      -- Show git changes
     { 'f-person/git-blame.nvim',                                    -- Git blame in Neovim
@@ -148,6 +156,16 @@ local plugins = {
 local opts = {}
 
 require("lazy").setup(plugins, opts)
+
+-- configure mason
+require("mason").setup({
+    ui = {
+        border = "single",
+    }
+})
+require("mason-lspconfig").setup({
+    ensure_installed = { "sumneko_lua", "rust_analyzer" },
+})
 
 -- configure diagnostics
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(

@@ -2,6 +2,9 @@
 local lspconfig = require'lspconfig'
 local configs = require'lspconfig/configs'
 
+-- add popup border
+require('lspconfig.ui.windows').default_options.border = 'single'
+
 -- function to attach completion and diagnostics
 -- when setting up lsp
 local on_attach = function(client)
@@ -104,23 +107,13 @@ lspconfig.pylsp.setup({
 -- Enable vscode language servers (HTML, CSS, JSON)
 lspconfig.cssls.setup({ capabilities=capabilities; on_attach=on_attach })
 lspconfig.html.setup({ capabilities=capabilities; on_attach=on_attach })
-lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable flow (JavaScript)
 lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
--- Enable java_language_server (Java)
-lspconfig.java_language_server.setup({
-    capabilities=capabilities;
-    on_attach=on_attach;
-    cmd={ "/usr/share/java/java-language-server/lang_server_linux.sh" };
-    settings = {
-        java = {
-            home = "/usr/lib/jvm/default/"
-        }
-    }
-})
-
+-- Enable jdtls (Java)
+lspconfig.jdtls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
@@ -139,7 +132,7 @@ lspconfig.bashls.setup({ capabilities=capabilities })
 lspconfig.vimls.setup({ capabilities=capabilities })
 
 -- Enable Vue Language Server (Vue.js)
-lspconfig.vuels.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.volar.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable Clangd (C/C++)
 lspconfig.clangd.setup({ capabilities=capabilities })
@@ -147,8 +140,6 @@ lspconfig.clangd.setup({ capabilities=capabilities })
 -- Enable lua-language-server (Lua)
 lspconfig.sumneko_lua.setup({
     capabilities=capabilities;
-    -- on_attach=on_attach;
-    cmd = { "/bin/lua-language-server", "-E", vim.fn.stdpath('cache').."/lspconfig/sumneko_lua/lua-language-server/main.lua" };
     settings = {
         Lua = {
             runtime = {
