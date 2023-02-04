@@ -81,7 +81,7 @@ local opts = {
   -- debugging
   dap = {
       adapter = require('rust-tools.dap').get_codelldb_adapter(
-        '/usr/bin/codelldb',
+        'codelldb',
         '/lib/liblldb.so'
       )
   },

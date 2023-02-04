@@ -10,7 +10,7 @@ dap.adapters.codelldb = {
     type = 'server',
     port = "${port}",
     executable = {
-        command = '/usr/bin/codelldb',
+        command = 'codelldb',
         args = {"--port", "${port}"},
 
         -- On windows you may have to uncomment this:
