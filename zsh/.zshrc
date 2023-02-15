@@ -41,6 +41,7 @@ alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} 
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 alias g.='git status .'
+alias gswi='git switch $(git branch --all --no-color --format="%(refname:short)" | sd "origin/" "" | sort -u | fzf)'
 
 # ls -> exa
 # alias exa='exa --git'
