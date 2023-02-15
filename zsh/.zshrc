@@ -40,6 +40,7 @@ alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} 
 #alias tmux='TERM=xterm-256color tmux' # make cursor work
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
+alias g.='git status .'
 
 # ls -> exa
 # alias exa='exa --git'
