@@ -41,7 +41,7 @@ alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} 
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
 alias g.='git status .'
-alias gswi='git switch $(git branch --all --no-color --format="%(refname:short)" | sd "origin/" "" | sort -u | fzf)'
+alias gswi='git_switch_fzf'
 
 # ls -> exa
 # alias exa='exa --git'
@@ -137,6 +137,15 @@ function getip {
      host $1 | awk '{print $4}' | sed -n '1p';
 }
 export getip
+
+function git_switch_fzf {
+    if git rev-parse --is-inside-work-tree 2>/dev/null; then
+        git switch $(git branch --all --no-color --format="%(refname:short)" | sd "origin/" "" | sort -u | fzf)
+    else
+        echo "not a git repository"
+    fi
+}
+export git_switch_fzf
 
 autoload -U promptinit; promptinit
 prompt pure
