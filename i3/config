@@ -20,6 +20,8 @@ exec --no-startup-id wal -R
 # Launch polybar
 exec --no-startup-id . "$HOME/dotfiles/polybar/launch.sh"
 
+focus_on_window_activation focus
+
 ### Keybinds
 
 ## Audio controls
