@@ -74,6 +74,7 @@ local plugins = {
 
     -- git
     'lewis6991/gitsigns.nvim',                                              -- Show git changes
+    'tpope/vim-fugitive',                                                   -- Git wrapper
     { 'f-person/git-blame.nvim',                                            -- Git blame in Neovim
       event = 'VeryLazy' },
 
