@@ -138,7 +138,7 @@ lspconfig.volar.setup({ capabilities=capabilities; on_attach=on_attach })
 lspconfig.clangd.setup({ capabilities=capabilities })
 
 -- Enable lua-language-server (Lua)
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
     capabilities=capabilities;
     settings = {
         Lua = {
