@@ -50,7 +50,7 @@ local plugins = {
     'janko-m/vim-test',                                             -- Vim wrapper for running tests
     'windwp/nvim-autopairs',                                        -- Auto pairs
     'xiyaowong/nvim-cursorword',                                    -- Underline the word under the cursor
-    { 'gelguy/wilder.nvim' },                                       -- command-line completion tweaks
+    { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },       -- command-line completion tweaks
     'nvim-lua/popup.nvim',                                          -- vim compatible popups in neovim
     'kyazdani42/nvim-web-devicons',                                 -- filetype icons for plugins (e.g. telescope)
     'glepnir/galaxyline.nvim',                                      -- Lua Statusline
