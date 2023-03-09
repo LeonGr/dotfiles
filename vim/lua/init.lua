@@ -17,46 +17,46 @@ vim.opt.rtp:prepend(lazypath)
 -- configure plugins
 local plugins = {
     -- Misc
-    'tpope/vim-surround',                                           -- Wrap text easily
-    { 'mattn/emmet-vim',-- html autocomplete
+    'tpope/vim-surround',                                                   -- Wrap text easily
+    { 'mattn/emmet-vim',                                                    -- html autocomplete
         ft = { "html", "vue" }
     },
-    'scrooloose/nerdcommenter',                                     -- Easy commenting and uncommenting
-    'tpope/vim-obsession',                                          -- Save vim sessions
-    'aserowy/tmux.nvim',                                            -- Neovim tmux integration
-    { 'unblevable/quick-scope',                                     -- Higlight words when you press f or t
+    'scrooloose/nerdcommenter',                                             -- Easy commenting and uncommenting
+    'tpope/vim-obsession',                                                  -- Save vim sessions
+    'aserowy/tmux.nvim',                                                    -- Neovim tmux integration
+    { 'unblevable/quick-scope',                                             -- Higlight words when you press f or t
       event = 'VeryLazy' },
-    'chip/vim-fat-finger',                                          -- Series of abbreviations for vim
-    'tpope/vim-repeat',                                             -- Repeat more than one command
-    'godlygeek/tabular',                                            -- Easy text align
-    'nvim-lua/plenary.nvim',                                        -- Library that wraps neovim functions
-    'dense-analysis/ale',                                           -- Async Lint Engine
-    'KabbAmine/vCoolor.vim',                                        -- Colour picker (Alt-Z)
-    'yaroot/vissort',                                               -- Sort by visual block
-    { 'junegunn/fzf.vim',                                           -- Fuzzy finder
+    'chip/vim-fat-finger',                                                  -- Series of abbreviations for vim
+    'tpope/vim-repeat',                                                     -- Repeat more than one command
+    'godlygeek/tabular',                                                    -- Easy text align
+    'nvim-lua/plenary.nvim',                                                -- Library that wraps neovim functions
+    'dense-analysis/ale',                                                   -- Async Lint Engine
+    'KabbAmine/vCoolor.vim',                                                -- Colour picker (Alt-Z)
+    'yaroot/vissort',                                                       -- Sort by visual block
+    { 'junegunn/fzf.vim',                                                   -- Fuzzy finder
       dependencies = {
         'junegunn/fzf',
          build = ":call fzf#install()",
       },
     },
-    'norcalli/nvim-colorizer.lua',                                  -- Color highlighter
-    {'cakebaker/scss-syntax.vim',                        -- SCSS support
+    'norcalli/nvim-colorizer.lua',                                          -- Color highlighter
+    {'cakebaker/scss-syntax.vim',                                           -- SCSS support
         ft = "scss"
     },
-    'nathanaelkane/vim-indent-guides',                              -- Indentation guides
-    'LeonGr/neovim-expand-selection',                               -- My own plugin
-    'janko-m/vim-test',                                             -- Vim wrapper for running tests
-    'windwp/nvim-autopairs',                                        -- Auto pairs
-    'xiyaowong/nvim-cursorword',                                    -- Underline the word under the cursor
-    { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },       -- command-line completion tweaks
-    'nvim-lua/popup.nvim',                                          -- vim compatible popups in neovim
-    'kyazdani42/nvim-web-devicons',                                 -- filetype icons for plugins (e.g. telescope)
-    'glepnir/galaxyline.nvim',                                      -- Lua Statusline
-    { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },  -- Markdown preview (:MarkdownPreview)
-    'stevearc/dressing.nvim',                                       -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
+    'nathanaelkane/vim-indent-guides',                                      -- Indentation guides
+    'LeonGr/neovim-expand-selection',                                       -- My own plugin
+    'janko-m/vim-test',                                                     -- Vim wrapper for running tests
+    'windwp/nvim-autopairs',                                                -- Auto pairs
+    'xiyaowong/nvim-cursorword',                                            -- Underline the word under the cursor
+    { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },               -- command-line completion tweaks
+    'nvim-lua/popup.nvim',                                                  -- vim compatible popups in neovim
+    'kyazdani42/nvim-web-devicons',                                         -- filetype icons for plugins (e.g. telescope)
+    'glepnir/galaxyline.nvim',                                              -- Lua Statusline
+    { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
+    'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
 
-    -- debugging
-    {'mfussenegger/nvim-dap',-- Debug Adapter Protocol (DAP) client implementation
+                                                                            -- debugging
+    {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
         dependencies = {
             'rcarriga/nvim-dap-ui',                                         -- UI for nvim-dap
             'theHamsta/nvim-dap-virtual-text',                              -- Variable values as virtual text
@@ -65,20 +65,20 @@ local plugins = {
     },
 
     -- mason
-    { 'williamboman/mason.nvim', -- Package manager for neovim LSP servers, DAP servers, etc.
+    { 'williamboman/mason.nvim',                                            -- Package manager for neovim LSP servers, DAP servers, etc.
         dependencies = {
-            'williamboman/mason-lspconfig.nvim' -- bridge between lspconfig & mason.nvim
+            'williamboman/mason-lspconfig.nvim'                             -- bridge between lspconfig & mason.nvim
         },
         lazy = false,
     },
 
     -- git
-    'lewis6991/gitsigns.nvim',                                      -- Show git changes
-    { 'f-person/git-blame.nvim',                                    -- Git blame in Neovim
+    'lewis6991/gitsigns.nvim',                                              -- Show git changes
+    { 'f-person/git-blame.nvim',                                            -- Git blame in Neovim
       event = 'VeryLazy' },
 
     -- snippets
-    {'hrsh7th/vim-vsnip',-- Snippet engine (+ snippets)
+    {'hrsh7th/vim-vsnip',                                                   -- Snippet engine (+ snippets)
         dependencies = {
             'hrsh7th/cmp-vsnip',                                            -- nvim-cmp integration
             'hrsh7th/vim-vsnip-integ',                                      -- LSP integration
@@ -87,19 +87,19 @@ local plugins = {
     },
 
     -- languages
-    {'pangloss/vim-javascript', ft = "javascript", },          -- Javascript support
-    {'keith/swift.vim', ft = "swift" },                                              -- Swift syntax and indent styles
-    {'dag/vim-fish', ft = "fish" },                                                 -- Fish script support
-    {'chrisbra/csv.vim', ft = "csv" },               -- Browse csv files
-    {'neovimhaskell/haskell-vim', ft = "haskell" },                                    -- Better Haskell support
-    {'posva/vim-vue', ft = "vue", },                                                -- Vue syntax
-    {'leafgarland/typescript-vim', ft = "typescript" },                                   -- TypeScript support
-    {'peitalin/vim-jsx-typescript', ft = "typescript" },                                  -- TypeScript with React support
-    {'pantharshit00/vim-prisma', ft = "prisma" },                                     -- Prisma 2 support
-    {'jparise/vim-graphql', ft = "graphql" },                                          -- GraphQL support
+    {'pangloss/vim-javascript', ft = "javascript", },                       -- Javascript support
+    {'keith/swift.vim', ft = "swift" },                                     -- Swift syntax and indent styles
+    {'dag/vim-fish', ft = "fish" },                                         -- Fish script support
+    {'chrisbra/csv.vim', ft = "csv" },                                      -- Browse csv files
+    {'neovimhaskell/haskell-vim', ft = "haskell" },                         -- Better Haskell support
+    {'posva/vim-vue', ft = "vue", },                                        -- Vue syntax
+    {'leafgarland/typescript-vim', ft = "typescript" },                     -- TypeScript support
+    {'peitalin/vim-jsx-typescript', ft = "typescript" },                    -- TypeScript with React support
+    {'pantharshit00/vim-prisma', ft = "prisma" },                           -- Prisma 2 support
+    {'jparise/vim-graphql', ft = "graphql" },                               -- GraphQL support
 
     -- nvim-cmp
-    {'hrsh7th/nvim-cmp',                        -- Completion for Neovim
+    {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
         event = "InsertEnter",
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',                                         -- nvim-cmp source for neovim builtin LSP client
@@ -110,7 +110,7 @@ local plugins = {
     },
 
     -- Telescope
-    {'nvim-telescope/telescope.nvim',  -- fuzzy finder over lists with popups
+    {'nvim-telescope/telescope.nvim',                                       -- fuzzy finder over lists with popups
         dependencies = {
             { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" }, -- port of fzf
             'nvim-telescope/telescope-dap.nvim',                            -- nvim-dap integration with telescope
@@ -127,10 +127,10 @@ local plugins = {
             'jubnzv/virtual-types.nvim',                                    -- Show type annotations
             'simrat39/rust-tools.nvim',                                     -- Extra Rust LSP tools (fixes inlay-hints)
         }
-    },                                        -- Collection of common configs for neovim LSP client
+    },                                                                      -- Collection of common configs for neovim LSP client
 
     -- TreeSitter
-    { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },     -- Treesitter configurations and abstraction layer for Neovim
+    { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },             -- Treesitter configurations and abstraction layer for Neovim
 
     -- Themes
     'dkasak/gruvbox',
