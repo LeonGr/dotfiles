@@ -21,8 +21,6 @@ local plugins = {
     { 'mattn/emmet-vim',-- html autocomplete
         ft = { "html", "vue" }
     },
-    -- 'scrooloose/nerdtree',                                          -- File browser in vim
-    -- 'jistr/vim-nerdtree-tabs',                                      -- Keep nerdtree open across tabs
     'scrooloose/nerdcommenter',                                     -- Easy commenting and uncommenting
     'tpope/vim-obsession',                                          -- Save vim sessions
     'aserowy/tmux.nvim',                                            -- Neovim tmux integration
@@ -133,7 +131,6 @@ local plugins = {
 
     -- TreeSitter
     { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },     -- Treesitter configurations and abstraction layer for Neovim
-    -- { 'nvim-treesitter/playground', build = ":TSInstall query" },   -- View treesitter information directly in Neovim
 
     -- Themes
     'dkasak/gruvbox',
