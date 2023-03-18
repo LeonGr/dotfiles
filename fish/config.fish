@@ -21,6 +21,7 @@ alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'
 alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
 alias g.='git status .'
 alias dmesg='dmesg -H'
+alias gswi='git_switch_fzf'
 
 # ls -> exa
 alias exa='exa --git'
@@ -155,6 +156,30 @@ function fish_user_key_bindings
     fish_default_key_bindings -M insert
     fish_vi_key_bindings --no-erase insert
     fzf_key_bindings
+end
+
+# select a git branch to switch to using fzf
+function git_switch_fzf
+    # check if we're in a git repo, discard both stdout and stderr
+    if git rev-parse --is-inside-work-tree &> /dev/null
+        set -l selected (
+            # list all local and remote branches
+            git branch --all --no-color --format="%(refname:short)" \
+            # remove 'origin/' prefix from remote branches
+            | sed 's|origin/||g' \
+            # sort and remove duplicates
+            | sort --unique \
+            # send list to fzf with multi-select disabled
+            | fzf --no-multi
+        )
+
+        if [ "$selected" != "" ]
+            commandline --replace "git switch $selected"
+        end
+    else
+        echo "not a git repository" 1>&2
+        return -1
+    end
 end
 
 # Insert mode cursor should be line
