@@ -1,25 +1,38 @@
 #!/bin/bash
 
+PLAYERS=$(playerctl -l)
+echo "$PLAYERS"
+
+if echo "$PLAYERS" | grep -w "Sonixd"; then
+    echo "Sonixd running"
+    PLAYER="Sonixd"
+elif echo "$PLAYERS" | grep -w "spotify"; then
+    echo "spotify running"
+    PLAYER="spotify"
+else
+    PLAYER="${PLAYERS[0]}"
+fi
+
 # Try to toggle playing status
-if ! playerctl play-pause; then
+if ! playerctl -p "$PLAYER" play-pause; then
     /usr/bin/notify-send -u low "No players found"
     exit 1
 fi
 
 # Get song info
-ARTIST=$(playerctl metadata xesam:albumArtist)
-ALBUM=$(playerctl metadata xesam:album)
-SONG=$(playerctl metadata xesam:title)
+ARTIST=$(playerctl -p "$PLAYER" metadata xesam:albumArtist)
+ALBUM=$(playerctl -p "$PLAYER" metadata xesam:album)
+SONG=$(playerctl -p "$PLAYER" metadata xesam:title)
 
 if [[ $ARTIST = "" ]]; then
-    ARTIST=$(playerctl metadata xesam:artist)
+    ARTIST=$(playerctl -p "$PLAYER" metadata xesam:artist)
     DETAILS=$ARTIST
 else
     DETAILS="$ARTIST - $ALBUM"
 fi
 
 # Get album art URL
-IMAGE_URL="$(playerctl metadata mpris:artUrl)"
+IMAGE_URL="$(playerctl -p "$PLAYER" metadata mpris:artUrl)"
 
 if [[ $IMAGE_URL = "file://"* ]]; then
     IMAGE_PATH=$(echo "$IMAGE_URL" | sd 'file://' '')
@@ -29,7 +42,7 @@ else
     wget -O /tmp/album_icon.jpg "$IMAGE_URL"
 fi
 
-STATUS=$(playerctl status)
+STATUS=$(playerctl -p "$PLAYER" status)
 if [[ $STATUS = "Playing" ]]; then
     STATUS=""
 else
