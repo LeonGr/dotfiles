@@ -101,7 +101,7 @@ local plugins = {
 
     -- nvim-cmp
     {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
-        event = "InsertEnter",
+        -- event = "InsertEnter",
         dependencies = {
             'hrsh7th/cmp-nvim-lsp',                                         -- nvim-cmp source for neovim builtin LSP client
             'hrsh7th/cmp-buffer',                                           -- nvim-cmp source for buffer words
