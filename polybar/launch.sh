@@ -40,11 +40,25 @@ else
     interface="wlp2s0"
 fi
 
-# Launch bar
 primaryMonitor=$(xrandr | rg "connected primary" | sd '^(.*?) .*' '$1')
+
 echo "primary: $primaryMonitor"
 echo "---" | tee -a /tmp/polybar.log
-WIDTH=$width HEIGHT=$height UNDERLINE_SIZE=$underline_size OFFSET=$offset FONT0=$font0 FONT1=$font1 FONT2=$font2 LEFT=$left CENTER=$center RIGHT=$right INTERFACE=$interface MONITOR=$primaryMonitor polybar mybar >>/tmp/polybar.log 2>&1 &
+
+# Launch bar
+WIDTH=$width \
+HEIGHT=$height \
+UNDERLINE_SIZE=$underline_size \
+OFFSET=$offset \
+FONT0=$font0 \
+FONT1=$font1 \
+FONT2=$font2 \
+LEFT=$left \
+CENTER=$center \
+RIGHT=$right \
+INTERFACE=$interface \
+MONITOR=$primaryMonitor \
+polybar mybar >>/tmp/polybar.log 2>&1 &
 
 # Launch simplified bar on non-primary monitors
 otherMonitors=$(xrandr | rg " connected " | rg -v "primary" | sd '^(.*?) .*' '$1')
@@ -58,7 +72,20 @@ do
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     height="30"
     underline_size="2"
-    WIDTH=$width HEIGHT=$height UNDERLINE_SIZE=$underline_size OFFSET=$offset FONT0=$font0 FONT1=$font1 FONT2=$font2 LEFT=$left CENTER=$center RIGHT=$right INTERFACE=$interface MONITOR=$monitor polybar sidebar >>/tmp/polybar.log 2>&1 &
+
+    WIDTH=$width \
+    HEIGHT=$height \
+    UNDERLINE_SIZE=$underline_size \
+    OFFSET=$offset \
+    FONT0=$font0 \
+    FONT1=$font1 \
+    FONT2=$font2 \
+    LEFT=$left \
+    CENTER=$center \
+    RIGHT=$right \
+    INTERFACE=$interface \
+    MONITOR=$monitor \
+    polybar sidebar >>/tmp/polybar.log 2>&1 &
 done
 
 echo "Bars launched..."
