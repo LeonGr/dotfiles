@@ -24,7 +24,6 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     center="xwindow"
     right="updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
     interface="enp7s0"
-    tray_position="right"
 else
     echo "1080p"
     width="100%"
@@ -39,7 +38,6 @@ else
     center=" "
     right="updates-pacman-aurhelper sep filesystem sep battery sep date sep pulseaudio"
     interface="wlp2s0"
-    tray_position="right"
 fi
 
 primaryMonitor=$(xrandr | rg "connected primary" | sd '^(.*?) .*' '$1')
@@ -60,7 +58,6 @@ CENTER=$center \
 RIGHT=$right \
 INTERFACE=$interface \
 MONITOR=$primaryMonitor \
-TRAY_POSITION=$tray_position \
 polybar mybar >>/tmp/polybar.log 2>&1 &
 
 # Launch simplified bar on non-primary monitors
@@ -75,7 +72,6 @@ do
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     height="30"
     underline_size="2"
-    tray_position="none"
 
     WIDTH=$width \
     HEIGHT=$height \
@@ -89,7 +85,6 @@ do
     RIGHT=$right \
     INTERFACE=$interface \
     MONITOR=$monitor \
-    TRAY_POSITION=$tray_position \
     polybar sidebar >>/tmp/polybar.log 2>&1 &
 done
 
