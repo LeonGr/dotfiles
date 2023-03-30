@@ -457,6 +457,17 @@ call wilder#set_option('renderer', wilder#wildmenu_renderer({
 " Disable by default (toggle with :GitBlameToggle)
 let g:gitblame_enabled = 0
 
+" lewis6991/gitsigns.nvim
+
+" remove sign column background for gitsigns
+highlight GruvboxRedSign guibg=none
+highlight GruvboxGreenSign guibg=none
+highlight GruvboxYellowSign guibg=none
+highlight GruvboxBlueSign guibg=none
+highlight GruvboxPurpleSign guibg=none
+highlight GruvboxAquaSign guibg=none
+highlight GruvboxOrangeSign guibg=none
+
 augroup ConfigureKitty
     au!
     au VimEnter * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin-bottom=8 margin-left=0 margin-right=0
