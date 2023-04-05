@@ -4,7 +4,7 @@
 [user]
     email = mail+github@leongr.nl
     name = LeonGr
-    signingKey = 5A72DC3B
+    signingKey = ~/.ssh/github
 
 [alias]
     lol = log --graph --decorate --pretty=oneline --abbrev-commit
@@ -31,6 +31,7 @@
     gpgsign = true
 [gpg]
     program = gpg2
+    format = ssh
 
 [pager]
     diff = delta
