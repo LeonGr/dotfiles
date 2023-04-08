@@ -186,7 +186,9 @@ if status is-login
     and status is-interactive
     # Add set -U SSH_KEYS_TO_AUTOLOAD <key-1> <key-2> ... <key-n>
     # to ~/.config/fish/conf.d/fish-ssh-agent.fish
-    keychain --eval $SSH_KEYS_TO_AUTOLOAD &>> /tmp/keychain.log | source
+    if which keychain &> /dev/null
+        keychain --eval $SSH_KEYS_TO_AUTOLOAD &>> /tmp/keychain.log | source
+    end
 end
 
 # Insert mode cursor should be line
