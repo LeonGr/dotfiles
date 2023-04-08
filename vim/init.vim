@@ -305,17 +305,6 @@ highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
 " Set highlight priority to override nvim-cursorword highlight
 let g:qs_hi_priority = 10
 
-" GitGutter settings
-let g:gitgutter_sign_removed = '—'
-" Put this in gruvbox.vim to remove signcolumn background
-    "call s:HL('GruvboxRedSign', s:red, s:none, s:bold)
-    "call s:HL('GruvboxGreenSign', s:green, s:none, s:bold)
-    "call s:HL('GruvboxYellowSign', s:yellow, s:none, s:bold)
-    "call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
-    "call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
-    "call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
-    "call s:HL('GruvboxOrangeSign', s:orange, s:none, s:bold)
-
 " Emmet settings
 let g:user_emmet_mode='i'
 
