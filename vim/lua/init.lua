@@ -33,12 +33,6 @@ local plugins = {
     'dense-analysis/ale',                                                   -- Async Lint Engine
     'KabbAmine/vCoolor.vim',                                                -- Colour picker (Alt-Z)
     'yaroot/vissort',                                                       -- Sort by visual block
-    { 'junegunn/fzf.vim',                                                   -- Fuzzy finder
-      dependencies = {
-        'junegunn/fzf',
-         build = ":call fzf#install()",
-      },
-    },
     'norcalli/nvim-colorizer.lua',                                          -- Color highlighter
     {'cakebaker/scss-syntax.vim',                                           -- SCSS support
         ft = "scss"

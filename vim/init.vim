@@ -108,12 +108,6 @@ nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
      map <Leader>m     :ExpSel<CR>
 " Toggle case of first letter of current word
 nnoremap <Leader>u     m`viw<ESC>b~``
-" nnoremap <Leader>b     :Buffers<CR>
-" nnoremap <Leader>f     :Lines<CR>
-" nnoremap <Leader>g     :GFiles?<CR>
-" nnoremap <Leader>p     :GFiles<CR>
-" nnoremap <Leader>r     :Rg<CR>
-" nnoremap <Leader>/     :BLines<CR>
 
 " Telescope leader commands
 nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
@@ -137,26 +131,6 @@ function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
-
-" Make alt-<hjkl> act as arrows in fzf window
-function ArrowMap()
-    tnoremap <M-h> <left>
-    tnoremap <M-j> <down>
-    tnoremap <M-k> <up>
-    tnoremap <M-l> <right>
-endfunction
-
-autocmd! FileType fzf call ArrowMap()
-
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-" Let FZF be a floating window
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
@@ -441,27 +415,3 @@ augroup ConfigureKitty
     au VimEnter * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin-bottom=8 margin-left=0 margin-right=0
     au VimLeave * silent !kitty @ --to $KITTY_LISTEN_ON set-spacing margin=8
 augroup END
-
-function! FloatingFZF()
-    " With Border
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let top = ((&lines - height) / 2) - 1
-    let left = (&columns - width) / 2
-    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-    let top = "╭" . repeat("─", width - 2) . "╮"
-    let mid = "│" . repeat(" ", width - 2) . "│"
-    let bot = "╰" . repeat("─", width - 2) . "╯"
-    let lines = [top] + repeat([mid], height - 2) + [bot]
-    let s:buf = nvim_create_buf(v:false, v:true)
-    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-    call nvim_open_win(s:buf, v:true, opts)
-    set winhl=Normal:Floating
-    let opts.row += 1
-    let opts.height -= 2
-    let opts.col += 2
-    let opts.width -= 4
-    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    au BufWipeout <buffer> exe 'bw '.s:buf
-endfunction
