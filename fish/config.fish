@@ -22,6 +22,7 @@ alias g.='git status .'
 alias dmesg='dmesg -H'
 alias gswi='git_switch_fzf'
 
+# 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
     alias weechat='TERM=tmux-256color /usr/bin/weechat'
 else
