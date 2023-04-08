@@ -355,12 +355,36 @@ local gls = gl.section
 
 gl.short_line_list = {" "}
 
+
+-- helper functions to determine if file exists
+local function expand_tilde(path)
+  if path:sub(1, 1) == '~' then -- Check if path starts with tilde
+    local home = os.getenv('HOME') or os.getenv('USERPROFILE')
+    return home .. path:sub(2) -- Replace tilde with home directory path
+  else
+    return path
+  end
+end
+
+local function file_exists(path)
+  path = expand_tilde(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'file'
+end
+
+
 local colors = require('galaxyline.theme').default
-local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
-local wal_colors = vim.fn.json_decode(colorjson)
-colors.white = wal_colors.special.foreground
-colors.fg = wal_colors.special.foreground
-colors.wal_blue = wal_colors.colors.color2
+
+if file_exists("~/.cache/wal/colors.json") then
+    local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
+    local wal_colors = vim.fn.json_decode(colorjson)
+    colors.white = wal_colors.special.foreground
+    colors.fg = wal_colors.special.foreground
+    colors.wal_blue = wal_colors.colors.color2
+else
+    colors.wal_blue = colors.blue
+end
+
 
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)

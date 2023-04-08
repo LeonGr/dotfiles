@@ -64,7 +64,9 @@ highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
-source ~/.cache/wal/colors-wal.vim
+if isdirectory("~/.cache/wal/")
+    source ~/.cache/wal/colors-wal.vim
+endif
 
 " Line numbers
 set number relativenumber
