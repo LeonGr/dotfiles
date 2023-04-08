@@ -60,28 +60,6 @@ highlight link FloatBorder Normal
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
-"" Statusline
-" function! LspStatus() abort
-    " if luaeval('#vim.lsp.buf_get_clients() > 0')
-        " try
-            " return luaeval("vim.lsp.buf_get_clients()[1].name")
-        " catch
-            " return 'LSP: '
-        " endtry
-    " endif
-
-    " return ''
-" endfunction
-
-" Statusline for when it is visible
-" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-
-" function! StatusLineLsp()
-    " let l:ls = LspStatus()
-    " return strlen(l:ls) > 0 ? '  「'.l:ls.'」' : ''
-" endfunction
-
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
