@@ -81,8 +81,6 @@ highlight VertSplit guibg=NONE
 " See :help 'fo-table'/'formatoptions'
 " Stop automatic new line of comment after CTRL-O
 autocmd FileType * setlocal formatoptions-=o
-"autocmd FileType * setlocal formatoptions-=r
-"autocmd FileType * setlocal formatoptions-=c
 
 " Searching improvements
 set incsearch       " Lookahead as search pattern is specified
