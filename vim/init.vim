@@ -105,7 +105,6 @@ nnoremap <Leader>w     :w<CR>
 nnoremap <Leader><tab> :b#<CR>
 vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
-nnoremap <Leader>q     :copen<CR>
      map <Leader>m     :ExpSel<CR>
 " Toggle case of first letter of current word
 nnoremap <Leader>u     m`viw<ESC>b~``
@@ -466,60 +465,3 @@ function! FloatingFZF()
     call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
     au BufWipeout <buffer> exe 'bw '.s:buf
 endfunction
-
-let g:FloatingQFOpen = 0
-function! FloatingQuickfix(timer)
-    if g:FloatingQFOpen == 0
-        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
-        " so we set this variable to 1 to stop creating an infinite loop
-        let g:FloatingQFOpen = 1
-
-        let height = &lines - 3
-        let width = float2nr(&columns - (&columns * 2 / 10))
-        let top = ((&lines - height) / 2) - 1
-        let left = (&columns - width) / 2
-        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-        let top = "╭" . repeat("─", width - 2) . "╮"
-        let mid = "│" . repeat(" ", width - 2) . "│"
-        let bot = "╰" . repeat("─", width - 2) . "╯"
-        " let top = "╔" . repeat("═", width - 2) . "╗"
-        " let mid = "║" . repeat(" ", width - 2) . "║"
-        " let bot = "╚" . repeat("═", width - 2) . "╝"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let s:buf = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-        call nvim_open_win(s:buf, v:true, opts)
-        set winhl=Normal:Floating
-
-        let buf = nvim_create_buf(v:false, v:true)
-        call setbufvar(buf, '&signcolumn', 'no')
-
-        " Close and open QF window so bn opens it instead of the file we're editing
-        cclose | copen
-
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-
-        " Open floating window
-        let win = nvim_open_win(buf, v:true, opts)
-        " Set content to QF buffer | close original QF window
-        bn | cclose
-
-        " Make transparent
-        set winhl=Normal:Floating
-        set number
-        " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
-        " After opening, show message in highlight style of ModeMsg
-        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
-    endif
-endfunction
-
-" Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
-autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
-
-" Close quickfix window on escape
-nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
