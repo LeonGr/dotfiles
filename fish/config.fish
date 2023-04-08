@@ -72,7 +72,9 @@ if tty > /dev/null
     end
 
     # source wal colors
-    cat ~/.cache/wal/sequences &
+    if test -e ~/.cache/wal/sequences
+        cat ~/.cache/wal/sequences &
+    end
 end
 
 
