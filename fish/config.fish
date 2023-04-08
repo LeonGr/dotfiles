@@ -18,10 +18,15 @@ alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
-alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
 alias g.='git status .'
 alias dmesg='dmesg -H'
 alias gswi='git_switch_fzf'
+
+if test (hostname) = "callisto"
+    alias weechat='TERM=tmux-256color /usr/bin/weechat'
+else
+    alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
+end
 
 # ls -> exa
 alias exa='exa --git'
@@ -63,10 +68,18 @@ set -x COLORTERM "truecolor"
 if tty > /dev/null
     if status --is-interactive
         funcsave --quiet take
-        # random_fish
 
-        # print coloured motd
-        cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+        # if fancy_motd command exists
+        if command -v fancy_motd &> /dev/null
+            # if $TMUX is unset, i.e. not inside tmux
+            if test -z "$TMUX"
+                fancy_motd
+            end
+        else
+            # print coloured motd
+            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+        end
+
 
         backup_check
     end
