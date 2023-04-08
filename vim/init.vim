@@ -282,11 +282,6 @@ let g:ale_rust_rustc_options = ''
 " make :Q work as :q
 cabbr Q q
 
-" xkcd scroll through time instead of space
-"set mouse=a
-"nnoremap <ScrollWheelUp> u
-"nnoremap <ScrollWheelDown> <C-R>
-
 " Vim-vue settings
 autocmd FileType vue syntax sync fromstart
 " Only try scss
