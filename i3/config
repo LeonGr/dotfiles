@@ -76,6 +76,9 @@ bindsym $mod+p exec bwmenu --clear 20 --auto-lock 600 -- -width 1000 -font "$ROF
 # Obsidian rofi shortcut
 bindsym $mod+o exec rofi_obsidian "$ROFI_FONT"
 
+# Emoji rofi shortcut
+bindsym $mod+i exec rofi -show emoji -modi emoji -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+
 # change focus
 bindsym $mod+h focus left
 bindsym $mod+j focus down
