@@ -44,8 +44,10 @@ local plugins = {
     'xiyaowong/nvim-cursorword',                                            -- Underline the word under the cursor
     { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },               -- command-line completion tweaks
     'nvim-lua/popup.nvim',                                                  -- vim compatible popups in neovim
-    'kyazdani42/nvim-web-devicons',                                         -- filetype icons for plugins (e.g. telescope)
     'glepnir/galaxyline.nvim',                                              -- Lua Statusline
+    {'akinsho/bufferline.nvim',                                             -- Lua Bufferline
+        dependencies = 'nvim-tree/nvim-web-devicons'                        -- filetype icons for plugins (e.g. telescope)
+    },
     { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
     'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
 
@@ -380,6 +382,7 @@ if file_exists("~/.cache/wal/colors.json") then
     local wal_colors = vim.fn.json_decode(colorjson)
     colors.white = wal_colors.special.foreground
     colors.fg = wal_colors.special.foreground
+    colors.bg = wal_colors.special.background
     colors.wal_blue = wal_colors.colors.color2
 else
     colors.wal_blue = colors.blue
@@ -609,5 +612,25 @@ gls.short_line_left[3] = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
         highlight = {colors.wal_blue, colors.bg},
+    }
+}
+
+---- akinsho/bufferline.nvim
+require("bufferline").setup{
+    options = {
+        diagnostics = "nvim_lsp",
+        diagnostics_indicator = function(count, level, _, _)
+            local icon = level:match("error") and " " or " "
+            return " " .. icon .. count
+        end,
+        separator_style = "slant",
+        numbers = function(opt)
+            return string.format('%s', opt.raise(opt.id))
+        end,
+    },
+    highlights = {
+        buffer_selected = {
+            italic = false,
+        }
     }
 }
