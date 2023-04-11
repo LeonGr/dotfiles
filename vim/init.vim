@@ -108,6 +108,8 @@ set backspace=2
 nnoremap <Leader>w     :w<CR>
 " Toggle between current and last buffer
 nnoremap <Leader><tab> :b#<CR>
+" Close current buffer
+nnoremap <Leader>x :bdelete<CR>
 " Remove training whitespace
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
 " Toggle case of first letter of current word
