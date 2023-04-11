@@ -120,6 +120,7 @@ nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>b     :Telescope buffers<CR>
 nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
 nnoremap <Leader>p     :Telescope git_files<CR>
+nnoremap <Leader>l     :Telescope buffers<CR>
 nnoremap <Leader>r     :Telescope live_grep<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
 
