@@ -35,14 +35,13 @@ vim.lsp.handlers["textDocument/signatureHelp"] =
 
 -- lspconfig object
 local lspconfig = require'lspconfig'
-local configs = require'lspconfig/configs'
 
 -- add popup border
 require('lspconfig.ui.windows').default_options.border = 'single'
 
 -- function to attach completion and diagnostics
 -- when setting up lsp
-local on_attach = function(client)
+local on_attach = function(_)
     require'virtualtypes'.on_attach()
 end
 
