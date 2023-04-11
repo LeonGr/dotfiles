@@ -161,41 +161,6 @@ require("mason-lspconfig").setup({
     ensure_installed = { "lua_ls", "rust_analyzer" },
 })
 
--- configure diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true,
-    }
-)
-
--- set inline diagnostics prefix
-vim.diagnostic.config({
-    virtual_text = {
-        prefix = "",
-    },
-})
-
--- add border to hover
-vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "single"
-  }
-)
-
--- add border to signature
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "single"
-  }
-)
-
 ---- lewis6991/gitsigns.nvim
 require('gitsigns').setup {
     signs = {
