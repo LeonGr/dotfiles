@@ -103,11 +103,13 @@ set backspace=2
 " Leader commands
 
 " General
+
+" Save
 nnoremap <Leader>w     :w<CR>
+" Toggle between current and last buffer
 nnoremap <Leader><tab> :b#<CR>
-vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
+" Remove training whitespace
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
-     map <Leader>m     :ExpSel<CR>
 " Toggle case of first letter of current word
 nnoremap <Leader>u     m`viw<ESC>b~``
 
