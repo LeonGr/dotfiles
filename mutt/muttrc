@@ -1,0 +1,44 @@
+## load variables
+# required:
+# set my_name  = '<name>'
+# set my_pass  = '<password>'
+# set my_email = '<mail>@<host>'
+# set my_smtp  = 'smtp.<provider>'
+# set my_imap  = 'imap.<provider>'
+source ~/.config/mutt/.env
+
+set realname = $my_name
+set from = $my_email
+
+## configure server
+# imap
+set imap_user = $my_email
+set imap_pass = $my_pass
+# smtp
+set smtp_url = "smtps://$my_email@$my_smtp:465"
+set smtp_pass = $my_pass
+
+set folder = "imaps://$my_imap"
+set spoolfile = '+INBOX'
+
+set ssl_force_tls = yes
+
+# allow editing of headers when composing email
+set edit_headers = yes
+
+## new mails
+# try to retrieve new mails every 10 sec
+set timeout = 10
+# show notification when new mail arrives
+set new_mail_command = "notify-send 'New Email' '%n new messages, %u unread.' &"
+set beep_new = yes
+
+set header_cache = ~/.cache/mutt/
+set message_cachedir = ~/.cache/mutt/
+set certificate_file = ~/.config/mutt/certificates
+
+# support PGP (copied from: /usr/share/doc/mutt/samples/gpg.rc)
+source ~/.config/mutt/gpg.rc
+
+# add colors
+source /usr/share/doc/mutt/samples/colors.linux
