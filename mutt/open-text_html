@@ -1,0 +1,19 @@
+#!/bin/bash
+
+port=9999
+
+# start pythonserver at /tmp/ with port 9999
+python -m http.server --directory /tmp/ $port &
+RUNNING_PID=$!
+
+# open file as html
+filename=$(basename "$1")
+mv "$1" "$1.html"
+xdg-open "localhost:$port/$filename.html"
+
+# wait, kill pythonserver and remove file
+sleep 1
+kill "$RUNNING_PID"
+rm "$1.html"
+
+exit 0
