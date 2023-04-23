@@ -103,11 +103,15 @@ set backspace=2
 " Leader commands
 
 " General
+
+" Save
 nnoremap <Leader>w     :w<CR>
+" Toggle between current and last buffer
 nnoremap <Leader><tab> :b#<CR>
-vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
+" Close current buffer
+nnoremap <Leader>x :bdelete<CR>
+" Remove training whitespace
 nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
-     map <Leader>m     :ExpSel<CR>
 " Toggle case of first letter of current word
 nnoremap <Leader>u     m`viw<ESC>b~``
 
@@ -116,6 +120,8 @@ nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
 nnoremap <Leader>b     :Telescope buffers<CR>
 nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
 nnoremap <Leader>p     :Telescope git_files<CR>
+nnoremap <Leader>l     :Telescope buffers<CR>
+nnoremap <Leader>m     :Telescope keymaps<CR>
 nnoremap <Leader>r     :Telescope live_grep<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
 

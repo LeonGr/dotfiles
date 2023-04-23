@@ -68,13 +68,25 @@ bindsym $mod+Return exec kitty
 bindsym $mod+w kill
 
 # rofi shortcut (font from ~/.xprofile)
-bindsym $mod+space exec --no-startup-id rofi -show run -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
+bindsym $mod+space exec --no-startup-id rofi -show run \
+    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
 
-# Bitwarden rofi shortcut
-bindsym $mod+p exec bwmenu --clear 20 --auto-lock 600 -- -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+# Bitwarden rofi shortcut (bitwarden-rofi-git on Arch)
+bindsym $mod+p exec bwmenu --clear 20 --auto-lock 600 -- \
+    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
-# Obsidian rofi shortcut
-bindsym $mod+o exec rofi_obsidian "$ROFI_FONT"
+# Obsidian rofi shortcut (dotfiles/scripts/rofi_obsidian)
+bindsym $mod+o exec rofi_obsidian \
+    "$ROFI_FONT"
+
+# Emoji rofi shortcut (rofi-emoji on Arch)
+bindsym $mod+i exec rofi -show emoji -modi emoji \
+    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+
+# Calculator rofi shortcut (rofi-calc on Arch)
+bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort \
+    -calc-command "echo -n '{result}' | xclip" \
+    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
 # change focus
 bindsym $mod+h focus left
