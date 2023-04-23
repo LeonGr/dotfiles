@@ -113,6 +113,8 @@ fish_add_path -a "$HOME/.cargo/bin"
 # add personal bins to path
 fish_add_path -a "$HOME/bin"
 
+set -x GOPATH "$HOME/.go"
+
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
 
