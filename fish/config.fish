@@ -119,12 +119,15 @@ set -x GPG_TTY (tty)
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
 
-if status is-login
-    and status is-interactive
+function start_keychain
+    keychain --eval $SSH_KEYS_TO_AUTOLOAD | source
+end
+
+if status is-interactive
     # Add set -U SSH_KEYS_TO_AUTOLOAD <key-1> <key-2> ... <key-n>
     # to ~/.config/fish/conf.d/fish-ssh-agent.fish
     if which keychain &> /dev/null
-        keychain --eval $SSH_KEYS_TO_AUTOLOAD &>> /tmp/keychain.log | source
+        start_keychain &> /tmp/keychain.log
     end
 end
 
