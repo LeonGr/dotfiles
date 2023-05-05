@@ -78,7 +78,10 @@ if tty > /dev/null
             end
         else
             # print coloured motd
-            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+            # cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
+            # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
+            pokemon-colorscripts --random 1-5
         end
 
 
