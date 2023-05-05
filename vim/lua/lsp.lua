@@ -132,10 +132,10 @@ lspconfig.pylsp.setup({
     capabilities=capabilities;
     on_attach=on_attach;
     settings = {
-        pyls = {
+        pylsp = {
             configurationSources = { "flake8" } -- reads ~/.config/flake8
-            }
         }
+    }
 })
 
 -- Enable vscode language servers (HTML, CSS, JSON)
