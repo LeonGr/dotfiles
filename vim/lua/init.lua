@@ -94,6 +94,7 @@ local plugins = {
     {'peitalin/vim-jsx-typescript', ft = "typescript" },                    -- TypeScript with React support
     {'pantharshit00/vim-prisma', ft = "prisma" },                           -- Prisma 2 support
     {'jparise/vim-graphql', ft = "graphql" },                               -- GraphQL support
+    {'Kranex/vim-rascal-syntax', ft = "rascal" },                           -- Rascal support
 
     -- nvim-cmp
     {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
