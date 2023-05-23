@@ -21,6 +21,12 @@ alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'
 alias g.='git status .'
 alias dmesg='dmesg -H'
 alias gswi='git_switch_fzf'
+# ssh targets
+alias calli='ssh leon@callisto'
+alias gany='ssh pi@ganymedes'
+alias euro='ssh leon@europa'
+alias leda='ssh leon@leda'
+alias elara='ssh root@elara'
 
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
