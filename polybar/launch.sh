@@ -36,7 +36,7 @@ else
     # left="bspwm xwindow"
     left="i3 xwindow"
     center=" "
-    right="updates-pacman-aurhelper sep filesystem sep battery sep date sep pulseaudio powermenu"
+    right="updates-pacman-aurhelper filesystem battery date pulseaudio powermenu"
     interface="wlp2s0"
 fi
 
