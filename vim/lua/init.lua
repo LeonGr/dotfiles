@@ -375,7 +375,7 @@ gls.left[1] = {
 gls.left[2] = {
     statusIcon = {
         provider = function()
-            return "  "
+            return " 󰀘 "
         end,
         highlight = {colors.bg, colors.wal_blue},
         separator = " ",
@@ -391,7 +391,7 @@ gls.left[3] = {
             -- :~ = relative to ~ if possible
             -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return "  " .. dir_name .. " "
+            return "  " .. dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
@@ -461,7 +461,7 @@ gls.right[1] = {
 gls.right[2] = {
     GitIcon = {
         provider = function()
-            return " "
+            return " "
         end,
         condition = condition.check_git_workspace and condition.not_dap_ui,
         highlight = {colors.fg, colors.bg},
