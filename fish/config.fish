@@ -85,7 +85,9 @@ if tty > /dev/null
         end
 
 
-        backup_check
+        if command -v backup_check &> /dev/null
+            backup_check
+        end
     end
 
     # source wal colors
