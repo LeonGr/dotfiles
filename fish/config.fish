@@ -91,7 +91,7 @@ if tty > /dev/null
         end
 
 
-        if command -v backup_check &> /dev/null
+        if type -q backup_check &> /dev/null
             backup_check
         end
     end
