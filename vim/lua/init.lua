@@ -354,6 +354,13 @@ vim.keymap.set('v', '<Leader>R', function()
     require('telescope.builtin').grep_string({ default_text = text })
 end, { expr = false })
 
+-- search for the current selection (current file)
+vim.keymap.set('v', '<Leader>F', function()
+    local text = get_visual_selection()
+    print("search current selection - selected text:", text)
+    require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text })
+end, { expr = false })
+
 ---- glepnir/galaxyline.nvim
 
 -- config adapted from https://github.com/siduck76/NvChad/blob/main/lua/plugins/statusline.lua
