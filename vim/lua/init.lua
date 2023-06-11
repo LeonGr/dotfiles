@@ -156,6 +156,36 @@ local opts = {
 
 require("lazy").setup(plugins, opts)
 
+-- set colors
+local colors = require('galaxyline.theme').default
+
+-- helper functions to determine if file exists
+local function expand_tilde(path)
+  if path:sub(1, 1) == '~' then -- Check if path starts with tilde
+    local home = os.getenv('HOME') or os.getenv('USERPROFILE')
+    return home .. path:sub(2) -- Replace tilde with home directory path
+  else
+    return path
+  end
+end
+
+local function file_exists(path)
+  path = expand_tilde(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'file'
+end
+
+if file_exists("~/.cache/wal/colors.json") then
+    local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
+    local wal_colors = vim.fn.json_decode(colorjson)
+    colors.white = wal_colors.special.foreground
+    colors.fg = wal_colors.special.foreground
+    colors.bg = wal_colors.special.background
+    colors.wal_blue = wal_colors.colors.color2
+else
+    colors.wal_blue = colors.blue
+end
+
 -- configure mason
 require("mason").setup({
     ui = {
@@ -326,38 +356,6 @@ end
 local gls = gl.section
 
 gl.short_line_list = {" "}
-
-
--- helper functions to determine if file exists
-local function expand_tilde(path)
-  if path:sub(1, 1) == '~' then -- Check if path starts with tilde
-    local home = os.getenv('HOME') or os.getenv('USERPROFILE')
-    return home .. path:sub(2) -- Replace tilde with home directory path
-  else
-    return path
-  end
-end
-
-local function file_exists(path)
-  path = expand_tilde(path)
-  local stat = vim.loop.fs_stat(path)
-  return stat and stat.type == 'file'
-end
-
-
-local colors = require('galaxyline.theme').default
-
-if file_exists("~/.cache/wal/colors.json") then
-    local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
-    local wal_colors = vim.fn.json_decode(colorjson)
-    colors.white = wal_colors.special.foreground
-    colors.fg = wal_colors.special.foreground
-    colors.bg = wal_colors.special.background
-    colors.wal_blue = wal_colors.colors.color2
-else
-    colors.wal_blue = colors.blue
-end
-
 
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)
@@ -586,21 +584,32 @@ gls.short_line_left[3] = {
 }
 
 ---- akinsho/bufferline.nvim
-require("bufferline").setup{
+local bufferline = require("bufferline")
+bufferline.setup{
     options = {
+        style_preset = bufferline.style_preset.no_italic,
         diagnostics = "nvim_lsp",
         diagnostics_indicator = function(count, level, _, _)
             local icon = level:match("error") and " " or " "
             return " " .. icon .. count
         end,
-        separator_style = "slant",
+        separator_style = "none",
+        indicator = {
+            style = "icon",
+        },
         numbers = function(opt)
-            return string.format('%s', opt.raise(opt.id))
+            return string.format('%s', opt.raise(opt.ordinal))
         end,
     },
     highlights = {
         buffer_selected = {
             italic = false,
+        },
+        numbers_selected = {
+            italic = false,
+        },
+        indicator_selected = {
+            fg = colors.wal_blue,
         }
     }
 }
