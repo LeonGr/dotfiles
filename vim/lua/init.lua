@@ -326,21 +326,32 @@ require'telescope'.load_extension('dap')
 local function get_visual_selection()
     local s_start = vim.fn.getpos("v")
     local s_end = vim.fn.getpos(".")
+
     local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+
     local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
-    lines[1] = string.sub(lines[1], s_start[3], -1)
-    if n_lines == 1 then
-        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
-    else
-        lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+
+    -- check if start and end positions are different, if not, we just send the selected lines.
+    -- this breaks on VISUAL LINE with multiple lines, but oh well
+    if not (s_start[2] == s_end[2] and s_start[3] == s_end[3]) then
+        lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+        lines[1] = string.sub(lines[1], s_start[3], -1)
+
+        if n_lines == 1 then
+            lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+        else
+            lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+        end
     end
+
     return table.concat(lines, '\n')
 end
 
--- search for the current selection
+-- search for the current selection (globally)
 vim.keymap.set('v', '<Leader>R', function()
     local text = get_visual_selection()
-    require('telescope.builtin').grep_string({ search = text })
+    print("search current selection - selected text:", text)
+    require('telescope.builtin').grep_string({ default_text = text })
 end, { expr = false })
 
 ---- glepnir/galaxyline.nvim
