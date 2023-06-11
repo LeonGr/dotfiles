@@ -613,3 +613,23 @@ bufferline.setup{
         }
     }
 }
+
+local function go_to_buffer(ordinal_buffer_nr)
+    -- open buffer with given nr.
+    -- 'true' means that absolute buffer nr should be used
+    bufferline.go_to(ordinal_buffer_nr, true)
+end
+
+vim.api.nvim_create_user_command(
+    'BB',
+    function(opts)
+        -- print(opts)
+        go_to_buffer(opts.args)
+    end,
+    { nargs = 1}
+)
+
+for i = 1,9 do
+    vim.keymap.set('n', '<leader>' .. i, function() go_to_buffer(i) end, {})
+end
+
