@@ -25,6 +25,9 @@ SELECTED=$(
     rofi -i -dmenu -p "obsidian" -sort -sorting-method fzf -matching fuzzy -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 )
 
+# Escape ampersands (&) in filenames
+SELECTED=$(echo "$SELECTED" | sd '&' '%26')
+
 # Exit if no file was selected
 if [[ "$SELECTED" == "" ]]
 then
