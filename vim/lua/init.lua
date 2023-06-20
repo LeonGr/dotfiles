@@ -652,3 +652,52 @@ for i = 1,9 do
     vim.keymap.set('n', '<leader>' .. i, function() go_to_buffer(i) end, {})
 end
 
+---- gelguy/wilder.nvim
+
+local wilder = require('wilder')
+
+-- Enable for search (/,? and commands :)
+wilder.setup({modes = {':', '/', '?'}})
+
+wilder.set_option('pipeline', {
+    wilder.branch(
+        wilder.cmdline_pipeline({
+            fuzzy = 1,
+        }),
+        wilder.python_search_pipeline({
+            -- can be set to wilder#python_fuzzy_delimiter_pattern() for stricter fuzzy matching
+            pattern = wilder.python_fuzzy_pattern(),
+        })
+    ),
+})
+
+wilder.set_option('renderer', wilder.wildmenu_renderer({
+    highlighter = {
+        wilder.basic_highlighter(),
+    },
+    right = {' ', wilder.wildmenu_index()},
+    highlights = {
+        default = "Normal",
+        accent = wilder.make_hl(
+            'WilderAccent',
+            'Normal',
+            {
+                {a = 1}, {a = 1}, { foreground = colors.wal_blue }
+            }
+        ),
+        selected = wilder.make_hl(
+            'WilderSelected',
+            'Normal',
+            {
+                {a = 1}, {a = 1}, { reverse = 1 }
+            }
+        ),
+        -- selected_accent = wilder.make_hl(
+            -- 'WilderSelectedAccent',
+            -- 'Normal',
+            -- {
+                -- {a = 1}, {a = 1}, { reverse = 1, background = colors.red }
+            -- }
+        -- ),
+    },
+}))

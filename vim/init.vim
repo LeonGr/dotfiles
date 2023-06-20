@@ -351,37 +351,6 @@ highlight CursorWord guibg=#423F3C gui=none
 autocmd InsertEnter * highlight clear CursorWord
 autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 
-" wilder.nvim
-call wilder#enable_cmdline_enter()
-set wildcharm=<Tab>
-cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
-
-" Enable for search (/,? and commands :)
-call wilder#set_option('modes', ['/', '?', ':'])
-
-" Enable fuzzy searching
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#cmdline_pipeline({
-      \       'fuzzy': 1,
-      \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': 'fuzzy',
-      \     }),
-      \   ),
-      \ ])
-
-" Set highlighters
-let s:highlighters = [
-        \ wilder#pcre2_highlighter(),
-        \ wilder#basic_highlighter(),
-        \ ]
-
-call wilder#set_option('renderer', wilder#wildmenu_renderer({
-      \   'highlighter': s:highlighters,
-      \ }))
-
 " git-blame.nvim
 
 " Disable by default (toggle with :GitBlameToggle)
