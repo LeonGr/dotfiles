@@ -23,7 +23,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     left="i3"
     center="xwindow"
     right="updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
-    interface="enp7s0"
+    interface="enp8s0"
 else
     echo "1080p"
     width="100%"
