@@ -14,6 +14,9 @@ alias gup='git pull --rebase'
 alias gp='git push'
 #compdef _git gp=git-push
 alias gd='git diff'
+#compdef _git gd=git-diff
+alias gds='git diff --staged'
+#compdef _git gd=git-diff
 
 function gdv
   git diff -w $argv | view -
