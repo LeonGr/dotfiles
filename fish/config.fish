@@ -35,15 +35,15 @@ else
     alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
 end
 
-# ls -> exa
-alias exa='exa --git'
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -la'
-alias lt='exa -T'
-alias lr='exa -R'
-alias lat='exa -laT'
-alias lar='exa -laR'
+# ls -> eza
+alias eza='eza --git'
+alias ls='eza'
+alias ll='eza -l'
+alias la='eza -la'
+alias lt='eza -T'
+alias lr='eza -R'
+alias lat='eza -laT'
+alias lar='eza -laR'
 
 # deleting (https://github.com/andreafrancia/trash-cli)
 alias rm='echo "Use trash (t)"; false'
