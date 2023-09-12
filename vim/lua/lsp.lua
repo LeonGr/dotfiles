@@ -28,7 +28,7 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
-local capabilities = require('cmp_nvim_lsp').update_capabilities(client_capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })
@@ -104,10 +104,8 @@ lspconfig.clangd.setup({
 --lspconfig.texlab.setup({ on_attach=on_attach })
 
 -- Enable lua-language-server (Lua)
-lspconfig.sumneko_lua.setup({
+lspconfig.lua_ls.setup({
     capabilities=capabilities;
-    -- on_attach=on_attach;
-    cmd = { "/bin/lua-language-server", "-E", vim.fn.stdpath('cache').."/lspconfig/sumneko_lua/lua-language-server/main.lua" };
     settings = {
         Lua = {
             runtime = {
