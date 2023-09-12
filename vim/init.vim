@@ -54,9 +54,6 @@ Plug 'LeonGr/neovim-expand-selection'                             " My own plugi
 Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
 Plug 'puremourning/vimspector'                                    " Debugger for vim
 Plug 'adelarsq/neofsharp.vim'
-Plug 'sindrets/diffview.nvim'                                     " Show git diff in Vim
-Plug 'TimUntersberger/neogit'                                     " Magit clone for Neovim
-Plug 'vhyrro/neorg'                                               " Org-mode for Neovim
 Plug 'windwp/nvim-autopairs'                                      " Auto pairs
 Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
 Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor

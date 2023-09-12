@@ -76,18 +76,6 @@ require'nvim-treesitter.configs'.setup {
     },
 }
 
----- sindrets/diffview.nvim
-require'diffview'.setup {
-    use_icons = false
-}
-
----- TimUntersberger/neogit
-require'neogit'.setup {
-    integrations = {
-        diffview = true
-    }
-}
-
 ---- aserowy/tmux.nvim
 require'tmux'.setup {
     -- overwrite default configuration
@@ -108,22 +96,6 @@ require'tmux'.setup {
         -- enables default keybindings (A-hjkl) for normal mode
         enable_default_keybindings = true,
     }
-}
-
----- vhyrro/neorg
-require'neorg'.setup {
-    -- Tell Neorg what modules to load
-    load = {
-        ["core.defaults"] = {}, -- Load all the default modules
-        ["core.norg.concealer"] = {}, -- Allows for use of icons
-        ["core.norg.dirman"] = { -- Manage your directories with Neorg
-            config = {
-                workspaces = {
-                    my_workspace = "~/neorg"
-                }
-            }
-        }
-    },
 }
 
 ---- hrsh7th/nvim-cmp
