@@ -119,6 +119,9 @@ export PATH="$PATH:$HOME/.rvm/bin"
 # add cargo bins to path
 export PATH="$HOME/.cargo/bin:$PATH"
 
+# add Go bins to path
+export PATH="$HOME/go/bin:$PATH"
+
 # add yarn bins to path
 export PATH="$HOME/.yarn/bin:$PATH"
 
