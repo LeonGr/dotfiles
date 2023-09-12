@@ -4,148 +4,51 @@
 "  / /___/  __/ /_/ / / / /  (__  )  / / / / / / /__| |/ / / / / / / /
 " /_____/\___/\____/_/ /_/  /____/  /_/_/ /_/_/\__(_)___/_/_/ /_/ /_/
 
-set nocompatible " be iMproved, required
-"filetype off     " required
+if (has("termguicolors"))
+    set termguicolors
+endif
 
-" Vim-Plug
-call plug#begin()
+let mapleader = "\<Space>"
 
-"Tweaks
-Plug 'tpope/vim-surround'                                         " Wrap text easily
-Plug 'mattn/emmet-vim'                                            " html autocomplete
-Plug 'scrooloose/nerdtree'                                        " File browser in vim
-Plug 'jistr/vim-nerdtree-tabs'                                    " Keep nerdtree open across tabs
-Plug 'scrooloose/nerdcommenter'                                   " Easy commenting and uncommenting
-Plug 'tpope/vim-obsession'                                        " Save vim sessions
-Plug 'aserowy/tmux.nvim'                                          " Neovim tmux integration
-Plug 'unblevable/quick-scope'                                     " Higlight words when you press f or t
-Plug 'chip/vim-fat-finger'                                        " Series of abbreviations for vim
-Plug 'tpope/vim-repeat'                                           " Repeat more than one command
-Plug 'godlygeek/tabular'                                          " Easy text align
-" Plug 'tpope/vim-endwise'                                          " Auto close stuff (e.g. function, if) (comment: does not work well with nvim-autopairs)
-" Plug 'takac/vim-hardtime'                                         " Help me to stop using jjjj
-Plug 'nvim-lua/plenary.nvim'                                      " Library that wraps neovim functions
-Plug 'lewis6991/gitsigns.nvim'                                    " Show git changes
-Plug 'tpope/vim-fugitive'                                         " Git wrapper
-" Plug 'jiangmiao/auto-pairs'                                       " Auto pairs
-Plug 'SirVer/ultisnips'                                           " Snippets engine
-Plug 'honza/vim-snippets'                                         " Snippets themselves
-Plug 'dense-analysis/ale'                                         " Async Lint Engine
-Plug 'KabbAmine/vCoolor.vim'                                      " Colour picker (Alt-Z)
-Plug 'yaroot/vissort'                                             " Sort by visual block
-Plug 'junegunn/fzf.vim'                                           " Fuzzy finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'pangloss/vim-javascript'                                    " Javascript support
-Plug 'norcalli/nvim-colorizer.lua'                                " Color highlighter
-Plug 'cakebaker/scss-syntax.vim'                                  " SCSS support
-Plug 'nathanaelkane/vim-indent-guides'                            " Indentation guides
-Plug 'keith/swift.vim'                                            " Swift syntax and indent styles
-Plug 'posva/vim-vue'                                              " Vue syntax
-Plug 'leafgarland/typescript-vim'                                 " TypeScript support
-Plug 'peitalin/vim-jsx-typescript'                                " TypeScript with React support
-Plug 'jalvesaq/nvim-r'                                            " R support
-Plug 'chrisbra/csv.vim'                                           " Browse csv files
-Plug 'neovimhaskell/haskell-vim'                                  " Better Haskell support
-Plug 'lervag/vimtex'                                              " LaTeX support
-Plug 'pantharshit00/vim-prisma'                                   " Prisma 2 support
-Plug 'jparise/vim-graphql'                                        " GraphQL support
-Plug 'dag/vim-fish'                                               " Fish script support
-Plug 'LeonGr/neovim-expand-selection'                             " My own plugin
-Plug 'janko-m/vim-test'                                           " Vim wrapper for running tests
-Plug 'puremourning/vimspector'                                    " Debugger for vim
-Plug 'adelarsq/neofsharp.vim'
-Plug 'windwp/nvim-autopairs'                                      " Auto pairs
-Plug 'sakhnik/nvim-gdb', { 'do': ':!./install.sh' }               " GDB/LLDB/BashDB wrapper
-Plug 'xiyaowong/nvim-cursorword'                                  " Underline the word under the cursor
-Plug 'gelguy/wilder.nvim', { 'do': ':UpdateRemotePlugins'}        " command-line completion tweaks
-Plug 'nvim-lua/popup.nvim'                                        " vim compatible popups in neovim
-Plug 'kyazdani42/nvim-web-devicons'                               " filetype icons for plugins (e.g. telescope)
-Plug 'glepnir/galaxyline.nvim' , {'branch': 'main'}               " Lua Statusline
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn'  }  " Markdown preview (:MarkdownPreview)
+" (require checks file in ~/.config/nvim/lua)
+lua require('init')
 
-" nvim-cmp (replaces nvim-compe)
-Plug 'hrsh7th/nvim-cmp'                                         " Completion for Neovim
-    Plug 'hrsh7th/cmp-nvim-lsp'                                 " nvim-cmp source for neovim builtin LSP client
-    Plug 'hrsh7th/cmp-buffer'                                   " nvim-cmp source for buffer words
-    Plug 'hrsh7th/cmp-path'                                     " nvim-cmp source for paths
-    Plug 'ray-x/cmp-treesitter'                                 " nvim-cmp source for treesitter
-    Plug 'quangnguyen30192/cmp-nvim-ultisnips'                  " ultisnips completion source for nvim-cmp
+" Color settings
+syntax enable
+syntax on
+let g:gruvbox_italic=1 " alacritty supports italics, enable it
+colorscheme gruvbox
 
-" Telescope
-Plug 'nvim-telescope/telescope.nvim'                              " fuzzy finder over lists
-Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' } " port of fzf
-
-" neovim LSP plugins
-Plug 'neovim/nvim-lspconfig'                                      " Collection of common configs for neovim LSP client
-    Plug 'nvim-lua/lsp_extensions.nvim'                           " Extensions to built-in LSP, for example, providing type inlay hints
-    " Plug 'nvim-lua/completion-nvim'                               " Autocompletion framework for built-in LSP
-    Plug 'nvim-lua/lsp-status.nvim'                               " Get information about the current language server
-    " Plug 'steelsojka/completion-buffers'                          " Buffer completion source
-    Plug 'jose-elias-alvarez/nvim-lsp-ts-utils'                   " TypeScript lsp functions
-    Plug 'ojroques/nvim-lspfuzzy'                                 " Replace LSP windows with fzf ones
-    Plug 'jubnzv/virtual-types.nvim'                              " Show type annotations
-
-" TreeSitter
-Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}       " Treesitter configurations and abstraction layer for Neovim
-Plug 'nvim-treesitter/playground', {'do': ':TSInstall query'}     " View treesitter information directly in Neovim
-
-" Themes
-Plug 'vim-airline/vim-airline-themes'
-Plug 'chriskempson/vim-tomorrow-theme'
-Plug 'flazz/vim-colorschemes'
-Plug 'altercation/vim-colors-solarized'
-Plug 'jdkanani/vim-material-theme'
-Plug 'nanotech/jellybeans.vim'
-"Plug 'morhetz/gruvbox' " already added by vim-colorschemes
-Plug 'dkasak/gruvbox'   " Fork that fixes haskell highlight issues
-Plug 'marcopaganini/termschool-vim-theme'
-Plug 'godlygeek/csapprox'
-Plug 'jacoborus/tender'
-Plug 'endel/vim-github-colorscheme'
-Plug 'larsbs/vimterial'
-Plug 'bcicen/vim-vice'
-Plug 'dylanaraps/wal.vim'
-Plug 'chriskempson/base16-vim'
-call plug#end()
+" LSP settings
+lua require('lsp')
+" DAP settings
+lua require('dap_settings')
 
 " Scrolling
 set mouse=a
-"set guicursor= " to disable guicursor
 " Blinking cursors and styles
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,i-ci-cr-ve-r:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+
+" Show substitute in real time
+set inccommand=nosplit
+
+" Set shell
+set shell=/usr/bin/bash
+
+" Turn of swap files
+set noswapfile
 
 " Show commands as they're typed
 set showcmd
 
 " Highlight current line
 set cursorline
-
-" Turn of swap files
-set noswapfile
-
-" Show substitute in real time
-set inccommand=nosplit
-
-" Color configurations
-if (has("termguicolors"))
-    set termguicolors
-endif
-
-" Set shell
-set shell=/usr/bin/bash
+highlight CursorLine guibg=#212020
 
 " Enable file type identification, plugin and indenting
 filetype plugin indent on
-
-" Color settings
-syntax enable
-syntax on
-"set t_Co=256
-" let g:gruvbox_italic=1 " urxvt supports italics, enable it
-let g:gruvbox_italic=1 " alacritty supports italics, enable it
-colorscheme gruvbox
 
 " WSL yank support
 let s:clip = '/mnt/c/Windows/System32/clip.exe'  " change this path according to your mount point
@@ -155,7 +58,6 @@ if executable(s:clip)
         autocmd TextYankPost * if v:event.operator ==# 'y' | call system(s:clip, @0) | endif
     augroup END
 endif
-
 " Make line nr and background fit terminal background
 highlight Normal guibg=NONE ctermbg=NONE
 highlight LineNr guibg=NONE
@@ -166,26 +68,13 @@ highlight link FloatBorder Normal
 " Hide(0)/Only for more than 1 window(1)/Show(2) statusline
 set laststatus=2
 
-" Statusline for when it is visible
-" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
-" set statusline=\ %{FugitiveHead()}\ \ %0.50F\ %=%l,%c\ \ %p%%\ %{StatusLineLsp()}\  " comment so we don't have trailing whitespace
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Use wal colors for statusline
-" source ~/.cache/wal/colors-wal.vim
-" execute 'highlight StatusLine guifg='   . background
-" execute 'highlight StatusLine guibg='   . color2
-" execute 'highlight StatusLineNC guifg=' . color2
-" execute 'highlight StatusLineNC guibg=' . background
-
-" execute 'highlight StatusLine guibg='   . background
-" execute 'highlight StatusLineNC guibg=' . color2
-
-function! StatusLineLsp()
-    let l:ls = LspStatus()
-    return strlen(l:ls) > 0 ? '  「'.l:ls.'」' : ''
-endfunction
+if isdirectory("~/.cache/wal/")
+    source ~/.cache/wal/colors-wal.vim
+endif
 
 " Line numbers
 set number relativenumber
@@ -202,17 +91,13 @@ highlight VertSplit guibg=NONE
 " See :help 'fo-table'/'formatoptions'
 " Stop automatic new line of comment after CTRL-O
 autocmd FileType * setlocal formatoptions-=o
-"autocmd FileType * setlocal formatoptions-=r
-"autocmd FileType * setlocal formatoptions-=c
 
 " Searching improvements
-set incsearch       "Lookahead as search pattern is specified
-set ignorecase      "Ignore case in all searches...
+set incsearch       " Lookahead as search pattern is specified
+set ignorecase      " Ignore case in all searches...
 set smartcase       " ...unless uppercase letters used
 
-set hlsearch        "Highlight all matches
-"highlight clear Search
-" highlight Search guifg=#000000 guibg=#FFFFFF
+set hlsearch        " Highlight all matches
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
 
 " Use undofile for persistent undo
@@ -224,171 +109,43 @@ set undodir=~/.vimundo/
 set backspace=2
 
 " Leader commands
-let mapleader = "\<Space>"
-let maplocalleader = "\<Space>"
 
-nnoremap <Leader>;     g;
-nnoremap <Leader>,     g,
+" Save
 nnoremap <Leader>w     :w<CR>
-nnoremap <Leader>x     :x<CR>
+" Toggle between current and last buffer
 nnoremap <Leader><tab> :b#<CR>
-vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
-vnoremap <Leader>c     :'<,'>w !pbcopy<CR>  <CR>
-" nnoremap <Leader>b     :Buffers<CR>
-nnoremap <Leader>b     :Telescope buffers<CR>
-" nnoremap <Leader>f     :Lines<CR>
+" Close current buffer
+nnoremap <Leader>x :bdelete<CR>
+" Remove training whitespace
+nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
+" Toggle case of first letter of current word
+nnoremap <Leader>u     m`viw<ESC>b~``
+
+" Telescope leader commands
 nnoremap <Leader>f     :Telescope current_buffer_fuzzy_find<CR>
 "nnoremap <Leader>g     :GFiles?<CR>
 nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
 " nnoremap <Leader>p     :GFiles<CR>
 nnoremap <Leader>p     :Telescope git_files<CR>
-nnoremap <Leader>r     :Rg<CR>
-" nnoremap <Leader>r     :Telescope live_grep<CR>
-" nnoremap <Leader>/     :BLines<CR>
-nnoremap <Leader>v     :call TrimWhiteSpace()<CR>
-nnoremap <Leader>q     :copen<CR>
+nnoremap <Leader>l     :Telescope buffers<CR>
+nnoremap <Leader>m     :Telescope keymaps<CR>
+nnoremap <Leader>r     :Telescope live_grep<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
-     map <Leader>m     :ExpSel<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
+
+" Enter/Return creates a new line
+nnoremap <CR> o<ESC>
+
+" Use escape to leave terminal mode
+tnoremap <Esc> <C-\><C-n>
 
 " Removes trailing spaces
 function TrimWhiteSpace()
   %s/\s*$//
   ''
 endfunction
-
-" Make alt-<hjkl> act as arrows in fzf window
-function ArrowMap()
-    tnoremap <M-h> <left>
-    tnoremap <M-j> <down>
-    tnoremap <M-k> <up>
-    tnoremap <M-l> <right>
-endfunction
-
-autocmd! FileType fzf call ArrowMap()
-
-" Enable per-command history
-" - History files will be stored in the specified directory
-" - When set, CTRL-N and CTRL-P will be bound to 'next-history' and
-"   'previous-history' instead of 'down' and 'up'.
-let g:fzf_history_dir = '~/.local/share/fzf-history'
-
-" Let FZF be a floating window
-let $FZF_DEFAULT_OPTS='--layout=reverse'
-let g:fzf_layout = { 'window': 'call FloatingFZF()' }
-
-function! FloatingFZF()
-    " Original
-    "let buf = nvim_create_buf(v:false, v:true)
-    "call setbufvar(buf, '&signcolumn', 'no')
-
-    "let height = &lines - 3
-    "let width = float2nr(&columns - (&columns * 2 / 10))
-    "let col = float2nr((&columns - width) / 2)
-
-    "let opts = {
-        "\ 'relative': 'editor',
-        "\ 'row': 1,
-        "\ 'col': col,
-        "\ 'width': width,
-        "\ 'height': height
-        "\ }
-
-    "let win = nvim_open_win(buf, v:true, opts)
-    "call setwinvar(win, '&relativenumber', 0)
-
-    "let width = min([&columns - 4, max([80, &columns - 20])])
-    "let height = min([&lines - 4, max([20, &lines - 10])])
-
-    " With Border
-    let height = &lines - 3
-    let width = float2nr(&columns - (&columns * 2 / 10))
-    let top = ((&lines - height) / 2) - 1
-    let left = (&columns - width) / 2
-    let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-    let top = "╭" . repeat("─", width - 2) . "╮"
-    let mid = "│" . repeat(" ", width - 2) . "│"
-    let bot = "╰" . repeat("─", width - 2) . "╯"
-    " let top = "╔" . repeat("═", width - 2) . "╗"
-    " let mid = "║" . repeat(" ", width - 2) . "║"
-    " let bot = "╚" . repeat("═", width - 2) . "╝"
-    let lines = [top] + repeat([mid], height - 2) + [bot]
-    let s:buf = nvim_create_buf(v:false, v:true)
-    call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-    call nvim_open_win(s:buf, v:true, opts)
-    set winhl=Normal:Floating
-    let opts.row += 1
-    let opts.height -= 2
-    let opts.col += 2
-    let opts.width -= 4
-    call nvim_open_win(nvim_create_buf(v:false, v:true), v:true, opts)
-    au BufWipeout <buffer> exe 'bw '.s:buf
-endfunction
-
-let g:FloatingQFOpen = 0
-function! FloatingQuickfix(timer)
-    if g:FloatingQFOpen == 0
-        " Because FloatingQuickfix calls cclose and copen it  would trigger the autocmd again,
-        " so we set this variable to 1 to stop creating an infinite loop
-        let g:FloatingQFOpen = 1
-
-        "let height = &lines - 3
-        "let width = float2nr(&columns - (&columns * 2 / 10))
-        "let col = float2nr((&columns - width) / 2)
-        "let opts = { 'relative': 'editor', 'row': 1, 'col': col, 'width': width, 'height': height }
-
-        let height = &lines - 3
-        let width = float2nr(&columns - (&columns * 2 / 10))
-        let top = ((&lines - height) / 2) - 1
-        let left = (&columns - width) / 2
-        let opts = {'relative': 'editor', 'row': top, 'col': left, 'width': width, 'height': height, 'style': 'minimal'}
-
-        "let top = "╭" . repeat("─", width - 2) . "╮"
-        "let mid = "│" . repeat(" ", width - 2) . "│"
-        "let bot = "╰" . repeat("─", width - 2) . "╯"
-        let top = "╔" . repeat("═", width - 2) . "╗"
-        let mid = "║" . repeat(" ", width - 2) . "║"
-        let bot = "╚" . repeat("═", width - 2) . "╝"
-        let lines = [top] + repeat([mid], height - 2) + [bot]
-        let s:buf = nvim_create_buf(v:false, v:true)
-        call nvim_buf_set_lines(s:buf, 0, -1, v:true, lines)
-        call nvim_open_win(s:buf, v:true, opts)
-        set winhl=Normal:Floating
-
-        let buf = nvim_create_buf(v:false, v:true)
-        call setbufvar(buf, '&signcolumn', 'no')
-
-        " Close and open QF window so bn opens it instead of the file we're editing
-        cclose | copen
-
-        let opts.row += 1
-        let opts.height -= 2
-        let opts.col += 2
-        let opts.width -= 4
-
-        " Open floating window
-        let win = nvim_open_win(buf, v:true, opts)
-        " Set content to QF buffer | close original QF window
-        bn | cclose
-
-        " Make transparent
-        set winhl=Normal:Floating
-        set number
-        " If we leave the buffer, close the floating window and reset the variable
-        autocmd BufLeave * ++once :bd! | let g:FloatingQFOpen = 0 | echo '' | exe 'bw '.s:buf
-        " After opening, show message in highlight style of ModeMsg
-        echohl ModeMsg | echo ' -- QUICKFIX -- ' | echohl None
-    endif
-endfunction
-
-" Call opening function after 1ms delay, otherwise neovim complains that we cannot use cclose yet
-autocmd BufWinEnter quickfix call timer_start(1, 'FloatingQuickfix', {'repeat': 1})
-
-" Close quickfix window on escape
-nmap <silent><expr> <esc> (&buftype == "quickfix" ? ':bd<CR>' : '<esc>')
 
 " Tern for vim settings
 let g:tern_show_argument_hints='on_hold'
@@ -399,8 +156,6 @@ let g:nerdtree_tabs_open_on_gui_startup = 0
 let NERDTreeShowHidden = 1
 
 " Auto pairs settings
-" let g:AutoPairsShortcutToggle = '<M-p>'
-"let g:AutoPairsMapCR=1
 let g:PairsOn = 1
 function ToggleAutoPairs()
     if g:PairsOn == 1
@@ -416,23 +171,8 @@ endfunction
 
 nnoremap <M-p> <cmd>call ToggleAutoPairs()<CR>
 
-"vCoolor settings
+" vCoolor settings
 let g:vcoolor_map = '<M-z>'
-
-" HardTime settings
-let g:hardtime_default_on = 1
-let g:list_of_normal_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>", "w", "b", "e"]
-let g:list_of_visual_keys = ["h", "j", "k", "l", "-", "+", "<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:list_of_insert_keys = ["<UP>", "<DOWN>", "<LEFT>", "<RIGHT>"]
-let g:list_of_disabled_keys = []
-let g:hardtime_maxcount = 4
-let g:hardtime_ignore_quickfix = 1
-let g:hardtime_ignore_buffer_patterns = [ "NERD.*", "help" ]
-
-"Retain indentation on next line (apparently not needed with filetype indent)
-" set autoindent
-"Turn on autoindenting of blocks
-" set smartindent
 
 " Number of spaces that a Tab is
 set tabstop=4
@@ -446,11 +186,6 @@ set list listchars=tab:»·,trail:-
 
 " Some css complete thing I guess is needed
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS noci
-
-" nvim-compe
-" inoremap <silent><expr> <C-Space> compe#complete()
-" inoremap <silent><expr> <CR>      compe#confirm(luaeval("require 'nvim-autopairs'.autopairs_cr()"))
-" inoremap <silent><expr> <C-e>     compe#close('<C-e>')
 
 highlight link CmpDocumentation Pmenu
 highlight link CmpDocumentationBorder Pmenu
@@ -467,15 +202,20 @@ highlight NormalFloat ctermbg=gray guibg=none
 " set completeopt=menuone,noselect
 set completeopt=menu,menuone,noselect
 
-" Set Ultisnips/snippets expansion key
-let g:UltiSnipsExpandTrigger       = "<c-s>"
-let g:UltiSnipsJumpForwardTrigger  = "<c-l>"
-let g:UltiSnipsJumpBackwardTrigger = "<c-k>"
+""" Set vsnip snippets keys
+" Expand
+imap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : ''
+smap <expr> <C-s>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : ''
 
-" (require checks file in ~/.config/nvim/lua)
-lua require('init')
-" LSP settings
-lua require('lsp')
+" Expand or jump
+" imap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : ''
+" smap <expr> <C-l>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : ''
+
+" Jump forward or backward
+imap <expr> <C-l>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : ''
+smap <expr> <C-l>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : ''
+imap <expr> <C-k>   vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : ''
+smap <expr> <C-k>   vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : ''
 
 """ LSP mappings
 
@@ -516,14 +256,19 @@ nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
 " Goto previous/next diagnostic warning/error
 nnoremap gj <cmd>lua vim.diagnostic.goto_next()<CR>
-
 nnoremap gk <cmd>lua vim.diagnostic.goto_prev()<CR>
 
 " Show diagnostic popup
 nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", border = "single" })<CR>
 
 " Rename
-nnoremap gw <cmd>lua vim.lsp.buf.rename()<CR>
+nnoremap ge <cmd>lua vim.lsp.buf.rename()<CR>
+
+" Show runnables (Rust)
+nnoremap <silent>gu :RustRunnables<CR>
+
+" Show debuggables (Rust)
+nnoremap <silent>gy :RustDebuggables<CR>
 
 
 " Avoid showing extra messages when using completion
@@ -533,92 +278,29 @@ set shortmess+=c
 " 300ms of no cursor movement to trigger CursorHold
 set updatetime=300
 
-" Enable type inlay hints
-autocmd CursorMoved,InsertLeave,BufEnter,BufWinEnter,TabEnter,BufWritePost *.rs
-\ lua require'lsp_extensions'.inlay_hints{ prefix = ' » ', highlight = "Comment" }
-
-" Statusline
-function! LspStatus() abort
-    if luaeval('#vim.lsp.buf_get_clients() > 0')
-        try
-            return luaeval("vim.lsp.buf_get_clients()[1].name")
-        catch
-            return 'LSP: '
-        endtry
-    endif
-
-    return ''
-endfunction
-
 " ALE - Asynchronous Linter Engine settings
-
-"highlight link ALEError Error
-"highlight Warning term=underline cterm=underline ctermfg=Yellow gui=undercurl guisp=Gold
-"highlight link ALEWarning Warning
-"highlight link ALEInfo SpellCap
-
 nnoremap <Leader>e :call ale#cursor#ShowCursorDetail()<CR>
 nnoremap <silent> <Leader>j :ALENextWrap<CR>
 nnoremap <silent> <Leader>k :ALEPreviousWrap<CR>
 
 let g:ale_linters = {
             \ 'python'  : ['flake8', 'mypy', 'bandit'],
-            \ 'rust'    : ['rustc', 'rls', 'cargo'],
             \ 'haskell' : ['cabal_ghc', 'ghc-mod', 'hdevtools', 'hie', 'hlint', 'stack_build', 'stack_ghc'],
+            \ 'rust'    : [],
             \ }
 
 let g:ale_echo_msg_error_str = 'E'
 let g:ale_echo_msg_warning_str = 'W'
 let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
 let g:ale_rust_rustc_options = ''
-"let g:ale_lint_on_text_changed = 'never'
-"let g:ale_lint_on_save = 'never'
-"let g:ale_lint_on_insert_leave = 0
-"let g:ale_lint_on_enter = 0
-
-function JavaAbbrs()
-    " Java Abbrs
-    abbr Sout System.out.println("
-    abbr SOut System.out.print("
-    abbr fori for(int i = 0, x = .length; i < x; i++)
-    abbr psv public static void main(String[] args)
-endfunction
-
-function JsAbbrs()
-    " Java Abbrs
-    abbr fori for(let i = 0, x = .length; i < x; i++)
-    abbr clog console.log
-endfunction
-
-autocmd FileType java call JavaAbbrs()
-autocmd FileType vue call JsAbbrs()
-autocmd FileType javascript call JsAbbrs()
 
 " make :Q work as :q
 cabbr Q q
-
-" xkcd scroll through time instead of space
-"set mouse=a
-"nnoremap <ScrollWheelUp> u
-"nnoremap <ScrollWheelDown> <C-R>
 
 " Vim-vue settings
 autocmd FileType vue syntax sync fromstart
 " Only try scss
 let g:vue_pre_processors = ['scss', 'typescript']
-
-" settings :: Nvim-R plugin
-" R output is highlighted with current colorscheme
-let g:rout_follow_colorscheme = 1
-
-" R commands in R output are highlighted
-let g:Rout_more_colors = 1
-
-let R_in_buffer = 0
-let R_applescript = 0
-"let R_tmux_split = 1
-
-let R_source = '~/.config/nvim/plugged/nvim-r/R/tmux_split.vim'
 
 " Indentguide settings
 let g:indent_guides_guide_size = 1
@@ -638,17 +320,6 @@ highlight QuickScopeSecondary guifg=#57c7ff gui=underline,bold
 " Set highlight priority to override nvim-cursorword highlight
 let g:qs_hi_priority = 10
 
-" GitGutter settings
-let g:gitgutter_sign_removed = '—'
-" Put this in gruvbox.vim to remove signcolumn background
-    "call s:HL('GruvboxRedSign', s:red, s:none, s:bold)
-    "call s:HL('GruvboxGreenSign', s:green, s:none, s:bold)
-    "call s:HL('GruvboxYellowSign', s:yellow, s:none, s:bold)
-    "call s:HL('GruvboxBlueSign', s:blue, s:none, s:bold)
-    "call s:HL('GruvboxPurpleSign', s:purple, s:none, s:bold)
-    "call s:HL('GruvboxAquaSign', s:aqua, s:none, s:bold)
-    "call s:HL('GruvboxOrangeSign', s:orange, s:none, s:bold)
-
 " Emmet settings
 let g:user_emmet_mode='i'
 
@@ -656,12 +327,7 @@ let g:user_emmet_mode='i'
 let g:NERDAltDelims_c = 1 " Use // for C
 let g:NERDSpaceDelims = 1 " Add space after comment delimiter
 
-"augroup SyntaxSettings
-    "autocmd!
-    "autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-"augroup END
-
-"" vim-test
+" vim-test
 let test#strategy = "neovim"
 let test#neovim#term_position = "vertical"
 nnoremap <Leader>tt :TestNearest<CR>
@@ -669,105 +335,44 @@ nnoremap <Leader>tf :TestFile<CR>
 nnoremap <Leader>ts :TestSuite<CR>
 nnoremap <Leader>tl :TestLast<CR>
 
-"" vimspector
-" nnoremap <Leader>sa :call vimspector#Launch()<CR>
-" nnoremap <Leader>sd :TestNearest -strategy=jest<CR>
-" nnoremap <Leader>sw :call AddToWatch()<CR>
-" nnoremap <Leader>sx :call vimspector#Reset()<CR>
-" nnoremap <Leader>s_ :call vimspector#ClearBreakpoints()<CR>
-" nnoremap <Leader>sr :call vimspector#Restart()<CR>
-" nnoremap <Leader>sc :call vimspector#Continue()<CR>
-" nnoremap <Leader>sb :call vimspector#ToggleBreakpoint()<CR>
-" nnoremap <Leader>sh :call vimspector#RunToCursor()<CR>
-" nnoremap <Leader>so :call vimspector#StepOut()<CR>
-" nnoremap <Leader>si :call vimspector#StepInto()<CR>
-" nnoremap <Leader>sn :call vimspector#StepOver()<CR>
+" nvim-dap
+nnoremap <Leader>s_ :lua require'dap'.clear_breakpoints()<CR>
+nnoremap <Leader>sr :lua require'dap'.run_last()<CR>
+nnoremap <Leader>sc :lua require'dap'.continue()<CR>
+nnoremap <Leader>sb :lua require'dap'.toggle_breakpoint()<CR>
+nnoremap <Leader>sB :lua require'dap'.set_breakpoint(vim.fn.input('Breakpoint condition: '))<CR>
+nnoremap <Leader>sl :lua require'telescope'.extensions.dap.list_breakpoints()<CR>
+nnoremap <Leader>sv :lua require'telescope'.extensions.dap.variables()<CR>
+nnoremap <Leader>sh :lua require'dap'.run_to_cursor()<CR>
+nnoremap <Leader>so :lua require'dap'.step_out()<CR>
+nnoremap <Leader>si :lua require'dap'.step_into()<CR>
+nnoremap <Leader>sn :lua require'dap'.step_over()<CR>
+nnoremap <Leader>sw :lua require'dap.ui.widgets'.hover()<CR>
+nnoremap <Leader>sg :lua require'dapui'.toggle()<CR>
+nnoremap <Leader>s  <NOP>
 
-" " Method to start debugging of test
-" function! JestStrategy(cmd)
-    " let testName = matchlist(a:cmd, '\v -t ''(.*)''')[1]
-    " call vimspector#LaunchWithSettings( #{ configuration: 'jest', TestName: testName } )
-" endfunction
-" let g:test#custom_strategies = {'jest': function('JestStrategy')}
-
-" " Method to add expression to debugger watch list
-" func! AddToWatch()
-    " let word = expand("<cexpr>")
-    " call vimspector#AddWatch(word)
-" endfunction
-
-"" nvim-gdb
-
-nnoremap <Leader>sb :GdbBreakpointToggle<CR>
-nnoremap <Leader>s_ :GdbBreakpointClearAll<CR>
-nnoremap <Leader>sh :GdbUntil<CR>
-nnoremap <Leader>sc :GdbContinue<CR>
-nnoremap <Leader>so :GdbFrameUp<CR>
-nnoremap <Leader>si :GdbFrameDown<CR>
-nnoremap <Leader>sn :GdbStep<CR>
-nnoremap <Leader>sw :GdbEvalWord<CR>
-nnoremap <Leader>sx :GdbDebugStop<CR>
-nnoremap <Leader>sr :GdbInterrupt<CR>
-
-"" nvim-cursorword
-highlight CursorWord gui=reverse
+" nvim-cursorword
+let g:cursorword_min_width = 2
+highlight CursorWord guibg=#423F3C gui=none
 
 autocmd InsertEnter * highlight clear CursorWord
-autocmd InsertLeave * highlight CursorWord gui=reverse
+autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 
-" wilder.nvim
-call wilder#enable_cmdline_enter()
-set wildcharm=<Tab>
-cmap <expr> <Tab> wilder#in_context() ? wilder#next() : "\<Tab>"
-cmap <expr> <S-Tab> wilder#in_context() ? wilder#previous() : "\<S-Tab>"
+" git-blame.nvim
 
-" Enable for search (/,? and commands :)
-call wilder#set_option('modes', ['/', '?', ':'])
+" Disable by default (toggle with :GitBlameToggle)
+let g:gitblame_enabled = 0
 
-" Enable fuzzy searching
-call wilder#set_option('pipeline', [
-      \   wilder#branch(
-      \     wilder#cmdline_pipeline({
-      \       'fuzzy': 1,
-      \     }),
-      \     wilder#python_search_pipeline({
-      \       'pattern': 'fuzzy',
-      \     }),
-      \   ),
-      \ ])
+" lewis6991/gitsigns.nvim
 
-" Set highlighters
-let s:highlighters = [
-        \ wilder#pcre2_highlighter(),
-        \ wilder#basic_highlighter(),
-        \ ]
-
-" pop-up rather than in statusline (for commands)
-" call wilder#set_option('renderer', wilder#renderer_mux({
-      " \ ':': wilder#popupmenu_renderer({
-      " \   'highlighter': s:highlighters,
-      " \ }),
-      " \ '/': wilder#wildmenu_renderer({
-      " \   'highlighter': s:highlighters,
-      " \ }),
-      " \ }))
-
-call wilder#set_option('renderer', wilder#wildmenu_renderer({
-      \   'highlighter': s:highlighters,
-      \ }))
-
-"" nvim-gdb
-let g:nvimgdb_disable_start_keymaps = 1
-
-function! Nothing()
-    tnoremap <silent> <buffer> <esc> <c-\><c-n>
-endfunction
-
-let g:nvimgdb_config_override = {
-  \ 'set_tkeymaps':   'Nothing',
-  \ 'set_keymaps':    'Nothing',
-  \ 'unset_keymaps':  'Nothing',
-  \ }
+" remove sign column background for gitsigns
+highlight GruvboxRedSign guibg=none
+highlight GruvboxGreenSign guibg=none
+highlight GruvboxYellowSign guibg=none
+highlight GruvboxBlueSign guibg=none
+highlight GruvboxPurpleSign guibg=none
+highlight GruvboxAquaSign guibg=none
+highlight GruvboxOrangeSign guibg=none
 
 augroup ConfigureKitty
     au!

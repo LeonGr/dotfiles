@@ -1,10 +1,11 @@
 #!/bin/sh
 
-json=$(curl -s https://am.i.mullvad.net/json)
+json=$( curl -s https://am.i.mullvad.net/json )
 server=$(echo "$json" | jq --raw-output '.mullvad_exit_ip_hostname')
 
 if [ "$server" = "null" ]; then
-    echo "$json" | jq --raw-output '.ip'
+    ip=$(echo "$json" | jq --raw-output '.ip')
+    echo " $ip"
 else
-    echo "$server"
+    echo " $server"
 fi

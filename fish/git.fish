@@ -1,8 +1,6 @@
 # migrating from https://github.com/robbyrussell/oh-my-zsh/blob/master/plugins/git/git.plugin.zsh
 
 # Aliases
-alias g='git'
-#compdef g=git
 alias gst='git status'
 #compdef _git gst=git-status
 alias gd='git diff'
@@ -16,6 +14,9 @@ alias gup='git pull --rebase'
 alias gp='git push'
 #compdef _git gp=git-push
 alias gd='git diff'
+#compdef _git gd=git-diff
+alias gds='git diff --staged'
+#compdef _git gd=git-diff
 
 function gdv
   git diff -w $argv | view -

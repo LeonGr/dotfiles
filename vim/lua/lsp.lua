@@ -1,6 +1,43 @@
+-- configure diagnostics
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+    vim.lsp.diagnostic.on_publish_diagnostics, {
+        underline = true,
+        virtual_text = true,
+        signs = true,
+        update_in_insert = true,
+    }
+)
+
+-- set inline diagnostics prefix
+vim.diagnostic.config({
+    virtual_text = {
+        prefix = "",
+    },
+})
+
+-- add border to hover
+vim.lsp.handlers["textDocument/hover"] =
+  vim.lsp.with(
+  vim.lsp.handlers.hover,
+  {
+    border = "single"
+  }
+)
+
+-- add border to signature
+vim.lsp.handlers["textDocument/signatureHelp"] =
+  vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  {
+    border = "single"
+  }
+)
+
 -- lspconfig object
 local lspconfig = require'lspconfig'
-local configs = require'lspconfig/configs'
+
+-- add popup border
+require('lspconfig.ui.windows').default_options.border = 'single'
 
 require('gitsigns').setup {
     signs = {
@@ -14,8 +51,7 @@ require('gitsigns').setup {
 
 -- function to attach completion and diagnostics
 -- when setting up lsp
-local on_attach = function(client)
-    -- require'completion'.on_attach(client)
+local on_attach = function(_)
     require'virtualtypes'.on_attach()
 end
 
@@ -28,11 +64,75 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
     'additionalTextEdits',
   }
 }
+
 local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
 -- Enable rust_analyzer (Rust)
 lspconfig.rust_analyzer.setup({ capabilities=capabilities })
--- lspconfig.rust_analyzer.setup({ capabilities=capabilities; on_attach=on_attach })
+
+local rust_tools = require('rust-tools')
+
+-- Configure LSP through rust-tools.nvim plugin.
+-- rust-tools will configure and enable certain LSP features for us.
+-- See https://github.com/simrat39/rust-tools.nvim#configuration
+-- From https://sharksforarms.dev/posts/neovim-rust/
+local opts = {
+  tools = {
+    runnables = {
+      use_telescope = true,
+    },
+    inlay_hints = {
+      auto = true,
+      show_parameter_hints = true,
+      -- parameter_hints_prefix = "",
+      -- other_hints_prefix = "",
+    },
+    reload_workspace_from_cargo_toml = true,
+      hover_actions = {
+          auto_focus = true,
+      }
+  },
+
+  -- all the opts to send to nvim-lspconfig
+  -- these override the defaults set by rust-tools.nvim
+  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
+  server = {
+    -- on_attach is a callback called when the language server attachs to the buffer
+    on_attach = function(client, bufnr)
+        on_attach(client)
+
+        -- Hover actions
+        vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
+    end,
+    settings = {
+      -- to enable rust-analyzer settings visit:
+      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
+      ["rust-analyzer"] = {
+        -- enable clippy on save
+        checkOnSave = {
+          command = "clippy",
+          extraArgs = {"--", "-W", "clippy::pedantic"},
+        },
+        procMacro = {
+            enable = true,
+        },
+        cargo = {
+            allFeatures = true;
+        }
+      },
+    },
+  },
+  -- debugging
+  dap = {
+      adapter = require('rust-tools.dap').get_codelldb_adapter(
+        'codelldb',
+        '/lib/liblldb.so'
+      )
+  },
+}
+
+-- Enable rust-tools
+rust_tools.setup(opts)
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
@@ -42,32 +142,22 @@ lspconfig.pylsp.setup({
     capabilities=capabilities;
     on_attach=on_attach;
     settings = {
-        pyls = {
+        pylsp = {
             configurationSources = { "flake8" } -- reads ~/.config/flake8
-            }
         }
+    }
 })
 
 -- Enable vscode language servers (HTML, CSS, JSON)
 lspconfig.cssls.setup({ capabilities=capabilities; on_attach=on_attach })
 lspconfig.html.setup({ capabilities=capabilities; on_attach=on_attach })
-lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach; cmd={"json-languageserver", "--stdio"} })
+lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable flow (JavaScript)
 lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
--- Enable java_language_server (Java)
-lspconfig.java_language_server.setup({
-    capabilities=capabilities;
-    on_attach=on_attach;
-    cmd={ "/usr/share/java/java-language-server/lang_server_linux.sh" };
-    settings = {
-        java = {
-            home = "/usr/lib/jvm/default/"
-        }
-    }
-})
-
+-- Enable jdtls (Java)
+lspconfig.jdtls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
@@ -80,25 +170,16 @@ lspconfig.tsserver.setup({
 })
 
 -- Enable bashls (Bash)
-lspconfig.bashls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.bashls.setup({ capabilities=capabilities })
 
 -- Enable vim-language-server (vimscript)
-lspconfig.vimls.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.vimls.setup({ capabilities=capabilities })
 
 -- Enable Vue Language Server (Vue.js)
-lspconfig.vuels.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.volar.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable Clangd (C/C++)
-lspconfig.clangd.setup({
-    capabilities=capabilities;
-    -- on_attach=on_attach
-})
+lspconfig.clangd.setup({ capabilities=capabilities })
 
 -- Enable TexLab (LaTeX)
 --lspconfig.texlab.setup({ on_attach=on_attach })

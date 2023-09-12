@@ -2,43 +2,52 @@
 set -x HISTSIZE 999999999
 set -x SAVEHIST $HISTSIZE
 
-# aliases
+### aliases ###
 alias phpserver='php -S localhost:8000'
 alias pythonserver='python -m http.server'
 alias py='python'
 alias :wq='exit'
 alias :q='exit'
-alias ack='ack-grep'
-alias msfconsole="/opt/metasploit/msfconsole -x \"db_connect $USER@msf\""
-alias p='xclip -o'
 alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum: " && playerctl metadata "xesam:album" && echo "\nArtist: " && playerctl metadata "xesam:albumArtist"'
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-#alias status='sudo systemctl status'
-alias stop='sudo systemctl stop'
-alias start='sudo systemctl start'
-alias restart='sudo systemctl restart'
 alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
-# alias aurfind="paru -Slq | fzf -m --preview 'cat (paru -Si {1} | psub) (paru -Fl {1} | awk \"{print \$2}\" | psub)' | xargs -ro  paru -S"
-#alias aurfind="paru -Slq | fzf -m --preview 'cat <(paru -Si {1}) <(paru -Fl {1} | awk \"{print \$2}\")' | xargs -ro  paru -S"
-# alias tmux='TERM=xterm-256color /usr/bin/tmux' # make cursor work
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
-alias weechat='TERM=tmux-256color /usr/bin/weechat'
+alias g.='git status .'
+alias dmesg='dmesg -H'
+alias gswi='git_switch_fzf'
+# ssh targets
+alias calli='ssh leon@callisto'
+alias gany='ssh pi@ganymedes'
+alias euro='ssh leon@europa'
+alias leda='ssh leon@leda'
+alias elara='ssh root@elara'
 
-# ls -> exa
-alias exa='exa --git'
-alias ls='exa'
-alias ll='exa -l'
-alias la='exa -la'
-alias lt='exa -T'
-alias lr='exa -R'
-alias lat='exa -laT'
-alias lar='exa -laR'
+# 'hostname' requires inetutils (on Arch)
+if test (hostname) = "callisto"
+    alias weechat='TERM=tmux-256color /usr/bin/weechat'
+else
+    alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
+end
+
+# ls -> eza
+alias eza='eza --git'
+alias ls='eza'
+alias ll='eza -l'
+alias la='eza -la'
+alias lt='eza -T'
+alias lr='eza -R'
+alias lat='eza -laT'
+alias lar='eza -laR'
+
+# deleting (https://github.com/andreafrancia/trash-cli)
+alias rm='echo "Use trash (t)"; false'
+alias t='trash'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
@@ -59,30 +68,38 @@ source ~/.config/fish/git.fish
 # set neovim as editor
 set -x SUDO_EDITOR /usr/bin/nvim
 set -x EDITOR /usr/bin/nvim
-
-# set location of z files
-set -x Z_DATA /home/leon/z/.z.
-
 set -x COLORTERM "truecolor"
 
-# print coloured motd
-#cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
-
-# print randomly coloured fish logo
-function random_fish
-    set colors '["bf8b56", "bfbf56", "8bbf56", "56bf8b", "568bbf", "8b56bf", "bf568b", "bf5656", "ffffff"]'
-    set color_sample (python -c 'import random; print(" ".join(random.sample('$colors', 3)))')
-    set args (string split ' ' $color_sample)
-    fish_logo $args
-    echo ""
-end
 
 #  only execute these in tty
 if tty > /dev/null
-    random_fish
+    if status --is-interactive
+        funcsave --quiet take
+
+        # if fancy_motd command exists
+        if command -v fancy_motd &> /dev/null
+            # if $TMUX is unset, i.e. not inside tmux
+            if test -z "$TMUX"
+                fancy_motd
+            end
+        else
+            # print coloured motd
+            # cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+
+            # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
+            pokemon-colorscripts --random 1-5
+        end
+
+
+        if type -q backup_check &> /dev/null
+            backup_check
+        end
+    end
 
     # source wal colors
-    cat ~/.cache/wal/sequences &
+    if test -e ~/.cache/wal/sequences
+        cat ~/.cache/wal/sequences &
+    end
 end
 
 
@@ -102,7 +119,12 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-set PATH $PATH "$HOME/.cargo/bin:$PATH"
+fish_add_path -a "$HOME/.cargo/bin"
+
+# add personal bins to path
+fish_add_path -a "$HOME/bin"
+
+set -x GOPATH "$HOME/.go"
 
 # needed for pinentry-tty gpg-agent
 set -x GPG_TTY (tty)
@@ -110,29 +132,16 @@ set -x GPG_TTY (tty)
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
 
-# fuck alias
-function fuck -d "Correct your previous console command"
-    set -l fucked_up_command $history[1]
-    env TF_SHELL=fish TF_ALIAS=fuck PYTHONIOENCODING=utf-8 thefuck $fucked_up_command THEFUCK_ARGUMENT_PLACEHOLDER $argv | read -l unfucked_command
+function start_keychain
+    keychain --eval $SSH_KEYS_TO_AUTOLOAD | source
+end
 
-    if [ "$unfucked_command" != "" ]
-        eval $unfucked_command
-        builtin history delete --exact --case-sensitive -- $fucked_up_command
-        builtin history merge
+if status is-interactive
+    # Add set -U SSH_KEYS_TO_AUTOLOAD <key-1> <key-2> ... <key-n>
+    # to ~/.config/fish/conf.d/fish-ssh-agent.fish
+    if which keychain &> /dev/null
+        start_keychain &> /tmp/keychain.log
     end
-end
-
-# theme-updater with automatic history merge
-function udt
-    theme-updater &
-    builtin history merge
-end
-
-# fish Vi-style keybindings with Emacs keybindings in insert mode
-function fish_user_key_bindings
-    fish_default_key_bindings -M insert
-    fish_vi_key_bindings --no-erase insert
-    fzf_key_bindings
 end
 
 # Insert mode cursor should be line

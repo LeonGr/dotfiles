@@ -32,7 +32,7 @@
     prompt = false
 
 [mergetool "vimdiff"]
-    path = nvim
+    path = vim
 [bash]
 	showInformativeStatus = false
 

@@ -1,48 +1,200 @@
 ------ Lua settings
 
--- configure diagnostics
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics, {
-        underline = true,
-        virtual_text = true,
-        signs = true,
-        update_in_insert = true,
-    }
-)
+-- install lazy.nvim (plugin management)
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not vim.loop.fs_stat(lazypath) then
+  vim.fn.system({
+    "git",
+    "clone",
+    "--filter=blob:none",
+    "https://github.com/folke/lazy.nvim.git",
+    "--branch=stable", -- latest stable release
+    lazypath,
+  })
+end
+vim.opt.rtp:prepend(lazypath)
 
--- set inline diagnostics prefix
-vim.diagnostic.config({
-    virtual_text = {
-        prefix = "",
+-- configure plugins
+local plugins = {
+    -- Misc
+    'tpope/vim-surround',                                                   -- Wrap text easily
+    { 'mattn/emmet-vim',                                                    -- html autocomplete
+        ft = { "html", "vue" }
     },
+    'scrooloose/nerdcommenter',                                             -- Easy commenting and uncommenting
+    'tpope/vim-obsession',                                                  -- Save vim sessions
+    'aserowy/tmux.nvim',                                                    -- Neovim tmux integration
+    { 'unblevable/quick-scope',                                             -- Higlight words when you press f or t
+      event = 'VeryLazy' },
+    'chip/vim-fat-finger',                                                  -- Series of abbreviations for vim
+    'tpope/vim-repeat',                                                     -- Repeat more than one command
+    'godlygeek/tabular',                                                    -- Easy text align
+    'nvim-lua/plenary.nvim',                                                -- Library that wraps neovim functions
+    'dense-analysis/ale',                                                   -- Async Lint Engine
+    'KabbAmine/vCoolor.vim',                                                -- Colour picker (Alt-Z)
+    'yaroot/vissort',                                                       -- Sort by visual block
+    'norcalli/nvim-colorizer.lua',                                          -- Color highlighter
+    {'cakebaker/scss-syntax.vim',                                           -- SCSS support
+        ft = "scss"
+    },
+    'nathanaelkane/vim-indent-guides',                                      -- Indentation guides
+    'LeonGr/neovim-expand-selection',                                       -- My own plugin
+    'janko-m/vim-test',                                                     -- Vim wrapper for running tests
+    'windwp/nvim-autopairs',                                                -- Auto pairs
+    'xiyaowong/nvim-cursorword',                                            -- Underline the word under the cursor
+    { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },               -- command-line completion tweaks
+    'nvim-lua/popup.nvim',                                                  -- vim compatible popups in neovim
+    'glepnir/galaxyline.nvim',                                              -- Lua Statusline
+    {'akinsho/bufferline.nvim',                                             -- Lua Bufferline
+        dependencies = 'nvim-tree/nvim-web-devicons'                        -- filetype icons for plugins (e.g. telescope)
+    },
+    { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
+    'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
+
+                                                                            -- debugging
+    {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
+        dependencies = {
+            'rcarriga/nvim-dap-ui',                                         -- UI for nvim-dap
+            'theHamsta/nvim-dap-virtual-text',                              -- Variable values as virtual text
+        },
+        ft = { "rust", "c", "cpp", "python",  },
+    },
+
+    -- mason
+    { 'williamboman/mason.nvim',                                            -- Package manager for neovim LSP servers, DAP servers, etc.
+        dependencies = {
+            'williamboman/mason-lspconfig.nvim'                             -- bridge between lspconfig & mason.nvim
+        },
+        lazy = false,
+    },
+
+    -- git
+    'lewis6991/gitsigns.nvim',                                              -- Show git changes
+    'tpope/vim-fugitive',                                                   -- Git wrapper
+    { 'f-person/git-blame.nvim',                                            -- Git blame in Neovim
+      event = 'VeryLazy' },
+
+    -- snippets
+    {'hrsh7th/vim-vsnip',                                                   -- Snippet engine (+ snippets)
+        dependencies = {
+            'hrsh7th/cmp-vsnip',                                            -- nvim-cmp integration
+            'hrsh7th/vim-vsnip-integ',                                      -- LSP integration
+            'rafamadriz/friendly-snippets',                                 -- Extra snippets
+        }
+    },
+
+    -- languages
+    {'pangloss/vim-javascript', ft = "javascript", },                       -- Javascript support
+    {'keith/swift.vim', ft = "swift" },                                     -- Swift syntax and indent styles
+    {'dag/vim-fish', ft = "fish" },                                         -- Fish script support
+    {'chrisbra/csv.vim', ft = "csv" },                                      -- Browse csv files
+    {'neovimhaskell/haskell-vim', ft = "haskell" },                         -- Better Haskell support
+    {'posva/vim-vue', ft = "vue", },                                        -- Vue syntax
+    {'leafgarland/typescript-vim', ft = "typescript" },                     -- TypeScript support
+    {'peitalin/vim-jsx-typescript', ft = "typescript" },                    -- TypeScript with React support
+    {'pantharshit00/vim-prisma', ft = "prisma" },                           -- Prisma 2 support
+    {'jparise/vim-graphql', ft = "graphql" },                               -- GraphQL support
+    {'Kranex/vim-rascal-syntax', ft = "rascal" },                           -- Rascal support
+
+    -- nvim-cmp
+    {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
+        -- event = "InsertEnter",
+        dependencies = {
+            'hrsh7th/cmp-nvim-lsp',                                         -- nvim-cmp source for neovim builtin LSP client
+            'hrsh7th/cmp-buffer',                                           -- nvim-cmp source for buffer words
+            'hrsh7th/cmp-path',                                             -- nvim-cmp source for paths
+            'ray-x/cmp-treesitter',                                         -- nvim-cmp source for treesitter
+        }
+    },
+
+    -- Telescope
+    {'nvim-telescope/telescope.nvim',                                       -- fuzzy finder over lists with popups
+        dependencies = {
+            { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" }, -- port of fzf
+            'nvim-telescope/telescope-dap.nvim',                            -- nvim-dap integration with telescope
+        }
+    },
+
+    -- neovim LSP plugins
+    {'neovim/nvim-lspconfig',
+        dependencies = {
+            'nvim-lua/lsp_extensions.nvim',                                 -- Extensions to built-in LSP, for example, providing type inlay hints
+            'nvim-lua/lsp-status.nvim',                                     -- Get information about the current language server
+            'jose-elias-alvarez/nvim-lsp-ts-utils',                         -- TypeScript lsp functions
+            'ojroques/nvim-lspfuzzy',                                       -- Replace LSP windows with fzf ones
+            'jubnzv/virtual-types.nvim',                                    -- Show type annotations
+            'simrat39/rust-tools.nvim',                                     -- Extra Rust LSP tools (fixes inlay-hints)
+        }
+    },                                                                      -- Collection of common configs for neovim LSP client
+
+    -- TreeSitter
+    { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },             -- Treesitter configurations and abstraction layer for Neovim
+
+    -- Themes
+    'dkasak/gruvbox',
+    {'vim-airline/vim-airline-themes', lazy = true, },
+    {'chriskempson/vim-tomorrow-theme', lazy = true, },
+    {'flazz/vim-colorschemes', lazy = true, },
+    {'altercation/vim-colors-solarized', lazy = true, },
+    {'jdkanani/vim-material-theme', lazy = true, },
+    {'nanotech/jellybeans.vim', lazy = true, },
+    {'marcopaganini/termschool-vim-theme', lazy = true, },
+    {'godlygeek/csapprox', lazy = true, },
+    {'jacoborus/tender', lazy = true, },
+    {'endel/vim-github-colorscheme', lazy = true, },
+    {'larsbs/vimterial', lazy = true, },
+    {'bcicen/vim-vice', lazy = true, },
+    {'dylanaraps/wal.vim', lazy = true, },
+    {'chriskempson/base16-vim', lazy = true, },
+}
+
+local opts = {
+    ui = {
+        border = "single",
+    },
+}
+
+require("lazy").setup(plugins, opts)
+
+-- set colors
+local colors = require('galaxyline.theme').default
+
+-- helper functions to determine if file exists
+local function expand_tilde(path)
+  if path:sub(1, 1) == '~' then -- Check if path starts with tilde
+    local home = os.getenv('HOME') or os.getenv('USERPROFILE')
+    return home .. path:sub(2) -- Replace tilde with home directory path
+  else
+    return path
+  end
+end
+
+local function file_exists(path)
+  path = expand_tilde(path)
+  local stat = vim.loop.fs_stat(path)
+  return stat and stat.type == 'file'
+end
+
+if file_exists("~/.cache/wal/colors.json") then
+    local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
+    local wal_colors = vim.fn.json_decode(colorjson)
+    colors.white = wal_colors.special.foreground
+    colors.fg = wal_colors.special.foreground
+    colors.bg = wal_colors.special.background
+    colors.wal_blue = wal_colors.colors.color2
+else
+    colors.wal_blue = colors.blue
+end
+
+-- configure mason
+require("mason").setup({
+    ui = {
+        border = "single",
+    }
 })
-
--- local border_vertical   = "║"
--- local border_horizontal = "═"
--- local border_topleft    = "╔"
--- local border_topright   = "╗"
--- local border_botleft    = "╚"
--- local border_botright   = "╝"
--- local border_juncleft   = "╠"
--- local border_juncright  = "╣"
-
--- add border to hover
-vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "single"
-  }
-)
-
--- add border to signature
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "single"
-  }
-)
+require("mason-lspconfig").setup({
+    ensure_installed = { "lua_ls", "rust_analyzer" },
+})
 
 ---- lewis6991/gitsigns.nvim
 require('gitsigns').setup {
@@ -60,7 +212,7 @@ require'nvim-treesitter.configs'.setup {
     ensure_installed = "all",
     highlight = {
         enable = true,              -- false will disable the whole extension
-        --disable = { "c", "rust" },  -- list of language that will be disabled
+        disable = { "markdown", "gitcommit" },   -- list of language that will be disabled
     },
     incremental_selection = {
         enable = true,
@@ -78,15 +230,10 @@ require'nvim-treesitter.configs'.setup {
 
 ---- aserowy/tmux.nvim
 require'tmux'.setup {
-    -- overwrite default configuration
-    -- here, e.g. to enable default bindings
     copy_sync = {
         -- enables copy sync and overwrites all register actions to
         -- sync registers *, +, unnamed, and 0 till 9 from tmux in advance
-        enable = false, -- MANUALLY disable setting vim.g.clipboard in tmux.nvim/lua/tmux/copy.lua
-        -- TMUX >= 3.2: yanks (and deletes) will get redirected to system
-        -- clipboard by tmux
-        redirect_to_clipboard = true,
+        enable = false,
     },
     navigation = {
         -- enables default keybindings (C-hjkl) for normal mode
@@ -103,13 +250,13 @@ local cmp = require'cmp'
 cmp.setup {
     snippet = {
         expand = function(args)
-            vim.fn["UltiSnips#Anon"](args.body)
+            vim.fn["vsnip#anonymous"](args.body)
         end,
     },
     mapping = {
         ['<C-Space>'] = cmp.mapping.complete(),
         ['<C-e>'] = cmp.mapping.close(),
-        ['<CR>'] = cmp.mapping.confirm({ select = true }),
+        ['<CR>'] = cmp.mapping.confirm({ select = false }),
         ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ['<Down>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
         ['<S-Tab>'] = cmp.mapping(cmp.mapping.select_prev_item(), { 'i', 's' }),
@@ -117,7 +264,7 @@ cmp.setup {
     },
     sources = {
         { name = 'nvim_lsp' },
-        { name = 'ultisnips' },
+        { name = 'vsnip' },
         { name = 'buffer' },
         { name = 'path' },
         { name = 'treesitter' },
@@ -126,10 +273,6 @@ cmp.setup {
         documentation = {
             border = { ' ', ' ' ,' ', ' ', ' ', ' ', ' ', ' ' },
             winhighlight = "NormalFloat:CmpDocumentation,FloatBorder:CmpDocumentationBorder",
-            -- max_width = 120,
-            -- min_width = 60,
-            -- max_height = math.floor(vim.o.lines * 0.3),
-            -- min_height = 1,
         };
     }
 }
@@ -164,6 +307,8 @@ require'telescope'.setup {
         mappings = {
             i = {
                 ["<C-u>"] = false,
+                ["<C-Down>"] = require('telescope.actions').cycle_history_next,
+                ["<C-Up>"] = require('telescope.actions').cycle_history_prev,
             }
         },
         layout_config = {
@@ -173,15 +318,48 @@ require'telescope'.setup {
         },
         sorting_strategy = "ascending"
     },
-    extensions = {
-        fzf = {
-
-        }
-    }
 }
 
 require'telescope'.load_extension('fzf')
+require'telescope'.load_extension('dap')
 
+local function get_visual_selection()
+    local s_start = vim.fn.getpos("v")
+    local s_end = vim.fn.getpos(".")
+
+    local n_lines = math.abs(s_end[2] - s_start[2]) + 1
+
+    local lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+
+    -- check if start and end positions are different, if not, we just send the selected lines.
+    -- this breaks on VISUAL LINE with multiple lines, but oh well
+    if not (s_start[2] == s_end[2] and s_start[3] == s_end[3]) then
+        lines = vim.api.nvim_buf_get_lines(0, s_start[2] - 1, s_end[2], false)
+        lines[1] = string.sub(lines[1], s_start[3], -1)
+
+        if n_lines == 1 then
+            lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3] - s_start[3] + 1)
+        else
+            lines[n_lines] = string.sub(lines[n_lines], 1, s_end[3])
+        end
+    end
+
+    return table.concat(lines, '\n')
+end
+
+-- search for the current selection (globally)
+vim.keymap.set('v', '<Leader>R', function()
+    local text = get_visual_selection()
+    print("search current selection - selected text:", text)
+    require('telescope.builtin').grep_string({ default_text = text })
+end, { expr = false })
+
+-- search for the current selection (current file)
+vim.keymap.set('v', '<Leader>F', function()
+    local text = get_visual_selection()
+    print("search current selection - selected text:", text)
+    require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text })
+end, { expr = false })
 
 ---- glepnir/galaxyline.nvim
 
@@ -189,38 +367,36 @@ require'telescope'.load_extension('fzf')
 local gl = require'galaxyline'
 local condition = require'galaxyline.condition'
 
+condition.not_dap_ui = function()
+    return vim.o.filetype:find("dap") == nil
+end
+
 local gls = gl.section
 
 gl.short_line_list = {" "}
 
-local colors = require('galaxyline.theme').default
-local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
-local wal_colors = vim.fn.json_decode(colorjson)
-colors.white = wal_colors.special.foreground
-colors.fg = wal_colors.special.foreground
-colors.wal_blue = wal_colors.colors.color2
-
 vim.cmd("highlight StatusLine guibg=" .. colors.bg)
 vim.cmd("highlight StatusLine guifg=" .. colors.fg)
-vim.cmd("highlight StatusLineNC guibg=" .. colors.wal_blue)
+vim.cmd("highlight StatusLineNC guibg=" .. colors.bg)
 
 gls.left[1] = {
     FirstElement = {
         provider = function()
             return "▋"
         end,
-        highlight = {colors.wal_blue, colors.wal_blue}
+        highlight = {colors.wal_blue, colors.wal_blue},
     }
 }
 
 gls.left[2] = {
     statusIcon = {
         provider = function()
-            return "  "
+            return " 󰀘 "
         end,
         highlight = {colors.bg, colors.wal_blue},
         separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        separator_highlight = {colors.wal_blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -231,11 +407,12 @@ gls.left[3] = {
             -- :~ = relative to ~ if possible
             -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return "  " .. dir_name .. " "
+            return "  " .. dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
         separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
+        separator_highlight = {colors.bg, colors.wal_blue},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -243,7 +420,7 @@ gls.left[4] = {
     FileIcon = {
         provider = "FileIcon",
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue}
+        highlight = {colors.bg, colors.wal_blue},
     }
 }
 
@@ -257,46 +434,12 @@ gls.left[5] = {
     }
 }
 
--- local checkwidth = function()
-    -- local squeeze_width = vim.fn.winwidth(0) / 2
-    -- if squeeze_width > 30 then
-        -- return true
-    -- end
-    -- return false
--- end
-
--- gls.left[6] = {
-    -- DiffAdd = {
-        -- provider = "DiffAdd",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.white, colors.bg}
-    -- }
--- }
-
--- gls.left[6] = {
-    -- DiffModified = {
-        -- provider = "DiffModified",
-        -- condition = checkwidth,
-        -- icon = "   ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
-
--- gls.left[7] = {
-    -- DiffRemove = {
-        -- provider = "DiffRemove",
-        -- condition = checkwidth,
-        -- icon = "  ",
-        -- highlight = {colors.fg, colors.bg}
-    -- }
--- }
-
 gls.left[6] = {
     DiagnosticError = {
         provider = "DiagnosticError",
         icon = "  ",
-        highlight = {colors.red, colors.bg}
+        highlight = {colors.red, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -304,7 +447,8 @@ gls.left[7] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
         icon = "  ",
-        highlight = {colors.yellow, colors.bg}
+        highlight = {colors.yellow, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -325,16 +469,17 @@ gls.right[1] = {
                 return ""
             end
         end,
-        highlight = {colors.fg, colors.bg}
+        highlight = {colors.fg, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
 gls.right[2] = {
     GitIcon = {
         provider = function()
-            return " "
+            return " "
         end,
-        condition = require("galaxyline.condition").check_git_workspace,
+        condition = condition.check_git_workspace and condition.not_dap_ui,
         highlight = {colors.fg, colors.bg},
         separator = " ",
         separator_highlight = {colors.bg, colors.bg}
@@ -344,8 +489,8 @@ gls.right[2] = {
 gls.right[3] = {
     GitBranch = {
         provider = "GitBranch",
-        condition = require("galaxyline.condition").check_git_workspace,
-        highlight = {colors.fg, colors.bg}
+        condition = condition.check_git_workspace and condition.not_dap_ui,
+        highlight = {colors.fg, colors.bg},
     }
 }
 
@@ -406,7 +551,8 @@ gls.right[6] = {
         end,
         separator = "",
         separator_highlight = {colors.green, colors.bg},
-        highlight = {colors.bg, colors.green}
+        highlight = {colors.bg, colors.green},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -417,15 +563,11 @@ gls.right[7] = {
             local current_col = vim.fn.col(".")
             local total_line = vim.fn.line("$")
 
-            -- if current_line == 1 then
-                -- return "  Top "
-            -- elseif current_line == vim.fn.line("$") then
-                -- return "  Bot "
-            -- end
             local result, _ = math.modf((current_line / total_line) * 100)
             return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
         end,
-        highlight = {colors.green, colors.bg}
+        highlight = {colors.green, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
@@ -439,46 +581,123 @@ gls.short_line_left[1] = {
 }
 
 gls.short_line_left[2] = {
-    ShortLinestatusIcon = {
-        provider = function()
-            return " ⏾ "
-        end,
-        highlight = {colors.wal_blue, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
-    }
-}
-
-gls.short_line_left[3] = {
     ShortLinecurrent_dir = {
         provider = function()
             -- :p = full path
             -- :~ = relative to ~ if possible
-            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            print(vim.fn.expand('%:p:h'))
-            return "  " .. dir_name .. " "
+            return dir_name
         end,
-        highlight = {colors.bg, colors.wal_blue},
-        separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        highlight = {colors.wal_blue, colors.bg},
+        condition = condition.not_dap_ui,
     }
 }
 
-gls.short_line_left[4] = {
-    ShortLineFileIcon = {
-        provider = "FileIcon",
-        condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg}
-    }
-}
-
-gls.short_line_left[5] = {
+gls.short_line_left[3] = {
     ShortLineFileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
         highlight = {colors.wal_blue, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue}
     }
 }
+
+---- akinsho/bufferline.nvim
+local bufferline = require("bufferline")
+bufferline.setup{
+    options = {
+        style_preset = bufferline.style_preset.no_italic,
+        -- diagnostics = "nvim_lsp",
+        -- diagnostics_indicator = function(count, level, _, _)
+            -- local icon = level:match("error") and " " or " "
+            -- return " " .. icon .. count
+        -- end,
+        diagnostics = false,
+        separator_style = "none",
+        indicator = {
+            style = "icon",
+        },
+        numbers = function(opt)
+            return string.format('%s', opt.raise(opt.ordinal))
+        end,
+    },
+    highlights = {
+        buffer_selected = {
+            italic = false,
+        },
+        numbers_selected = {
+            italic = false,
+        },
+        indicator_selected = {
+            fg = colors.wal_blue,
+        }
+    }
+}
+
+local function go_to_buffer(ordinal_buffer_nr)
+    -- open buffer with given nr.
+    -- 'true' means that absolute buffer nr should be used
+    bufferline.go_to(ordinal_buffer_nr, true)
+end
+
+vim.api.nvim_create_user_command(
+    'BB',
+    function(opts)
+        -- print(opts)
+        go_to_buffer(opts.args)
+    end,
+    { nargs = 1}
+)
+
+for i = 1,9 do
+    vim.keymap.set('n', '<leader>' .. i, function() go_to_buffer(i) end, {})
+end
+
+---- gelguy/wilder.nvim
+
+local wilder = require('wilder')
+
+-- Enable for search (/,? and commands :)
+wilder.setup({modes = {':', '/', '?'}})
+
+wilder.set_option('pipeline', {
+    wilder.branch(
+        wilder.cmdline_pipeline({
+            fuzzy = 1,
+        }),
+        wilder.python_search_pipeline({
+            -- can be set to wilder#python_fuzzy_delimiter_pattern() for stricter fuzzy matching
+            pattern = wilder.python_fuzzy_pattern(),
+        })
+    ),
+})
+
+wilder.set_option('renderer', wilder.wildmenu_renderer({
+    highlighter = {
+        wilder.basic_highlighter(),
+    },
+    right = {' ', wilder.wildmenu_index()},
+    highlights = {
+        default = "Normal",
+        accent = wilder.make_hl(
+            'WilderAccent',
+            'Normal',
+            {
+                {a = 1}, {a = 1}, { foreground = colors.wal_blue }
+            }
+        ),
+        selected = wilder.make_hl(
+            'WilderSelected',
+            'Normal',
+            {
+                {a = 1}, {a = 1}, { reverse = 1 }
+            }
+        ),
+        -- selected_accent = wilder.make_hl(
+            -- 'WilderSelectedAccent',
+            -- 'Normal',
+            -- {
+                -- {a = 1}, {a = 1}, { reverse = 1, background = colors.red }
+            -- }
+        -- ),
+    },
+}))

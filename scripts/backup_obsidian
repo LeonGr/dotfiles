@@ -1,0 +1,5 @@
+#!/bin/bash
+
+cp -r ~/Sync/Obsidian ./obsidian_copy
+zip -r ~/Documents/backup/Obsidian/"$(date '+%Y-%m-%d').zip" ./obsidian_copy
+rm -r ./obsidian_copy
