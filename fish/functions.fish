@@ -10,9 +10,8 @@ end
 # show when last backup was
 function backup_check
     set backup_datetime (systemctl show backup.service --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' '')
-    set current_datetime (date)
     set backup_datetime_epoch (date --date=$backup_datetime '+%s')
-    set current_datetime_epoch (date --date=$current_datetime '+%s')
+    set current_datetime_epoch (date '+%s')
     set days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
 
     echo -e "Last backup: $backup_datetime"
