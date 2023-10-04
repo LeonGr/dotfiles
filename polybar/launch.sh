@@ -66,7 +66,7 @@ for monitor in $otherMonitors
 do
     echo $monitor
     center=""
-    right="powermenu"
+    right="time powermenu"
     font0="DejaVu Sans Mono:bold:size=14;1.5"
     font1="Terminess Nerd Font Mono:size=18;2"
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"
