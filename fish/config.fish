@@ -27,6 +27,8 @@ alias gany='ssh pi@ganymedes'
 alias euro='ssh leon@europa'
 alias leda='ssh leon@leda'
 alias elara='ssh root@elara'
+alias b='bat'
+alias c='cat'
 
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
