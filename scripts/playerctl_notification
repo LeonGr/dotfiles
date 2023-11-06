@@ -44,10 +44,20 @@ fi
 
 STATUS=$(playerctl -p "$PLAYER" status)
 if [[ $STATUS = "Playing" ]]; then
-    STATUS=""
+    STATUS="󰐊"
 else
-    STATUS=""
+    STATUS="󰏤"
+fi
+
+if [[ $(playerctl -p "$PLAYER" shuffle) = "On" ]]; then
+    STATUS="${STATUS} 󰒟"
+fi
+
+if [[ $(playerctl -p "$PLAYER" loop) = "Playlist" ]]; then
+    STATUS="${STATUS} 󱞲"
+elif [[ $(playerctl -p "$PLAYER" loop) = "Track" ]]; then
+    STATUS="${STATUS} 󱦙"
 fi
 
 # Show notification
-/usr/bin/notify-send -u low "$SONG $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
+/usr/bin/notify-send -u low "$SONG / $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
