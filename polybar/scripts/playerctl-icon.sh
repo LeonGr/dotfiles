@@ -3,7 +3,7 @@
 PLAYERS=$(playerctl -l 2>/dev/null)
 
 if [[ $PLAYERS == "" ]]; then
-    exit 0
+    echo ""
 elif [[ $PLAYERS == *"Sonixd"* ]]; then
     PLAYER="Sonixd"
 elif [[ $PLAYERS == *"spotify"* ]]; then
