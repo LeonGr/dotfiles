@@ -69,6 +69,10 @@
 "amixer set Master toggle"
    XF86AudioMute
 
+# Show playerctl info
+"/home/leon/dotfiles/polybar/scripts/playerctl-icon-click.sh"
+   XF86Tools
+
 #Screenshot
 "scrot -e 'mv $f ~/Pictures/Screenshots/'"
     m:0x0 + c:107
