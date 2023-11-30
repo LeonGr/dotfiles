@@ -84,12 +84,12 @@ if tty > /dev/null
             if test -z "$TMUX"
                 fancy_motd
             end
-        else
-            # print coloured motd
-            # cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
-
+        else if command -v pokemon-colorscripts &> /dev/null
             # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
             pokemon-colorscripts --random 1-5
+        else if test -d ~/dotfiles/motd/ &> /dev/null
+            # print coloured motd
+            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
         end
 
 
