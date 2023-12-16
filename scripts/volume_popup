@@ -1,11 +1,19 @@
+#!/bin/bash
+
 # based on: https://unix.stackexchange.com/a/474300
+
+if pgrep -f pavucontrol >/dev/null; then
+    pkill pavucontrol
+    exit 0
+fi
+
 pavucontrol &
 pid="$!"
 
 # Wait for the window to open and grab its window ID
 winid=''
 while : ; do
-    winid="`wmctrl -lp | awk -vpid=$pid '$3==pid {print $1; exit}'`"
+    winid="$(wmctrl -lp | awk -vpid=$pid '$3==pid {print $1; exit}')"
     [[ -z "${winid}" ]] || break
 done
 
@@ -19,6 +27,3 @@ i3-msg resize set 725 925 > /dev/null;
 
 # Move it to the center for good measure
 i3-msg move position 6955 50 > /dev/null;
-
-# Wait for the application to quit
-wait "${pid}";
