@@ -67,6 +67,9 @@ end
 # git aliases
 source ~/.config/fish/git.fish
 
+# cargo aliases
+source ~/.config/fish/cargo.fish
+
 # set neovim as editor
 set -x SUDO_EDITOR /usr/bin/nvim
 set -x EDITOR /usr/bin/nvim
