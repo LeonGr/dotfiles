@@ -23,7 +23,7 @@ wmctrl -ia "${winid}"
 # Make it float
 i3-msg floating enable > /dev/null;
 
-i3-msg resize set 725 925 > /dev/null;
+i3-msg resize set 735 925 > /dev/null;
 
 # Move it to the center for good measure
-i3-msg move position 6955 42 > /dev/null;
+i3-msg move position 6945 42 > /dev/null;
