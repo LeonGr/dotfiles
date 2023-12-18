@@ -115,8 +115,8 @@ local opts = {
   -- debugging
   dap = {
       adapter = require('rust-tools.dap').get_codelldb_adapter(
-        'codelldb',
-        '/lib/liblldb.so'
+        os.getenv("HOME") .. '/.local/share/nvim/mason/bin/codelldb',
+        os.getenv("HOME") .. '/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.so'
       )
   },
 }
