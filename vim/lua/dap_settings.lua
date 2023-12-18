@@ -5,6 +5,8 @@ vim.api.nvim_set_hl(0, 'DapBreakpoint', { ctermbg=0, fg='#993939' })
 vim.fn.sign_define('DapStopped', { text='', texthl='DapStopped', numhl='DapStopped' })
 vim.api.nvim_set_hl(0, 'DapStopped', { ctermbg=0, fg='#98c379' })
 
+vim.api.nvim_set_hl(0, 'NvimDapVirtualText', { ctermbg=0, fg='#FFFFFF', italic=true })
+
 -- Use codeLLDB
 dap.adapters.codelldb = {
     type = 'server',
