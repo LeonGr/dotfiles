@@ -81,6 +81,11 @@ if tty > /dev/null
     if status --is-interactive
         funcsave --quiet take
 
+        # register atuin
+        if command -v atuin &> /dev/null
+            atuin init fish | source
+        end
+
         # if fancy_motd command exists
         if command -v fancy_motd &> /dev/null
             # if $TMUX is unset, i.e. not inside tmux
