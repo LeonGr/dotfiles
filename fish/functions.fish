@@ -7,19 +7,54 @@ function random_fish
     echo ""
 end
 
+function backup_check_single
+    if set -q argv[1]
+        set backup_service "$argv[1]"
+
+        # Print name of service
+        echo $backup_service
+
+        # Print time of last backup
+        set backup_datetime (systemctl show $backup_service --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' '')
+        set backup_datetime_epoch (date --date=$backup_datetime '+%s')
+        set current_datetime_epoch (date '+%s')
+        set days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
+
+        echo -e "last backup: $backup_datetime"
+        if test $days_diff -gt 0
+            echo -e "[30;41m $days_diff days since last backup \033[0m"
+        end
+
+        # Print status of last backup
+        set backup_status (systemctl show -p MainPID -p ActiveState --value $backup_service)
+        set backup_status_type $backup_status[2]
+
+        echo -n "status: "
+        # for color codes see: https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+        switch $backup_status_type
+            case "failed"
+                echo -e -n "[30;41m" # red
+            case "active"
+                echo -e -n "[30;42m" # green
+            case "activating"
+                echo -e -n "[30;43m" # yellow
+            # case "inactive"
+                # echo -e -n "[30;44m" # blue
+        end
+        echo -n "$backup_status_type"
+        echo -e -n "\033[0m"
+        echo ""
+        echo ""
+
+    else
+        echo -e "No service supplied"
+    end
+end
+
 # show when last backup was
 function backup_check
-    set backup_datetime (systemctl show backup.service --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' '')
-    set backup_datetime_epoch (date --date=$backup_datetime '+%s')
-    set current_datetime_epoch (date '+%s')
-    set days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
-
-    echo -e "Last backup: $backup_datetime"
-    if test $days_diff -gt 0
-        echo -e "\033[30;41m $days_diff days since last backup \033[0m"
-    else
-        echo ""
-    end
+    backup_check_single backup.service
+    backup_check_single backup_restic.service
 end
 
 # command that creates a directory and then changes the current directory to it
