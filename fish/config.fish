@@ -27,6 +27,7 @@ alias gany='ssh pi@ganymedes'
 alias euro='ssh leon@europa'
 alias leda='ssh leon@leda'
 alias elara='ssh root@elara'
+alias pandia='ssh leon@pandia'
 alias b='bat'
 alias c='cat'
 
