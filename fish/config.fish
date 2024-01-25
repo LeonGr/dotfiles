@@ -84,7 +84,7 @@ if tty > /dev/null
 
         # register atuin
         if command -v atuin &> /dev/null
-            atuin init fish | source
+            atuin init fish --disable-up-arrow | source
         end
 
         # if fancy_motd command exists
