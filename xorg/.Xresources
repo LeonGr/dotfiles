@@ -1,5 +1,3 @@
-#include </home/leon/.termcolors/mikasa>
-
 #include "/home/leon/.Xresources_include"
 URxvt*termName:                 rxvt-256color
 URxvt*font: xft:DejaVu Sans Mono:size=12:antialias=true, xft:Inconsolata for Powerline:size=12, xft:TerminessTTF Nerd Font Mono:size=18, xtf:Noto Color Emoji:size=12, xft:DejaVu Sans Mono For Powerline:size=12
