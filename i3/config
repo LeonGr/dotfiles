@@ -122,6 +122,9 @@ bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
 
+# show program icons in stacked/tabbed title bars
+for_window [all] title_window_icon yes
+
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
 
