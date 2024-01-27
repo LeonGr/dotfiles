@@ -55,6 +55,7 @@ end
 function backup_check
     backup_check_single backup.service
     backup_check_single backup_restic.service
+    backup_check_single backup_restic_callisto.service
 end
 
 # command that creates a directory and then changes the current directory to it
