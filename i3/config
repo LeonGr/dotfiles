@@ -80,8 +80,8 @@ bindsym $mod+o exec rofi_obsidian \
     "$ROFI_FONT"
 
 # Emoji rofi shortcut (rofi-emoji on Arch)
-bindsym $mod+i exec rofi -show emoji -modi emoji \
-    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
+bindsym $mod+i exec rofimoji --files all \
+    --selector-args="-width 1000 -font '$ROFI_FONT' -theme ~/.cache/wal/colors-rofi.rasi -monitor -1"
 
 # Calculator rofi shortcut (rofi-calc on Arch)
 bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort \
@@ -121,6 +121,9 @@ bindsym $mod+f fullscreen toggle
 bindsym $mod+s layout stacking
 bindsym $mod+t layout tabbed
 bindsym $mod+e layout toggle split
+
+# show program icons in stacked/tabbed title bars
+for_window [all] title_window_icon yes
 
 # toggle tiling / floating
 bindsym $mod+Shift+space floating toggle
@@ -291,6 +294,9 @@ bindsym $mod+y mode "rename_workspace"
 
 # Launch feh in floating state
 for_window [class="feh"] floating enable
+
+# Launch pavucontrol in floating state (make popup (../scripts/volume_popup) not resize current window)
+for_window [class="Pavucontrol"] floating enable
 
 ### Styling
 

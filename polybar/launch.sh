@@ -22,7 +22,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     # left="bspwm"
     left="i3"
     center="xwindow"
-    right="updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
+    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
     interface="enp8s0"
 else
     echo "1080p"
@@ -36,7 +36,7 @@ else
     # left="bspwm xwindow"
     left="i3 xwindow"
     center=" "
-    right="updates-pacman-aurhelper filesystem battery date pulseaudio powermenu"
+    right="playerctl-icon updates-pacman-aurhelper filesystem battery date pulseaudio powermenu"
     interface="wlp2s0"
 fi
 
@@ -66,7 +66,7 @@ for monitor in $otherMonitors
 do
     echo $monitor
     center=""
-    right="powermenu"
+    right="time powermenu"
     font0="DejaVu Sans Mono:bold:size=14;1.5"
     font1="Terminess Nerd Font Mono:size=18;2"
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"

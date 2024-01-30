@@ -17,6 +17,8 @@ alias gd='git diff'
 #compdef _git gd=git-diff
 alias gds='git diff --staged'
 #compdef _git gd=git-diff
+alias gsw='git switch'
+#compdef _git gsw=git-switch
 
 function gdv
   git diff -w $argv | view -

@@ -13,12 +13,6 @@ else
     PLAYER="${PLAYERS[0]}"
 fi
 
-# Try to toggle playing status
-if ! playerctl -p "$PLAYER" play-pause; then
-    /usr/bin/notify-send -u low "No players found"
-    exit 1
-fi
-
 # Get song info
 ARTIST=$(playerctl -p "$PLAYER" metadata xesam:albumArtist)
 ALBUM=$(playerctl -p "$PLAYER" metadata xesam:album)

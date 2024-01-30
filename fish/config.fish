@@ -27,6 +27,9 @@ alias gany='ssh pi@ganymedes'
 alias euro='ssh leon@europa'
 alias leda='ssh leon@leda'
 alias elara='ssh root@elara'
+alias pandia='ssh leon@pandia'
+alias b='bat'
+alias c='cat'
 
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
@@ -65,6 +68,9 @@ end
 # git aliases
 source ~/.config/fish/git.fish
 
+# cargo aliases
+source ~/.config/fish/cargo.fish
+
 # set neovim as editor
 set -x SUDO_EDITOR /usr/bin/nvim
 set -x EDITOR /usr/bin/nvim
@@ -76,18 +82,23 @@ if tty > /dev/null
     if status --is-interactive
         funcsave --quiet take
 
+        # register atuin
+        if command -v atuin &> /dev/null
+            atuin init fish --disable-up-arrow | source
+        end
+
         # if fancy_motd command exists
         if command -v fancy_motd &> /dev/null
             # if $TMUX is unset, i.e. not inside tmux
             if test -z "$TMUX"
                 fancy_motd
             end
-        else
-            # print coloured motd
-            # cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
-
+        else if command -v pokemon-colorscripts &> /dev/null
             # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
             pokemon-colorscripts --random 1-5
+        else if test -d ~/dotfiles/motd/ &> /dev/null
+            # print coloured motd
+            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
         end
 
 

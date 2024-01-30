@@ -115,8 +115,8 @@ local opts = {
   -- debugging
   dap = {
       adapter = require('rust-tools.dap').get_codelldb_adapter(
-        'codelldb',
-        '/lib/liblldb.so'
+        os.getenv("HOME") .. '/.local/share/nvim/mason/bin/codelldb',
+        os.getenv("HOME") .. '/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.so'
       )
   },
 }
@@ -147,7 +147,50 @@ lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach })
 lspconfig.flow.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable jdtls (Java)
-lspconfig.jdtls.setup({ capabilities=capabilities; on_attach=on_attach })
+local jdtls = require('jdtls')
+
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+    pattern = { "*.java" },
+    callback = function()
+        local bundles = {
+            vim.fn.glob(os.getenv("HOME") .. '/.local/share/nvim/mason/share/java-debug-adapter/com.microsoft.java.debug.plugin.jar')
+        }
+
+        local config = {
+            cmd = {os.getenv("HOME") .. '/.local/share/nvim/mason/bin/jdtls'},
+            root_dir = vim.fs.dirname(vim.fs.find({'gradlew', '.git', 'mvnw'}, { upward = true })[1]),
+            on_attach = function()
+                -- With `hotcodereplace = 'auto' the debug adapter will try to apply code changes
+                -- you make during a debug session immediately.
+                -- Remove the option if you do not want that.
+                jdtls.setup_dap({
+                    -- hotcodereplace = 'auto'
+                })
+                jdtls.setup.add_commands()
+            end,
+            init_options = {
+                bundles = bundles
+            },
+            settings = {
+                java = {
+                    configuration = {
+                        runtimes = {
+                            {
+                                name = "JavaSE-19",
+                                path = '/usr/lib/jvm/java-19-openjdk/'
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        jdtls.start_or_attach(config)
+
+        -- find launch.json
+        require('dap.ext.vscode').load_launchjs()
+    end,
+})
 
 -- Enable typescript language server (Typescript)
 lspconfig.tsserver.setup({
@@ -196,3 +239,6 @@ lspconfig.lua_ls.setup({
         },
     },
 })
+
+-- Enable gopls (golang)
+lspconfig.gopls.setup({ capabilities=capabilities })

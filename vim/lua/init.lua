@@ -51,13 +51,16 @@ local plugins = {
     { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
     'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
 
-                                                                            -- debugging
+    -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
         dependencies = {
             'rcarriga/nvim-dap-ui',                                         -- UI for nvim-dap
             'theHamsta/nvim-dap-virtual-text',                              -- Variable values as virtual text
         },
-        ft = { "rust", "c", "cpp", "python",  },
+        ft = { "rust", "c", "cpp", "python", "java" },
+    },
+    {'mfussenegger/nvim-jdtls',                                               -- Debug Adapter Protocol (DAP) client implementation
+        ft = { "java" },
     },
 
     -- mason

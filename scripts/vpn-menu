@@ -1,6 +1,11 @@
 #!/bin/bash
 
-# LeonGr - 2021/07/25 
+if [ "$EUID" != 0 ]; then
+    sudo "$0" "$@"
+    exit $?
+fi
+
+# LeonGr - 2021/07/25
 
 log() {
     tput setaf 1; echo "### $1 ###"; tput sgr 0
