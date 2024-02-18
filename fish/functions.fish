@@ -112,3 +112,8 @@ function git_switch_fzf
         return -1
     end
 end
+
+# query ipinfo.io
+function ipinfo
+    curl -s "https://ipinfo.io/$argv[1]" | jq
+end
