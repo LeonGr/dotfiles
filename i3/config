@@ -50,7 +50,8 @@ bindsym Ctrl+q exec noctrlq
 bindsym $mod+u exec --no-startup-id tdrop --wm i3 -ma -w 60% -h 60% -x 20% -s dropdown kitty
 
 # Take a sized screenshot and copy to clipboard
-bindsym --release $mod+Shift+s exec --no-startup-id "scrot ~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png -s --exec 'xclip -selection clipboard -target image/png -in $f'"
+# bindsym --release $mod+Shift+s exec --no-startup-id "scrot ~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png -s --exec 'xclip -selection clipboard -target image/png -in $f'"
+bindsym --release $mod+Shift+s exec flameshot gui
 
 ## WM keybinds
 
