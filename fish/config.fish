@@ -130,10 +130,10 @@ set -x LESS_TERMCAP_mh (tput dim)
 set -x MANPAGER 'nvim +Man!'
 
 # add cargo bins to path
-fish_add_path -a "$HOME/.cargo/bin"
+fish_add_path --append "$HOME/.cargo/bin"
 
 # add personal bins to path
-fish_add_path -a "$HOME/bin"
+fish_add_path --append "$HOME/bin"
 
 set -x GOPATH "$HOME/.go"
 
