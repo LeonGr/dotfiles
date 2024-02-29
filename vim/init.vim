@@ -419,3 +419,6 @@ command! -nargs=1 -complete=command -bar -range Redir call Redir(<q-args>, <rang
 " This command definition doesn't include -bar, so that it is possible to use double quotes in external commands.
 " Side effect: Vim commands can't be "chained".
 command! -nargs=1 -complete=command -range Redir call Redir(<q-args>, <range>, <line1>, <line2>)
+
+" context.nvim
+highlight TreesitterContextBottom guibg=#383838
