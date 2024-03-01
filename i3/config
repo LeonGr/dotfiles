@@ -299,6 +299,9 @@ for_window [class="feh"] floating enable
 # Launch pavucontrol in floating state (make popup (../scripts/volume_popup) not resize current window)
 for_window [class="Pavucontrol"] floating enable
 
+# Launch vim color picker in floating state
+for_window [title="vCoolor"] floating enable
+
 ### Styling
 
 # border
