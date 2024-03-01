@@ -421,4 +421,6 @@ command! -nargs=1 -complete=command -bar -range Redir call Redir(<q-args>, <rang
 command! -nargs=1 -complete=command -range Redir call Redir(<q-args>, <range>, <line1>, <line2>)
 
 " context.nvim
-highlight TreesitterContextBottom guibg=#383838
+highlight TreesitterContext guibg=#383838
+highlight TreesitterContextBottom guibg=#383838 gui=underline
+highlight link TreesitterContextLineNumber TreesitterContext
