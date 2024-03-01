@@ -356,6 +356,10 @@ autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 " Disable by default (toggle with :GitBlameToggle)
 let g:gitblame_enabled = 0
 
+" Change highlight group (from default Comment)
+let g:gitblame_highlight_group = "Question"
+
+
 " lewis6991/gitsigns.nvim
 
 " remove sign column background for gitsigns
