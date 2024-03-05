@@ -31,6 +31,22 @@ alias pandia='ssh leon@pandia'
 alias b='bat'
 alias c='cat'
 
+set light_theme "gruvbox-light"
+set dark_theme "TwoDark"
+set colorscheme_file "/opt/theme_colorscheme"
+
+# change bat colorscheme based on theme
+function bat
+    if test -e $colorscheme_file
+        and test (cat $colorscheme_file) = "light"
+        echo "light: $light_theme"
+        /usr/bin/bat --theme=$light_theme $argv
+    else
+        echo "dark"
+        /usr/bin/bat --theme=$dark_theme $argv
+    end
+end
+
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
     alias weechat='TERM=tmux-256color /usr/bin/weechat'
