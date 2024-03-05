@@ -43,12 +43,23 @@ set noswapfile
 " Show commands as they're typed
 set showcmd
 
+" Enable file type identification, plugin and indenting
+filetype plugin indent on
+
+" Hide(0)/Only for more than 1 window(1)/Show(2) statusline
+set laststatus=2
+
+" Use wal colors for statusline
+if isdirectory("~/.cache/wal/")
+    source ~/.cache/wal/colors-wal.vim
+endif
+
+highlight StatusLine   gui=none            " guibg=none
+highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
+
 " Highlight current line
 set cursorline
 highlight CursorLine guibg=#212020
-
-" Enable file type identification, plugin and indenting
-filetype plugin indent on
 
 " Make line nr and background fit terminal background
 highlight Normal guibg=NONE ctermbg=NONE
@@ -56,17 +67,6 @@ highlight LineNr guibg=NONE
 
 "highlight FloatBorder guifg=#FFFFFF
 highlight link FloatBorder Normal
-
-" Hide(0)/Only for more than 1 window(1)/Show(2) statusline
-set laststatus=2
-
-highlight StatusLine   gui=none            " guibg=none
-highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
-
-" Use wal colors for statusline
-if isdirectory("~/.cache/wal/")
-    source ~/.cache/wal/colors-wal.vim
-endif
 
 " Line numbers
 set number relativenumber
