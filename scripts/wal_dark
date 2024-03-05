@@ -1,0 +1,4 @@
+#!/bin/bash
+
+wal $@
+echo 'dark' > /opt/theme_colorscheme
