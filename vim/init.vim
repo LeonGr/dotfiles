@@ -54,12 +54,23 @@ if isdirectory(expand("~") . "/.cache/wal/")
     source ~/.cache/wal/colors-wal.vim
 endif
 
+if filereadable("/opt/theme_colorscheme")
+    execute 'set bg=' . readfile("/opt/theme_colorscheme")[0]
+else
+    set bg=dark
+endif
+
 highlight StatusLine   gui=none            " guibg=none
 highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
 
 " Highlight current line
 set cursorline
-highlight CursorLine guibg=#212020
+" Set color based on colorscheme
+if &bg == "dark"
+    highlight CursorLine guibg=#212020
+else
+    highlight CursorLine guibg=#DEDEDE
+endif
 
 " Make line nr and background fit terminal background
 highlight Normal guibg=NONE ctermbg=NONE
@@ -346,7 +357,13 @@ nnoremap <Leader>s  <NOP>
 
 " nvim-cursorword
 let g:cursorword_min_width = 2
-highlight CursorWord guibg=#423F3C gui=none
+
+" set color of highlighted instances of word under cursor
+if &bg == "dark"
+    highlight CursorWord guibg=#423F3C gui=none
+else
+    highlight CursorWord guibg=#FFE4C9 gui=none
+endif
 
 autocmd InsertEnter * highlight clear CursorWord
 autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
