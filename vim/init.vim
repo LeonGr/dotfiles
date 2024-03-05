@@ -50,7 +50,7 @@ filetype plugin indent on
 set laststatus=2
 
 " Use wal colors for statusline
-if isdirectory("~/.cache/wal/")
+if isdirectory(expand("~") . "/.cache/wal/")
     source ~/.cache/wal/colors-wal.vim
 endif
 
