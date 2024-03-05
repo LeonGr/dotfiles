@@ -1,0 +1,18 @@
+#!/bin/bash
+
+# wraps delta with theme selection
+
+colorscheme_file="/opt/theme_colorscheme"
+light_theme="TwoDark"
+dark_theme="TwoDark"
+
+if [ -e "$colorscheme_file" ]; then
+    # File exists
+    if [ "$(cat "$colorscheme_file")" == "light" ]; then
+        delta --syntax-theme=$light_theme $@
+    else
+        delta --syntax-theme=$dark_theme $@
+    fi
+else
+    delta --syntax-theme=$dark_theme $@
+fi
