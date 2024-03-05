@@ -32,10 +32,10 @@
     format = ssh
 
 [pager]
-    diff = delta
-    log = delta
-    reflog = delta
-    show = delta
+    diff = dlt
+    log = dlt
+    reflog = dlt
+    show = dlt
 
 [delta]
     plus-style = "syntax #013800"
@@ -45,6 +45,6 @@
     navigate = true
 
 [interactive]
-    diffFilter = delta --color-only
+    diffFilter = dlt --color-only
 [init]
 	defaultBranch = main
