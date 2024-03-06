@@ -361,12 +361,13 @@ let g:cursorword_min_width = 2
 " set color of highlighted instances of word under cursor
 if &bg == "dark"
     highlight CursorWord guibg=#423F3C gui=none
+    autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 else
     highlight CursorWord guibg=#FFE4C9 gui=none
+    autocmd InsertLeave * highlight CursorWord guibg=#FFE4C9 gui=none
 endif
 
 autocmd InsertEnter * highlight clear CursorWord
-autocmd InsertLeave * highlight CursorWord guibg=#423F3C gui=none
 
 " git-blame.nvim
 
