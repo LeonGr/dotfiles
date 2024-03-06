@@ -22,7 +22,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     # left="bspwm"
     left="i3"
     center="xwindow"
-    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu"
+    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu tray"
     interface="enp8s0"
 else
     echo "1080p"
@@ -36,7 +36,7 @@ else
     # left="bspwm xwindow"
     left="i3 xwindow"
     center=" "
-    right="playerctl-icon updates-pacman-aurhelper filesystem battery date pulseaudio powermenu"
+    right="playerctl-icon updates-pacman-aurhelper filesystem battery date pulseaudio powermenu tray"
     interface="wlp2s0"
 fi
 
