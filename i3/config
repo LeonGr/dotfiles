@@ -181,6 +181,8 @@ bindsym $mod+Shift+0 move container to workspace number $ws10
 # toggle between current and previous workspace
 bindsym $mod+Tab workspace back_and_forth
 
+bindsym Mod1+Tab exec --no-startup-id . "$HOME/dotfiles/scripts/i3_window_toggle"
+
 # move workspace left/right
 bindsym $mod+b move workspace to output left
 bindsym $mod+n move workspace to output right
