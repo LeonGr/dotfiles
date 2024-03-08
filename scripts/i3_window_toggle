@@ -1,0 +1,16 @@
+#!/bin/bash
+
+if [ -f /tmp/i3_window_toggle ]; then
+    content="$(cat /tmp/i3_window_toggle)"
+
+    new="next"
+    if [ "$content" == "next" ]; then
+        new="prev"
+    fi
+
+    echo "$new" > /tmp/i3_window_toggle
+    i3-msg focus "$new"
+else
+    echo "prev" > /tmp/i3_window_toggle
+    i3-msg focus prev
+fi
