@@ -7,6 +7,11 @@ killall -q polybar
 #while pgrep -x polybar >/dev/null; do sleep 1; done
 
 RESOLUTION=$(xrandr | rg "connected primary" | sd '.*connected primary (.*?) .*' '$1')
+wired_interface="$(ip -o a | rg enp | sd '^.*(enp\d+s\d+(?:u\d+)*).*' '$1' | head -n 1)"
+echo "wired_interface: '$wired_interface'"
+
+wireless_interface="$(ip -o a | rg wlp | sd '^.*(wlp\d+s\d+(?:u\d+)*).*' '$1' | head -n 1)"
+echo "wireless_interface: '$wireless_interface'"
 
 if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     echo "4K"
@@ -22,8 +27,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     # left="bspwm"
     left="i3"
     center="xwindow"
-    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep network sep date sep pulseaudio powermenu tray"
-    interface="enp8s0"
+    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep wired-network sep date sep pulseaudio powermenu tray"
 else
     echo "1080p"
     width="100%"
@@ -36,8 +40,7 @@ else
     # left="bspwm xwindow"
     left="i3 xwindow"
     center=" "
-    right="playerctl-icon updates-pacman-aurhelper filesystem battery date pulseaudio powermenu tray"
-    interface="wlp2s0"
+    right="playerctl-icon vpn-status wired-network wireless-network updates-pacman-aurhelper filesystem battery date pulseaudio powermenu tray"
 fi
 
 primaryMonitor=$(xrandr | rg "connected primary" | sd '^(.*?) .*' '$1')
@@ -56,7 +59,8 @@ FONT2=$font2 \
 LEFT=$left \
 CENTER=$center \
 RIGHT=$right \
-INTERFACE=$interface \
+INTERFACE=$wired_interface \
+WIRELESS_INTERFACE=$wired_interface \
 MONITOR=$primaryMonitor \
 polybar mybar >>/tmp/polybar.log 2>&1 &
 
