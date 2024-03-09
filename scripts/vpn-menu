@@ -52,7 +52,7 @@ else
 
         systemctl start "wg-quick@$selection"
         if [[ "$?" != 0 ]]; then
-            interface=$(ip -o a | rg enp | sd '^.*(enp\ds\d).*' '$1' | head -n 1)
+            interface=$(ip -o a | rg 'enp|wlp' | sd '^.*((wlp|enp)\d+s\d+(?:u\d+)*).*' '$1')
 
             log "File Exists error, flushing interface $interface"
 
