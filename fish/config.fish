@@ -39,10 +39,8 @@ set colorscheme_file "/opt/theme_colorscheme"
 function bat
     if test -e $colorscheme_file
         and test (cat $colorscheme_file) = "light"
-        echo "light: $light_theme"
         /usr/bin/bat --theme=$light_theme $argv
     else
-        echo "dark"
         /usr/bin/bat --theme=$dark_theme $argv
     end
 end
