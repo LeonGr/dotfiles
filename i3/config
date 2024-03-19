@@ -80,7 +80,7 @@ bindsym $mod+p exec bwmenu --clear 20 --auto-lock 600 -- \
 bindsym $mod+o exec rofi_obsidian \
     "$ROFI_FONT"
 
-# Emoji rofi shortcut (rofi-emoji on Arch)
+# Emoji rofi shortcut (rofimoji on Arch)
 bindsym $mod+i exec rofimoji --files \
     miscellaneous_symbols_and_arrows supplemental_arrows-c currency_symbols supplemental_symbols_and_pictographs emoticons math number_forms emojis_animals_nature emojis_people_body emojis_flags cyrillic emojis_objects supplemental_arrows-b emojis_smileys_emotion mathematical_operators latin-1_supplement emojis_travel_places arrows superscripts_and_subscripts gitmoji playing_cards miscellaneous_technical miscellaneous_symbols dingbats greek_and_coptic emojis_activities emojis_food_drink transport_and_map_symbols additional/emojis_smileys_emotion emojis_component emojis_symbols \
     --selector-args="-width 1000 -font '$ROFI_FONT' -theme ~/.cache/wal/colors-rofi.rasi -monitor -1"
