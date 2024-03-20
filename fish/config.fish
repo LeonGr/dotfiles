@@ -22,7 +22,7 @@ alias g.='git status .'
 alias dmesg='dmesg -H'
 alias gswi='git_switch_fzf'
 # ssh targets
-alias calli='ssh leon@callisto'
+alias calli='ssh -Y leon@callisto'
 alias gany='ssh pi@ganymedes'
 alias euro='ssh leon@europa'
 alias leda='ssh leon@leda'
