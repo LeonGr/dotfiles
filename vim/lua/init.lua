@@ -133,6 +133,7 @@ local plugins = {
     -- TreeSitter
     { 'nvim-treesitter/nvim-treesitter', build = ":TSUpdate" },             -- Treesitter configurations and abstraction layer for Neovim
     { 'nvim-treesitter/nvim-treesitter-context' },                          -- Treesitter context (e.g. show function name in header)
+    { 'nvim-treesitter/nvim-treesitter-textobjects' },                      -- Treesitter syntax aware text-objects
 
     -- Themes
     'dkasak/gruvbox',

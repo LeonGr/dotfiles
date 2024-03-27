@@ -1,0 +1,19 @@
+! Map Shift+{AltGr / Right Alt} to the Compose key (for typing accents etc.)
+! See:
+! - https://wiki.archlinux.org/title/Xmodmap#Compose_key
+! - https://en.m.wikipedia.org/wiki/Compose_key
+! - https://wiki.archlinux.org/title/Xorg/Keyboard_configuration#Configuring_compose_key
+! Each column on the RHS corresponds to a combination of modifier keys:
+! 1. Key
+! 2. Shift+Key
+! 3. Mode_switch+Key
+! 4. Mode_switch+Shift+Key
+! 5. ISO_Level3_Shift+Key
+! 6. ISO_Level3_Shift+Shift+Key
+! Usage:
+! Press Shift+Right Alt, then press a compose sequence. Examples:
+! - Compose, ', e -> é
+! - Compose, =, e -> €
+! - Compose, ?, ? -> ¿
+! - All in: /usr/share/X11/locale/en_US.UTF-8/Compose (search for <Multi_key>)
+keycode 108 = Alt_R Multi_key Meta_R Alt_R Meta_R
