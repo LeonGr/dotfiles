@@ -30,6 +30,7 @@ alias elara='ssh root@elara'
 alias pandia='ssh leon@pandia'
 alias b='bat'
 alias c='cat'
+alias clip='xclip -selection clipboard'
 
 set light_theme "gruvbox-light"
 set dark_theme "TwoDark"
