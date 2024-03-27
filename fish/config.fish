@@ -21,6 +21,11 @@ alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'
 alias g.='git status .'
 alias dmesg='dmesg -H'
 alias gswi='git_switch_fzf'
+alias b='bat'
+alias c='cat'
+alias clip='xclip -selection clipboard'
+alias ppa='podman ps -a'
+
 # ssh targets
 alias calli='ssh -Y leon@callisto'
 alias gany='ssh pi@ganymedes'
@@ -29,10 +34,6 @@ alias leda='ssh leon@leda'
 alias elara='ssh root@elara'
 alias pandia='ssh leon@pandia'
 alias dia='ssh leon@dia'
-alias b='bat'
-alias c='cat'
-alias clip='xclip -selection clipboard'
-alias ppa='podman ps -a'
 
 set light_theme "gruvbox-light"
 set dark_theme "TwoDark"
