@@ -31,6 +31,7 @@ alias pandia='ssh leon@pandia'
 alias b='bat'
 alias c='cat'
 alias clip='xclip -selection clipboard'
+alias ppa='podman ps -a'
 
 set light_theme "gruvbox-light"
 set dark_theme "TwoDark"
