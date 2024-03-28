@@ -137,7 +137,7 @@ bindsym $mod+d focus mode_toggle
 bindsym $mod+a focus parent
 
 # focus the child container
-#bindsym $mod+d focus child
+bindsym $mod+Shift+a focus child
 
 # lock laptop
 bindsym $mod+Mod1+l exec --no-startup-id "lock"

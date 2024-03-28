@@ -35,6 +35,20 @@ alias elara='ssh root@elara'
 alias pandia='ssh leon@pandia'
 alias dia='ssh leon@dia'
 
+# ls -> eza
+alias eza='eza --git'
+alias ls='eza'
+alias ll='eza -l'
+alias la='eza -laa'
+alias lt='eza -T'
+alias lr='eza -R'
+alias lat='eza -laT'
+alias lar='eza -laaR'
+
+# deleting (https://github.com/andreafrancia/trash-cli)
+alias rm='echo "Use trash (t)"; false'
+alias t='trash'
+
 set light_theme "gruvbox-light"
 set dark_theme "TwoDark"
 set colorscheme_file "/opt/theme_colorscheme"
@@ -55,20 +69,6 @@ if test (hostname) = "callisto"
 else
     alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
 end
-
-# ls -> eza
-alias eza='eza --git'
-alias ls='eza'
-alias ll='eza -l'
-alias la='eza -la'
-alias lt='eza -T'
-alias lr='eza -R'
-alias lat='eza -laT'
-alias lar='eza -laR'
-
-# deleting (https://github.com/andreafrancia/trash-cli)
-alias rm='echo "Use trash (t)"; false'
-alias t='trash'
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
