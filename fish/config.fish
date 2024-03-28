@@ -39,11 +39,11 @@ alias dia='ssh leon@dia'
 alias eza='eza --git'
 alias ls='eza'
 alias ll='eza -l'
-alias la='eza -la'
+alias la='eza -laa'
 alias lt='eza -T'
 alias lr='eza -R'
 alias lat='eza -laT'
-alias lar='eza -laR'
+alias lar='eza -laaR'
 
 # deleting (https://github.com/andreafrancia/trash-cli)
 alias rm='echo "Use trash (t)"; false'
