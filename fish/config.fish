@@ -25,6 +25,8 @@ alias b='bat'
 alias c='cat'
 alias clip='xclip -selection clipboard'
 alias ppa='podman ps -a'
+alias n='nvim'
+alias icat='kitty +kitten icat'
 
 # ssh targets
 alias calli='ssh -Y leon@callisto'
