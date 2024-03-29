@@ -91,6 +91,12 @@ highlight SignColumn guibg=NONE gui=bold " Make background transparent
 " Hide vertical split background color
 highlight VertSplit guibg=NONE
 
+" Enable spelling check
+set spell
+
+" Change color of squiggly line to red
+highlight SpellBad guisp=#FF0000
+
 " See :help 'fo-table'/'formatoptions'
 " Stop automatic new line of comment after CTRL-O
 autocmd FileType * setlocal formatoptions-=o
