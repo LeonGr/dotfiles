@@ -2,3 +2,4 @@
 
 wal $@
 echo 'dark' > /opt/theme_colorscheme
+kitty @ set-colors --all --configured ~/.cache/wal/colors-kitty.conf
