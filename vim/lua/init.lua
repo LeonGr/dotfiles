@@ -54,12 +54,16 @@ local plugins = {
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
         dependencies = {
-            'rcarriga/nvim-dap-ui',                                         -- UI for nvim-dap
+            { 'rcarriga/nvim-dap-ui',                                       -- UI for nvim-dap
+                dependencies = {
+                    'nvim-neotest/nvim-nio'                                 -- A library for asynchronous IO in Neovim
+                },
+        },
             'theHamsta/nvim-dap-virtual-text',                              -- Variable values as virtual text
         },
         ft = { "rust", "c", "cpp", "python", "java" },
     },
-    {'mfussenegger/nvim-jdtls',                                               -- Debug Adapter Protocol (DAP) client implementation
+    {'mfussenegger/nvim-jdtls',                                             -- Debug Adapter Protocol (DAP) client implementation
         ft = { "java" },
     },
 
