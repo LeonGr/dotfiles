@@ -51,6 +51,7 @@ local plugins = {
     { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
     'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
     { 'mistricky/codesnap.nvim', build = "make build_generator" },          -- Take pretty screenshots of code
+    { 'j-hui/fidget.nvim', opts = {}, },                                    -- Pretty notifications + LSP status
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
