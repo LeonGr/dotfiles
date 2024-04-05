@@ -83,6 +83,7 @@ alias grh='git reset HEAD'
 alias grhh='git reset HEAD --hard'
 alias gclean='git reset --hard; and git clean -dfx'
 alias gwc='git whatchanged -p --abbrev-commit --pretty=medium'
+alias gsh='git show'
 
 #remove the gf alias
 #alias gf='git ls-files | grep'
