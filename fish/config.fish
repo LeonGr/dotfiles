@@ -27,6 +27,8 @@ alias clip='xclip -selection clipboard'
 alias ppa='podman ps -a'
 alias n='nvim'
 alias icat='kitty +kitten icat'
+alias dia_ping='ssh -t leon@dia grc ping' # -t forces pseudo-terminal allocation (for allowing colored output)
+alias dia_curl='ssh -t leon@dia curl -v -L' # -t forces pseudo-terminal allocation (for allowing colored output)
 
 # ssh targets
 alias calli='ssh -Y leon@callisto'
