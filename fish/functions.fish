@@ -117,3 +117,14 @@ end
 function ipinfo
     curl -s "https://ipinfo.io/$argv[1]" | jq
 end
+
+# search for man pages using fzf
+function mans
+    set -l man_page (apropos '' | fzf | sd '^(.*?)\s\((\d.?)\).*' '$2 $1')
+    echo $man_page
+
+    if [ "$man_page" != "" ]
+        set -l man_command "man $man_page"
+        commandline --replace $man_command
+    end
+end
