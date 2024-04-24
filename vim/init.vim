@@ -452,3 +452,6 @@ command! -nargs=1 -complete=command -range Redir call Redir(<q-args>, <range>, <
 highlight link TreesitterContext Pmenu
 highlight link TreesitterContextBottom TreesitterContext
 highlight link TreesitterContextLineNumber TreesitterContext
+
+" Highlight yanked area for 200 milliseconds
+autocmd TextYankPost * silent! lua vim.highlight.on_yank({timeout=200})
