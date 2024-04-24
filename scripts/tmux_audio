@@ -1,0 +1,8 @@
+#!/bin/sh
+tmux new-session -s audio -d 'pulsemixer'
+tmux split-window -v 'vis'
+tmux select-pane -t '{top}'
+tmux split-window -v
+tmux resize-pane -y 1
+tmux send-keys 'pipewire_kill_extra_spotify_instances'
+tmux attach-session -d
