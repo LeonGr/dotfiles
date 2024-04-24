@@ -1,8 +1,13 @@
 #!/bin/sh
+# start detached session with name 'audio' running pulsemixer (control volumes from CLI)
 tmux new-session -s audio -d 'pulsemixer'
+# start cli-visualizer vis in vertical split
 tmux split-window -v 'vis'
 tmux select-pane -t '{top}'
 tmux split-window -v
+# set height of newly-created empty window to 1
 tmux resize-pane -y 1
+# insert text into prompt for killing unused Spotify volume entries in pulsemixer
 tmux send-keys 'pipewire_kill_extra_spotify_instances'
+# attach to detached session
 tmux attach-session -d
