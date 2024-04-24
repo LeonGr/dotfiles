@@ -34,9 +34,6 @@ local plugins = {
     'KabbAmine/vCoolor.vim',                                                -- Colour picker (Alt-Z)
     'yaroot/vissort',                                                       -- Sort by visual block
     'norcalli/nvim-colorizer.lua',                                          -- Color highlighter
-    {'cakebaker/scss-syntax.vim',                                           -- SCSS support
-        ft = "scss"
-    },
     'nathanaelkane/vim-indent-guides',                                      -- Indentation guides
     'LeonGr/neovim-expand-selection',                                       -- My own plugin
     'janko-m/vim-test',                                                     -- Vim wrapper for running tests
@@ -104,6 +101,7 @@ local plugins = {
     {'pantharshit00/vim-prisma', ft = "prisma" },                           -- Prisma 2 support
     {'jparise/vim-graphql', ft = "graphql" },                               -- GraphQL support
     {'Kranex/vim-rascal-syntax', ft = "rascal" },                           -- Rascal support
+    {'cakebaker/scss-syntax.vim', ft = "scss" },                            -- SCSS support
 
     -- nvim-cmp
     {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
