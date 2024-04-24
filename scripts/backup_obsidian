@@ -1,5 +1,6 @@
 #!/bin/bash
 
-cp -r ~/Sync/Obsidian ./obsidian_copy
-zip -r ~/Documents/backup/Obsidian/"$(date '+%Y-%m-%d').zip" ./obsidian_copy
-rm -r ./obsidian_copy
+cp -r ~/Sync/Obsidian /tmp/obsidian_copy
+restic -r /home/leon/Documents/backup/Obsidian/restic_repo/ backup --verbose /tmp/obsidian_copy --password-file=/home/leon/bin/backups/restic_obsidian_pass
+# zip -r ~/Documents/backup/Obsidian/"$(date '+%Y-%m-%d').zip" ./obsidian_copy
+# rm -r ./obsidian_copy
