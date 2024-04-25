@@ -49,6 +49,12 @@ local plugins = {
     'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
     { 'mistricky/codesnap.nvim', build = "make build_generator" },          -- Take pretty screenshots of code
     { 'j-hui/fidget.nvim', opts = {}, },                                    -- Pretty notifications + LSP status
+    { 'fdschmidt93/telescope-egrepify.nvim',                                -- live grepping with grouping by file + prefixes
+        dependencies = {                                                    -- prefixes:
+            'nvim-telescope/telescope.nvim',                                -- #: file suffix, >: folder names, &: file names
+            'nvim-lua/plenary.nvim'
+        }
+    },
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
