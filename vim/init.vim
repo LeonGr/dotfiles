@@ -263,6 +263,9 @@ nnoremap gw    :Telescope lsp_dynamic_workspace_symbols<CR>
 " Jump to declaration
 nnoremap gd    <cmd>lua vim.lsp.buf.declaration()<CR>
 
+" Jump to implementation
+nnoremap gi    <cmd>lua vim.lsp.buf.implementation()<CR>
+
 " Selects a code action from input list available
 nnoremap ga    <cmd>lua vim.lsp.buf.code_action()<CR>
 
