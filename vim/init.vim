@@ -147,9 +147,6 @@ nnoremap <Leader>r     :Telescope egrepify<CR>
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
 
-" Enter/Return creates a new line
-nnoremap <CR> o<ESC>
-
 " Use escape to leave terminal mode
 tnoremap <Esc> <C-\><C-n>
 
