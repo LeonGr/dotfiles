@@ -457,3 +457,6 @@ highlight link TreesitterContextLineNumber TreesitterContext
 
 " Highlight yanked area for 200 milliseconds
 autocmd TextYankPost * silent! lua vim.highlight.on_yank({timeout=200})
+
+" Make comments more obvious
+highlight Comment gui=reverse
