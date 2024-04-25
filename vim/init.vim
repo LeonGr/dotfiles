@@ -105,6 +105,7 @@ autocmd FileType * setlocal formatoptions-=o
 set incsearch       " Lookahead as search pattern is specified
 set ignorecase      " Ignore case in all searches...
 set smartcase       " ...unless uppercase letters used
+" Note: add \C to the query to enable case sensitivity when only typing lowercase
 
 set hlsearch        " Highlight all matches
 nmap <silent> <BS> :nohlsearch<CR> " Backspace to turn of highlight Searching
