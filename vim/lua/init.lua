@@ -139,7 +139,9 @@ local plugins = {
             'jose-elias-alvarez/nvim-lsp-ts-utils',                         -- TypeScript lsp functions
             'ojroques/nvim-lspfuzzy',                                       -- Replace LSP windows with fzf ones
             'jubnzv/virtual-types.nvim',                                    -- Show type annotations
-            'simrat39/rust-tools.nvim',                                     -- Extra Rust LSP tools (fixes inlay-hints)
+            { 'mrcjkb/rustaceanvim',                                        -- Extra Rust LSP tools (fixes inlay-hints)
+                dependencies = 'lvimuser/lsp-inlayhints.nvim',              -- Inlay hints (needed until nvim v0.10)
+            }
         }
     },                                                                      -- Collection of common configs for neovim LSP client
 

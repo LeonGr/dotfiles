@@ -277,10 +277,10 @@ nnoremap <Leader>d <cmd>lua vim.diagnostic.open_float(0, { scope = "line", borde
 nnoremap ge <cmd>lua vim.lsp.buf.rename()<CR>
 
 " Show runnables (Rust)
-nnoremap <silent>gu :RustRunnables<CR>
+nnoremap <silent>gu :RustLsp runnables<CR>
 
 " Show debuggables (Rust)
-nnoremap <silent>gy :RustDebuggables<CR>
+nnoremap <silent>gy :RustLsp debuggables<CR>
 
 
 " Avoid showing extra messages when using completion

@@ -57,72 +57,17 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
--- Enable rust_analyzer (Rust)
-lspconfig.rust_analyzer.setup({ capabilities=capabilities })
-
-local rust_tools = require('rust-tools')
-
--- Configure LSP through rust-tools.nvim plugin.
--- rust-tools will configure and enable certain LSP features for us.
--- See https://github.com/simrat39/rust-tools.nvim#configuration
--- From https://sharksforarms.dev/posts/neovim-rust/
-local opts = {
-  tools = {
-    runnables = {
-      use_telescope = true,
-    },
+require("lsp-inlayhints").setup()
+vim.g.rustaceanvim = {
     inlay_hints = {
-      auto = true,
-      show_parameter_hints = true,
-      -- parameter_hints_prefix = "",
-      -- other_hints_prefix = "",
+        highlight = "NonText"
     },
-    reload_workspace_from_cargo_toml = true,
-      hover_actions = {
-          auto_focus = true,
-      }
-  },
-
-  -- all the opts to send to nvim-lspconfig
-  -- these override the defaults set by rust-tools.nvim
-  -- see https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md#rust_analyzer
-  server = {
-    -- on_attach is a callback called when the language server attachs to the buffer
-    on_attach = function(client, bufnr)
-        on_attach(client)
-
-        -- Hover actions
-        vim.keymap.set("n", "<C-space>", rust_tools.hover_actions.hover_actions, { buffer = bufnr })
-    end,
-    settings = {
-      -- to enable rust-analyzer settings visit:
-      -- https://github.com/rust-analyzer/rust-analyzer/blob/master/docs/user/generated_config.adoc
-      ["rust-analyzer"] = {
-        -- enable clippy on save
-        checkOnSave = {
-          command = "clippy",
-          extraArgs = {"--", "-W", "clippy::pedantic"},
-        },
-        procMacro = {
-            enable = true,
-        },
-        cargo = {
-            allFeatures = true;
-        }
-      },
-    },
-  },
-  -- debugging
-  dap = {
-      adapter = require('rust-tools.dap').get_codelldb_adapter(
-        os.getenv("HOME") .. '/.local/share/nvim/mason/bin/codelldb',
-        os.getenv("HOME") .. '/.local/share/nvim/mason/packages/codelldb/extension/lldb/lib/liblldb.so'
-      )
-  },
+    server = {
+        on_attach = function(client, bufnr)
+            require("lsp-inlayhints").on_attach(client, bufnr)
+        end
+    }
 }
-
--- Enable rust-tools
-rust_tools.setup(opts)
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })
