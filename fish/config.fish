@@ -76,7 +76,10 @@ end
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
-    set dir (dirs); xdotool set_window --name " tmux: $dir" (xdotool getactivewindow)
+    set -l dir (dirs)
+    set -l tmux_session_name (tmux display-message -p '#S')
+    set -l hostname (hostname)
+    xdotool set_window --name "[$hostname] tmux: $dir [$tmux_session_name]" (xdotool getactivewindow)
     set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
 end
 
