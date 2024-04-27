@@ -78,8 +78,8 @@ end
 if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
     set -l dir (dirs)
     set -l tmux_session_name (tmux display-message -p '#S')
-    set -l hostname (hostname)
-    xdotool set_window --name "[$hostname] tmux: $dir [$tmux_session_name]" (xdotool getactivewindow)
+    set -l host_name (hostname)
+    xdotool set_window --name "[$host_name] tmux: $dir [$tmux_session_name]" (xdotool getactivewindow)
     set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
 end
 
