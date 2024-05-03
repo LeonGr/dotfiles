@@ -1,0 +1,60 @@
+#!/bin/zsh
+
+# based on: https://gist.github.com/loeschzwerg/c2b9d0b50f712a026aa6454af3b58598
+
+set -ef
+copy_data () {
+  local id=$1
+  local login=$2
+  local sessionkey=$3
+  local totp
+  # echo "Name: $(jq -r ".name" <<< $login), ID: $(jq -r ".id" <<< $login)"
+  # # Copy the username to the clipboard
+  # echo "> Copying Username"
+  # jq -r ".login.username" <<< $login | tmux load-buffer -
+  # # Wait for user input before coping the password
+  # echo "> Press Enter to copy password..."
+  # read
+  # Copy the password to the clipboard
+  # echo "> Copying Password"
+  # jq -r ".login.password" <<< $login | tmux load-buffer -
+  >&2 echo "Echoing Password:"
+  jq -r ".login.password" <<< $login
+  # Copy a TOTP Token if available
+  # totp=$(jq -r ".login.totp" <<< $login)
+  # if [[ $totp != "null" ]]; then
+    # # Wait for user input before coping the totp token
+    # echo "> Press any key to copy TOTP Token..."
+    # read
+    # echo "> Copying TOTP Token"
+    # bw get totp $id --session $sessionkey | tmux load-buffer -
+  # fi
+}
+
+main() {
+  # local searchterm=$1
+  local sessionkey logins login id
+
+  if ! key_id=$(keyctl request user bw_session); then
+      session=$(bw --raw unlock)
+      key_id=$(echo "$session" | keyctl padd user bw_session @u)
+  fi
+
+  keyctl timeout "$key_id" 300 # 5 minutes
+  sessionkey=$(keyctl pipe "$key_id")
+
+  >&2 echo "Loading entries..."
+  logins=$(bw list items --session $sessionkey)
+  id=$(jq -r '.[] | "\(.name)\t\(.login.username)\t\(.id)"' <<< $logins \
+    | fzf --reverse --with-nth=1,2 --delimiter="\t" --select-1 --exit-0 \
+    | awk -F"\t" '{print $3}'
+  )
+  if [[ -n $id ]]; then
+    login="$(jq ".[] | select(.id == \"$id\")" <<< $logins)"
+    copy_data $id $login $sessionkey
+  else
+    >&2 echo "No entry found..."
+  fi
+}
+
+main "$@"
