@@ -27,7 +27,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     # left="bspwm"
     left="i3"
     center="xwindow"
-    right="playerctl-icon sep updates-pacman-aurhelper sep vpn-status sep wired-network sep date sep pulseaudio powermenu tray"
+    right="playerctl-icon sep updates-pacman-aurhelper sep filesystem sep vpn-status sep wired-network sep date sep pulseaudio powermenu tray"
 else
     echo "1080p"
     width="100%"
