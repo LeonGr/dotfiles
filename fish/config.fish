@@ -30,6 +30,13 @@ alias icat='kitty +kitten icat'
 alias dia_ping='ssh -t leon@dia grc ping' # -t forces pseudo-terminal allocation (for allowing colored output)
 alias dia_curl='ssh -t leon@dia curl -v -L' # -t forces pseudo-terminal allocation (for allowing colored output)
 
+# paru
+alias pqo='paru -Qo'
+alias pqi='paru -Qi'
+alias psi='paru -Si'
+alias pss='paru -Ss'
+alias prns='paru -Rns'
+
 # ssh targets
 alias calli='ssh -Y leon@callisto'
 alias gany='ssh pi@ganymedes'
