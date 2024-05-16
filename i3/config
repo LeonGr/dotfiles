@@ -64,6 +64,9 @@ floating_modifier $mod
 # or left-clicking anywhere into the window while holding the floating modifier.
 tiling_drag modifier titlebar
 
+# move a floating window to the center
+bindsym $mod+Shift+t move position center
+
 # start a terminal
 bindsym $mod+Return exec kitty
 
