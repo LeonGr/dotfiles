@@ -38,6 +38,7 @@ alias pss='paru -Ss'
 alias prns='paru -Rns'
 
 # ssh targets
+alias jupi='ssh -Y leon@jupiter'
 alias calli='ssh -Y leon@callisto'
 alias gany='ssh pi@ganymedes'
 alias euro='ssh leon@europa'
