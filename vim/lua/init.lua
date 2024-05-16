@@ -141,7 +141,8 @@ local plugins = {
             'jubnzv/virtual-types.nvim',                                    -- Show type annotations
             { 'mrcjkb/rustaceanvim',                                        -- Extra Rust LSP tools (fixes inlay-hints)
                 dependencies = 'lvimuser/lsp-inlayhints.nvim',              -- Inlay hints (needed until nvim v0.10)
-            }
+            },
+            'kosayoda/nvim-lightbulb'                                       -- Show lightbulb in sign column when LSP actions are available
         }
     },                                                                      -- Collection of common configs for neovim LSP client
 
@@ -724,3 +725,9 @@ wilder.set_option('renderer', wilder.wildmenu_renderer({
 
 ---- mistricky/codesnap.nvim
 require("codesnap").setup()
+
+
+---- kosayoda/nvim-lightbulb
+require("nvim-lightbulb").setup({
+  autocmd = { enabled = true }
+})
