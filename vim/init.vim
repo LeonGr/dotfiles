@@ -460,3 +460,20 @@ autocmd TextYankPost * silent! lua vim.highlight.on_yank({timeout=200})
 
 " Make comments more obvious
 highlight Comment gui=reverse
+
+" habamax/vim-rst
+func! s:rst_view() abort
+  let output = tempname() . '.html'
+
+  call system(printf("%s %s %s %s",
+        \ "rst2html5",
+        \ " --input-encoding=utf8 --stylesheet-path=minimal.css,responsive.css",
+        \ shellescape(expand("%:p")),
+        \ output
+        \ ))
+
+  " Linux
+  exe ':!xdg-open ' . output
+endfunc
+
+command! -buffer RSTView call s:rst_view()

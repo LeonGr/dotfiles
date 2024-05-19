@@ -111,6 +111,7 @@ local plugins = {
     {'jparise/vim-graphql', ft = "graphql" },                               -- GraphQL support
     {'Kranex/vim-rascal-syntax', ft = "rascal" },                           -- Rascal support
     {'cakebaker/scss-syntax.vim', ft = "scss" },                            -- SCSS support
+    {'habamax/vim-rst', ft = "rst" },                                       -- RST (reStructuredText) support
 
     -- nvim-cmp
     {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim
