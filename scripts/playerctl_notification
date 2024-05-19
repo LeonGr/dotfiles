@@ -20,15 +20,19 @@ if ! playerctl -p "$PLAYER" play-pause; then
 fi
 
 # Get song info
-ARTIST=$(playerctl -p "$PLAYER" metadata xesam:albumArtist)
+ARTIST=$(playerctl -p "$PLAYER" metadata xesam:artist)
+ALBUM_ARTIST=$(playerctl -p "$PLAYER" metadata xesam:albumArtist)
 ALBUM=$(playerctl -p "$PLAYER" metadata xesam:album)
 SONG=$(playerctl -p "$PLAYER" metadata xesam:title)
 
-if [[ $ARTIST = "" ]]; then
-    ARTIST=$(playerctl -p "$PLAYER" metadata xesam:artist)
-    DETAILS=$ARTIST
+if [[ $ARTIST != "$ALBUM_ARTIST" ]]; then
+    DETAILS="$ARTIST ($ALBUM_ARTIST)"
 else
-    DETAILS="$ARTIST - $ALBUM"
+    DETAILS=$ARTIST
+fi
+
+if [[ $ALBUM != "" ]]; then
+    DETAILS="$DETAILS - $ALBUM"
 fi
 
 # Get album art URL
