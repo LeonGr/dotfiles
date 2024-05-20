@@ -19,6 +19,10 @@ syntax on
 let g:gruvbox_italic=1 " alacritty supports italics, enable it
 colorscheme gruvbox
 
+" Allow hiding styling characters, e.g. markdown bold, italics, links, etc.
+" See :help 'conceallevel'
+set conceallevel=2
+
 " LSP settings
 lua require('lsp')
 " DAP settings
