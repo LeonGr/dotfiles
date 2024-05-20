@@ -311,6 +311,9 @@ nnoremap <silent>gu :RustLsp runnables<CR>
 " Show debuggables (Rust)
 nnoremap <silent>gy :RustLsp debuggables<CR>
 
+" Open the filepath under the cursor
+nnoremap go :e <cfile><CR>
+
 
 " Avoid showing extra messages when using completion
 set shortmess+=c
