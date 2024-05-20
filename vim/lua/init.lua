@@ -477,9 +477,9 @@ gls.left[7] = {
 gls.right[1] = {
     lsp_status = {
         provider = function()
-            local clients = vim.lsp.get_active_clients()
+            local clients = vim.lsp.get_clients()
             if next(clients) ~= nil then
-                local buf_ft = vim.api.nvim_buf_get_option(0, "filetype")
+                local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
                 for _, client in ipairs(clients) do
                     local filetypes = client.config.filetypes
                     if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
