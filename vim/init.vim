@@ -97,6 +97,29 @@ set spell
 " Change color of squiggly line to red
 highlight SpellBad guisp=#FF0000
 
+" change some highlights that changed in v0.10
+" many highlights were changed to be more minimal
+highlight DiagnosticError guifg=Red
+highlight DiagnosticUnderlineError guisp=Red
+highlight DiagnosticWarn guifg=Orange
+highlight DiagnosticUnderlineWarn guisp=Orange
+
+highlight Delimiter guifg=NONE
+highlight link Delimiter GruvboxOrange
+
+highlight @variable guifg=NONE
+highlight link @variable GruvboxBlue
+
+highlight link @constant.macro Macro
+
+highlight link @type GruvboxOrange
+highlight link @type.builtin GruvboxYellow
+highlight link @lsp.type.class GruvboxAqua
+
+highlight link GitSignsAdd GitGutterAdd
+highlight link GitSignsDelete GitGutterDelete
+
+
 " See :help 'fo-table'/'formatoptions'
 " Stop automatic new line of comment after CTRL-O
 autocmd FileType * setlocal formatoptions-=o
