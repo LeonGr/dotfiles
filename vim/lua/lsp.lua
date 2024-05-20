@@ -57,17 +57,7 @@ client_capabilities.textDocument.completion.completionItem.resolveSupport = {
 
 local capabilities = require('cmp_nvim_lsp').default_capabilities(client_capabilities)
 
-require("lsp-inlayhints").setup()
-vim.g.rustaceanvim = {
-    inlay_hints = {
-        highlight = "NonText"
-    },
-    server = {
-        on_attach = function(client, bufnr)
-            require("lsp-inlayhints").on_attach(client, bufnr)
-        end
-    }
-}
+vim.lsp.inlay_hint.enable()
 
 -- Enable hls (Haskell)
 lspconfig.hls.setup({ capabilities=capabilities; on_attach=on_attach })

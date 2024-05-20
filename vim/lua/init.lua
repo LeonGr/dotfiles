@@ -141,7 +141,6 @@ local plugins = {
             'ojroques/nvim-lspfuzzy',                                       -- Replace LSP windows with fzf ones
             'jubnzv/virtual-types.nvim',                                    -- Show type annotations
             { 'mrcjkb/rustaceanvim',                                        -- Extra Rust LSP tools (fixes inlay-hints)
-                dependencies = 'lvimuser/lsp-inlayhints.nvim',              -- Inlay hints (needed until nvim v0.10)
             },
             'kosayoda/nvim-lightbulb'                                       -- Show lightbulb in sign column when LSP actions are available
         }
