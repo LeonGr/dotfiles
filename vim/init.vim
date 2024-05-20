@@ -97,6 +97,8 @@ set spell
 " Change color of squiggly line to red
 highlight SpellBad guisp=#FF0000
 
+highlight LspInlayHint guifg=NvimDarkGrey4 guibg=NvimDarkGrey3
+
 " change some highlights that changed in v0.10
 " many highlights were changed to be more minimal
 highlight DiagnosticError guifg=Red
