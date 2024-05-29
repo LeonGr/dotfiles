@@ -318,6 +318,9 @@ for_window [title="blueman-manager"] floating enable
 # border
 default_border pixel 5
 
+# force border on all windows (set because evince didn't respect default border)
+for_window [class=".*"] border pixel 5
+
 ## colours
 
 # source colours from .Xresources
