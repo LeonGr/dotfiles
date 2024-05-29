@@ -46,6 +46,9 @@ local plugins = {
         dependencies = 'nvim-tree/nvim-web-devicons'                        -- filetype icons for plugins (e.g. telescope)
     },
     { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
+    { 'henriklovhaug/Preview.nvim',
+        cmd = { "Preview" },
+        config = function() require("preview").setup() end, },
     'stevearc/dressing.nvim',                                               -- Allow overriding UI hooks (used for RustRunnables w/ Telescope)
     { 'mistricky/codesnap.nvim', build = "make build_generator" },          -- Take pretty screenshots of code
     { 'j-hui/fidget.nvim', opts = {}, },                                    -- Pretty notifications + LSP status
