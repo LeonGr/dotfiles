@@ -48,6 +48,11 @@
    m:0x0 + c:208
    XF86AudioPlay
 
+# Toggle Play/Pause (laptop: FN + R_Shift)
+"/home/leon/dotfiles/scripts/playerctl_notification"
+   m:0x0 + c:127
+   Pause
+
 # Toggle Play/Pause
 "/home/leon/dotfiles/scripts/playerctl_notification"
    m:0x0 + c:172
@@ -78,8 +83,8 @@
     m:0x0 + c:107
     Print
 
-#Toggle Play/Pause
-"togglePlayPause"
+#Tmux prefix
+"xdotool ctrl+space"
     m:0x0 + c:135
     Menu
 
