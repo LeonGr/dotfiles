@@ -82,7 +82,7 @@ bindsym $mod+space exec --no-startup-id rofi -show run \
     -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
 
 # Bitwarden rofi shortcut (bitwarden-rofi-git on Arch)
-bindsym $mod+p exec bwmenu --clear 20 --auto-lock 600 -- \
+bindsym $mod+p exec bwmenu-location-wrapper --clear 20 --auto-lock 600 -- \
     -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
 # Obsidian rofi shortcut (dotfiles/scripts/rofi_obsidian)
