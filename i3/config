@@ -55,6 +55,10 @@ bindsym $mod+Shift+u move scratchpad
 # bindsym --release $mod+Shift+s exec --no-startup-id "scrot ~/Pictures/Screenshots/%Y-%m-%d-%H%M%S.png -s --exec 'xclip -selection clipboard -target image/png -in $f'"
 bindsym --release $mod+Shift+s exec flameshot gui
 
+# Use Vimium-style two-letter indicators to move the mouse pointer (warpd hint mode).
+# --oneshot ensures we're not in manual mouse movement mode after selecting a location.
+bindsym $mod+g exec warpd --hint --oneshot
+
 ## WM keybinds
 
 # Use Mouse+$mod to drag floating windows to their wanted position
