@@ -1,0 +1,16 @@
+#!/bin/bash
+
+# store current mouse location
+mouse_location="$(xdotool getmouselocation --shell)"
+while IFS= read -r line; do
+    declare "$line"
+done <<< "$mouse_location"
+
+# move mouse to upper-left of screen
+warpd --move '0 0'
+
+# call bwmenu and pass along all given parameters
+bwmenu "$@"
+
+# move mouse back to where it was before calling bwmenu
+warpd --move "$X $Y"
