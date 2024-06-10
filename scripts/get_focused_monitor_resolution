@@ -1,0 +1,34 @@
+#!/bin/bash
+
+# store current mouse location
+mouse_location="$(xdotool getmouselocation --shell)"
+while IFS= read -r line; do
+    declare "$line"
+done <<< "$mouse_location"
+MOUSE_X=$X
+MOUSE_Y=$Y
+
+# Get information about connected monitors and their resolutions
+xrandr_output=$(xrandr | grep ' connected')
+
+while read -r line; do
+  line=$(echo "$line" | sed 's/ primary//' )
+  monitor=$(echo "$line" | awk '{print $1}')
+  resolution=$(echo "$line" | awk '{print $3}' | sed 's/+.*//')
+  offset_x=$(echo "$line" | awk -F '[ +]' '{print $4}')
+  offset_y=$(echo "$line" | awk -F '[ +]' '{print $5}')
+
+  # Extract width and height from resolution
+  width=$(echo "$resolution" | cut -d 'x' -f 1)
+  height=$(echo "$resolution" | cut -d 'x' -f 2)
+
+  # Check if the mouse coordinates fall within the current monitor's resolution and offset
+  if [ "$MOUSE_X" -ge "$offset_x" ] && [ "$MOUSE_X" -lt $((offset_x + width)) ] &&
+     [ "$MOUSE_Y" -ge "$offset_y" ] && [ "$MOUSE_Y" -lt $((offset_y + height)) ]; then
+    >&2 echo "Current monitor: $monitor"
+    >&2 echo "Resolution: $resolution"
+    echo "WIDTH=$width"
+    echo "HEIGHT=$height"
+    break
+  fi
+done <<< "$xrandr_output"
