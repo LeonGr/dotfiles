@@ -47,7 +47,7 @@ xset -b &
 # else
     # rofi_font="dejavu sans mono 25" sxhkd -r /tmp/output &
 # fi
-xbindkeys &
+# xbindkeys &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
 # picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
