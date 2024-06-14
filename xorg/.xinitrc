@@ -5,7 +5,7 @@ session=${1}
 
 # for laptop:
 if [ "$session" = "laptop" ]; then
-    xrandr --output eDP-1-1 --primary --auto
+    xrandr --output eDP-1 --primary --auto
 fi
 
 userresources=$HOME/.Xresources
