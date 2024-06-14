@@ -53,4 +53,4 @@ xset +fp /home/leon/GitClones/tewi-font/out &
 # picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
 # exec bspwm
 # exec awesome
-exec dbus-launch i3
+exec i3
