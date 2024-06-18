@@ -5,7 +5,7 @@ server=$(echo "$json" | jq --raw-output '.mullvad_exit_ip_hostname')
 
 if [ "$server" = "null" ]; then
     ip=$(echo "$json" | jq --raw-output '.ip')
-    echo " $ip"
+    echo "  $ip"
 else
-    echo " $server"
+    echo "  $server"
 fi
