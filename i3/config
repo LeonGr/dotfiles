@@ -309,7 +309,7 @@ bindsym $mod+y mode "rename_workspace"
 for_window [class="feh"] floating enable
 
 # Launch pavucontrol in floating state (make popup (../scripts/volume_popup) not resize current window)
-for_window [class="Pavucontrol"] floating enable
+for_window [class="pavucontrol"] floating enable
 
 # Launch vim color picker in floating state
 for_window [title="vCoolor"] floating enable
