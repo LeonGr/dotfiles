@@ -76,5 +76,10 @@ fi
 log "Status: $STATUS"
 
 # Show notification
-log "Dunst: $(pidof dunst)"
-/usr/bin/notify-send -u low "$SONG / $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
+if pidof dunst; then
+    log "Dunst: $(pidof dunst)"
+    /usr/bin/notify-send -u low "$SONG / $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
+else
+    log "Dunst is not running"
+    exit 1
+fi
