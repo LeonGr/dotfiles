@@ -1,17 +1,23 @@
 #!/bin/bash
 
+log() {
+    tput setaf 1; >&2 echo "### $1 ###"; tput sgr 0
+}
+
 PLAYERS=$(playerctl -l)
-echo "$PLAYERS"
+log "players: '$PLAYERS'"
 
 if echo "$PLAYERS" | grep -w "Sonixd"; then
-    echo "Sonixd running"
+    log "Sonixd running"
     PLAYER="Sonixd"
 elif echo "$PLAYERS" | grep -w "spotify"; then
-    echo "spotify running"
+    log "spotify running"
     PLAYER="spotify"
 else
     PLAYER="${PLAYERS[0]}"
 fi
+
+log "Selected player: $PLAYER"
 
 # Try to toggle playing status
 if ! playerctl -p "$PLAYER" play-pause; then
@@ -35,15 +41,19 @@ if [[ $ALBUM != "" ]]; then
     DETAILS="$DETAILS - $ALBUM"
 fi
 
+log "Details: $DETAILS"
+
 # Get album art URL
 IMAGE_URL="$(playerctl -p "$PLAYER" metadata mpris:artUrl)"
 
 if [[ $IMAGE_URL = "file://"* ]]; then
     IMAGE_PATH=$(echo "$IMAGE_URL" | sd 'file://' '')
+    log "Image path: $IMAGE_PATH"
     cp "$IMAGE_PATH" /tmp/album_icon.jpg
 else
     # Download image
     wget -O /tmp/album_icon.jpg "$IMAGE_URL"
+    log "Image URL: $IMAGE_URL"
 fi
 
 STATUS=$(playerctl -p "$PLAYER" status)
@@ -63,5 +73,13 @@ elif [[ $(playerctl -p "$PLAYER" loop) = "Track" ]]; then
     STATUS="${STATUS} 󱦙"
 fi
 
+log "Status: $STATUS"
+
 # Show notification
-/usr/bin/notify-send -u low "$SONG / $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
+if pidof dunst; then
+    log "Dunst: $(pidof dunst)"
+    /usr/bin/notify-send -u low "$SONG / $STATUS" "$DETAILS" --icon /tmp/album_icon.jpg
+else
+    log "Dunst is not running"
+    exit 1
+fi
