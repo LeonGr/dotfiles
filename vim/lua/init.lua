@@ -115,6 +115,22 @@ local plugins = {
     {'Kranex/vim-rascal-syntax', ft = "rascal" },                           -- Rascal support
     {'cakebaker/scss-syntax.vim', ft = "scss" },                            -- SCSS support
     {'habamax/vim-rst', ft = "rst" },                                       -- RST (reStructuredText) support
+    {'adalessa/laravel.nvim',                                               -- Laravel support
+        dependencies = {
+            'nvim-telescope/telescope.nvim',                                -- See 'nvim-telescope/telescope.nvim'
+            'tpope/vim-dotenv',                                             -- Read .env file(s)
+            'MunifTanjim/nui.nvim',                                         -- UI component library
+            'nvimtools/none-ls.nvim',                                       -- LSP hooks
+        },
+        cmd = { "Sail", "Artisan", "Composer", "Npm", "Yarn", "Laravel" },
+        keys = {
+            { "<leader>la", ":Laravel artisan<cr>" },
+            { "<leader>lr", ":Laravel routes<cr>" },
+            { "<leader>lm", ":Laravel related<cr>" },
+        },
+        event = { "VeryLazy" },
+        config = true,
+    },
 
     -- nvim-cmp
     {'hrsh7th/nvim-cmp',                                                    -- Completion for Neovim

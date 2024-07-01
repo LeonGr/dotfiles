@@ -177,3 +177,6 @@ lspconfig.lua_ls.setup({
 
 -- Enable gopls (golang)
 lspconfig.gopls.setup({ capabilities=capabilities })
+
+-- Enable phpactor (PHP)
+lspconfig.phpactor.setup({ capabilities=capabilities })
