@@ -61,6 +61,7 @@ local plugins = {
             'nvim-lua/plenary.nvim'
         }
     },
+    'nvim-tree/nvim-tree.lua',                                              -- file tree
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
@@ -751,3 +752,6 @@ require("codesnap").setup()
 require("nvim-lightbulb").setup({
   autocmd = { enabled = true }
 })
+
+---- nvim-tree/nvim-tree.lua
+require("nvim-tree").setup()

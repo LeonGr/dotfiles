@@ -509,3 +509,6 @@ func! s:rst_view() abort
 endfunc
 
 command! -buffer RSTView call s:rst_view()
+
+" nvim-tree/nvim-tree.lua settings
+nnoremap <C-P> :NvimTreeToggle<CR>
