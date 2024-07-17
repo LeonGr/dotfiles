@@ -12,6 +12,9 @@ while IFS= read -r line; do
     declare "$line"
 done <<< "$current_monitor_resolution"
 
+# mark currently focused window
+i3-msg mark "bwmenu-mark"
+
 # move mouse to upper-left of screen
 warpd --move '1 1'
 
@@ -21,3 +24,9 @@ bwmenu "$@"
 # move mouse back to where it was before calling bwmenu
 # (modulo resolution of current monitor, since warpd is relative to current monitor)
 warpd --move "$((X % WIDTH)) $((Y % HEIGHT))"
+
+# focus on window with mark
+i3-msg '[con_mark="bwmenu-mark"] focus'
+
+# remove mark
+i3-msg unmark "bwmenu-mark"
