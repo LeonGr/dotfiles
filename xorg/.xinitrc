@@ -5,7 +5,7 @@ session=${1}
 
 # for laptop:
 if [ "$session" = "laptop" ]; then
-    xrandr --output eDP-1-1 --primary --auto
+    xrandr --output eDP-1 --primary --auto
 fi
 
 userresources=$HOME/.Xresources
@@ -47,10 +47,10 @@ xset -b &
 # else
     # rofi_font="dejavu sans mono 25" sxhkd -r /tmp/output &
 # fi
-xbindkeys &
+# xbindkeys &
 wal -R &
 xset +fp /home/leon/GitClones/tewi-font/out &
 # picom --config ~/dotfiles/others/picom.conf --experimental-backends --backend glx &
 # exec bspwm
 # exec awesome
-exec dbus-launch i3
+exec i3
