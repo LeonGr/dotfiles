@@ -32,11 +32,11 @@ alias dia_curl='ssh -t leon@dia curl -v -L' # -t forces pseudo-terminal allocati
 alias fda='fd --hidden --no-ignore' # mnemonic: fd-all
 
 # paru
-alias pqo='paru -Qo'
-alias pqi='paru -Qi'
-alias psi='paru -Si'
-alias pss='paru -Ss'
-alias prns='paru -Rns'
+alias p-qo='paru -Qo'
+alias p-qi='paru -Qi'
+alias p-si='paru -Si'
+alias p-ss='paru -Ss'
+alias p-rns='paru -Rns'
 
 # ssh targets
 alias jupi='ssh -Y leon@jupiter'
