@@ -128,7 +128,7 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
 })
 
 -- Enable typescript language server (Typescript)
-lspconfig.tsserver.setup({
+lspconfig.ts_ls.setup({
     on_attach=function(client, _)
         on_attach(client)
 
