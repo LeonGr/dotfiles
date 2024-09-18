@@ -265,16 +265,16 @@ bindsym $mod+Shift+m mode "move_window"
 # switch to workspace
 mode "switch_workspace" {
     # switch to workspace
-    bindsym 1 workspace number $ws1
-    bindsym 2 workspace number $ws2
-    bindsym 3 workspace number $ws3
-    bindsym 4 workspace number $ws4
-    bindsym 5 workspace number $ws5
-    bindsym 6 workspace number $ws6
-    bindsym 7 workspace number $ws7
-    bindsym 8 workspace number $ws8
-    bindsym 9 workspace number $ws9
-    bindsym 0 workspace number $ws10
+    bindsym 1 workspace number $ws1; mode "default"
+    bindsym 2 workspace number $ws2; mode "default"
+    bindsym 3 workspace number $ws3; mode "default"
+    bindsym 4 workspace number $ws4; mode "default"
+    bindsym 5 workspace number $ws5; mode "default"
+    bindsym 6 workspace number $ws6; mode "default"
+    bindsym 7 workspace number $ws7; mode "default"
+    bindsym 8 workspace number $ws8; mode "default"
+    bindsym 9 workspace number $ws9; mode "default"
+    bindsym 0 workspace number $ws10; mode "default"
 
     # back to normal: Enter or Escape or $mod+r
     bindsym Return mode "default"
