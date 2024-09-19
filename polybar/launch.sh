@@ -35,7 +35,7 @@ else
     height="30"
     underline_size="2"
     offset="0%"
-    font0="DejaVu Sans Mono:bold:size=12;1.5"
+    font0="Minecraft:size=12;1.5"
     font1="Terminess Nerd Font Mono:size=18;2"
     font2="M+ 1mn:bold:pixelsize=10;0; ; for Chinese/Japanese numerals (ttf-mplus)"
     # left="bspwm xwindow"
