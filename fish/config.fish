@@ -48,6 +48,7 @@ alias leda='ssh leon@leda'
 alias elara='ssh root@elara'
 alias pandia='ssh leon@pandia'
 alias dia='ssh leon@dia'
+alias lysi='ssh leon@lysithea'
 
 # ls -> eza
 alias eza='eza --git'
