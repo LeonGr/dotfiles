@@ -169,8 +169,8 @@ nnoremap <Leader>o     :Telescope find_files no_ignore=true<CR>
 nnoremap <Leader>p     :Telescope git_files<CR>
 nnoremap <Leader>l     :Telescope buffers<CR>
 nnoremap <Leader>m     :Telescope keymaps<CR>
-" nnoremap <Leader>r     :Telescope live_grep<CR>
-nnoremap <Leader>r     :Telescope egrepify<CR>
+nnoremap <Leader>r     :Telescope live_grep<CR>
+" nnoremap <Leader>r     :Telescope egrepify<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
