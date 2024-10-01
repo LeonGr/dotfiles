@@ -79,6 +79,22 @@ dap.configurations.python = {
   },
 }
 
+-- enable for php
+dap.adapters.php = {
+  type = 'executable',
+  command = 'node',
+  args = { '~/.local/share/nvim/mason/packages/php-debug-adapter/extension/out/phpDebug.js' }
+}
+
+dap.configurations.php = {
+  {
+    type = 'php',
+    request = 'launch',
+    name = 'Listen for Xdebug',
+    port = 9000
+  }
+}
+
 -- nvim-dap-ui
 require("dapui").setup({
     icons = { expanded = "▾", collapsed = "▸" },
