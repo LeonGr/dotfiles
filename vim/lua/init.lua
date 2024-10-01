@@ -62,6 +62,12 @@ local plugins = {
         }
     },
     'nvim-tree/nvim-tree.lua',                                              -- file tree
+    { 'smoka7/hop.nvim',                                                    -- quick jumping to the entire visible text
+        version = "*", opts = { keys = 'etovxqpdygfblzhckisuran' },         -- Amp-like / Helix-like
+        keys = {
+            { "<leader>h", ":HopWord<cr>" },
+        },
+    },
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
