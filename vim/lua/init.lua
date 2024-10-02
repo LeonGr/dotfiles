@@ -65,7 +65,7 @@ local plugins = {
     { 'smoka7/hop.nvim',                                                    -- quick jumping to the entire visible text
         version = "*", opts = { keys = 'etovxqpdygfblzhckisuran' },         -- Amp-like / Helix-like
         keys = {
-            { "<leader>h", ":HopWord<cr>" },
+            { "gh", ":HopWord<cr>" },
         },
     },
 
