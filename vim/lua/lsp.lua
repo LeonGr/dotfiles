@@ -180,3 +180,6 @@ lspconfig.gopls.setup({ capabilities=capabilities })
 
 -- Enable phpactor (PHP)
 lspconfig.phpactor.setup({ capabilities=capabilities })
+
+-- Enable nil_ls (Nix Expression Language)
+require'lspconfig'.nil_ls.setup{}
