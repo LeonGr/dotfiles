@@ -115,7 +115,7 @@ function git_switch_fzf
         )
 
         if [ "$selected" != "" ]
-            commandline --replace "git switch $selected"
+            commandline --replace "git switch $selected # gswi" # identify replaced command with a comment
         end
     else
         echo "not a git repository" 1>&2
