@@ -106,7 +106,7 @@ bindsym $mod+q exec --no-startup-id rofi -show window \
     -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
 
 bindsym $mod+f exec --no-startup-id rofi -show filebrowser \
-    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
+    -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
 # change focus
 bindsym $mod+h focus left
