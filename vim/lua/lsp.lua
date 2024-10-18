@@ -75,7 +75,7 @@ lspconfig.pylsp.setup({
 
 -- Enable vscode language servers (HTML, CSS, JSON)
 lspconfig.cssls.setup({ capabilities=capabilities; on_attach=on_attach })
-lspconfig.html.setup({ capabilities=capabilities; on_attach=on_attach })
+lspconfig.html.setup({ capabilities=capabilities; on_attach=on_attach; filetypes = { "html", "blade" } })
 lspconfig.jsonls.setup({ capabilities=capabilities; on_attach=on_attach })
 
 -- Enable flow (JavaScript)
