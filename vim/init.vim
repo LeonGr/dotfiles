@@ -72,8 +72,12 @@ set cursorline
 " Set color based on colorscheme
 if &bg == "dark"
     highlight CursorLine guibg=#212020
+    highlight CursorLineNR guibg=#212020 guifg=NONE
+    highlight CursorLineSign guibg=#212020 guifg=NONE
 else
     highlight CursorLine guibg=#DEDEDE
+    highlight CursorLineNR guibg=#DEDEDE guifg=NONE
+    highlight CursorLineSign guibg=#DEDEDE guifg=NONE
 endif
 
 " Make line nr and background fit terminal background
@@ -85,8 +89,6 @@ highlight link FloatBorder Normal
 
 " Line numbers
 set number relativenumber
-
-highlight CursorLineNR guibg=NONE guifg=NONE
 
 " SideLine
 set signcolumn=yes                       " always show (to prevent jump from git/lint)

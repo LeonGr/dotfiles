@@ -68,6 +68,11 @@ local plugins = {
             { "gh", ":HopWord<cr>" },
         },
     },
+    { 'jake-stewart/force-cul.nvim',                                        -- Force cursorline highlight on signs
+        config = function()
+            require("force-cul").setup()
+        end
+    },
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
