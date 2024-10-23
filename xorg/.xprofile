@@ -7,4 +7,6 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
 else
     echo "1080p"
     export ROFI_FONT="dejavu sans mono 16"
+    xscreensaver --no-splash &
 fi
+
