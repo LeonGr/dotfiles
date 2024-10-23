@@ -158,7 +158,7 @@ bindsym $mod+a focus parent
 bindsym $mod+Shift+a focus child
 
 # lock laptop
-bindsym $mod+Mod1+l exec --no-startup-id "lock"
+bindsym $mod+Mod1+l exec --no-startup-id "xscreensaver-command -lock"
 
 # Define names for default workspaces for which we configure key bindings later on.
 # We use variables to avoid repeating the names in multiple places.
