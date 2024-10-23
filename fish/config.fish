@@ -12,7 +12,6 @@ alias music='echo "Song: " && playerctl metadata "xesam:title" && echo "\nAlbum:
 alias exuent='exit'
 alias spotify='spotify --force-device-scale-factor=1.5'
 alias rofi-emoji='rofi -show emoji -modi emoji'
-alias sus='systemctl suspend'
 alias aurfind="echo 'use paruz'"
 alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
