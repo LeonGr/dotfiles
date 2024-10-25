@@ -64,6 +64,9 @@ alias lar='eza --long --all --all --recurse'
 alias rm='echo "Use trash (t)"; false'
 alias t='trash'
 
+### abbreviations ###
+abbr --add ta 'tmux attach-session -t'
+
 set light_theme "gruvbox-light"
 set dark_theme "TwoDark"
 set colorscheme_file "/opt/theme_colorscheme"
