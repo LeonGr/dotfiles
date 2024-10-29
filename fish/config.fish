@@ -116,43 +116,6 @@ set -x EDITOR /usr/bin/nvim
 set -x COLORTERM "truecolor"
 
 
-#  only execute these in tty
-if tty > /dev/null
-    if status --is-interactive
-        funcsave --quiet take
-
-        # register atuin
-        if command -v atuin &> /dev/null
-            atuin init fish --disable-up-arrow | source
-        end
-
-        # if fancy_motd command exists
-        if command -v fancy_motd &> /dev/null
-            # if $TMUX is unset, i.e. not inside tmux
-            if test -z "$TMUX"
-                fancy_motd
-            end
-        else if command -v pokemon-colorscripts &> /dev/null
-            # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
-            pokemon-colorscripts --random 1-5
-        else if test -d ~/dotfiles/motd/ &> /dev/null
-            # print coloured motd
-            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
-        end
-
-
-        if type -q backup_check &> /dev/null
-            backup_check
-        end
-    end
-
-    # source wal colors
-    if test -e ~/.cache/wal/sequences
-        cat ~/.cache/wal/sequences &
-    end
-end
-
-
 # give man colors
 set -x MANROFFOPT '-c'
 set -x LESS_TERMCAP_mb (tput bold; tput setaf 1)
@@ -198,3 +161,39 @@ end
 set -g fish_cursor_insert line
 
 set -U __done_min_cmd_duration 5000
+
+#  only execute these in tty
+if tty > /dev/null
+    # source wal colors
+    if test -e ~/.cache/wal/sequences
+        cat ~/.cache/wal/sequences &
+    end
+
+    if status --is-interactive
+        funcsave --quiet take
+
+        # register atuin
+        if command -v atuin &> /dev/null
+            atuin init fish --disable-up-arrow | source
+        end
+
+        if type -q backup_check &> /dev/null
+            backup_check
+        end
+
+        # if fancy_motd command exists
+        if command -v fancy_motd &> /dev/null
+            # if $TMUX is unset, i.e. not inside tmux
+            if test -z "$TMUX"
+                fancy_motd
+            end
+        else if command -v pokemon-colorscripts &> /dev/null
+            # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
+            pokemon-colorscripts --random 1-5
+        else if test -d ~/dotfiles/motd/ &> /dev/null
+            # print coloured motd
+            cat ~/dotfiles/motd/(ls ~/dotfiles/motd/ | shuf -n 1); echo ""
+        end
+    end
+end
+
