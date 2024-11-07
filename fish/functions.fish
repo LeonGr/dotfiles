@@ -145,3 +145,18 @@ function sysz_wrapper
     set -l sysz_output (~/dotfiles/scripts/sysz-no-eval)
     commandline --replace "$sysz_output # sysz_wrapper" # identify replaced command with a comment
 end
+
+# Find the package owning a file and show package info.
+# Saves doing paru -Qo and then paru -Qi and paru -Si.
+function p-o
+    set -l owner (paru -Qo --quiet $argv[1])
+    if [ $status = 0 ]
+        echo "'$argv[1]' is owned by '$owner'"
+
+        echo "### paru -Qi $owner: ###"
+        paru -Qi $owner
+
+        echo "### paru -Si $owner: ###"
+        paru -Si $owner
+    end
+end
