@@ -30,6 +30,7 @@ alias dia_ping='ssh -t leon@dia grc ping' # -t forces pseudo-terminal allocation
 alias dia_curl='ssh -t leon@dia curl -v -L' # -t forces pseudo-terminal allocation (for allowing colored output)
 alias fda='fd --hidden --no-ignore' # mnemonic: fd-all
 alias neofetch="echo 'use fastfetch'"
+alias nc="rlwrap nc"
 
 # paru
 alias p-qo='paru -Qo'
