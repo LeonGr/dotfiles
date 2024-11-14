@@ -11,7 +11,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
 -- set inline diagnostics prefix
 vim.diagnostic.config({
     virtual_text = {
-        prefix = "",
+        prefix = "!",
     },
 })
 
