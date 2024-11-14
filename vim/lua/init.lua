@@ -210,6 +210,7 @@ require("lazy").setup(plugins, opts)
 
 -- set colors
 local colors = require('galaxyline.theme').default
+colors.darkgrey = "#424242"
 
 -- helper functions to determine if file exists
 local function expand_tilde(path)
@@ -231,8 +232,6 @@ if file_exists("~/.cache/wal/colors.json") then
     local colorjson = vim.fn.readfile(vim.fn.expand("~/.cache/wal/colors.json"))
     local wal_colors = vim.fn.json_decode(colorjson)
     colors.white = wal_colors.special.foreground
-    colors.fg = wal_colors.special.foreground
-    colors.bg = wal_colors.special.background
     colors.wal_blue = wal_colors.colors.color2
 else
     colors.wal_blue = colors.blue
@@ -460,9 +459,7 @@ gls.left[1] = {
 
 gls.left[2] = {
     statusIcon = {
-        provider = function()
-            return " 󰀘 "
-        end,
+        provider = "FileIcon",
         highlight = {colors.bg, colors.wal_blue},
         separator = " ",
         separator_highlight = {colors.wal_blue, colors.bg},
@@ -476,53 +473,70 @@ gls.left[3] = {
             -- :p = full path
             -- :~ = relative to ~ if possible
             -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
+            -- local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return "  " .. dir_name .. " "
+            return dir_name .. " "
         end,
         highlight = {colors.white, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.wal_blue},
         condition = condition.not_dap_ui,
     }
 }
 
 gls.left[4] = {
-    FileIcon = {
-        provider = "FileIcon",
-        condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue},
-    }
-}
-
-gls.left[5] = {
     FileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.bg, colors.wal_blue},
-        separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg}
+        highlight = {colors.wal_blue, colors.bg},
     }
 }
+
+condition.both_diagnostic_error_and_warn = function()
+    local lsp = vim.lsp
+    local diagnostic = vim.diagnostic
+
+    if next(lsp.get_clients()) == nil then
+        return false
+    end
+    local active_clients = lsp.get_clients({ bufnr = 0 })
+
+    if active_clients then
+        local warn = diagnostic.get(vim.api.nvim_get_current_buf(), { severity = diagnostic.severity.WARN })
+        local error = diagnostic.get(vim.api.nvim_get_current_buf(), { severity = diagnostic.severity.ERROR })
+
+        return warn and error and #warn ~= 0 and #error ~= 0
+    end
+end
 
 gls.left[6] = {
     DiagnosticError = {
         provider = "DiagnosticError",
-        icon = "  ",
+        icon = "",
         highlight = {colors.red, colors.bg},
         condition = condition.not_dap_ui,
     }
 }
 
 gls.left[7] = {
+    BothSlash = {
+        provider = function()
+            return "/ "
+        end,
+        separator = "",
+        highlight = {colors.fg, colors.bg},
+        condition = condition.both_diagnostic_error_and_warn,
+    }
+}
+
+gls.left[8] = {
     DiagnosticWarn = {
         provider = "DiagnosticWarn",
-        icon = "  ",
+        icon = "",
         highlight = {colors.yellow, colors.bg},
         condition = condition.not_dap_ui,
     }
 }
 
-gls.right[1] = {
+gls.right[3] = {
     lsp_status = {
         provider = function()
             local clients = vim.lsp.get_clients()
@@ -544,48 +558,71 @@ gls.right[1] = {
     }
 }
 
-gls.right[2] = {
+gls.right[1] = {
     GitIcon = {
         provider = function()
             return " "
         end,
         condition = condition.check_git_workspace and condition.not_dap_ui,
-        highlight = {colors.fg, colors.bg},
+        highlight = {colors.orange, colors.bg},
         separator = " ",
         separator_highlight = {colors.bg, colors.bg}
     }
 }
 
-gls.right[3] = {
+gls.right[2] = {
     GitBranch = {
         provider = "GitBranch",
         condition = condition.check_git_workspace and condition.not_dap_ui,
-        highlight = {colors.fg, colors.bg},
+        highlight = {colors.orange, colors.bg},
     }
 }
 
 gls.right[4] = {
     viMode_icon = {
         provider = function()
-            return " "
+            return " "
         end,
-        separator = " ",
-        highlight = 'GalaxyViModeInvert',
-        separator_highlight = 'GalaxyViMode'
+        highlight = {colors.fg, colors.bg},
     }
 }
 
 gls.right[5] = {
+    some_icon = {
+        provider = function()
+            return ""
+        end,
+        highlight = {colors.fg, colors.bg},
+        condition = condition.not_dap_ui,
+    }
+}
+
+gls.right[6] = {
+    line_percentage = {
+        provider = function()
+            local current_line = vim.fn.line(".")
+            local current_col = vim.fn.col(".")
+            local total_line = vim.fn.line("$")
+
+            local result, _ = math.modf((current_line / total_line) * 100)
+            return "  " .. current_line .. "," .. current_col .. " " .. result .. "%"
+        end,
+        highlight = {colors.fg, colors.bg},
+        condition = condition.not_dap_ui,
+    }
+}
+
+gls.right[7] = {
     ViMode = {
         provider = function()
             local alias = {
-                n = "Normal",
-                i = "Insert",
-                c = "Command",
-                V = "Visual Line",
-                [""] = "Visual Block",
-                v = "Visual",
-                R = "Replace"
+                n = "󰰓 ",
+                i = "󰰄 ",
+                c = "󰯲 ",
+                V = "󰰫 󰰍 ",
+                [""] = "󰰫 󰯯 ",
+                v = "󰰫 ",
+                R = "󰰟 "
             }
             local current_Mode = alias[vim.fn.mode()]
 
@@ -614,33 +651,6 @@ gls.right[5] = {
     }
 }
 
-gls.right[6] = {
-    some_icon = {
-        provider = function()
-            return " "
-        end,
-        separator = "",
-        separator_highlight = {colors.green, colors.bg},
-        highlight = {colors.bg, colors.green},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.right[7] = {
-    line_percentage = {
-        provider = function()
-            local current_line = vim.fn.line(".")
-            local current_col = vim.fn.col(".")
-            local total_line = vim.fn.line("$")
-
-            local result, _ = math.modf((current_line / total_line) * 100)
-            return "  " .. current_line .. "," .. current_col .. "  " .. result .. "% "
-        end,
-        highlight = {colors.green, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
 gls.short_line_left[1] = {
     ShortLineFirstElement = {
         provider = function()
@@ -658,7 +668,7 @@ gls.short_line_left[2] = {
             local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
             return dir_name
         end,
-        highlight = {colors.wal_blue, colors.bg},
+        highlight = {colors.darkgrey, colors.bg},
         condition = condition.not_dap_ui,
     }
 }
@@ -667,7 +677,7 @@ gls.short_line_left[3] = {
     ShortLineFileName = {
         provider = {"FileName"},
         condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg},
+        highlight = {colors.darkgrey, colors.bg},
     }
 }
 
@@ -676,11 +686,6 @@ local bufferline = require("bufferline")
 bufferline.setup{
     options = {
         style_preset = bufferline.style_preset.no_italic,
-        -- diagnostics = "nvim_lsp",
-        -- diagnostics_indicator = function(count, level, _, _)
-            -- local icon = level:match("error") and " " or " "
-            -- return " " .. icon .. count
-        -- end,
         diagnostics = false,
         separator_style = "none",
         indicator = {
