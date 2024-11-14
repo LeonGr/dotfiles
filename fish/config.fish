@@ -68,20 +68,6 @@ alias t='trash'
 ### abbreviations ###
 abbr --add ta 'tmux attach-session -t'
 
-set light_theme "gruvbox-light"
-set dark_theme "TwoDark"
-set colorscheme_file "/opt/theme_colorscheme"
-
-# change bat colorscheme based on theme
-function bat
-    if test -e $colorscheme_file
-        and test (cat $colorscheme_file) = "light"
-        /usr/bin/bat --theme=$light_theme $argv
-    else
-        /usr/bin/bat --theme=$dark_theme $argv
-    end
-end
-
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
     alias weechat='TERM=tmux-256color /usr/bin/weechat'
