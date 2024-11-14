@@ -64,8 +64,8 @@ else
     set bg=dark
 endif
 
-highlight StatusLine   gui=none            " guibg=none
-highlight StatusLineNC gui=none cterm=bold " guibg=grey guifg=#000000
+highlight StatusLine   gui=none
+highlight StatusLineNC gui=none cterm=bold
 
 " Highlight current line
 set cursorline
@@ -80,11 +80,6 @@ else
     highlight CursorLineSign guibg=#DEDEDE guifg=NONE
 endif
 
-" Make line nr and background fit terminal background
-highlight Normal guibg=NONE ctermbg=NONE
-highlight LineNr guibg=NONE
-
-"highlight FloatBorder guifg=#FFFFFF
 highlight link FloatBorder Normal
 
 " Line numbers
