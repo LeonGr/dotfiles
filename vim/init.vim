@@ -82,6 +82,9 @@ endif
 
 highlight link FloatBorder Normal
 
+" Remove 'reverse' highlighting of text selected in visual mode.
+highlight Visual cterm=none gui=none
+
 " Line numbers
 set number relativenumber
 
