@@ -23,7 +23,6 @@ alias gswi='git_switch_fzf'
 alias b='bat'
 alias c='cat'
 alias clip='xclip -selection clipboard'
-alias ppa='podman ps -a'
 alias n='nvim'
 alias icat='kitty +kitten icat'
 alias dia_ping='ssh -t leon@dia grc ping' # -t forces pseudo-terminal allocation (for allowing colored output)
@@ -183,4 +182,3 @@ if tty > /dev/null
         end
     end
 end
-
