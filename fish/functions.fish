@@ -141,7 +141,7 @@ end
 
 # sysz automatically executes the selected command and doesn't add it to history.
 # this uses a modified sysz which instead echoes the command, so we can add it to history.
-function sysz_wrapper
+function sysz
     set -l sysz_output (~/dotfiles/scripts/sysz-no-eval)
     commandline --replace "$sysz_output # sysz_wrapper" # identify replaced command with a comment
 end
