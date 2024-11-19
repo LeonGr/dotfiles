@@ -282,6 +282,7 @@ require'nvim-treesitter.configs'.setup {
 }
 
 -- configure blade files parser (PHP/Laravel)
+-- See also: https://seankegel.com/neovim-for-php-and-laravel (for extra config needed)
 local parser_config = require "nvim-treesitter.parsers".get_parser_configs()
 parser_config.blade = {
     install_info = {
