@@ -158,7 +158,8 @@ local plugins = {
     -- Telescope
     {'nvim-telescope/telescope.nvim',                                       -- fuzzy finder over lists with popups
         dependencies = {
-            { 'nvim-telescope/telescope-fzf-native.nvim', build = "make" }, -- port of fzf
+            { 'nvim-telescope/telescope-fzf-native.nvim',                   -- port of fzf (recommended)
+                build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" },
             'nvim-telescope/telescope-dap.nvim',                            -- nvim-dap integration with telescope
         }
     },
