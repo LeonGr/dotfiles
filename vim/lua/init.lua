@@ -67,6 +67,7 @@ local plugins = {
             require("force-cul").setup()
         end
     },
+    { 'echasnovski/mini.ai', version = '*' },                               -- Extend and create a/i (all/in) textobjects
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
@@ -790,3 +791,6 @@ require("nvim-lightbulb").setup({
 
 ---- nvim-tree/nvim-tree.lua
 require("nvim-tree").setup()
+
+---- echasnovski/mini.ai
+require('mini.ai').setup()
