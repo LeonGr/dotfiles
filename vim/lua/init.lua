@@ -55,12 +55,6 @@ local plugins = {
     { 'nvim-pack/nvim-spectre',                                             -- Search and replace panel
         dependencies = 'nvim-lua/plenary.nvim'
     },
-    { 'fdschmidt93/telescope-egrepify.nvim',                                -- live grepping with grouping by file + prefixes
-        dependencies = {                                                    -- prefixes:
-            'nvim-telescope/telescope.nvim',                                -- #: file suffix, >: folder names, &: file names
-            'nvim-lua/plenary.nvim'
-        }
-    },
     'nvim-tree/nvim-tree.lua',                                              -- file tree
     { 'smoka7/hop.nvim',                                                    -- quick jumping to the entire visible text
         version = "*", opts = { keys = 'etovxqpdygfblzhckisuran' },         -- Amp-like / Helix-like
@@ -161,6 +155,12 @@ local plugins = {
             { 'nvim-telescope/telescope-fzf-native.nvim',                   -- port of fzf (recommended)
                 build = "cmake -S. -Bbuild -DCMAKE_BUILD_TYPE=Release && cmake --build build --config Release" },
             'nvim-telescope/telescope-dap.nvim',                            -- nvim-dap integration with telescope
+        }
+    },
+    { 'fdschmidt93/telescope-egrepify.nvim',                                -- live grepping with grouping by file + prefixes
+        dependencies = {                                                    -- prefixes:
+            'nvim-telescope/telescope.nvim',                                -- #: file suffix, >: folder names, &: file names
+            'nvim-lua/plenary.nvim'
         }
     },
 
