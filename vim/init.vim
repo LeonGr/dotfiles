@@ -172,6 +172,7 @@ nnoremap <Leader>m     :Telescope keymaps<CR>
 nnoremap <Leader>r     :Telescope live_grep<CR>
 " nnoremap <Leader>r     :Telescope egrepify<CR>
      map <Leader>n     :Telescope man_pages sections=1,2,3,4,5,6,7,8,9<CR>
+nnoremap <Leader>D     :Telescope diagnostics<CR>
 
 " Instead of going to next occurrence of word on *, stay on current
 nnoremap * *N
