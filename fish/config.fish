@@ -71,7 +71,7 @@ abbr --add ta 'tmux attach-session -t'
 if test (hostname) = "callisto"
     alias weechat='TERM=tmux-256color /usr/bin/weechat'
 else
-    alias weechat='ssh -t leon@callisto "tmux attach-session -t weechat"'
+    alias weechat='ssh -t leon@callisto "tmux -L weechat attach-session"'
 end
 
 # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
