@@ -513,3 +513,6 @@ command! -buffer RSTView call s:rst_view()
 
 " nvim-tree/nvim-tree.lua settings
 nnoremap <C-P> :NvimTreeToggle<CR>
+
+" junegunn/fzf.vim settings
+let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
