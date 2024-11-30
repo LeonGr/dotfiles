@@ -68,6 +68,13 @@ local plugins = {
         end
     },
     { 'echasnovski/mini.ai', version = '*' },                               -- Extend and create a/i (all/in) textobjects
+    { 'junegunn/fzf.vim',                                                   -- Fuzzy finder
+        dependencies = {
+            'junegunn/fzf',
+            build = ":call fzf#install()",
+        },
+    },
+
 
     -- debugging
     {'mfussenegger/nvim-dap',                                               -- Debug Adapter Protocol (DAP) client implementation
