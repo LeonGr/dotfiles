@@ -129,7 +129,7 @@ set -x GOPATH "$HOME/.go"
 set -x GPG_TTY (tty)
 
 # Make fzf start in a tmux popup
-set -x FZF_DEFAULT_OPTS "--tmux"
+set -x FZF_DEFAULT_OPTS "--tmux 90%"
 
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
