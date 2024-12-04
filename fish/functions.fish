@@ -187,3 +187,48 @@ function ppa
             # 4. Make the 'Exited' container status red.
             | sd '(\(Exited*\))' "$red\$1"
 end
+
+# Ask for confirmation, default No. Allows custom prompt argument.
+function read_confirm
+    set -l message ""
+    if set -q argv[1]
+        set message $argv[1]
+    else
+        set message "Do you want to continue?"
+    end
+    while true
+        read -l -P "$message [y/N] " confirm
+
+        switch $confirm
+            case Y y
+                return 0
+            case '' N n
+                return 1
+        end
+    end
+end
+
+# Select and kill multiple processes
+function terminator
+    # Show all lines from 'ps aux', except the first (header).
+    # Get the PID part of the line with awk.
+    set -l PIDs (grc --colour=on ps aux | fzf -m --ansi --header-lines=1 | awk '{print $2}')
+
+    # Test if the $PIDs variable is non-empty
+    if test -n "$PIDs"
+        # Print selected processes
+        ps --format "pid,user,command" -p $PIDs
+
+        # Ask for confirmation to continue
+        if read_confirm "Do you want to kill these processes?"
+            # Check if we're root, otherwise use sudo
+            if test "$EUID" -ne 0
+                sudo kill $PIDs
+            else
+                kill $PIDs
+            end
+        end
+    else
+        echo "No processes selected"
+    end
+end
