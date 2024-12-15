@@ -516,3 +516,6 @@ nnoremap <C-P> :NvimTreeToggle<CR>
 
 " junegunn/fzf.vim settings
 let g:fzf_layout = { 'window': { 'width': 0.95, 'height': 0.95 } }
+
+" Exit on escape (prevent normal mode from working):
+autocmd! FileType fzf tnoremap <buffer> <esc> <c-c>
