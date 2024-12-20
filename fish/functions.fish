@@ -128,6 +128,17 @@ function ipinfo
     curl -s "https://ipinfo.io/$argv[1]" | jq
 end
 
+# query maclookup.app
+function macinfo
+    set -l mac $argv[1]
+    echo "MAC: $mac"
+    # Get first 3 octets only
+    set -l stripped (echo "$mac" | string split : | head -n 3 | string join "")
+    echo "Stripped: $stripped"
+
+    curl -s "https://api.maclookup.app/v2/macs/$stripped" | jq
+end
+
 # search for man pages using fzf
 function mans
     set -l man_page (apropos '' | fzf | sd '^(.*?)\s\((\d.?)\).*' '$2 $1')
