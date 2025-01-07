@@ -105,7 +105,7 @@ bindsym $mod+c exec rofi -show calc -modi calc -no-show-match -no-sort \
 bindsym $mod+q exec --no-startup-id rofi -show window \
     -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1 -matching prefix
 
-bindsym $mod+f exec --no-startup-id rofi -show filebrowser \
+bindsym $mod+f exec --no-startup-id rofi -show recursivebrowser \
     -width 1000 -font "$ROFI_FONT" -theme ~/.cache/wal/colors-rofi.rasi -monitor -1
 
 # change focus
