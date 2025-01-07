@@ -79,6 +79,11 @@
     text-color:       inherit;
 }}
 
+element-icon {{
+    size: 36;
+    spacing: 10;
+}}
+
 #element.normal.normal {{
     background-color: @normal-background;
     text-color: @normal-foreground;
