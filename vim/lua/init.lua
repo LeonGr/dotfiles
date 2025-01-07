@@ -88,8 +88,11 @@ local plugins = {
         },
         ft = { "rust", "c", "cpp", "python", "java" },
     },
-    {'mfussenegger/nvim-jdtls',                                             -- Debug Adapter Protocol (DAP) client implementation
+    {'mfussenegger/nvim-jdtls',                                             -- Debug Adapter Protocol (DAP) client implementation for Java
         ft = { "java" },
+    },
+    {'mfussenegger/nvim-dap-python',                                        -- Debug Adapter Protocol (DAP) client implementation for Python
+        ft = { "python" },
     },
 
     -- mason
