@@ -243,3 +243,11 @@ function terminator
         echo "No processes selected"
     end
 end
+
+function try_add_path
+    set -l path "$argv[1]"
+
+    if test -d $path
+        fish_add_path --append $path
+    end
+end

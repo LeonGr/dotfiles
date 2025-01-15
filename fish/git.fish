@@ -163,4 +163,4 @@ alias gwip='git add -A; git ls-files --deleted -z | xargs -0 git rm; git commit 
 alias gunwip='git log -n 1 | grep -q -c wip; and git reset HEAD~1'
 
 # add git-util to path (https://github.com/mjdominus/git-util/)
-fish_add_path --append "$HOME/GitClones/git-util/bin/"
+try_add_path "$HOME/GitClones/git-util/bin/"
