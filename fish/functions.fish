@@ -12,7 +12,6 @@ function backup_check_single
         set -l backup_service "$argv[1]"
         set -l service_owner "$argv[2]"
 
-
         if test $service_owner = "user"
             echo "$backup_service [--user]"
             set -f systemctl_command "systemctl --user"
@@ -21,40 +20,45 @@ function backup_check_single
             set -f systemctl_command "systemctl"
         end
 
-        # Print time of last backup
-        set -l backup_datetime_command "$systemctl_command show '$backup_service' --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' ''"
-        set -l backup_datetime (eval $backup_datetime_command)
-        set -l backup_datetime_epoch (date --date=$backup_datetime '+%s')
-        set -l current_datetime_epoch (date '+%s')
-        set -l days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
+        # First check if service exists
+        if not eval "$systemctl_command list-unit-files \"$argv[1]\"" &>/dev/null
+            echo "No such service"
+            echo ""
+        else
+            # Print time of last backup
+            set -l backup_datetime_command "$systemctl_command show '$backup_service' --property=ExecMainStartTimestamp | sd 'ExecMainStartTimestamp=' ''"
+            set -l backup_datetime (eval $backup_datetime_command)
+            set -l backup_datetime_epoch (date --date=$backup_datetime '+%s')
+            set -l current_datetime_epoch (date '+%s')
+            set -l days_diff (math --scale 0 \($current_datetime_epoch - $backup_datetime_epoch\) / 86400)
 
-        echo -e "last backup: $backup_datetime"
-        if test $days_diff -gt 0
-            echo -e "[30;41m $days_diff days since last backup \033[0m"
+            echo -e "last backup: $backup_datetime"
+            if test $days_diff -gt 0
+                echo -e "[30;41m $days_diff days since last backup \033[0m"
+            end
+
+            # Print status of last backup
+            set -l backup_status_command "$systemctl_command show -p MainPID -p ActiveState --value $backup_service"
+            set -l backup_status (eval $backup_status_command)
+            set -l backup_status_type $backup_status[2]
+
+            echo -n "status: "
+            # for color codes see: https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
+            switch $backup_status_type
+                case "failed"
+                    echo -e -n "[30;41m" # red
+                case "active"
+                    echo -e -n "[30;42m" # green
+                case "activating"
+                    echo -e -n "[30;43m" # yellow
+                # case "inactive"
+                    # echo -e -n "[30;44m" # blue
+            end
+            echo -n "$backup_status_type"
+            echo -e -n "\033[0m"
+            echo ""
+            echo ""
         end
-
-        # Print status of last backup
-        set -l backup_status_command "$systemctl_command show -p MainPID -p ActiveState --value $backup_service"
-        set -l backup_status (eval $backup_status_command)
-        set -l backup_status_type $backup_status[2]
-
-        echo -n "status: "
-        # for color codes see: https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
-        switch $backup_status_type
-            case "failed"
-                echo -e -n "[30;41m" # red
-            case "active"
-                echo -e -n "[30;42m" # green
-            case "activating"
-                echo -e -n "[30;43m" # yellow
-            # case "inactive"
-                # echo -e -n "[30;44m" # blue
-        end
-        echo -n "$backup_status_type"
-        echo -e -n "\033[0m"
-        echo ""
-        echo ""
-
     else
         echo -e "No service supplied"
     end
