@@ -288,7 +288,7 @@ mode "switch_workspace" {
     bindsym $mod+r mode "default"
 }
 
-bindsym Mod1+g mode "switch_workspace"
+bindsym Mod1+y mode "switch_workspace"
 
 # rename workspace
 mode "rename_workspace" {
