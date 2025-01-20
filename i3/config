@@ -310,7 +310,7 @@ mode "rename_workspace" {
     bindsym $mod+r mode "default"
 }
 
-bindsym $mod+y mode "rename_workspace"
+bindsym $mod+Shift+y mode "rename_workspace"
 
 ### window rules
 
