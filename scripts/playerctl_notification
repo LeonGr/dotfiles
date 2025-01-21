@@ -14,7 +14,7 @@ elif echo "$PLAYERS" | grep -w "spotify"; then
     log "spotify running"
     PLAYER="spotify"
 else
-    PLAYER="${PLAYERS[0]}"
+    PLAYER=$(echo "$PLAYERS" | tr '\n' ' ' | awk '{print $1}')
 fi
 
 log "Selected player: $PLAYER"
