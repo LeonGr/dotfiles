@@ -30,7 +30,7 @@
     padding = 6
     horizontal_padding = 6
     frame_width = 2
-    frame_color = "#1e2122"
+    frame_color = "{color1}"
     separator_color = frame
     sort = yes
     idle_threshold = 120
@@ -82,8 +82,8 @@
     per_monitor_dpi = false
 
 [urgency_low]
-    background = "#000000"
-    foreground = "#a8a8a8"
+    background = "{background}"
+    foreground = "{foreground}"
     timeout = 3
 
 [urgency_normal]
