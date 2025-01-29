@@ -68,6 +68,7 @@ alias t='trash'
 
 ### abbreviations ###
 abbr --add ta 'tmux attach-session -t'
+abbr --add ii 'ipinfo'
 
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
