@@ -134,6 +134,8 @@ set -x GPG_TTY (tty)
 # Make fzf start in a tmux popup
 set -x FZF_DEFAULT_OPTS "--tmux 90%"
 
+set -x KUBECONFIG ~/GitClones/LeonGr/Harpalyke-Infrastructure/cluster-admin.kubeconfig
+
 # generic colouriser alias support (https://github.com/garabik/grc)
 source /etc/grc.fish
 
