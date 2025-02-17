@@ -31,6 +31,8 @@ alias dia_curl='ssh -t leon@dia curl -v -L' # -t forces pseudo-terminal allocati
 alias fda='fd --hidden --no-ignore' # mnemonic: fd-all
 alias neofetch="echo 'use fastfetch'"
 alias nc="rlwrap nc"
+alias sc="systemctl"
+alias jc="journalctl"
 
 # paru
 alias p-qo='paru -Qo'
