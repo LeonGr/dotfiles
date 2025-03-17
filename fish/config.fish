@@ -79,22 +79,6 @@ else
     alias weechat='ssh -t leon@callisto "tmux -L weechat attach-session"'
 end
 
-# set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
-if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
-    set -l dir (dirs)
-    set -l tmux_session_name (tmux display-message -p '#S')
-    set -l host_name (hostname)
-    xdotool set_window --name "[$host_name] tmux: $dir [$tmux_session_name]" (xdotool getactivewindow)
-    set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
-end
-
-if [ -n "$KITTY_LISTEN_ON" ]
-    # always highlight URLs kitty
-    set URL_PREFIXES "http|https|file|ftp|gemini|irc|gopher|mailto|news|git"
-    set URL_REGEX "($URL_PREFIXES):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?"
-    kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
-end
-
 # git aliases
 source ~/.config/fish/git.fish
 
@@ -151,6 +135,23 @@ if status is-interactive
     if which keychain &> /dev/null
         start_keychain &> /tmp/keychain.log
     end
+
+    # set window name of tmux terminal to 'tmux: $dir' where $dir is the starting directory
+    if [ -n "$TMUX" ] && command -v xdotool &> /dev/null
+        set -l dir (dirs)
+        set -l tmux_session_name (tmux display-message -p '#S')
+        set -l host_name (hostname)
+        xdotool set_window --name "[$host_name] tmux: $dir [$tmux_session_name]" (xdotool getactivewindow)
+        set -x KITTY_LISTEN_ON (bat /tmp/kitty-pid)
+    end
+
+    if [ -n "$KITTY_LISTEN_ON" ]
+        # always highlight URLs kitty
+        set URL_PREFIXES "http|https|file|ftp|gemini|irc|gopher|mailto|news|git"
+        set URL_REGEX "($URL_PREFIXES):\/\/([\w\-_]+(?:(?:\.[\w\-_]+)+))([\w\-\.,@?^=%&:/~\+#]*[\w\-\@?^=%&/~\+#])?"
+        kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
+    end
+
 end
 
 # Insert mode cursor should be line
