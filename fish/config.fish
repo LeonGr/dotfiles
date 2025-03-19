@@ -69,8 +69,45 @@ alias t='trash'
 ### abbreviations ###
 abbr --add ta 'tmux attach-session -t'
 abbr --add ii 'ipinfo'
+
+## systemctl
 abbr --add sc 'systemctl'
+abbr --add ssc 'sudo systemctl'
+
+# status
+abbr --add scs 'systemctl status'
+abbr --add sscs 'sudo systemctl status'
+abbr --add scus 'systemctl --user status'
+
+# restart
+abbr --add scur 'systemctl --user restart'
+abbr --add sscr 'sudo systemctl restart'
+
+# daemon-reload
+abbr --add sscd 'sudo systemctl daemon-reload'
+abbr --add scud 'systemctl --user daemon-reload'
+
+# cat
+abbr --add scc 'systemctl cat'
+abbr --add scuc 'systemctl --user cat'
+
+# stop (k = kill)
+abbr --add ssck 'sudo systemctl stop'
+abbr --add scuk 'systemctl --user stop'
+
+# start (i = init)
+abbr --add ssci 'sudo systemctl start'
+abbr --add scui 'systemctl --user start'
+
+## journalctl
 abbr --add jc 'journalctl'
+abbr --add jcfu 'journalctl -f -u'
+abbr --add jcstfu 'journalctl --since today -f -u'
+abbr --add jck 'journalctl -k'
+abbr --add jcfk 'journalctl -f -k'
+abbr --add jcstk 'journalctl --since today -k'
+abbr --add jcstfk 'journalctl --since today -k'
+
 
 # 'hostname' requires inetutils (on Arch)
 if test (hostname) = "callisto"
