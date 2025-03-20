@@ -69,6 +69,7 @@ function backup_check
     backup_check_single backup.service
     backup_check_single backup_restic.service
     backup_check_single backup_restic_callisto.service
+    backup_check_single backup_duplicity_kdrive.service
     backup_check_single backup_obsidian.service "user"
 end
 
