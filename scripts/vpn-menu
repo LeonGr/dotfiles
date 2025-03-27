@@ -11,12 +11,24 @@ log() {
     tput setaf 1; echo "### $1 ###"; tput sgr 0
 }
 
-turn_off() {
+turn_off_vpn() {
     if [[ "$current_vpn" != "" ]]; then
         log "Turning off VPN interface $current_vpn"
 
         systemctl stop "wg-quick@$current_vpn"
     fi
+}
+
+turn_off_tailscale() {
+    log "Turning off Tailscale"
+
+    systemctl stop tailscaled
+}
+
+turn_on_tailscale() {
+    log "Turning on Tailscale"
+
+    systemctl start tailscaled
 }
 
 if [[ $(/usr/bin/id -u) -ne 0 ]]; then
@@ -27,7 +39,7 @@ fi
 current_vpn=$(wg show | head -n 1 | sd "interface: " "")
 
 if [[ $1 == "--off" ]]; then
-    turn_off
+    turn_off_vpn
     log "Done"
 
     exit 0
@@ -46,7 +58,11 @@ else
             exit 1
         fi
 
-        turn_off
+        turn_off_vpn
+
+        if [[ $1 == "--tailscale" ]]; then
+            turn_off_tailscale
+        fi
 
         log "Turning on VPN interface $selection"
 
@@ -60,6 +76,10 @@ else
             systemctl start "wg-quick@$selection"
 
             sleep 5
+        fi
+
+        if [[ $1 == "--tailscale" ]]; then
+            turn_on_tailscale
         fi
 
         log "Done"
