@@ -17,8 +17,20 @@ vim.opt.rtp:prepend(lazypath)
 require('plugins')
 
 -- set colors
-local colors = require('galaxyline.theme').default
-colors.darkgrey = "#424242"
+local colors = {
+    bg = '#202328',
+    fg = '#bbc2cf',
+    yellow = '#ECBE7B',
+    cyan = '#008080',
+    darkblue = '#081633',
+    green = '#98be65',
+    orange = '#FF8800',
+    violet = '#a9a1e1',
+    magenta = '#c678dd',
+    blue = '#51afef';
+    red = '#ec5f67';
+    darkgrey = '#424242';
+}
 
 -- helper functions to determine if file exists
 local function expand_tilde(path)
@@ -239,256 +251,32 @@ vim.keymap.set('v', '<Leader>F', function()
     require('telescope.builtin').current_buffer_fuzzy_find({ default_text = text })
 end, { expr = false })
 
----- glepnir/galaxyline.nvim
+---- nvim-lualine/lualine.nvim
 
--- config adapted from https://github.com/siduck76/NvChad/blob/main/lua/plugins/statusline.lua
-local gl = require'galaxyline'
-local condition = require'galaxyline.condition'
-
-condition.not_dap_ui = function()
-    return vim.o.filetype:find("dap") == nil
-end
-
-local gls = gl.section
-
-gl.short_line_list = {" "}
-
-vim.cmd("highlight StatusLine guibg=" .. colors.bg)
-vim.cmd("highlight StatusLine guifg=" .. colors.fg)
-vim.cmd("highlight StatusLineNC guibg=" .. colors.bg)
-
-gls.left[1] = {
-    FirstElement = {
-        provider = function()
-            return "▋"
-        end,
-        highlight = {colors.wal_blue, colors.wal_blue},
-    }
-}
-
-gls.left[2] = {
-    statusIcon = {
-        provider = "FileIcon",
-        highlight = {colors.bg, colors.wal_blue},
-        separator = " ",
-        separator_highlight = {colors.wal_blue, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.left[3] = {
-    current_dir = {
-        provider = function()
-            -- :p = full path
-            -- :~ = relative to ~ if possible
-            -- local working_dir_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:~")
-            -- local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return dir_name .. " "
-        end,
-        highlight = {colors.white, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.left[4] = {
-    FileName = {
-        provider = {"FileName"},
-        condition = condition.buffer_not_empty,
-        highlight = {colors.wal_blue, colors.bg},
-    }
-}
-
-condition.both_diagnostic_error_and_warn = function()
-    local lsp = vim.lsp
-    local diagnostic = vim.diagnostic
-
-    if next(lsp.get_clients()) == nil then
-        return false
-    end
-    local active_clients = lsp.get_clients({ bufnr = 0 })
-
-    if active_clients then
-        local warn = diagnostic.get(vim.api.nvim_get_current_buf(), { severity = diagnostic.severity.WARN })
-        local error = diagnostic.get(vim.api.nvim_get_current_buf(), { severity = diagnostic.severity.ERROR })
-
-        return warn and error and #warn ~= 0 and #error ~= 0
-    end
-end
-
-gls.left[6] = {
-    DiagnosticError = {
-        provider = "DiagnosticError",
-        icon = "",
-        highlight = {colors.red, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.left[7] = {
-    BothSlash = {
-        provider = function()
-            return "/ "
-        end,
-        separator = "",
-        highlight = {colors.fg, colors.bg},
-        condition = condition.both_diagnostic_error_and_warn,
-    }
-}
-
-gls.left[8] = {
-    DiagnosticWarn = {
-        provider = "DiagnosticWarn",
-        icon = "",
-        highlight = {colors.yellow, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.right[3] = {
-    lsp_status = {
-        provider = function()
-            local clients = vim.lsp.get_clients()
-            if next(clients) ~= nil then
-                local buf_ft = vim.api.nvim_get_option_value("filetype", { buf = 0 })
-                for _, client in ipairs(clients) do
-                    local filetypes = client.config.filetypes
-                    if filetypes and vim.fn.index(filetypes, buf_ft) ~= -1 then
-                        return " " .. "  " .. client.name
-                    end
-                end
-                return ""
-            else
-                return ""
-            end
-        end,
-        highlight = {colors.fg, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.right[1] = {
-    GitIcon = {
-        provider = function()
-            return " "
-        end,
-        condition = condition.check_git_workspace and condition.not_dap_ui,
-        highlight = {colors.orange, colors.bg},
-        separator = " ",
-        separator_highlight = {colors.bg, colors.bg}
-    }
-}
-
-gls.right[2] = {
-    GitBranch = {
-        provider = "GitBranch",
-        condition = condition.check_git_workspace and condition.not_dap_ui,
-        highlight = {colors.orange, colors.bg},
-    }
-}
-
-gls.right[4] = {
-    viMode_icon = {
-        provider = function()
-            return " "
-        end,
-        highlight = {colors.fg, colors.bg},
-    }
-}
-
-gls.right[5] = {
-    some_icon = {
-        provider = function()
-            return ""
-        end,
-        highlight = {colors.fg, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.right[6] = {
-    line_percentage = {
-        provider = function()
-            local current_line = vim.fn.line(".")
-            local current_col = vim.fn.col(".")
-            local total_line = vim.fn.line("$")
-
-            local result, _ = math.modf((current_line / total_line) * 100)
-            return "  " .. current_line .. "," .. current_col .. " " .. result .. "%"
-        end,
-        highlight = {colors.fg, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.right[7] = {
-    ViMode = {
-        provider = function()
-            local alias = {
-                n = "󰰓 ",
-                i = "󰰄 ",
-                c = "󰯲 ",
-                V = "󰰫 󰰍 ",
-                [""] = "󰰫 󰯯 ",
-                v = "󰰫 ",
-                R = "󰰟 "
+require('lualine').setup({
+    sections = {
+        lualine_c = {
+            {
+                'filename',
+                path = 3, -- show absolute path, using ~ for $HOME
             }
-            local current_Mode = alias[vim.fn.mode()]
-
-            local mode_color = {
-                -- see :help mode()
-                n = colors.red, i = colors.blue, v = colors.orange,
-                [''] = colors.orange,V=colors.orange,
-                c = colors.magenta,no = colors.red,s = colors.orange,
-                S=colors.orange,[''] = colors.orange,
-                ic = colors.yellow,R = colors.violet,Rv = colors.violet,
-                cv = colors.red,ce=colors.red, r = colors.cyan,
-                rm = colors.cyan, ['r?'] = colors.cyan,
-                ['!']  = colors.red,t = colors.cyan
-            }
-
-            vim.api.nvim_command('hi GalaxyViMode guifg='..mode_color[vim.fn.mode()]..' guibg='..colors.bg)
-            vim.api.nvim_command('hi GalaxyViModeInvert guibg='..mode_color[vim.fn.mode()]..' guifg='..colors.bg)
-
-            if current_Mode == nil then
-                return "  Terminal "
-            else
-                return "  " .. current_Mode .. " "
-            end
-        end,
-        highlight = {colors.red, colors.bg}
-    }
-}
-
-gls.short_line_left[1] = {
-    ShortLineFirstElement = {
-        provider = function()
-            return "▋"
-        end,
-        highlight = {colors.bg, colors.bg}
-    }
-}
-
-gls.short_line_left[2] = {
-    ShortLinecurrent_dir = {
-        provider = function()
-            -- :p = full path
-            -- :~ = relative to ~ if possible
-            local dir_name = vim.fn.fnamemodify(vim.fn.expand('%:p:h'), ":p:~")
-            return dir_name
-        end,
-        highlight = {colors.darkgrey, colors.bg},
-        condition = condition.not_dap_ui,
-    }
-}
-
-gls.short_line_left[3] = {
-    ShortLineFileName = {
-        provider = {"FileName"},
-        condition = condition.buffer_not_empty,
-        highlight = {colors.darkgrey, colors.bg},
-    }
-}
+        },
+        -- default version doesn't show LSP, so add it:
+        lualine_x = {
+            'encoding',
+            'fileformat',
+            {
+                'lsp_status',
+                icon = '', -- don't show icon, just the LSP server name
+                symbols = {
+                    done = '', -- don't show checkmark when loading is done (still shows loading spinner)
+                },
+            },
+            'filetype'
+        }
+    },
+    extensions = { 'nvim-dap-ui' },
+})
 
 ---- akinsho/bufferline.nvim
 local bufferline = require("bufferline")

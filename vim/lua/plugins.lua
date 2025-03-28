@@ -25,8 +25,10 @@ local plugins = {
     'xiyaowong/nvim-cursorword',                                            -- Underline the word under the cursor
     { 'gelguy/wilder.nvim', build = ":UpdateRemotePlugins" },               -- command-line completion tweaks
     'nvim-lua/popup.nvim',                                                  -- vim compatible popups in neovim
-    'glepnir/galaxyline.nvim',                                              -- Lua Statusline
     {'akinsho/bufferline.nvim',                                             -- Lua Bufferline
+        dependencies = 'nvim-tree/nvim-web-devicons'                        -- filetype icons for plugins (e.g. telescope)
+    },
+    {'nvim-lualine/lualine.nvim',                                           -- Lua Statusline
         dependencies = 'nvim-tree/nvim-web-devicons'                        -- filetype icons for plugins (e.g. telescope)
     },
     { 'iamcco/markdown-preview.nvim', build = "cd app && yarn"  },          -- Markdown preview (:MarkdownPreview)
