@@ -15,23 +15,8 @@ vim.diagnostic.config({
     },
 })
 
--- add border to hover
-vim.lsp.handlers["textDocument/hover"] =
-  vim.lsp.with(
-  vim.lsp.handlers.hover,
-  {
-    border = "single"
-  }
-)
-
--- add border to signature
-vim.lsp.handlers["textDocument/signatureHelp"] =
-  vim.lsp.with(
-  vim.lsp.handlers.signature_help,
-  {
-    border = "single"
-  }
-)
+-- add border to floating windows (hover, signature, etc.)
+vim.o.winborder = 'rounded'
 
 -- lspconfig object
 local lspconfig = require'lspconfig'
