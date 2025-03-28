@@ -198,10 +198,10 @@ local plugins = {
     {'chriskempson/base16-vim', lazy = true, },
 }
 
-local opts = {
+local lazy_opts = {
     ui = {
         border = "single",
     },
 }
 
-require("lazy").setup(plugins, opts)
+require("lazy").setup(plugins, lazy_opts)
