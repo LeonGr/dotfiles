@@ -343,36 +343,19 @@ wilder.set_option('pipeline', {
     ),
 })
 
-wilder.set_option('renderer', wilder.wildmenu_renderer({
-    highlighter = {
-        wilder.basic_highlighter(),
-    },
-    right = {' ', wilder.wildmenu_index()},
-    highlights = {
-        default = "Normal",
-        accent = wilder.make_hl(
-            'WilderAccent',
-            'Normal',
-            {
-                {a = 1}, {a = 1}, { foreground = colors.wal_blue }
-            }
-        ),
-        selected = wilder.make_hl(
-            'WilderSelected',
-            'Normal',
-            {
-                {a = 1}, {a = 1}, { reverse = 1 }
-            }
-        ),
-        -- selected_accent = wilder.make_hl(
-            -- 'WilderSelectedAccent',
-            -- 'Normal',
-            -- {
-                -- {a = 1}, {a = 1}, { reverse = 1, background = colors.red }
-            -- }
-        -- ),
-    },
-}))
+-- popup menu floating in the middle of the screen
+wilder.set_option('renderer', wilder.popupmenu_renderer(
+    wilder.popupmenu_palette_theme({
+        -- Remove the border (8 characters), since `vim.o.winborder` already adds one:
+        border = { '', '', '', '', '', '', '', '' },
+        -- Set a border for the prompt manually. Needed because we didn't choose a standard border option above.
+        prompt_border = { '─', '─', '─' },
+        max_height = '75%',      -- max height of the palette
+        min_height = 0,          -- set to the same as 'max_height' for a fixed height window
+        prompt_position = 'top', -- 'top' or 'bottom' to set the location of the prompt
+        reverse = 0,             -- set to 1 to reverse the order of the list, use in combination with 'prompt_position'
+    })
+))
 
 ---- mistricky/codesnap.nvim
 require("codesnap").setup()
