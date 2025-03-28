@@ -206,6 +206,7 @@ require'telescope'.setup {
                 prompt_position = "top"
             }
         },
+        border = false,
         sorting_strategy = "ascending"
     },
 }
