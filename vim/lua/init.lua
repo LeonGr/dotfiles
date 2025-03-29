@@ -17,7 +17,7 @@ vim.opt.rtp:prepend(lazypath)
 require('plugins')
 
 -- add border to floating windows (hover, signature, etc.)
-vim.o.winborder = 'rounded'
+-- vim.o.winborder = 'rounded'
 
 -- set colors
 local colors = {
@@ -209,7 +209,7 @@ require'telescope'.setup {
                 prompt_position = "top"
             }
         },
-        border = false,
+        border = true,
         sorting_strategy = "ascending"
     },
 }
@@ -350,10 +350,7 @@ wilder.set_option('pipeline', {
 -- popup menu floating in the middle of the screen
 wilder.set_option('renderer', wilder.popupmenu_renderer(
     wilder.popupmenu_palette_theme({
-        -- Remove the border (8 characters), since `vim.o.winborder` already adds one:
-        border = { '', '', '', '', '', '', '', '' },
-        -- Set a border for the prompt manually. Needed because we didn't choose a standard border option above.
-        prompt_border = { '─', '─', '─' },
+        border = 'single',
         max_height = '75%',      -- max height of the palette
         min_height = 0,          -- set to the same as 'max_height' for a fixed height window
         prompt_position = 'top', -- 'top' or 'bottom' to set the location of the prompt
