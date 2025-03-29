@@ -13,9 +13,6 @@ vim.diagnostic.config({
     },
 })
 
--- add border to floating windows (hover, signature, etc.)
-vim.o.winborder = 'rounded'
-
 -- lspconfig object
 local lspconfig = require'lspconfig'
 

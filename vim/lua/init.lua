@@ -16,6 +16,9 @@ vim.opt.rtp:prepend(lazypath)
 
 require('plugins')
 
+-- add border to floating windows (hover, signature, etc.)
+vim.o.winborder = 'rounded'
+
 -- set colors
 local colors = {
     bg = '#202328',
