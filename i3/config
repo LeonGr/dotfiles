@@ -324,7 +324,7 @@ for_window [class="pavucontrol"] floating enable
 for_window [title="vCoolor"] floating enable
 
 # Launch blueman-manager in floating state
-for_window [title="blueman-manager"] floating enable
+for_window [class="(?i)blueman-manager"] floating enable
 
 # Launch VirtualBox settings in floating state
 for_window [class="VirtualBox" title="Settings"] floating enable
