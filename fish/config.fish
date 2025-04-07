@@ -206,7 +206,7 @@ if tty > /dev/null
     # Set color of the matched part of a history search (up/down arrow).
     # This seems to have been changed to equal 'black' (without background),
     # so it was indistinguishable from the background itself.
-    set -g fish_color_search_match 'black' --background 'brblack'
+    set -g fish_color_search_match 'white' --background 'brblack'
 
     if status --is-interactive
         funcsave --quiet take
