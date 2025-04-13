@@ -159,7 +159,10 @@ end
 # this uses a modified sysz which instead echoes the command, so we can add it to history.
 function sysz
     set -l sysz_output (~/dotfiles/scripts/sysz-no-eval)
-    commandline --replace "$sysz_output # sysz_wrapper" # identify replaced command with a comment
+
+    if [ "$sysz_output" != "" ]
+        commandline --replace "$sysz_output # sysz_wrapper" # identify replaced command with a comment
+    end
 end
 
 # Find the package owning a file and show package info.
