@@ -17,9 +17,7 @@ alias tmux='echo $KITTY_LISTEN_ON > /tmp/kitty-pid; /usr/bin/tmux'
 alias mv='mv -i' # (--interactive) confirm overwrites
 alias cp='cp -i' # (--interactive) confirm overwrites
 alias scrot="scrot --exec 'xclip -selection clipboard -target image/png -in \$f'"
-alias g.='git status .'
 alias dmesg='dmesg -H'
-alias gswi='git_switch_fzf'
 alias b='bat'
 alias bp='bat --paging=always'
 alias c='cat'

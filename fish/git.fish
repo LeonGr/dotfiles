@@ -13,12 +13,14 @@ alias gup='git pull --rebase'
 #compdef _git gup=git-fetch
 alias gp='git push'
 #compdef _git gp=git-push
-alias gd='git diff'
-#compdef _git gd=git-diff
 alias gds='git diff --staged'
 #compdef _git gd=git-diff
 alias gsw='git switch'
 #compdef _git gsw=git-switch
+alias g.='git status .'
+#compdef _git g.=git-status
+
+alias gswi='git_switch_fzf'
 
 function gdv
   git diff -w $argv | view -
