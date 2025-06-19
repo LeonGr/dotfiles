@@ -163,3 +163,7 @@ lspconfig.phpactor.setup({ capabilities=capabilities })
 
 -- Enable nil_ls (Nix Expression Language)
 require'lspconfig'.nil_ls.setup{}
+
+-- Enable fish_lsp (fish shell language)
+-- Error codes: https://github.com/ndonfris/fish-lsp/wiki/Diagnostic-Error-Codes
+lspconfig.fish_lsp.setup({ capabilities=capabilities })
