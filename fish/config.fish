@@ -210,21 +210,21 @@ if tty > /dev/null
         funcsave --quiet take
 
         # register atuin
-        if command -v atuin &> /dev/null
+        if command -q atuin
             atuin init fish --disable-up-arrow | source
         end
 
-        if type -q backup_check &> /dev/null
+        if type -q backup_check
             backup_check
         end
 
         # if fancy_motd command exists
-        if command -v fancy_motd &> /dev/null
+        if command -q fancy_motd
             # if $TMUX is unset, i.e. not inside tmux
             if test -z "$TMUX"
                 fancy_motd
             end
-        else if command -v pokemon-colorscripts &> /dev/null
+        else if command -q pokemon-colorscripts
             # print random pokemon from gen 1-5 (AUR: pokemon-colorscripts-git)
             pokemon-colorscripts --random 1-5
         else if test -d ~/dotfiles/motd/ &> /dev/null
