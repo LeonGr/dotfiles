@@ -29,6 +29,7 @@ if [ "$RESOLUTION" = "3840x2160+3840+0" ]; then
     left="i3"
     center="xwindow"
     right="playerctl-icon sep updates-pacman-aurhelper sep filesystem sep vpn-status sep wired-network sep date sep pulseaudio powermenu tray"
+    window_title_size="100"
 else
     echo "1080p"
     width="100%"
@@ -42,6 +43,7 @@ else
     left="i3 xwindow"
     center=" "
     right="playerctl-icon vpn-status wired-network wireless-network updates-pacman-aurhelper filesystem battery date pulseaudio powermenu tray"
+    window_title_size="40"
 fi
 
 primaryMonitor=$(xrandr | rg "connected primary" | sd '^(.*?) .*' '$1')
@@ -91,6 +93,7 @@ do
     RIGHT=$right \
     INTERFACE=$interface \
     MONITOR=$monitor \
+    WINDOW_TITLE_SIZE=$window_title_size \
     polybar sidebar >>/tmp/polybar.log 2>&1 &
 done
 
