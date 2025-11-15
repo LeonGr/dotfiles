@@ -329,6 +329,9 @@ for_window [class="(?i)blueman-manager"] floating enable
 # Launch VirtualBox settings in floating state
 for_window [class="VirtualBox" title="Settings"] floating enable
 
+# Launch copyq main window in floating state
+for_window [class="copyq"] floating enable
+
 ### Styling
 
 # border
