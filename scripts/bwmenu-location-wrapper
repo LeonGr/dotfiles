@@ -18,8 +18,14 @@ i3-msg mark "bwmenu-mark"
 # move mouse to upper-left of screen
 warpd --move '1 1'
 
+# Disable clipboard manager temporarily
+copyq disable
+
 # call bwmenu and pass along all given parameters
 bwmenu "$@"
+
+# Enable clipboard manager
+copyq enable
 
 # move mouse back to where it was before calling bwmenu
 # (modulo resolution of current monitor, since warpd is relative to current monitor)
