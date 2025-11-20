@@ -68,7 +68,8 @@ else
 
         systemctl start "wg-quick@$selection"
         if [[ "$?" != 0 ]]; then
-            interface=$(ip -o a | rg 'enp|wlp' | sd '^.*((wlp|enp)\d+s\d+(?:u\d+)*).*' '$1')
+            # interface=$(ip -o a | rg 'enp|wlp' | sd '^.*((wlp|enp)\d+s\d+(?:u\d+)*).*' '$1')
+            interface=$(ip -o route get 9.9.9.9 | sd '^.*dev ([\w-]+).*$' '$1')
 
             log "File Exists error, flushing interface $interface"
 
