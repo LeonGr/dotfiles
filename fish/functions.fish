@@ -183,14 +183,14 @@ function p-o
     end
 end
 
+set -g red '\033[31m'
+set -g green '\033[32m'
+set -g yellow '\033[33m'
+set -g blue '\033[34m'
+set -g magenta '\033[35m'
+
 # Shorthand for 'podman ps -a', without certain unnecessary information to prevent line wrapping
 function ppa
-    set -l red '\033[31m'
-    set -l green '\033[32m'
-    set -l yellow '\033[33m'
-    set -l blue '\033[34m'
-    set -l magenta '\033[35m'
-
     set -l container_name "$green{{printf SPACE-42 .Names}}"
     set -l created_time "$blue{{printf SPACE-20 .CreatedHuman}}"
     set -l container_status "$yellow{{printf SPACE-30 .Status}}"
@@ -208,6 +208,29 @@ function ppa
     podman ps -a --format $format_string \
             # 4. Make the 'Exited' container status red.
             | sd '(\(Exited*\))' "$red\$1"
+end
+
+# Shorthand for 'podman network ls', with extra information
+function pnl
+    set -l container_name "$green{{printf SPACE-30 .Name}}"
+    set -l driver "$blue{{printf SPACE-10 .Driver}}"
+    set -l ipv6 "$magenta IPv6: {{printf BOOLSP-5 .IPv6Enabled}}"
+    set -l dns_servers "$yellow DNS: {{.NetworkDNSServers}}"
+
+    set -l format_string \
+        # 1. Create template string with colours, using printf.
+        (printf \
+            "$container_name $driver $ipv6 $dns_servers" \
+            # 2. Replace the 'SPACE-<size>' placeholders with printf whitespace padding.
+            #    This is done after adding the colours, so the first printf doesn't interpret the padding.
+            | sd 'SPACE-(\d+)' '"%-${1}s"' \
+            | sd 'LISTSP-(\d+)' '"%-${1}v"' \
+            | sd 'BOOLSP-(\d+)' '"%-${1}t"')
+
+    # 3. Print generated template string, which will also ensure the padding works.
+    podman network ls --format $format_string \
+            | sd '(false)' "$red\$1" \
+            | sd '(true)' "$green\$1"
 end
 
 # Ask for confirmation, default No. Allows custom prompt argument.
