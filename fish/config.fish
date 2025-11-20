@@ -187,6 +187,10 @@ if status is-interactive
         kitty @ --to $KITTY_LISTEN_ON create-marker regex 1 $URL_REGEX
     end
 
+    # Insert a newline after each command finishes
+    function postexec_test --on-event fish_postexec
+        echo ""
+    end
 end
 
 # Insert mode cursor should be line
