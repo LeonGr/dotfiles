@@ -285,3 +285,10 @@ function try_add_path
         fish_add_path --append $path
     end
 end
+
+function irc_log_browser -a search_term
+    rg -i --sort=created --no-heading --line-number "$search_term" | \
+        fzf --preview \
+        'bat --style=numbers --color=always --wrap=auto --highlight-line {2} {1}' \
+        --delimiter : --preview-window='up:70%,wrap,+{2}-10' --no-sort --wrap --tac --exact --bind 'enter:execute(nvim +{2} {1})'
+end
