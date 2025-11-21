@@ -369,6 +369,3 @@ require("nvim-lightbulb").setup({
 
 ---- nvim-tree/nvim-tree.lua
 require("nvim-tree").setup()
-
----- echasnovski/mini.ai
-require('mini.ai').setup()
