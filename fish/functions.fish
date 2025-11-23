@@ -38,9 +38,9 @@ function backup_check_single
             end
 
             # Print status of last backup
-            set -l backup_status_command "$systemctl_command show -p MainPID -p ActiveState --value $backup_service"
+            set -l backup_status_command "$systemctl_command show -p ActiveState --value $backup_service"
             set -l backup_status (eval $backup_status_command)
-            set -l backup_status_type $backup_status[2]
+            set -l backup_status_type $backup_status
 
             echo -n "status: "
             # for color codes see: https://en.wikipedia.org/wiki/ANSI_escape_code#3-bit_and_4-bit
