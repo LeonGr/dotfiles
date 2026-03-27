@@ -191,6 +191,11 @@ if status is-interactive
     function postexec_test --on-event fish_postexec
         echo ""
     end
+
+    # Insert a newline after each command finishes
+    function postexec_test --on-event fish_postexec
+        echo ""
+    end
 end
 
 # Insert mode cursor should be line
