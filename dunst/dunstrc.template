@@ -59,6 +59,7 @@
     ## History
     sticky_history = yes
     history_length = 20
+    history = ctrl+grave
 
     ## Misc/Advanced
     browser = /usr/bin/firefox -new-tab
